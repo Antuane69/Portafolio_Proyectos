@@ -16,6 +16,7 @@ Route::get('/dashboard', function(){
         //     'totalmant' => $totalmant,
         //     'totalrob' => $totalrob
         // ]);
+        return view('dashboard');
     }else{
         return view('auth.login');
     };

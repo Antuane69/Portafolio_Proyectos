@@ -28,6 +28,11 @@ class CreateEmpleadosTable extends Migration
             $table->bigInteger('telefono')->nullable();
             $table->Integer('num_clinicaSS')->nullable();
             $table->double('salario_dia',7,3);
+            $table->string('email')->unique()->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->default(bcrypt('password'));
+            $table->rememberToken();
+            $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();
         });
     }

@@ -35,8 +35,6 @@
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Bienvenidos</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Iniciar Sesión</a>
-
-                        
                     @endauth
                 </div>
             @endif
@@ -44,32 +42,10 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
 
-                    <img src="{{asset('assets/bannercfe.png')}}" alt="Logo CFE" width="1088" height="262">
+                    <img src="{{asset('LittleTokyo.png')}}" alt="Logo Tokyo" width="1088" height="262">
 
                 </div>
-
-                <!-- Banner -->
-            <!---
-                <div class="swiper mySwiper flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img class="object-cover w-full h-150" src="{{ asset('assets/bannercfe.png') }}"
-                                alt="apple watch photo" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="object-cover w-full h-150" src="{{ asset('assets/bannerEs.png') }}"
-                                alt="apple watch photo" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="object-cover w-full h-150" src="{{ asset('assets/cfe.png') }}"
-                                alt="apple watch photo" />
-                        </div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            -->
+                
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">

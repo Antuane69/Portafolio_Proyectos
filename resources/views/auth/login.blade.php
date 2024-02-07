@@ -17,8 +17,8 @@
             @csrf
 
             <div>
-                <x-jet-label for="rpe" value="{{ __('RPE') }}" />
-                <x-jet-input id="rpe" class="block mt-1 w-full" type="text" name="rpe" :value="old('rpe')" required autofocus />
+                <x-jet-label for="curp" value="{{ __('CURP') }}" />
+                <x-jet-input id="curp" class="block mt-1 w-full" type="text" name="curp" :value="old('curp')" required autofocus />
             </div>
 
             <div class="mt-4">

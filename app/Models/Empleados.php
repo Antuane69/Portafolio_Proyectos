@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Events\Authenticated;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Empleados extends Model
+class Empleados extends Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
+    use HasApiTokens;
+    use TwoFactorAuthenticatable;
+
     protected $table = "empleados";
 
     protected $fillable =  [
@@ -27,4 +34,23 @@ class Empleados extends Model
         'num_clinicaSS',
         'salario_dia',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
 }

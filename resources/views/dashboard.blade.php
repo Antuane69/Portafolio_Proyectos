@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Division Comercial Jalisco')
+    @section('title', 'Little Tokyo Administración')
     <x-slot name="header">
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -10,7 +10,7 @@
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
 
-            <img src="{{ asset('assets/bannercfe.png') }}" alt="Logo CFE" width="1088" height="262">
+            <img src="{{ asset('assets/Imagen2.jpg') }}" alt="Logo tokyo" width="1000" height="200">
 
         </div>
 
@@ -19,7 +19,7 @@
                 <div class="mt-8 bg-white  overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
 
-                        <!-- RIJS -->
+                        {{-- <!-- RIJS -->
                         <div class="p-6 border-b border-gray-200 md:border-l">
                             <div class="flex items-center">
                                 <!--Icono Nota Apunte-->
@@ -196,7 +196,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         
                     </div>
 
@@ -228,7 +228,7 @@
                         </div>
                     </div>
 
-                        <div class="p-6 border-t border-gray-200  md:border-l">
+                        {{-- <div class="p-6 border-t border-gray-200  md:border-l">
                             <div class="flex items-center">
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 31 31" class="w-8 h-8 text-gray-500">
                                     <path d="M16,12a2,2,0,1,1,2-2A2,2,0,0,1,16,12Zm0-2Z" />
@@ -236,9 +236,9 @@
                                     <path d="M16,24a2,2,0,0,1-2-2V16a2,2,0,0,1,4,0v6A2,2,0,0,1,16,24Zm0-8v0Z" />
                                 </svg>
                                 <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{route('soportes.create')}}" class="underline text-gray-900 ">Soporte</a></div>
-                            </div>
+                            </div> --}}
                             
-                        @if (Auth::user()->hasRole('admin'))
+                        {{-- @if (Auth::user()->hasRole('admin'))
                             <div class="flex items-center">
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 31 31" class="w-8 h-8 text-gray-500">
                                     <path d="M16,12a2,2,0,1,1,2-2A2,2,0,0,1,16,12Zm0-2Z" />
@@ -258,7 +258,7 @@
 
 
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
