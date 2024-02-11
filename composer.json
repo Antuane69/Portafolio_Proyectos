@@ -22,7 +22,7 @@
         "nesbot/carbon": "^2.57",
         "phpoffice/phpspreadsheet": "^1.21",
         "spatie/laravel-permission": "^5.5",
-        "thybag/php-sharepoint-lists-api": "dev-master"
+        "thybag/php-sharepoint-lists-api": "^0.7.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

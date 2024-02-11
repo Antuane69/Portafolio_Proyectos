@@ -15,7 +15,7 @@ class CreateHerramientasTable extends Migration
     {
         Schema::create('herramientas', function (Blueprint $table) {
             $table->id();
-            $table->string('curp');
+            $table->string('nombre');
             $table->date('fecha_registro');
             $table->string('imagen');
             $table->string('descripcion');
@@ -23,7 +23,7 @@ class CreateHerramientasTable extends Migration
             $table->double('precio',6,2); 
             $table->integer('existencia');
             $table->integer('cantidad');
-            $table->integer('total');         
+            $table->double('total',9,3);         
             $table->timestamps();
         });
     }

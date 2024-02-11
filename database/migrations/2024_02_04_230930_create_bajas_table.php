@@ -25,9 +25,9 @@ class CreateBajasTable extends Migration
             $table->string('antiguedad');
             $table->string('causa_baja');
             $table->string('tiempo_anticipacion');
-            $table->bigInteger('telefono');
+            $table->string('telefono');
             $table->Integer('num_clinicaSS')->nullable();
-            $table->integer('total_bajas');
+            $table->integer('total_bajas')->nullable();
             $table->timestamps();
         });
     }
