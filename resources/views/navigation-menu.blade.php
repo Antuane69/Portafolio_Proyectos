@@ -130,13 +130,13 @@
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32
                                     ">
-                                        <a>
+                                        <a href="{{ route('mostrarEmpleado.show') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
                                         </a>
-                                        <a>
+                                        <a href="{{ route('crearEmpleado.create') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
                                         </a>
-                                        <a>
+                                        <a href="">
                                             <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
                                         </a>
                                     </ul>
@@ -158,10 +158,10 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    <a href="{{ route('crearVacacion.create') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
                                     </a>
-                                    <a>
+                                    <a href="{{ route('mostrarVacaciones.show') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
                                     </a>
                                     </ul>

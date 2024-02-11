@@ -1,1 +1,1 @@
-<img src="{{asset('assets/cfe.png')}}" alt="logo cfe" width="221" height="80">
+<img src="{{asset('assets/tokyoLogo.png')}}" alt="logo tokyo" width="221" height="80">

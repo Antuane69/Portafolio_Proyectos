@@ -35,6 +35,8 @@ class Empleados extends Authenticatable
         'telefono',
         'num_clinicaSS',
         'salario_dia',
+        'imagen_perfil',
+        'dias_vacaciones',
     ];
 
     /**
@@ -54,5 +56,9 @@ class Empleados extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+
+    public function vacaciones() {
+        return $this->hasMany(Vacaciones::class, 'curp', 'curp');
+    }
 
 }

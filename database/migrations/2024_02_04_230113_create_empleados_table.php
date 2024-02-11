@@ -26,6 +26,7 @@ class CreateEmpleadosTable extends Migration
             $table->date('fecha_3erContrato')->nullable();
             $table->date('fecha_indefinido')->nullable();
             $table->string('telefono')->nullable();
+            $table->string('imagen_perfil')->nullable();
             $table->Integer('num_clinicaSS')->nullable();
             $table->double('salario_dia',7,3);
             $table->string('email')->unique()->nullable();

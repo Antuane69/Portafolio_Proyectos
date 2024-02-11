@@ -21,4 +21,8 @@ class Vacaciones extends Model
         'dias_usados',
     ];
 
+    public function empleado(){
+        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+    }
+
 }
