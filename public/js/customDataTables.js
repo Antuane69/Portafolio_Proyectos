@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.translate-table').DataTable({
         responsive: true,
         autoWidth: false,
-        lengthMenu: [25, 50],
+        lengthMenu: [[25, 50, -1], [25, 50, "Todos"]],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros por página",
             "zeroRecords": "No se encontraron resultados",

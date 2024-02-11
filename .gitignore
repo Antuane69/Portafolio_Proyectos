@@ -5,15 +5,12 @@
 /public/imagen
 /public/imagen_5s
 /public/entregas
-/public/imagen_resguardo
-/public/imagen_productos
-/public/facturas
-/public/archivos_baja
-/public/archivos
+/public/img/SIVE
 /storage/*.key
 .phpunit.result.cache
 docker-compose.override.yml
 /public/imagen_productos/
+/public/pedidoespecial/
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -23,19 +20,17 @@ yarn-error.log
 /.vscode
 .env
 config/app.php
-.env
-config/app.php
-config/app.php
-config/app.php
-config/app.php
+config/livewire.php
+
 
 *.lock
-vendor/asantibanez/livewire-charts/.github/CODEOWNERS
-vendor/asantibanez/livewire-charts/.github/ISSUE_TEMPLATE/bug_report.md
-vendor/asantibanez/livewire-charts/.github/ISSUE_TEMPLATE/feature.md
-vendor/asantibanez/livewire-charts/.github/PULL_REQUEST_TEMPLATE
-vendor/asantibanez/livewire-charts/.github/workflows/phpunit.yml
-vendor/asantibanez/livewire-charts/CHANGELOG.md
+vendor/
+
+public/archivos_baja
+public/facturas
+public/imagen_resguardo
+public/archivos
+public/reportes
 
 config/app.php
 config/livewire.php

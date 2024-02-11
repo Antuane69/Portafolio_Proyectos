@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Empleados;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -32,14 +31,13 @@ class AuthServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
 
-            if ($request->curp ==  'DEBP030305HJCLRDA8' or 'admin') {
+            if ($request->rpe ==  'admin' or 'usuario1') {
 
                 Auth::attempt([
-                    'curp'    => $request->curp,
+                    'email'    => $request->rpe . '@cfe.mx',
                     'password' => $request->password
                 ]);
             }
-
             $ldap_enabled = env('ENABLE_LDAP');
             if ($ldap_enabled) {
                 $ldap_connect = ldap_connect(env('LDAP_HOST'));
@@ -47,17 +45,18 @@ class AuthServiceProvider extends ServiceProvider
                 ldap_set_option($ldap_connect, LDAP_OPT_PROTOCOL_VERSION, 3);
                 ldap_set_option($ldap_connect, LDAP_OPT_REFERRALS, 0);
 
-                $ldap_bind = @ldap_bind($ldap_connect, $request->curp, $request->password);
+                $ldap_bind = @ldap_bind($ldap_connect, $request->rpe . '@cfe.mx', $request->password);
 
                 if ($ldap_bind) {
-                    $user = Empleados::firstWhere('curp', $request->curp);
+                    $user = User::firstWhere('rpe', $request->rpe);
                     if (is_null($user)) {
 
-                        $user = Empleados::create([
-                            'curp'       => $request->curp,
+                        $user = User::create([
+                            'rpe'       => $request->rpe,
                             //'nombre'    => $nombre,
                             'password'  => bcrypt($request->password)
                         ]);
+                        $user->assignRole('usuario');
                     }
 
                     return $user;
@@ -67,10 +66,11 @@ class AuthServiceProvider extends ServiceProvider
                 }
             }
             if (Auth::attempt([
-                'curp' => $request->curp,
+                'rpe' => $request->rpe,
+                //                'email'    => $request->rpe . '@cfe.mx',
                 'password' => $request->password
             ])) {
-                $user = Empleados::firstWhere('curp', $request->curp);
+                $user = User::firstWhere('rpe', $request->rpe);
                 return $user;
             } else {
                 return 0;

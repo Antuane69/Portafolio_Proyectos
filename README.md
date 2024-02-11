@@ -1,10 +1,10 @@
-# Little Tokyo
+# rij
 
 ## Descargar el proyecto
 
 1. Clonar  repositorio
 **git clone {link del repo sin las llaves}**
-2. Crear base de datos con nombre **little_tokyo** con esta codificacion  utf8_general_ci
+2. Crear base de datos con nombre **rij** con esta codificacion  utf8_general_ci
 3. Instalar node.js y correr los comandos dentro de la carpeta del proyecto
 **npm install && run dev**
 4. **php artisan storage:link**
@@ -43,4 +43,8 @@ git push
 
 ## Proyecto realizado por
 
-- Antuane Alexander Nacif González
+- David Bonilla
+- Juan Pablo Gutierrez Arreola
+- Jonathan Eslavi
+- Daniel Gonzalez Reveles
+- Karina Villa
