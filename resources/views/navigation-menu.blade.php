@@ -51,28 +51,28 @@
     .MENU a:link {
         text-decoration: none;
         color: black;
-        background-color: white;
+        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:visited {
         text-decoration: none;
         color: black;
-        background-color: white;
+        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:hover {
         text-decoration: none;
         color: black;
-        background-color: white;
+        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:active {
         text-decoration: none;
         color: black;
-        background-color: white;
+        background-color: #F9F904;;
         z-index: 50;
     }
 </style>
@@ -84,7 +84,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="{{asset('assets/tokyoLogo.png')}}" class="block h-16 w-auto" alt="">
                     </a>
                 </div>
 
@@ -92,10 +92,12 @@
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
                         <!-- Solicitar Vehiculos -->
-                        <div class="group inline-block items-center" align="left" width="30">
+                        @if (Auth::user()->hasRole('admin'))
+                            
+                        <div class="group inline-block items-center ml-3" align="left" width="30">
                             <button
                                 class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Solicitar Vehiculo</span>
+                                <span class="pr-1 font-semibold flex-1">Empleados</span>
                                 <span>
                                     <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
                                 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +115,7 @@
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                                     <button
                                         class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Solicitudes</span>
+                                        <span class="pr-1 flex-1">Recursos Humanos</span>
                                         <span class="mr-auto">
                                             <svg class="fill-current h-4 w-4
                                     transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
@@ -128,30 +130,21 @@
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32
                                     ">
-                                        @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                            <a>
-                                                <li class="px-3 py-1 hover:bg-gray-100">Crear Solicitud</li>
-                                            </a>
-                                            <a>
-                                                <li class="px-3 py-1 hover:bg-gray-100">Solicitudes Pendientes</li>
-                                            </a>
-                                            <a>
-                                                <li class="px-3 py-1 hover:bg-gray-100">Historico de Solicitudes</li>
-                                            </a>
-                                        @else
-                                            <a>
-                                                <li class="px-3 py-1 hover:bg-gray-100">Crear Solicitud</li>
-                                            </a>
-                                            <a >
-                                                <li class="px-3 py-1 hover:bg-gray-100">Mis Solicitudes</li>
-                                            </a>
-                                        @endif
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
+                                        </a>
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
+                                        </a>
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
+                                        </a>
                                     </ul>
                                 </li>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                                     <button
                                         class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Vehiculos</span>
+                                        <span class="pr-1 flex-1">Vacaciones</span>
                                         <span class="mr-auto">
                                             <svg class="fill-current h-4 w-4
                                     transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
@@ -165,23 +158,257 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                        @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                            {{-- <a href="{{ route('crearformulario.create') }}" class="bg-white">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Vehiculo al Almacen</li>
-                                            </a> --}}
-                                            <a class="bg-white">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Mostrar Vehiculos en Almacen
-                                                </li>
-                                            </a>
-                                        @else
-                                            <a class="bg-white">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Mostrar Vehiculos en Almacen
-                                                </li>
-                                            </a>
-                                            {{-- <a href="{{ route('mostrarformulario.show') }}" class="bg-white">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Mostrar Formulario del Almacen</li>
-                                            </a> --}}
-                                        @endif
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Faltas</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Faltas</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Faltas</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Incapacidades</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Incapacidad</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Incapacidad</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Permisos</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+
+                        <div class="group inline-block items-center ml-3" align="left" width="30">
+                            <button
+                                class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
+                                <span class="pr-1 font-semibold flex-1">Almacén</span>
+                                <span>
+                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
+                         transition duration-150 ease-in-out origin-top min-w-32">
+                                <a >
+                                    <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
+                                </a>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Uniformes</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32
+                                    ">
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Uniforme</li>
+                                        </a>
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Uniformes</li>
+                                        </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Herramientas</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Herramienta</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Herramientas</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="group inline-block items-center ml-3" align="left" width="30">
+                            <button
+                                class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
+                                <span class="pr-1 font-semibold flex-1">Formatos PDF</span>
+                                <span>
+                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
+                         transition duration-150 ease-in-out origin-top min-w-32">
+                                <a >
+                                    <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
+                                </a>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Uniformes</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32
+                                    ">
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Uniforme</li>
+                                        </a>
+                                        <a>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Uniformes Realizados</li>
+                                        </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Herramientas</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Herramienta</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Herramientas realizados</li>
+                                    </a>
+                                    </ul>
+                                </li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                    <button
+                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                        <span class="pr-1 flex-1">Acta Administrativa</span>
+                                        <span class="mr-auto">
+                                            <svg class="fill-current h-4 w-4
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+
+                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                    transition duration-150 ease-in-out origin-top-left
+                                    min-w-32">
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Elaborar Acta Administrativa</li>
+                                    </a>
+                                    <a>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Actas Administrativas Realizadas</li>
+                                    </a>
                                     </ul>
                                 </li>
                             </ul>

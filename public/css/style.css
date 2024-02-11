@@ -519,7 +519,7 @@ h2 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #108747;
+  color: #F6F614;
 }
 
 .navbar .dropdown:hover>ul {
@@ -688,7 +688,7 @@ menu-item {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #108747;
+  color: #F6F614;
 }
 
 .navbar-mobile .getstarted,
@@ -723,7 +723,7 @@ menu-item {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover>a {
-  color: #108747;
+  color: #F6F614;
 }
 
 .navbar-mobile .dropdown>.dropdown-active {
@@ -812,11 +812,11 @@ menu-item {
 }
 
 #hero .btn-watch-video:hover {
-  color: #108747;
+  color: #F6F614;
 }
 
 #hero .btn-watch-video:hover i {
-  color: #20ad62;
+  color: #F6F614;
 }
 
 @media (min-width: 1024px) {
@@ -1034,9 +1034,13 @@ tr.hover-row .Aprendizaje_color {
 }
 
 .card-link .title {
-  color: #108747;
+  color: #DC6A30;
   position: relative;
 }
+
+/* .card-wrapper:hover .icon-box {
+  background-color: #F6F614;
+} */
 
 .card-link .title::after {
   content: '';
@@ -1106,7 +1110,7 @@ tr.hover-row .Aprendizaje_color {
 }
 
 .featured-services .icon-box:hover::before {
-  background: #108747;
+  background: #EFFF53;
   top: 0;
   border-radius: 0px;
 }
@@ -1136,7 +1140,7 @@ tr.hover-row .Aprendizaje_color {
 }
 
 .featured-services .icon-box:hover .iconos {
-  color: #fff;
+  color: #000000;;
   transition: ease-in-out 0.3s;
 }
 
@@ -1156,16 +1160,19 @@ tr.hover-row .Aprendizaje_color {
   margin-bottom: 0;
 }
 
-.featured-services .icon-box:hover .title a,
+.featured-services .icon-box:hover .title {
+  color: #000000;
+}
+
 .featured-services .icon-box:hover .description {
-  color: #fff;
+  color: #000000;
 }
 .featured-services-indicadores .icon-box:hover .description {
   color: #030303;
 }
 
 .featured-services .icon-box:hover .icon i {
-  color: #fff;
+  color: #000000;
 }
 
 /*--------------------------------------------------------------
@@ -1378,11 +1385,11 @@ tr.hover-row .Aprendizaje_color {
 
 .services .icon-box:hover h4 a,
 .services .icon-box:hover .icon i {
-  color: #108747;
+  color: #F6F614;
 }
 
 .services .icon-box:hover .icon {
-  border-color: #108747;
+  border-color: #F6F614;
 }
 
 /*--------------------------------------------------------------
@@ -1561,7 +1568,7 @@ tr.hover-row .Aprendizaje_color {
 
 .portfolio .portfolio-item .portfolio-info .preview-link:hover,
 .portfolio .portfolio-item .portfolio-info .details-link:hover {
-  color: #108747;
+  color: #F6F614;
 }
 
 .portfolio .portfolio-item .portfolio-info .details-link {
@@ -1705,7 +1712,7 @@ tr.hover-row .Aprendizaje_color {
 }
 
 .team .member .social a:hover {
-  background: #20ad62;
+  background: #F6F614;
 }
 
 .team .member .social i {

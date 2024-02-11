@@ -4071,7 +4071,7 @@ input[type="submit"].btn-block {
     margin-bottom: 0;
 }
 .card-link:hover {
-    text-decoration: none;
+    text-decoration: #F6F614;
 }
 .card-link + .card-link {
     margin-left: 1.25rem;
