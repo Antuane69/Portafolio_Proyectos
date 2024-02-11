@@ -91,113 +91,6 @@
                 <!-- Navigation Links -->
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
-                        <!-- Control interno -->
-                        <div class="group inline-block" align="left" width="30">
-                            <button
-                                class="outline-none focus:outline-none px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Control interno</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                        transition duration-150 ease-in-out origin-top min-w-32">
-                                <!-- Usuarios -->
-                                @can('users.index')
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none">
-                                            <span class="pr-1 flex-1">Usuarios</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
-
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32
-                                        ">
-                                            <a href="{{ route('users.inicio') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                            </a>
-                                            <a href="{{ route('users.index') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Gestión</li>
-                                            </a>
-                                            <a href="{{ route('roles.index') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Roles</li>
-                                            </a>
-                                            @can('users.create')
-                                            <a href="{{ route('users.create') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Crear</li>
-                                            </a>
-                                            @endcan
-                                            @can('users.usuariosBaja')
-                                            <a href="{{ route('users.usuariosBaja') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Baja</li>
-                                            </a>
-                                            @endcan
-                                            <a href="{{ route('users.centros') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Centros de Trabajo</li>
-                                            </a>
-                                        </ul>
-                                    </li>
-                                @endcan
-                                @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none">
-                                            <span class="pr-1 flex-1">Usuarios</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
-
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32
-                                        ">
-                                            <a href="{{ route('users.inicio') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                            </a>
-                                            <a href="{{ route('users.index') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Gestión</li>
-                                            </a>
-                                            <a href="{{ route('roles.index') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Roles</li>
-                                            </a>
-                                            @can('users.create')
-                                            <a href="{{ route('users.create') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Crear</li>
-                                            </a>
-                                            @endcan
-                                            @can('users.usuariosBaja')
-                                            <a href="{{ route('users.usuariosBaja') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Baja</li>
-                                            </a>
-                                            @endcan
-                                            <a href="{{ route('users.centros') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Centros de Trabajo</li>
-                                            </a>
-                                        </ul>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
                         <!-- Solicitar Vehiculos -->
                         <div class="group inline-block items-center" align="left" width="30">
                             <button
@@ -214,7 +107,7 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                          transition duration-150 ease-in-out origin-top min-w-32">
-                                <a href="{{ route('siveInicio.show') }}">
+                                <a >
                                     <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
                                 </a>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
@@ -236,20 +129,20 @@
                                     min-w-32
                                     ">
                                         @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                            <a href="{{ route('crearsolicitud.create') }}">
+                                            <a>
                                                 <li class="px-3 py-1 hover:bg-gray-100">Crear Solicitud</li>
                                             </a>
-                                            <a href="{{ route('mostrarsolicitudes.show') }}">
+                                            <a>
                                                 <li class="px-3 py-1 hover:bg-gray-100">Solicitudes Pendientes</li>
                                             </a>
-                                            <a href="{{ route('historicoSolicitudes.show') }}">
+                                            <a>
                                                 <li class="px-3 py-1 hover:bg-gray-100">Historico de Solicitudes</li>
                                             </a>
                                         @else
-                                            <a href="{{ route('crearsolicitud.create') }}">
+                                            <a>
                                                 <li class="px-3 py-1 hover:bg-gray-100">Crear Solicitud</li>
                                             </a>
-                                            <a href="{{ route('mostrarsolicitudes.show') }}">
+                                            <a >
                                                 <li class="px-3 py-1 hover:bg-gray-100">Mis Solicitudes</li>
                                             </a>
                                         @endif
@@ -276,12 +169,12 @@
                                             {{-- <a href="{{ route('crearformulario.create') }}" class="bg-white">
                                                 <li class="px-3 py-1 hover:bg-gray-100">Registrar Vehiculo al Almacen</li>
                                             </a> --}}
-                                            <a href="{{ route('mostrarvehiculos.show') }}" class="bg-white">
+                                            <a class="bg-white">
                                                 <li class="px-3 py-1 hover:bg-gray-100">Mostrar Vehiculos en Almacen
                                                 </li>
                                             </a>
                                         @else
-                                            <a href="{{ route('mostrarvehiculos.show') }}" class="bg-white">
+                                            <a class="bg-white">
                                                 <li class="px-3 py-1 hover:bg-gray-100">Mostrar Vehiculos en Almacen
                                                 </li>
                                             </a>
@@ -293,146 +186,7 @@
                                 </li>
                             </ul>
                         </div>
-                      <!-- Gestión de Siniestros Vehiculares -->
-                        <div class="group inline-block" align="left" width="30">
-                            <button class="outline-none focus:outline-none px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Siniestros</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                                transition duration-150 ease-in-out origin-top min-w-32">
-                                <a href="{{ route('siniestros.inicio')}}">
-                                    <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                </a>
-                                <a href="{{ route('siniestros.crear') }}">
-                                    <li class="px-3 py-1 hover:bg-gray-100">Crear solicitud</li>
-                                </a>
-                                <a href="{{ route('siniestros.show') }}">
-                                    <li class="px-3 py-1 hover:bg-gray-100">Ver solicitudes</li>
-                                </a>
-                            </ul>
-                        </div>
-                        
-                        <!-- Pagos Administrativos -->
-                        <div class="group inline-block" align="left" width="30">
-                            <button
-                                class="outline-none focus:outline-none px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Pagos Administrativos</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                        transition duration-150 ease-in-out origin-top min-w-32">
-                                <ul
-                                    class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32">
-                                    
-                                    <a href="{{ route('pagosAdministrativos.inicio') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100"> Inicio</li>
-                                    </a>
 
-                                    <a href="{{ route('pagosAdministrativos.crear') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100"> Crear solicitud</li>
-                                    </a>
-
-                                    <a href="{{ route('pagosAdministrativos.solicitudesPendientes') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100"> Solicitudes Pendientes </li>
-                                    </a>
-                                    
-                                    <a href="{{ route('pagosAdministrativos.mostrarSolicitudes') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100"> Histórico de Solicitudes </li>
-                                    </a>
-                                </ul>
-                            </ul>
-                            
-                        </div>
-                        <!-- Mantenimiento -->
-                        <div class="group inline-block" align="left" width="48">
-                            <button
-                                class="outline-none focus:outline-none px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Mantenimiento</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                            transition duration-150 ease-in-out origin-top min-w-32">
-                                <ul
-                                    class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32">
-                                    
-                                    <a href="{{ route('inicioMantenimiento.show')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                    </a>
-                                    <a href="{{ route('solicitarMantenimiento.show')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Crear solicitud</li>
-                                    </a>
-                                    @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                    <a href="{{ route('mostrarSolicitudesM.show')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Solicitudes Pendientes</li>
-                                    </a>
-                                    <a href="{{ route('historicoSolicitudesM.show')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Histórico de solicitudes</li>
-                                    </a>
-                                    @else
-                                    
-                                    <a href="{{ route('mostrarSolicitudesM.show')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Mis solicitudes</li>
-                                    </a>
-                                    @endif
-                                </ul>
-                            </ul>
-                        </div>
-
-                        {{-- Combustibles --}}
-                        <div class="group inline-block" align="left" width="30">
-                            <button
-                                class="outline-none focus:outline-none px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Combustible</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                            transition duration-150 ease-in-out origin-top min-w-32">
-                                <ul class="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32">
-                                    <a href="{{ route('combustibles.inicio')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                    </a>
-                                    <a href="{{ route('combustibles.crear')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Combustible</li>
-                                    </a>
-                                    <a href="{{ route('combustibles.show','Aceptada')}}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Combustible</li>
-                                    </a>
-                                    @if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular')))
-                                        <a href="{{ route('combustibles.graficas.dashboard')}}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Gráficas</li>
-                                        </a>
-                                    @endif
-                                </ul>
-                            </ul>
-                        </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Teams Dropdown -->
                             @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
@@ -587,13 +341,13 @@
                                 {{ __('Administracion') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('users.datosPersonales') }}">
+                            {{-- <x-jet-dropdown-link href="{{ route('users.datosPersonales') }}">
                                 {{ __('Datos personales') }}
                             </x-jet-dropdown-link>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Configuracion') }}
-                            </x-jet-dropdown-link>
+                            </x-jet-dropdown-link> --}}
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">

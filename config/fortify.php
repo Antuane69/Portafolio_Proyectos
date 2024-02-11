@@ -46,9 +46,9 @@ return [
     |
     */
 
-    'username' => 'rpe',
+    'username' => 'curp',
 
-    'email' => 'email',
+    'password' => 'password',
 
     /*
     |--------------------------------------------------------------------------

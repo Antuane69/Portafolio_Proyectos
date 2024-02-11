@@ -1,16 +1,15 @@
 <x-app2>
 
-    @section('title', 'DCJ - CFE')
+    @section('title', 'Little-Tokyo Administración')
 
     <body>
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">
             <div class="container" data-aos="zoom-out" data-aos-delay="100">
-                <h1>Bienvenid@ a <span>SIVE.</span></h1>
-                <h2>Sistema de Registro de Parque Vehicular de la CFE.</h2>
+                <h1>Bienvenido (a) a <span>Little Tokyo.</span></h1>
+                <h2>Sistema de Administración de Personal e Insumos.</h2>
                 <div class="d-flex">
-                    <a href="#featured-services" class="btn-get-started scrollto"><b>Sistemas</b></a>
-                    <!--<a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Video de presentación </span></a>-->
+                    <a href="#featured-services" class="btn-get-started scrollto"><b>Opciones</b></a>
                 </div>
             </div>
         </section><!-- End Hero -->
@@ -28,7 +27,7 @@
                     @endphp
                     <div class="row">
                         <div class="col-md-3 mb-5">
-                            <a href="{{ route('mostrarvehiculos.show') }}" class="text-white">
+                            <a class="text-white">
                                 <div class="card text-white rounded-lg overflow-hidden" style="background-color: #DC6A30">
                                     <div class="card-body">
                                         <div class="container flex">
@@ -37,64 +36,10 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                                             </svg>     
                                         </div>
-                                        <p class="card-text text-sm-left ml-3">{{$totalvehi}}</p>                                 
+                                        <p class="card-text text-sm-left ml-3"></p>                                 
                                     </div>
                                     <div class="text-white p-0.5 justify-center items-center text-center rounded-sm rounded-b-lg shadow-md" style="background: #873106">
                                         Mostrar Información
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-5">
-                            <a href="{{ route('siveInicio.show') }}" class="text-white">
-                                <div class="card text-white border-2 rounded-lg overflow-hidden" style="background-color: #148F77 ">
-                                    <div class="card-body">
-                                        <div class="container flex">
-                                            <h5 class="card-title text-xl-left font-extrabold mr-3">Vehículos Prestados</h5>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                                            </svg>     
-                                        </div>
-                                        <p class="card-text text-sm-left ml-3">{{$totalprest}}</p>                                 
-                                    </div>
-                                    <div class="text-white p-0.5 justify-center items-center text-center rounded-sm rounded-b-lg shadow-md" style="background-color: #1F4D42">
-                                        Mostrar Información
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-5">
-                            <a href="{{ route('inicioMantenimiento.show') }}" class="text-white">
-                                <div class="card text-white border-2 rounded-lg overflow-hidden" style="background-color: #5D6D7E">
-                                    <div class="card-body">
-                                        <div class="container flex">
-                                            <h5 class="card-title text-xl-left font-extrabold mr-3">Vehiculos en Mantenimiento</h5>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                                            </svg>     
-                                        </div>
-                                        <p class="card-text text-sm-left ml-3">{{$totalmant}}</p>                                 
-                                    </div>
-                                    <div class="text-white p-0.5 justify-center items-center text-center rounded-sm rounded-b-lg shadow-md" style="background-color: #1B2631">
-                                        Mostrar Información
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-5">
-                            <a href="{{ route('siniestros.inicio') }}" class="text-white">
-                                <div class="card text-black border-5 border-black rounded-lg overflow-hidden" style="background-color: #F4D03F">
-                                    <div class="card-body">
-                                        <div class="container flex">
-                                            <h5 class="card-title text-xl-left font-extrabold mr-3">Vehículos Robados</h5>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                                            </svg>     
-                                        </div>
-                                        <p class="card-text text-sm-left ml-3">{{$totalrob}}</p>                                 
-                                    </div>
-                                    <div class="text-white p-0.5 justify-center items-center text-center rounded-sm rounded-b-lg shadow-md" style="background-color: #9A7D0A">
-                                        Mostrar Información    
                                     </div>
                                 </div>
                             </a>
@@ -103,7 +48,7 @@
                     <div class="row">
                         @can('users.index')
                             <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                                <a href="{{ route('users.inicio') }}" class="card-link">
+                                <a class="card-link">
                                     <div class="icon-box service-box" data-aos="fade-up"
                                         data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
                                         <div class="icon">
@@ -122,7 +67,7 @@
                             </div>
                         @endcan
                         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                            <a href="{{ route('siveInicio.show') }}" class="card-link">
+                            <a class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
                                     data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
                                     <div class="icon">
@@ -134,65 +79,8 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                            <a href="{{ route('inicioMantenimiento.show') }}" class="card-link">
-                                <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
-                                    <div class="icon">
-                                        <svg class="iconos" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" viewBox="0 0 256 256"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"></path></svg>
-                                        
-                                    </div>
-                                    <h4 class="title">Mantenimiento</h4>
-                                    <p class="description">Ve al tablero de Mantenimiento, puedes crear y gestionar solicitudes de mantenimiento.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                            <a href="{{ route('siniestros.inicio') }}" class="card-link">
-                                <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
-                                    <div class="icon">
-                                        <svg class="iconos" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" viewBox="0 0 256 256"><path d="M128,72a8,8,0,0,1,8,8v56a8,8,0,0,1-16,0V80A8,8,0,0,1,128,72ZM116,172a12,12,0,1,0,12-12A12,12,0,0,0,116,172Zm124-44a15.85,15.85,0,0,1-4.67,11.28l-96.05,96.06a16,16,0,0,1-22.56,0h0l-96-96.06a16,16,0,0,1,0-22.56l96.05-96.06a16,16,0,0,1,22.56,0l96.05,96.06A15.85,15.85,0,0,1,240,128Zm-16,0L128,32,32,128,128,224h0Z"></path></svg>
-                                    </div>
-                                    <h4 class="title">Siniestros</h4>
-                                    <p class="description">Ve al tablero de Siniestros, puedes crear y ver solicitudes de siniestros vehículares.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                            <a href="{{ route('pagosAdministrativos.inicio') }}" class="card-link">
-                                <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
-                                    <div class="icon">
-                                        <svg class="iconos" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" viewBox="0 0 256 256"><path d="M216,72H56a8,8,0,0,1,0-16H192a8,8,0,0,0,0-16H56A24,24,0,0,0,32,64V192a24,24,0,0,0,24,24H216a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72Zm0,128H56a8,8,0,0,1-8-8V86.63A23.84,23.84,0,0,0,56,88H216Zm-48-60a12,12,0,1,1,12,12A12,12,0,0,1,168,140Z"></path></svg>
-                                    </div>
-                                    <h4 class="title">Pagos administrativos</h4>
-                                    <p class="description">Ve al tablero de Pagos administrativos, puedes crear y ver solicitudes de pagos administrativos y darles seguimiento.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper">
-                            <a href="{{ route('combustibles.inicio') }}" class="card-link">
-                                <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}">
-                                    <div class="icon">
-                                        <svg class="iconos" xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" viewBox="0 0 256 256"><path d="M241,69.66,221.66,50.34a8,8,0,0,0-11.32,11.32L229.66,81A8,8,0,0,1,232,86.63V168a8,8,0,0,1-16,0V128a24,24,0,0,0-24-24H176V56a24,24,0,0,0-24-24H72A24,24,0,0,0,48,56V208H32a8,8,0,0,0,0,16H192a8,8,0,0,0,0-16H176V120h16a8,8,0,0,1,8,8v40a24,24,0,0,0,48,0V86.63A23.85,23.85,0,0,0,241,69.66ZM64,208V56a8,8,0,0,1,8-8h80a8,8,0,0,1,8,8V208Zm80-96a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,112Z"></path></svg>
-                                    </div>
-                                    <h4 class="title">Combustibles</h4>
-                                    <p class="description">Ve al tablero de Combustibles, puedes crear y ver registros.
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                        
-
                     </div>
-
                 </div>
-
                 </div>
             </section><!-- End Featured Services Section -->
 
@@ -227,7 +115,7 @@
                                 </div>
                             </a>
 
-                            <a href="{{ route('soportes.create') }}" class="h-64 max-w-52 w-52 mx-1 px-3 py-1">
+                            <a class="h-64 max-w-52 w-52 mx-1 px-3 py-1">
                                 <div class="info-box max-w-52 h-64 w-52 mb-4 px-3 py-1">
                                     <div class="px-3 py-1 d-flex align-items-center justify-content-center">
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round"

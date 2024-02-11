@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Empleados extends Authenticatable
 {
@@ -16,6 +17,7 @@ class Empleados extends Authenticatable
     use SoftDeletes;
     use HasApiTokens;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     protected $table = "empleados";
 

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\User;
+use App\Models\Empleados;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,46 +31,39 @@ class AuthServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
 
-            if ($request->rpe ==  'admin' or 'usuario1') {
-
-                Auth::attempt([
-                    'email'    => $request->rpe . '@cfe.mx',
-                    'password' => $request->password
-                ]);
-            }
             $ldap_enabled = env('ENABLE_LDAP');
             if ($ldap_enabled) {
                 $ldap_connect = ldap_connect(env('LDAP_HOST'));
-
+    
                 ldap_set_option($ldap_connect, LDAP_OPT_PROTOCOL_VERSION, 3);
                 ldap_set_option($ldap_connect, LDAP_OPT_REFERRALS, 0);
-
-                $ldap_bind = @ldap_bind($ldap_connect, $request->rpe . '@cfe.mx', $request->password);
-
+    
+                $ldap_bind = @ldap_bind($ldap_connect, $request->curp . '@cfe.mx', $request->password);
+    
                 if ($ldap_bind) {
-                    $user = User::firstWhere('rpe', $request->rpe);
+                    $user = Empleados::firstWhere('curp', $request->curp);
                     if (is_null($user)) {
-
-                        $user = User::create([
-                            'rpe'       => $request->rpe,
+    
+                        $user = Empleados::create([
+                            'curp'       => $request->curp,
                             //'nombre'    => $nombre,
                             'password'  => bcrypt($request->password)
                         ]);
                         $user->assignRole('usuario');
                     }
-
+    
                     return $user;
                 } else {
-
+    
                     return null;
                 }
             }
             if (Auth::attempt([
-                'rpe' => $request->rpe,
+                'curp' => $request->curp,
                 //                'email'    => $request->rpe . '@cfe.mx',
                 'password' => $request->password
             ])) {
-                $user = User::firstWhere('rpe', $request->rpe);
+                $user = Empleados::firstWhere('curp', $request->curp);
                 return $user;
             } else {
                 return 0;

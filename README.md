@@ -1,4 +1,4 @@
-# rij
+# Little Tokyo
 
 ## Descargar el proyecto
 
@@ -7,6 +7,7 @@
 2. Crear base de datos con nombre **rij** con esta codificacion  utf8_general_ci
 3. Instalar node.js y correr los comandos dentro de la carpeta del proyecto
 **npm install && run dev**
+4. Instalar composer, luego correr composer update y al final composer autoload
 4. **php artisan storage:link**
 5. **php artisan migrate:fresh --seed**
 
@@ -43,8 +44,4 @@ git push
 
 ## Proyecto realizado por
 
-- David Bonilla
-- Juan Pablo Gutierrez Arreola
-- Jonathan Eslavi
-- Daniel Gonzalez Reveles
-- Karina Villa
+- Antuane Alexander Nacif Gonzalez
