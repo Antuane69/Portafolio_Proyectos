@@ -36,7 +36,7 @@ class VacacionesController extends Controller
 
     public function show(){
 
-        $vacaciones = Vacaciones::query()->with('empleado')->get();
+        $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
         
         return view('gestion.mostrarVacaciones',[
             'vacaciones' => $vacaciones
@@ -54,7 +54,7 @@ class VacacionesController extends Controller
             'curp' => 'required|min:18',
             'fecha_solicitud' => 'required|date',
             'fecha_inicioVac' => 'required|date',
-            'fecha_regresoVac' => 'required|date',
+            'fecha_regresoVac' => 'required|date|after:fecha_inicioVac',
         ]);
 
         $empleado = Empleados::where('curp',$request->curp)->first();

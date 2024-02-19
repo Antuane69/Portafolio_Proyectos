@@ -22,4 +22,8 @@ class Permisos extends Model
         'fecha_anteriorPermiso',
     ];
 
+    public function empleado(){
+        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+    }
+
 }

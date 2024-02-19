@@ -10,7 +10,7 @@ class Incapacidades extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = "incapacidades";
+    protected $table = "incapacidad";
 
     protected $fillable =  [
         'curp',
@@ -20,5 +20,9 @@ class Incapacidades extends Model
         'motivo',
         'comentarios',
     ];
+
+    public function empleado(){
+        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+    }
 
 }

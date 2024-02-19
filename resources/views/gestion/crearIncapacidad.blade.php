@@ -2,7 +2,7 @@
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Crear Registro de Vacación") }}
+            {{ __("Crear Registro de Incapacidad") }}
         </h2>
     </x-slot>
 
@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/responsive.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customDataTables.css') }}">
     @endsection
+
+    <head>
+        <!-- Otros elementos head -->
+    
+        <!-- Agrega este enlace CDN para Flatpickr -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    </head>
+    
     
     <div class="py-12">
         <div class="mb-10 py-3 ml-16 leading-normal rounded-lg" role="alert">
@@ -44,11 +53,11 @@
                 </div>
             @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
-                <form id="formulario" action={{ route('crearVacacion.store') }} method="POST">
+                <form id="formulario" action={{ route('crearIncapacidad.store') }} method="POST">
                     @csrf
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                         <p>
-                            Registro de Vacacaciones
+                            Registro de Incapacidad
                         </p>
                     </div>
                     
@@ -88,35 +97,50 @@
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="dias_vacaciones" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias de Vacaciones</label>
+                                <label for="fecha_inicio" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de inicio de la incapacidad</label>
                                 <p>
-                                    <input id="dias-input" name="dias_vacaciones" placeholder="No se ha encontrado al empleado"
+                                    <input id="fecha" name="fecha_inicio"
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required onchange="validarDias()"/>
+                                </p>
+                            </div> 
+                            <div  class='grid grid-cols-1'>
+                                <label for="fecha_regreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de regreso de la incapacidad</label>
+                                <p>
+                                    <input id="fechaA" name="fecha_regreso"
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required onchange="validarFecha()"/>
+                                </p>
+                            </div> 
+                            <div  class='grid grid-cols-1'>
+                                <label for="dias_totales" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias a Usar</label>
+                                <p>
+                                    <input id="dias" name="dias_totales" placeholder="La fecha no es correcta"
                                     class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_solicitud" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de la Solicitud</label>
+                                <label for="motivo" class="mb-2 bloack uppercase text-gray-800 font-bold">* Motivo</label>
                                 <p>
-                                    <input id="fecha" name="fecha_solicitud" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                    <textarea id="motivo" name="motivo"
+                                        class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
+                                        required placeholder="Ingrese la falta cometida">{{ old('motivo') }}</textarea>
+                                    @error('motivo')
+                                        <span style="font-size: 10pt;color:red" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_inicioVac" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de inicio de las vacaciones</label>
+                                <label for="comentarios" class="mb-2 bloack uppercase text-gray-800 font-bold">Comentario</label>
                                 <p>
-                                    <input id="fechaA" name="fecha_inicioVac" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" onchange="validarDias()"/>
-                                </p>
-                            </div> 
-                            <div  class='grid grid-cols-1'>
-                                <label for="fecha_regresoVac" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha fin de las vacaciones</label>
-                                <p>
-                                    <input id="fechaB" name="fecha_regresoVac" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" onchange="validarFecha()"/>
-                                </p>
-                            </div> 
-                            <div  class='grid grid-cols-1'>
-                                <label for="diasTomados" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias a Usar</label>
-                                <p>
-                                    <input id="dias" name="diasTomados" placeholder="La fecha no es correcta"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly/>
+                                    <textarea id="comentarios" name="comentarios"
+                                        class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
+                                        placeholder="Ingrese la falta cometida">{{ old('comentarios') }}</textarea>
+                                    @error('comentarios')
+                                        <span style="font-size: 10pt;color:red" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </p>
                             </div> 
                         </div>
@@ -126,7 +150,7 @@
                             class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                         <button type="submit"
                             class='w-auto bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-xl font-bold text-black px-4 py-2'
-                            >Registrar Vacaciones</button>
+                            >Registrar Incapacidad</button>
                     </div>
                 </form>
             </div>
@@ -146,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var nombreInput = document.getElementById('nombre_input');
     var curpInput = document.getElementById('curp-input');
     var fechaIngresoInput = document.getElementById('fechaingreso-input');
-    var diasInput = document.getElementById('dias-input');
 
     function busquedaRPE() {
         var inputValue = nombreInput.value;
@@ -159,25 +182,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function buscarRPE(nombre) {
         if (nombre.length > 1) {
-            fetch(`${SITEURL}/gestion/registrarVacaciones/buscar?nombre=${nombre}`, { method: 'get' })
+            fetch(`${SITEURL}/gestion/registrarIncapacidades/buscar?nombre=${nombre}`, { method: 'get' })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.empleado.curp);
                     document.getElementById("curp-input").value = data.empleado.curp;
                     document.getElementById("fechaingreso-input").value = data.empleado.fecha_ingreso;
-                    document.getElementById("dias-input").value = data.empleado.dias_vacaciones;
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     curpInput.value = "";
                     fechaIngresoInput.value = "";
-                    diasInput.value = "";
                 });
         } else {
             // Si el nombre está vacío, borrar la información de curp y fecha de ingreso
             curpInput.value = "";
             fechaIngresoInput.value = "";
-            diasInput.value = "";
         }
     }
 });
@@ -197,37 +217,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var today = year + "-" + month + "-" + day;
         $("#fecha").attr("value", today);
-        $("#fechaA").attr("value", today);
-        $("#fechaB").attr("value", today);
-        $("#fecha").attr("max", today);
     });
 
     $("#fecha").datepicker({
-        dateFormat: 'dd-mm-yy'
-    });
-    $("#fechaA").datepicker({
         dateFormat: 'dd-mm-yy'
     });
 </script>
 
 <script>
     function validarFecha() {
-        var fechaInput = new Date(document.getElementById("fechaA").value);
-        var fechaRegreso = new Date(document.getElementById("fechaB").value);
+        var fechaInput = new Date(document.getElementById("fecha").value);
+        var fechaRegreso = new Date(document.getElementById("fechaA").value);
 
         var fechaActual = new Date();
 
-        var diasT = document.getElementById('dias-input').value;
-
-        // Obtener la fecha límite permitida
-        var fechalimite = new Date();
-        fechalimite.setDate(fechaInput.getDate() + (parseInt(diasT) + 1));
-
-        // Verificar si la fecha elegida está dentro del rango permitido
-        if (fechaRegreso > fechalimite || fechaRegreso < fechaActual) {
-            alert("La fecha debe ser la actual o en adelante, hasta tus días de descanso restantes. Se seleccionará la fecha actual.");
-            var formattedDate = fechaActual.toISOString().split('T')[0];
-            document.getElementById("fechaB").value = formattedDate;
+        // Verificar si fechaRegreso es menor que fechaInput
+        if (fechaRegreso < fechaInput) {
+            alert("La fecha de regreso no puede ser menor que la fecha de inicio. Se seleccionará la fecha actual.");
+            document.getElementById("fechaA").value = fechaInput.toISOString().split('T')[0];
             document.getElementById('dias').value = "";            
         }else{
             var diasTomados = Math.ceil((fechaRegreso - fechaInput) / (1000 * 60 * 60 * 24));
@@ -236,8 +243,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validarDias(){
-        var fechaInput = new Date(document.getElementById("fechaA").value);
-        var fechaRegreso = new Date(document.getElementById("fechaB").value);
+        var fechaInput = new Date(document.getElementById("fecha").value);
+        var fechaRegreso = new Date(document.getElementById("fechaA").value);
 
         var diasTomados = Math.ceil((fechaRegreso - fechaInput) / (1000 * 60 * 60 * 24));
         document.getElementById('dias').value = diasTomados;

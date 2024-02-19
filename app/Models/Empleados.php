@@ -61,4 +61,16 @@ class Empleados extends Authenticatable
         return $this->hasMany(Vacaciones::class, 'curp', 'curp');
     }
 
+    public function incapacidades() {
+        return $this->hasMany(Incapacidades::class, 'curp', 'curp');
+    }
+
+    public function permisos() {
+        return $this->hasMany(Permisos::class, 'curp', 'curp');
+    }
+
+    public function uniformes() {
+        return $this->hasMany(Uniformes::class, 'curp', 'curp');
+    }
+
 }

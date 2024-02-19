@@ -3,26 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
-use App\Models\Herramientas;
 use Illuminate\Http\Request;
+use App\Models\StockUniformes;
 
-class HerramientasController extends Controller
+class StockUniformesController extends Controller
 {
     public function create()
     {
-        $opciones = ['Cocina','Servicio','Barra','Producción'];
 
-        return view('almacen.crearHerramienta',[
-            'opciones' => $opciones
+        $opciones = ['Extra Chica','Chica','Mediana','Grande','Extra Grande'];
+        $opciones2 = ['Nuevos','Usados','Los Dos'];
+
+        return view('almacen.stockUniformes',[
+            'opciones' => $opciones,
+            'opciones2' => $opciones2
         ]);
     }
 
     public function show(){
 
-        $herramientas = Herramientas::all();
+        $uniformes = StockUniformes::all();
         
         return view('almacen.mostrarStock',[
-            'herramientas' => $herramientas
+            'uniformes' => $uniformes
         ]);
     }
 
@@ -32,7 +35,7 @@ class HerramientasController extends Controller
             'fecha_solicitud' => 'date',
         ]);
 
-        Herramientas::create([
+        StockUniformes::create([
             'fecha_solicitud' => $request->fecha_solicitud,
             'nuevos_existencia' => $request->nuevos_existencia, 
             'usados_existencia' => $request->usados_existencia, 
@@ -55,16 +58,6 @@ class HerramientasController extends Controller
 
         return view('gestion.detallesEmpleado',[
             'empleado' => $empleado,
-        ]);
-    }
-
-    public function search(Request $request){
-
-        $empleado = Empleados::where('nombre', 'LIKE' , $request->nombre . '%')->first();
-    
-        return response()->json([
-            'success' => true,
-            'empleado' => $empleado
         ]);
     }
 }

@@ -19,6 +19,7 @@ class Faltas extends Model
         'falta_cometida',
         'amonestacion',
         'acta_administrativa',
+        'acta_realizada'
     ];
 
 }

@@ -20,7 +20,7 @@ class CreateIncapacidadTable extends Migration
             $table->date('fecha_regreso');
             $table->integer('dias_totales');
             $table->string('motivo');
-            $table->string('comentarios');       
+            $table->string('comentarios')->nullable();       
             $table->timestamps();
         });
     }

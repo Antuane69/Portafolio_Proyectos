@@ -16,15 +16,11 @@ class CreateUniformesTable extends Migration
         Schema::create('uniformes', function (Blueprint $table) {
             $table->id();
             $table->string('curp');
-            $table->date('fecha_registro');
-            $table->string('nueva_existencia');
-            $table->string('entrada')->nullable();
-            $table->string('usados')->nullable();
+            $table->date('fecha_solicitud');
+            $table->string('tipo_uniforme');
             $table->string('codigo');
-            $table->string('descripcion');
-            $table->string('salida');
             $table->string('talla');
-            $table->double('precio',6,2);
+            $table->integer('cantidad');
             $table->double('total',6,2);
             $table->timestamps();
         });

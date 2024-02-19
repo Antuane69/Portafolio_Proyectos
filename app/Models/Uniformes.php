@@ -14,17 +14,15 @@ class Uniformes extends Model
 
     protected $fillable =  [    
         'curp',
-        'fecha_registro',
-        'nueva_existencia',
-        'entrada',
-        'usados',
+        'fecha_solicitud',
+        'tipo_uniforme',
         'codigo',
-        'descripcion',
-        'salida',
-        'talla',
-        'precio',
+        'cantidad',
         'total',
+        'talla'
     ];
 
-
+    public function empleado(){
+        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+    }
 }

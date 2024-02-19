@@ -183,11 +183,11 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
-                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Faltas</li>
+                                    <a href="{{ route('crearFaltas.create') }}">
+                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Faltas al Reglamento</li>
                                     </a>
-                                    <a>
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Faltas</li>
+                                    <a href="{{ route('mostrarFaltas.show') }}">
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Faltas al Reglamento</li>
                                     </a>
                                     </ul>
                                 </li>
@@ -208,10 +208,10 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    <a href="{{ route('crearIncapacidad.create') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Registrar Incapacidad</li>
                                     </a>
-                                    <a>
+                                    <a href="{{ route('mostrarIncapacidades.show') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Incapacidad</li>
                                     </a>
                                     </ul>
@@ -233,10 +233,10 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    <a href="{{ route('crearPermisos.create') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
                                     </a>
-                                    <a>
+                                    <a href="{{ route('mostrarPermisos.show') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
                                     </a>
                                     </ul>
@@ -281,11 +281,18 @@
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32
                                     ">
-                                        <a>
-                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Uniforme</li>
+                                        <a href="{{ route('crearStockUniformes.create') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Almacén de Uniformes</li>
                                         </a>
-                                        <a>
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Uniformes</li>
+                                        <a href="{{ route('mostrarStock.show') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Almacén de Uniformes</li>
+                                        </a>
+                                        <p></p>
+                                        <a href="{{ route('crearUniformes.create') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Asignar Uniformes</li>
+                                        </a>                                        
+                                        <a href="{{ route('mostrarUniformes.show') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Uniformes</li>
                                         </a>
                                     </ul>
                                 </li>
@@ -306,10 +313,10 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    <a href="{{ route('crearHerramientas.create') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Registrar Herramienta</li>
                                     </a>
-                                    <a>
+                                    <a href="{{ route('mostrarHerramientas.show') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Herramientas</li>
                                     </a>
                                     </ul>
