@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Little-Tokyo Administración')
+    @section('title', 'Little-Tokyo Almacén')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __("Crear Registro de Herramienta") }}
@@ -8,11 +8,9 @@
 
     @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/responsive.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/customDataTables.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endsection
-    
+
     <div class="py-12">
         <div class="mb-10 py-3 ml-16 leading-normal rounded-lg" role="alert">
             <div class="text-left">
@@ -44,48 +42,40 @@
                 </div>
             @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
-                <form id="formulario" action={{ route('crearHerramientas.store') }} method="POST">
+                <form id="formulario" action={{ route('crearHerramientas.store') }} method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                         <p>
                             Registro de Herramientas
                         </p>
-                    </div>
-                    
+                    </div>                    
                     <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_solicitud" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de la Solicitud</label>
+                                <label for="fecha_registro" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de la Solicitud</label>
                                 <p>
-                                    <input id="fecha" name="fecha_solicitud" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                    <input id="fecha" name="fecha_registro" class="w-5/6 mb-1 px-3 rounded-lg mt-3 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
                                 </p>
                             </div>                    
                             <div class='grid grid-cols-1'>
                                 <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Nombre
+                                    * Encargados
                                 </label>
-                                <p>
-                                    <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
-                                    class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                    >
-                                </p>
+                                <select name="nombresreg[]" class='form-control js-example-basic-multiple js-states' multiple="multiple">             
+                                    @foreach($nombres as $nombre)
+                                        <option value="{{$nombre}}">{{$nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class='grid grid-cols-1'>
-                                <label for="curp" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Curp
-                                </label>
+                        </div>
+                    </div>
+                    <div class="mx-10 mb-5 pb-10 text-center rounded-b-xl rounded-l-xl rounded-r-xl bg-gray-100">
+                        <div class='flex w-full md:gap-8 pt-3 pb-2 font-bold text-3xl text-slate-700 mt-5 rounded-l-xl rounded-r-xl' style="background-color: #FFFF7B">
+                            <p>
                                 <p>
-                                    <input type="text" name="curp" id="curp-input" placeholder="No se ha encontrado al empleado"
-                                    class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 bg-gray-200 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
-                                    readonly required>
-                                    
-                                    @error('curp')
-                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
-                                            {{ $message }}
-                                        </p>
-                                    @enderror
+
                                 </p>
-                            </div>
+                            </p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7 mt-5"> 
                             <div class='grid grid-cols-1'>
@@ -99,7 +89,7 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <div class="input-container mb-4">
-                                        <input type="file" name="imagen" id="inputContainer1" class='bg-white  mt-4  p-2 w-5/6 rounded-lg border-2' style="border-color: #6E6E6E" accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview1')">
+                                        <input type="file" name="imagen" id="inputContainer1" class='bg-white  mt-4  p-2 w-5/6 rounded-lg border-2' style="border-color: #6E6E6E" accept="image/*" onchange="previewImage(event, '#imgPreview1')">
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +123,7 @@
                             </div>
                             <div class='grid grid-cols-1'>
                                 <label for="precio" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Precio
+                                    * Precio por Unidad
                                 </label>
                                 <p>
                                     <input type="number" id="precio" name="precio" placeholder="0"
@@ -181,7 +171,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
+                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5 mt-5'>
                         <a href=""
                             class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                         <button type="submit"
@@ -195,46 +185,16 @@
 </x-app-layout>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Agrega este script al final del body o en la sección de scripts de tu vista Blade -->
 
 <script>
-
-document.addEventListener('DOMContentLoaded', function() {
-    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
-    var SITEURL = "{{ url('/') }}";
-
-    var nombreInput = document.getElementById('nombre_input');
-    var curpInput = document.getElementById('curp-input');
-
-    function busquedaRPE() {
-        var inputValue = nombreInput.value;
-        buscarRPE(inputValue);
-    }
-
-    nombreInput.addEventListener("input", busquedaRPE);
-
-    buscarRPE(nombreInput.value);
-
-    function buscarRPE(nombre) {
-        if (nombre.length > 1) {
-            fetch(`${SITEURL}/almacen/registrarHerramientas/buscar?nombre=${nombre}`, { method: 'get' })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("curp-input").value = data.empleado.curp;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    curpInput.value = "";
-                });
-        } else {
-            // Si el nombre está vacío, borrar la información de curp y fecha de ingreso
-            curpInput.value = "";
-        }
-    }
-});
-</script>
-
-<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            placeholder: 'Selecciona los Encargados',
+            theme: "classic"
+        });
+    });
     //Obtener el día actual. 
     $(document).ready(function() {
         var date = new Date();
@@ -257,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         setupImageContainer('imageContainer1','inputContainer1');
         // Puedes agregar más llamadas a setupImageContainer para otros divs
     });

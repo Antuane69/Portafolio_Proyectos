@@ -13,13 +13,12 @@ class Herramientas extends Model
     protected $table = "herramientas";
 
     protected $fillable =  [
-        'curp',
+        'nombre',
         'fecha_registro',
         'imagen',
         'descripcion',
         'area',
         'precio', 
-        'existencia',
         'cantidad',
         'total',   
     ];

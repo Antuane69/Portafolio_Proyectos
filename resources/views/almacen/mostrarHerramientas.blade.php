@@ -2,7 +2,7 @@
     @section('title', 'Little-Tokyo Almacén')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Registro de Uniformes') }}
+            {{ __('Registro de Herramientas') }}
         </h2>
     </x-slot>
 
@@ -55,13 +55,14 @@
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th class='text-center'>Nombre</th>
+                            <th class='text-center'>Nombre(s)</th>
                             <th class='text-center'>Fecha de la Solicitud</th>
-                            <th class='text-center'>Tipo de Uniforme</th>
-                            <th class='text-center'>Codigo</th>
-                            <th class='text-center'>Talla</th>
+                            <th class='text-center'>Imágen</th>
+                            <th class='text-center'>Area</th>
+                            <th class='text-center'>Precio Unitario</th>
                             <th class='text-center'>Cantidad</th>
                             <th class='text-center'>Total</th>
+                            <th class='text-center'>Descripción</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -112,25 +113,32 @@
                         </div>
                     @endif
                     <tbody>
-                        @foreach ($uniformes as $uniforme)
+                        @foreach ($herramientas as $herramienta)
                             <tr>                                    
-                                <td align="center" class="font-bold">{{ $uniforme->empleado->nombre }}</td>
-                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
-                                <td align="center">{{ $uniforme->tipo_uniforme }}</td>
-                                <td align="center">{{ $uniforme->codigo }}</td>
-                                <td align="center">{{ $uniforme->talla }}</td>
-                                <td align="center">{{ $uniforme->cantidad }}</td>
-                                <td align="center">${{ $uniforme->total }}</td>
+                                <td align="center" class="font-bold">{{ $herramienta->nombre_real }}</td>
+                                <td align="center">{{ $herramienta->fecha_registro }}</td>
+                                <td align="center" style="width:10px">
+                                    <div style="width: 140px; height: 100px;">
+                                        <a href="{{ asset('img/almacen/Herramientas/' . $herramienta->imagen) }}" download>
+                                            <img class='rounded-md md w-2/3 hover:w-10 transition-shadow' src="{{ asset('img/almacen/Herramientas/' . $herramienta->imagen) }}" style="width: 120px; height: 80px;">
+                                        </a>                                    
+                                    </div>
+                                </td>
+                                <td align="center">{{ $herramienta->area }}</td>
+                                <td align="center">${{ $herramienta->precio }}</td>
+                                <td align="center">{{ $herramienta->cantidad }}</td>
+                                <td align="center">${{ $herramienta->total }}</td>
+                                <td align="center">{{ $herramienta->descripcion }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 ml-2 text-white font-bold py-1 px-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$uniforme->id}}">Opciones</button>   
-                                        <form action="{{route('detallesEmpleado.show',['id'=>$uniforme->id])}}" method="GET">
+                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 ml-2 text-white font-bold py-1 px-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$herramienta->id}}">Opciones</button>   
+                                        <form action="{{route('detallesEmpleado.show',['id'=>$herramienta->id])}}" method="GET">
                                             <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 rounded imprimirBtn">
                                                Más Detalles
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="modal fade" id="exampleModal_{{$uniforme->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal_{{$herramienta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content" style="width: 450px; height: 210px;">
                                                 <div class="modal-header">
@@ -149,7 +157,7 @@
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" data-id="{{ $uniforme->id }}">
+                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" data-id="{{ $herramienta->id }}">
                                                                         Generar Recibo en PDF
                                                                     </button>                        
                                                                 </form>   
@@ -210,7 +218,7 @@
             });
             // Definir tu función de JavaScript
             function otrapantalla(idbtn) {
-                var nuevaVentanaURL = '{{ route("uniformes.generarpdf", ":idbtn") }}';
+                var nuevaVentanaURL = '{{ route("herramientas.generarpdf", ":idbtn") }}';
                 nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
 
                 // Abre una nueva ventana

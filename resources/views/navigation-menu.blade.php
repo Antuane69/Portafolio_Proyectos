@@ -109,7 +109,7 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                          transition duration-150 ease-in-out origin-top min-w-32">
-                                <a >
+                                <a href="{{ route('empleadosInicio.show') }}">
                                     <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
                                 </a>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
@@ -135,6 +135,11 @@
                                         </a>
                                         <a href="{{ route('crearEmpleado.create') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
+                                        </a>
+                                        <p>
+                                        </p>
+                                        <a href="{{ route('mostrarBajas.show') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Bajas</li>
                                         </a>
                                         <a href="">
                                             <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
@@ -169,7 +174,7 @@
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                                     <button
                                         class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Faltas</span>
+                                        <span class="pr-1 flex-1">Faltas al Reglamento</span>
                                         <span class="mr-auto">
                                             <svg class="fill-current h-4 w-4
                                     transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +265,7 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                          transition duration-150 ease-in-out origin-top min-w-32">
-                                <a >
+                                <a href="{{ route('almacenInicio.show') }}">
                                     <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
                                 </a>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
@@ -339,7 +344,7 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                          transition duration-150 ease-in-out origin-top min-w-32">
-                                <a >
+                                <a>
                                     <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
                                 </a>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
@@ -360,11 +365,11 @@
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32
                                     ">
-                                        <a>
+                                        {{-- <a>
                                             <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Uniforme</li>
-                                        </a>
+                                        </a> --}}
                                         <a>
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Uniformes Realizados</li>
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Uniformes Firmados</li>
                                         </a>
                                     </ul>
                                 </li>
@@ -385,18 +390,18 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    {{-- <a>
                                         <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Herramienta</li>
-                                    </a>
+                                    </a> --}}
                                     <a>
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Herramientas realizados</li>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Herramientas Firmados</li>
                                     </a>
                                     </ul>
                                 </li>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                                     <button
                                         class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Acta Administrativa</span>
+                                        <span class="pr-1 flex-1">Actas Administrativas</span>
                                         <span class="mr-auto">
                                             <svg class="fill-current h-4 w-4
                                     transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
@@ -410,11 +415,11 @@
                                     <ul class="bg-white border rounded-sm absolute top-0 right-0
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32">
-                                    <a>
+                                    {{-- <a>
                                         <li class="px-3 py-1 hover:bg-gray-100">Elaborar Acta Administrativa</li>
-                                    </a>
+                                    </a> --}}
                                     <a>
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Actas Administrativas Realizadas</li>
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Actas Administrativas Firmadas</li>
                                     </a>
                                     </ul>
                                 </li>

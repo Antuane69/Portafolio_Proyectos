@@ -1110,7 +1110,7 @@ tr.hover-row .Aprendizaje_color {
 }
 
 .featured-services .icon-box:hover::before {
-  background: #EFFF53;
+  background: #CAEEFF;
   top: 0;
   border-radius: 0px;
 }
@@ -1385,11 +1385,11 @@ tr.hover-row .Aprendizaje_color {
 
 .services .icon-box:hover h4 a,
 .services .icon-box:hover .icon i {
-  color: #F6F614;
+  color: #CAEEFF;
 }
 
 .services .icon-box:hover .icon {
-  border-color: #F6F614;
+  border-color: #CAEEFF;
 }
 
 /*--------------------------------------------------------------

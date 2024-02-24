@@ -28,7 +28,7 @@
     </x-slot>
     <div class="mt-4 px-4 py-3 ml-11 leading-normal text-green-500 rounded-lg" role="alert">
         <div class="text-left">
-            <a href="{{ route('mostrarEmpleado.show') }}"
+            <a href="{{ route('mostrarBajas.show') }}"
                 class='w-auto bg-green-500 hover:bg-green-600 rounded-lg shadow-xl font-medium text-white px-4 py-2'>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
                     fill="currentColor">
@@ -92,32 +92,36 @@
                     </div>                    
                 <!--Información de la Vacante -->
                 <div class="grid grid-cols-1 col-span-2 bg-gray-600 rounded-t-xl mx-10">
-                    <h2 class="font-semibold text-xl text-white justify-self-center mt-2 mb-2">Información de la Vacante</h2>
+                    <h2 class="font-semibold text-xl text-white justify-self-center mt-2 mb-2">Información Laboral</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
-                    <div class="grid cols-1 ml-20">
-                        <label class="lbl md:text-sm">Puesto:</label>
-                         <h2 class="inf">{{$empleado->puesto}}</h2>
-                    </div>
-                    <div class="grid cols-1">
-                        <label class="lbl md:text-sm">Salario por Día:</label>
-                         <h2 class="inf">{{$empleado->salario_dia}}</h2>
-                    </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Fecha de Ingreso:</label>
                          <h2 class="inf">{{$empleado->fecha_ingreso}}</h2>
                     </div>
                     <div class="grid cols-1">
-                        <label class="lbl md:text-sm">Fecha del Segundo Contrato:</label>
-                         <h2 class="inf">{{$empleado->fecha_2doContrato}}</h2>
+                        <label class="lbl md:text-sm">Puesto:</label>
+                         <h2 class="inf">{{$empleado->puesto}}</h2>
                     </div>
+                    {{-- <div class="grid cols-1">
+                        <label class="lbl md:text-sm">Salario por Día:</label>
+                         <h2 class="inf">{{$empleado->salario_dia}}</h2>
+                    </div> --}}
                     <div class="grid cols-1 ml-20">
-                        <label class="lbl md:text-sm">Fecha del Tercer Contrato:</label>
-                         <h2 class="inf">{{$empleado->fecha_3erContrato}}</h2>
+                        <label class="lbl md:text-sm">Fecha de Baja:</label>
+                         <h2 class="inf">{{$empleado->fecha_baja}}</h2>
                     </div>
                     <div class="grid cols-1">
-                        <label class="lbl md:text-sm">Fecha del Contrato Indefinido:</label>
-                         <h2 class="inf">{{$empleado->fecha_indefinido}}</h2>
+                        <label class="lbl md:text-sm">Antigüedad:</label>
+                         <h2 class="inf">{{$empleado->antiguedad}}</h2>
+                    </div>
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Tiempo de Anticipación:</label>
+                         <h2 class="inf">{{$empleado->tiempo_anticipacion}}</h2>
+                    </div>
+                    <div class="grid cols-1">
+                        <label class="lbl md:text-sm">Causa de la Baja:</label>
+                         <h2 class="inf">{{$empleado->causa_baja}}</h2>
                     </div>
                 </div>
             </div>

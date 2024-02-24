@@ -6,33 +6,18 @@ use validate;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Bajas;
 
 class EmpleadosController extends Controller
 {
     public function dashboard(){
-        // if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular'))){
+            $activos = Empleados::query()->count();
+            $inactivos = Bajas::query()->count();
 
-        //     $areaJefe = Datosuser::where('rpe',auth()->user()->rpe)->first();
-        //     $nombreArea = DB::table('areas')->where('area_clave',$areaJefe->area)->first();
-
-        //     $pendientes = SolicitudVehiculo::query()->where('Estatus','Pendiente')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('Estatus','Autorizada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('Estatus','Aceptada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $activas = SolicitudVehiculo::query()->where('Estatus','!=','Finalizada')->where('Proceso',$nombreArea->area_nombre)->count();
-
-        // }else{
-        //     $pendientes = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Pendiente')->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Autorizada')->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Aceptada')->count();
-        //     $activas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->count();
-        // }
-
-        // return view('sives.solicitudes.inicioSolicitudes',[
-        //     'pendientes' => $pendientes,
-        //     'autorizadas' => $autorizadas,
-        //     'aceptadas' => $aceptadas,
-        //     'activas' => $activas
-        // ]);
+        return view('gestion.inicioGestion',[
+            'activos' => $activos,
+            'inactivos' => $inactivos,
+        ]);
     }
 
     public function show(){

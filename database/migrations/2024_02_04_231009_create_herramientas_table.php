@@ -21,7 +21,6 @@ class CreateHerramientasTable extends Migration
             $table->string('descripcion');
             $table->string('area');
             $table->double('precio',6,2); 
-            $table->integer('existencia');
             $table->integer('cantidad');
             $table->double('total',9,3);         
             $table->timestamps();

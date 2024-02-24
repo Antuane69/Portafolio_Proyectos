@@ -1,8 +1,115 @@
+{{-- <style>
+    body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+    .modal-confirm {
+        color: #636363;
+        width: 400px;
+    }
+
+    .modal-confirm .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: -5px;
+        right: -2px;
+    }
+
+    .modal-confirm .modal-body {
+        color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+    .modal-confirm .modal-footer a {
+        color: #999;
+    }
+
+    .modal-confirm .icon-box {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        z-index: 9;
+        text-align: center;
+        border: 3px solid #f15e5e;
+    }
+
+    .modal-confirm .icon-box i {
+        color: #f15e5e;
+        font-size: 46px;
+        display: inline-block;
+        margin-top: 13px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #60c7c1;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+        background: #c1c1c1;
+    }
+
+    .modal-confirm .btn-secondary:hover,
+    .modal-confirm .btn-secondary:focus {
+        background: #a8a8a8;
+    }
+
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+
+    .modal-confirm .btn-danger:hover,
+    .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+</style> --}}
+
 <x-app-layout>
-    @section('title', 'Little-Tokyo Almacén')
+    @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Registro de Uniformes') }}
+            {{ __('Registro de Bajas de Empleados') }}
         </h2>
     </x-slot>
 
@@ -16,7 +123,7 @@
     <div class="py-10">
         <div class="mb-10 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
             <div class="text-left">
-                <a href=""
+                <a href="{{ route('empleadosInicio.show') }}"
                     class='w-auto bg-green-500 hover:bg-green-600 rounded-lg shadow-xl font-medium text-white px-4 py-2'>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -56,12 +163,11 @@
                     <thead>
                         <tr>
                             <th class='text-center'>Nombre</th>
-                            <th class='text-center'>Fecha de la Solicitud</th>
-                            <th class='text-center'>Tipo de Uniforme</th>
-                            <th class='text-center'>Codigo</th>
-                            <th class='text-center'>Talla</th>
-                            <th class='text-center'>Cantidad</th>
-                            <th class='text-center'>Total</th>
+                            <th class='text-center'>Puesto</th>
+                            <th class='text-center'>Fecha de Ingreso</th>
+                            <th class='text-center'>Fecha de Baja</th>
+                            <th class='text-center'>Antigüedad</th>
+                            <th class='text-center'>Causa de Baja</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -112,66 +218,25 @@
                         </div>
                     @endif
                     <tbody>
-                        @foreach ($uniformes as $uniforme)
+                        @foreach ($bajas as $baja)
                             <tr>                                    
-                                <td align="center" class="font-bold">{{ $uniforme->empleado->nombre }}</td>
-                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
-                                <td align="center">{{ $uniforme->tipo_uniforme }}</td>
-                                <td align="center">{{ $uniforme->codigo }}</td>
-                                <td align="center">{{ $uniforme->talla }}</td>
-                                <td align="center">{{ $uniforme->cantidad }}</td>
-                                <td align="center">${{ $uniforme->total }}</td>
+                                <td align="center" class="font-bold">{{ $baja->nombre }}</td>
+                                <td align="center">{{ $baja->puesto }}</td>
+                                <td align="center">{{ $baja->fecha_ingreso }}</td>
+                                <td align="center">{{ $baja->fecha_baja }}</td>
+                                <td align="center">{{ $baja->antiguedad }}</td>
+                                <td align="center">{{ $baja->causa_baja }}</td>
                                 <td class=" px-2 py-1">
-                                    <div class="flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 ml-2 text-white font-bold py-1 px-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$uniforme->id}}">Opciones</button>   
-                                        <form action="{{route('detallesEmpleado.show',['id'=>$uniforme->id])}}" method="GET">
+                                    <div class="in-line flex justify-center object-center">
+                                        {{-- data-bs-target="#exampleModal_{{$solicitud->id}}" --}}
+                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 mr-2 text-white font-bold px-2" data-bs-toggle="modal">Opciones</button>   
+    
+                                        <form action="{{route('detallesBajas.show',['id'=>$baja->id])}}" method="GET">
                                             <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 rounded imprimirBtn">
                                                Más Detalles
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="modal fade" id="exampleModal_{{$uniforme->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 210px;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div style="display: block; flex-direction: column; align-items: center;">
-                                                        <div class="in-line flex justify-center object-center">
-                                                            <div>
-                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2">
-                                                                    @csrf         
-                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-10 rounded">
-                                                                        Editar Formato
-                                                                    </button>                        
-                                                                </form>
-                                                                <form class="rounded text-white font-bold py-1 px-2">
-                                                                    @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" data-id="{{ $uniforme->id }}">
-                                                                        Generar Recibo en PDF
-                                                                    </button>                        
-                                                                </form>   
-                                                            </div>
-                                                            <div>
-                                                                <form method="POST" class="mb-2">
-                                                                    @method('DELETE')
-                                                                    @csrf         
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                        </svg> --}}
-                                                                        Eliminar Formato
-                                                                    </button>                        
-                                                                </form>   
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
                                 </td>
                             </tr> 
                         @endforeach
@@ -180,7 +245,6 @@
             </div>
         </div>
     </div>
-
     @section('js')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -196,26 +260,6 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded',function () {
-                //document.getElementById('abrirVentana').addEventListener('click',() => console.log('hola'));
-                var botonesAccion = document.querySelectorAll('.boton-accion');
-                botonesAccion.forEach(function (boton) {
-                    boton.addEventListener('click', function () {
-                        var idbtn = boton.getAttribute('data-id');
-                        otrapantalla(idbtn);
-                    });
-                });
-            });
-            // Definir tu función de JavaScript
-            function otrapantalla(idbtn) {
-                var nuevaVentanaURL = '{{ route("uniformes.generarpdf", ":idbtn") }}';
-                nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
-
-                // Abre una nueva ventana
-                window.open(nuevaVentanaURL, '_blank');
-            }
         </script>
     @endsection
 </x-app-layout>

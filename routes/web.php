@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BajasController;
 use App\Models\Empleados;
 use App\Models\Incapacidades;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ use App\Http\Controllers\IncapacidadesController;
 use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\StockUniformesController;
 use App\Http\Controllers\UniformesController;
+use App\Models\Faltas;
 use App\Models\Herramientas;
 
 /*
@@ -42,14 +44,15 @@ Route::get('/', function () {
     };
 });
 
-// Empleados
-
-//Route::get('/solicitudes/inicio',[SolicitudVehiculoController::class, 'dashboard'])->name('siveInicio.show');
-
+// Gestion
+Route::get('/gestion/empleados/inicio',[EmpleadosController::class, 'dashboard'])->name('empleadosInicio.show');
 Route::get('/gestion/mostrarEmpleados',[EmpleadosController::class, 'show'])->name('mostrarEmpleado.show');
 Route::get('/gestion/altaEmpleados',[EmpleadosController::class, 'create'])->name('crearEmpleado.create');
 Route::post('/gestion/guardarEmpleados',[EmpleadosController::class, 'store'])->name('crearEmpleado.store');
 Route::get('/gestion/detallesEmpleados/{id}',[EmpleadosController::class, 'detalles'])->name('detallesEmpleado.show');
+
+Route::get('/gestion/detallesBajas/{id}',[BajasController::class, 'detalles'])->name('detallesBajas.show');
+Route::get('/gestion/mostrarBajas',[BajasController::class, 'show'])->name('mostrarBajas.show');
 
 Route::get('/gestion/mostrarVacaciones',[VacacionesController::class, 'show'])->name('mostrarVacaciones.show');
 Route::get('/gestion/registrarVacaciones',[VacacionesController::class, 'create'])->name('crearVacacion.create');
@@ -71,6 +74,8 @@ Route::get('/gestion/registrarPermisos',[PermisosController::class, 'create'])->
 Route::post('/gestion/guardarPermisos',[PermisosController::class, 'store'])->name('crearPermisos.store');
 Route::get('/gestion/registrarPermisos/buscar',[PermisosController::class, 'search'])->name('crearPermisos.search');
 
+// Almacen
+Route::get('/almacen/inicio',[UniformesController::class, 'dashboard'])->name('almacenInicio.show');
 Route::get('/almacen/mostrarUniformes',[UniformesController::class, 'show'])->name('mostrarUniformes.show');
 Route::get('/almacen/registrarUniformes',[UniformesController::class, 'create'])->name('crearUniformes.create');
 Route::post('/almacen/guardarUniformes',[UniformesController::class, 'store'])->name('crearUniformes.store');
@@ -88,3 +93,11 @@ Route::get('/almacen/mostrarHerramientas',[HerramientasController::class, 'show'
 Route::get('/almacen/registrarHerramientas',[HerramientasController::class, 'create'])->name('crearHerramientas.create');
 Route::post('/almacen/guardarHerramientas',[HerramientasController::class, 'store'])->name('crearHerramientas.store');
 Route::get('/almacen/registrarHerramientas/buscar',[HerramientasController::class, 'search'])->name('crearHerramientas.search');
+
+Route::get('/almacen/herramientas/pdf/{id}', [HerramientasController::class,'generate_pdf'])->name('herramientas.generarpdf');//*
+Route::get('/almacen/uniformes/pdf/{id}', [UniformesController::class,'generate_pdf'])->name('uniformes.generarpdf');//*
+
+Route::get('/gestion/datosActa/pdf/{curp}', [FaltasController::class,'crear_datosPDF'])->name('faltas.crear_datospdf');//*
+Route::post('/gestion/generarActa/pdf/{curp}', [FaltasController::class,'datos_pdf'])->name('faltas.datospdf');//*
+Route::post('/gestion/subirActa/pdf/{id}', [FaltasController::class,'subir_pdf'])->name('faltas.subirpdf');//*
+Route::get('/gestion/verActa/pdf/{id}', [FaltasController::class,'ver_pdf'])->name('faltas.verpdf');//*

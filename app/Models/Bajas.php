@@ -26,5 +26,6 @@ class Bajas extends Model
         'telefono',
         'num_clinicaSS',
         'total_bajas',
+        'imagen_perfil',
     ];
 }

@@ -21,5 +21,4 @@ class Faltas extends Model
         'acta_administrativa',
         'acta_realizada'
     ];
-
 }

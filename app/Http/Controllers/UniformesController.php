@@ -3,36 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
-use App\Models\StockUniformes;
+use App\Models\Herramientas;
 use App\Models\Uniformes;
 use Illuminate\Http\Request;
+use App\Models\StockUniformes;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UniformesController extends Controller
 {
     public function dashboard(){
-        // if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular'))){
 
-        //     $areaJefe = Datosuser::where('rpe',auth()->user()->rpe)->first();
-        //     $nombreArea = DB::table('areas')->where('area_clave',$areaJefe->area)->first();
+        $herramientas = Herramientas::query()->count();
+        $uniformes_uso = Uniformes::query()->sum('cantidad');
+        $uniformes_nuevos = StockUniformes::query()->sum('nuevos_existencia');
+        $uniformes_usados = StockUniformes::query()->sum('usados_existencia');
 
-        //     $pendientes = SolicitudVehiculo::query()->where('Estatus','Pendiente')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('Estatus','Autorizada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('Estatus','Aceptada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $activas = SolicitudVehiculo::query()->where('Estatus','!=','Finalizada')->where('Proceso',$nombreArea->area_nombre)->count();
-
-        // }else{
-        //     $pendientes = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Pendiente')->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Autorizada')->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Aceptada')->count();
-        //     $activas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->count();
-        // }
-
-        // return view('sives.solicitudes.inicioSolicitudes',[
-        //     'pendientes' => $pendientes,
-        //     'autorizadas' => $autorizadas,
-        //     'aceptadas' => $aceptadas,
-        //     'activas' => $activas
-        // ]);
+        return view('almacen.inicioAlmacen',[
+            'herramientas' => $herramientas,
+            'uniformes_uso' => $uniformes_uso,
+            'uniformes_nuevos' => $uniformes_nuevos,
+            'uniformes_usados' => $uniformes_usados
+        ]);
     }
 
     public function show(){
@@ -208,6 +200,30 @@ class UniformesController extends Controller
             'success' => true,
             'total' => $total
         ]);
+    }
+
+    public function generate_pdf($id)//Funcion para generar el pdf de resguardo
+    {
+        $uniforme =  Uniformes::where('id',$id)->with('empleado')->first();
+
+        if($uniforme->tipo_uniforme == "Nuevo"){
+            $stock = StockUniformes::where('nuevos_codigo',$uniforme->codigo)->where('nuevos_talla',$uniforme->talla)
+            ->select('nuevos_descripcion as descripcion', 'nuevos_precio as precio')
+            ->orderBy('created_at', 'desc')->first();
+        }else{
+            $stock = StockUniformes::where('usados_codigo',$uniforme->codigo)->where('usados_talla',$uniforme->talla)
+            ->select('usados_descripcion as descripcion','usados_precio as precio')
+            ->orderBy('created_at', 'desc')->first();
+        }
+        
+        $nomina = $uniforme->total / 2;
+        
+        $fecha_actual = Carbon::now(); // Obtiene la fecha y hora actual
+        $pdf = Pdf::loadView('PDF.crearUniformePDF',['uniforme'=>$uniforme,'stock'=>$stock,'nomina'=>$nomina,'fecha_actual'=>$fecha_actual])->setPaper('letter', 'portrait');
+
+        // Nombre del archivo PDF
+        $nombreArchivo = 'ReciboUniformes_' . $id . '.pdf';
+        return $pdf->stream($nombreArchivo); 
     }
 }
 
