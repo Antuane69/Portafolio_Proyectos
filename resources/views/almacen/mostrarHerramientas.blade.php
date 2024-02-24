@@ -16,15 +16,16 @@
     <div class="py-10">
         <div class="mb-10 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
             <div class="text-left">
-                <a href=""
-                    class='w-auto bg-green-500 hover:bg-green-600 rounded-lg shadow-xl font-medium text-white px-4 py-2'>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    Regresar
+                <a href="{{ route('almacenInicio.show') }}"
+                class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
+                style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+                        clip-rule="evenodd" />
+                </svg>
+                Regresar
                 </a>
             </div>
         </div>
@@ -130,20 +131,26 @@
                                 <td align="center">${{ $herramienta->total }}</td>
                                 <td align="center">{{ $herramienta->descripcion }}</td>
                                 <td class=" px-2 py-1">
-                                    <div class="flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 ml-2 text-white font-bold py-1 px-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$herramienta->id}}">Opciones</button>   
-                                        <form action="{{route('detallesEmpleado.show',['id'=>$herramienta->id])}}" method="GET">
-                                            <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 rounded imprimirBtn">
-                                               Más Detalles
-                                            </button>
-                                        </form>
+                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                        <div class="in-line flex justify-center object-center mt-1 mb-1">   
+                                            @if ($herramienta->reporte_pdf != "")                                                    
+                                                <div>
+                                                    <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 ml-2 text-white font-bold p-1 px-3" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$herramienta->id}}">Opciones</button>   
+                                                    <button type="submit" id="abrirPDF" data-id="{{ json_encode(['id' => $herramienta->id]) }}"  class="text-m text-black font-bold mt-2 p-1 px-3 rounded-md boton-pdf" style="margin-left:12px;background-color: #FFFF7B">Ver PDF</button>
+                                                </div>
+                                            @else
+                                                <div>
+                                                    <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600  text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$herramienta->id}}" style="width: 100%;">Opciones</button>   
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                     <div class="modal fade" id="exampleModal_{{$herramienta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 210px;">
+                                            <div class="modal-content" style="width: 450px; height: 350px;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="rounded-md bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div style="display: block; flex-direction: column; align-items: center;">
@@ -151,13 +158,13 @@
                                                             <div>
                                                                 <form method="GET" class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-10 rounded">
+                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded" style="width:95%">
                                                                         Editar Formato
                                                                     </button>                        
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded" data-id="{{ $herramienta->id }}">
+                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-2 mt-1 rounded" data-id="{{ $herramienta->id }}">
                                                                         Generar Recibo en PDF
                                                                     </button>                        
                                                                 </form>   
@@ -166,15 +173,23 @@
                                                                 <form method="POST" class="mb-2">
                                                                     @method('DELETE')
                                                                     @csrf         
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                        </svg> --}}
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded">
                                                                         Eliminar Formato
                                                                     </button>                        
                                                                 </form>   
+                                                                <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 px-3 rounded w-40"
+                                                                onclick="mostrarInput('contenedorInput_{{$herramienta->id}}','requiredSolicitud_{{$herramienta->id}}')">
+                                                                    Subir Reporte de Heramienta
+                                                                </button>
                                                             </div>
                                                         </div> 
+                                                        <div id="contenedorInput_{{$herramienta->id}}" hidden class="mt-2 content-center object-center">
+                                                            <form method="POST" action="{{ route('herramientas.subirpdf', $herramienta->id) }}" enctype="multipart/form-data" >
+                                                                @csrf
+                                                                <input type="file" name="herramienta_PDF" id='requiredSolicitud_{{$herramienta->id}}' accept=".pdf" class="mt-4 ml-10">
+                                                                <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md ml-40">Enviar PDF</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,6 +236,43 @@
                 var nuevaVentanaURL = '{{ route("herramientas.generarpdf", ":idbtn") }}';
                 nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
 
+                // Abre una nueva ventana
+                window.open(nuevaVentanaURL, '_blank');
+            }
+
+            function mostrarInput(Id_oculto,Id_required){
+                var elementoOculto = document.getElementById(Id_oculto);
+                var elementoRequired = document.getElementById(Id_required);
+
+                if (elementoOculto.hidden) {
+                    // Si está oculto, mostrarlo
+                    elementoOculto.hidden = false;
+                    elementoRequired.required = true;
+                } else {
+                    // Si está visible, ocultarlo
+                    elementoOculto.hidden = true;
+                    elementoRequired.required = false;
+                }
+            }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded',function () {
+                var botonesAccion = document.querySelectorAll('.boton-pdf');
+                botonesAccion.forEach(function (boton) {
+                    boton.addEventListener('click', function () {
+                        // var datos = $('#boton-pdf').data('id');
+                        var idbtn = boton.getAttribute('data-id');
+                        var variables = JSON.parse(idbtn);
+                        // Ahora puedes acceder a las variables individualmente
+                        var id = variables.id;
+                        otrapantallaPDF(id);
+                    });
+                });
+            });
+            // Definir tu función de JavaScript
+            function otrapantallaPDF(id) {
+                var nuevaVentanaURL = '{{ route("herramientas.verpdf", [":id"]) }}';
+                nuevaVentanaURL = nuevaVentanaURL.replace(':id', id);
                 // Abre una nueva ventana
                 window.open(nuevaVentanaURL, '_blank');
             }

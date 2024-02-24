@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
-use App\Models\Herramientas;
 use App\Models\Uniformes;
+use App\Models\Herramientas;
 use Illuminate\Http\Request;
 use App\Models\StockUniformes;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class UniformesController extends Controller
 {
@@ -225,6 +226,44 @@ class UniformesController extends Controller
         $nombreArchivo = 'ReciboUniformes_' . $id . '.pdf';
         return $pdf->stream($nombreArchivo); 
     }
+
+    public function subir_pdf(Request $request,$id)
+    {
+        $this->validate($request, [
+            'uniforme_PDF' => 'required|file|mimes:pdf|max:8192',
+        ]);
+
+        $uniforme = Uniformes::find($id);
+
+        $archivopdf = $request->file('uniforme_PDF')->store('public/Reportes Uniformes');
+        $nombreOriginal = $id . '_Reporte Uniforme_' . $uniforme->curp . '.pdf';
+
+        $ruta = 'public/Reportes Uniformes/' . $nombreOriginal;
+
+        Storage::move($archivopdf,$ruta);
+
+        $uniforme->reporte_pdf = $nombreOriginal;
+        $uniforme->save();
+
+        return redirect()->back();
+    }   
+
+    public function ver_pdf($id)
+    {
+        $uniforme =  Uniformes::find($id);
+
+        $filename = $uniforme->reporte_pdf;
+
+        $path = storage_path('app/public/Reportes Uniformes/' . $filename);
+        
+        if (file_exists($path)) {
+            // Configurar el tipo de respuesta como PDF
+            $headers = ['Content-Type' => 'application/pdf'];
+    
+            // Descargar el archivo
+            return response()->file($path, $headers);
+        };
+    } 
 }
 
 

@@ -28,18 +28,8 @@
         table {
             margin-left: auto;
             margin-right: auto;
-            text-transform:uppercase;
         }
         
-        .pdf-image {
-            width: 200px; /* Ancho deseado en píxeles o porcentaje */
-            height: auto; /* Altura automática para mantener la proporción original */
-        }
-
-        .pdf-image2 {
-            width: 100px; /* Ancho deseado en píxeles o porcentaje */
-            height: auto; /* Altura automática para mantener la proporción original */            
-        }
     </style>
 </head>
 <body>
@@ -54,7 +44,7 @@
                 <th></th>
             </tr>
             <tr>
-                <td style="text-align:left;font-size:11;margin-left:10%;" colspan="2">
+                <td style="text-align:left;font-size:11;margin-left:10%;font-weight: bold;" colspan="2">
                     <div style="visibility: hidden; display:inline">......</div>
                     Guadalajara, Jalisco</td>
                 <td colspan="2"></td>
@@ -72,7 +62,8 @@
             <p></p>
             <p></p>
             <tr style="text-align:center;font-size:12px;font-weight: bold;">
-                <td style="text-align:center;" colspan="5">
+                <td style="text-align:left;margin-left:30px" colspan="5">
+                    <div style="visibility: hidden; display:inline">......</div>
                     Nombre: {{$uniforme->empleado->nombre}}
                 </td>
             </tr>
@@ -122,15 +113,20 @@
     <p></p>
     <p></p>
     <tr>
-        <td style="font:bold;font-size:9;text-align:justify" colspan="3">
-            "Recibi del patron LUIS SANCHEZ DE LA VEGA CASRTELLANOS, por concepto de HERRAMIENTA Y/O  EQUIPO DE TRABAJO  los cuales me obliga a usar diariamente en el desarrollo de mis labores. Los mismos que recibo en buen estado  y me obligo en los términos de los Articulos 134 Fraccion III Y IX de la Ley Federal del Trabajo a conservarlos su buen estado y utilizarlos para lo ques están destinados dentro de las condiciones de trabajo y a restituirlos cuando me sean canjeados o que el patron me los requiera.
-            CONDICIONES DE ENTREGA: 
+        <td style="font-size:9;text-align:justify" colspan="3">
+            Recibí del patron LUIS SANCHEZ DE LA VEGA CASTELLANOS, por concepto de HERRAMIENTA Y/O  EQUIPO DE TRABAJO  los cuales me obliga a usar diariamente en el desarrollo de mis labores. Los mismos que recibo en buen estado  y me obligo en los términos de los Articulos 134 Fraccion III Y IX de la Ley Federal del Trabajo a conservarlos su buen estado y utilizarlos para lo ques están destinados dentro de las condiciones de trabajo y a restituirlos cuando me sean canjeados o que el patron me los requiera.
+            <p></p>
+            <p style="font-weight: bold;">
+                CONDICIONES DE ENTREGA: 
+            </p>
+            <br>
             1. Se retendra  de la nomina el 50% de costo total de la prenda (Usada o nueva)repartido en  2 quincenas. Dicho descuento se quedara como deposito
+            <br>
             2. Al terminar la relacion labral,  regresar las prendas en buen estado a Recursos Humanos  para la devolucion del monto retenido
+            <br>
             3. En caso de NO regresar los uniformes sera descontado el otro 50% del total del uniforme. Aplica solo uniformes entregados en un periodo menor a 1 año"					                      
         </td>
     </tr>
-    <p></p>
     <p></p>
     <tr>
         <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:670px;border-collapse:collapse;font-size:11px">

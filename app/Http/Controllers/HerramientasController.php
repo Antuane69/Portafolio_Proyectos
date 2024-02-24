@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\HerramientasPivote;
+use Illuminate\Support\Facades\Storage;
 
 class HerramientasController extends Controller
 {
@@ -120,4 +121,43 @@ class HerramientasController extends Controller
         // Devolver la respuesta con el archivo adjunto
         return $pdf->stream($nombreArchivo); 
     }
+
+    public function subir_pdf(Request $request,$id)
+    {
+        $this->validate($request, [
+            'herramienta_PDF' => 'required|file|mimes:pdf|max:8192',
+        ]);
+
+        $herramienta = Herramientas::find($id);
+        //$total = Herramientas::all();
+
+        $archivopdf = $request->file('herramienta_PDF')->store('public/Reportes Herramientas');
+        $nombreOriginal = $id . '_Reporte Herramienta_' . $herramienta->area . '.pdf';
+
+        $ruta = 'public/Reportes Herramientas/' . $nombreOriginal;
+
+        Storage::move($archivopdf,$ruta);
+
+        $herramienta->reporte_pdf = $nombreOriginal;
+        $herramienta->save();
+
+        return redirect()->back();
+    }   
+
+    public function ver_pdf($id)
+    {
+        $herramienta =  Herramientas::find($id);
+
+        $filename = $herramienta->reporte_pdf;
+
+        $path = storage_path('app/public/Reportes Herramientas/' . $filename);
+        
+        if (file_exists($path)) {
+            // Configurar el tipo de respuesta como PDF
+            $headers = ['Content-Type' => 'application/pdf'];
+    
+            // Descargar el archivo
+            return response()->file($path, $headers);
+        };
+    } 
 }

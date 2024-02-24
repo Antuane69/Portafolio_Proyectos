@@ -4,12 +4,12 @@
 
     <body>
         <!-- ======= Hero Section ======= -->
-        <section id="hero" class="d-flex align-items-center" style="background-color: #80D5FD">
+        <section id="hero" class="d-flex align-items-center" style="background-color: #C7EDFF">
             <div class="container" data-aos="zoom-out" data-aos-delay="100">
                 <h1>Bienvenido (a) a <span style="color: #851B1B">Little Tokyo.</span></h1>
                 <h2>Sistema de Administración de Personal.</h2>
                 <div class="d-flex">
-                    <a href="#featured-services" class="btn-get-started scrollto" style="color: #000000; background:#FFFF7B"><b>Opciones</b></a>
+                    <a href="#featured-services" class="btn-get-started scrollto shadow-md rounded-lg" style="color: #000000; background:#FFFF7B"><b>Opciones</b></a>
                 </div>
             </div>
         </section><!-- End Hero -->
@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-3 mb-5">
                             <a href="{{ route('mostrarEmpleado.show') }}" class="text-white">
-                                <div class="card text-black rounded-lg overflow-hidden" style="background-color: #FFFF7B">
+                                <div class="card text-black rounded-lg overflow-hidden shadow-xl" style="background-color: #FFFF7B">
                                     <div class="card-body">
                                         <div class="container flex">
                                             <h5 class="card-title text-xl-left font-extrabold mr-3">Empleados Activos</h5>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-3 mb-5">
                             <a href="{{ route('mostrarBajas.show') }}" class="text-white">
-                                <div class="card text-black rounded-lg overflow-hidden" style="background-color: #FFFF7B">
+                                <div class="card text-black rounded-lg overflow-hidden shadow-xl" style="background-color: #FFFF7B">
                                     <div class="card-body">
                                         <div class="container flex">
                                             <h5 class="card-title text-xl-left font-extrabold mr-3">Empleados Inactivos</h5>
@@ -65,7 +65,7 @@
                         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
                             <a href="{{ route('crearEmpleado.create') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 380px;">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -76,7 +76,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Alta de Empleados</h4>
-                                    <p class="description">Aquí podrá dar de Alta a los Empleados y subir sus documentos si se tienen.  
+                                    <p class="description text-justify">Aquí podrá dar de Alta a los Empleados y subir sus documentos si se tienen.  
                                     </p>
                                 </div>
                             </a>
@@ -95,7 +95,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registro de Empleados</h4>
-                                    <p class="description">Aquí se podrán ver los empleados activos del restaurante, y en sus opciones
+                                    <p class="description text-justify">Aquí se podrán ver los empleados activos del restaurante, y en sus opciones
                                         se podrán dar vacaciones, permisos, faltas y o crear y asignar diversos PDFs.  
                                     </p>
                                 </div>
@@ -104,7 +104,7 @@
                         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
                             <a href="{{ route('mostrarBajas.show') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 380px;">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registro de Bajas</h4>
-                                    <p class="description">Aquí se podrán ver los empleados inactivos del restaurante, y todos
+                                    <p class="description text-justify">Aquí se podrán ver los empleados inactivos del restaurante, y todos
                                         los detalles al respecto de su estancia laboral e información personal.  
                                     </p>
                                 </div>
@@ -124,7 +124,7 @@
                         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
                             <a href="{{ route('crearVacacion.create') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 380px;">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -135,12 +135,12 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Crear Registro de Vacaciones</h4>
-                                    <p class="description">Aquí podrá crear registros de Vacaciones y asignarlos a los Empleados.  
+                                    <p class="description text-justify">Aquí podrá crear registros de Vacaciones y asignarlos a los Empleados.  
                                     </p>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
+                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 320px;">
                             <a href="{{ route('mostrarVacaciones.show') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
                                     data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
@@ -154,15 +154,15 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registro de Vacaciones</h4>
-                                    <p class="description">Aquí se podrán ver las vacaciones registradas y su asignación a su respectivo trabajador.  
+                                    <p class="description text-justify">Aquí se podrán ver las vacaciones registradas y su asignación a su respectivo trabajador.  
                                     </p>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
+                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 320px;">
                             <a href="{{ route('crearFaltas.create') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 294px;">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -173,12 +173,12 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Crear Registro de Faltas Administrativas</h4>
-                                    <p class="description">Aquí podrá crear registros de Faltas Administrativas y asignarlas a los Empleados.  
+                                    <p class="description text-justify">Aquí podrá crear registros de Faltas Administrativas y asignarlas a los Empleados.  
                                     </p>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
+                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 320px;">
                             <a href="{{ route('mostrarFaltas.show') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
                                     data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
@@ -192,15 +192,15 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registro de Faltas Administrativas</h4>
-                                    <p class="description">Aquí se podrán ver las Faltas Administrativas registradas y su asignación a su respectivo trabajador.  
+                                    <p class="description text-justify">Aquí se podrán ver las Faltas Administrativas registradas y su asignación a su respectivo trabajador.  
                                     </p>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
+                        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 320px;">
                             <a href="{{ route('crearIncapacidad.create') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 294px">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -211,7 +211,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Crear Registro de Incapacidad</h4>
-                                    <p class="description">Aquí podrá crear registros de Incapacidad y asignarlos a los Empleados.  
+                                    <p class="description text-justify">Aquí podrá crear registros de Incapacidad y asignarlos a los Empleados.  
                                     </p>
                                 </div>
                             </a>
@@ -230,7 +230,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registro de Incapacidades</h4>
-                                    <p class="description">Aquí se podrán ver las Incapacidades registradas y su asignación a su respectivo trabajador.  
+                                    <p class="description text-justify">Aquí se podrán ver las Incapacidades registradas y su asignación a su respectivo trabajador.  
                                     </p>
                                 </div>
                             </a>
@@ -238,7 +238,7 @@
                         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 card-wrapper" style="height: 400px;">
                             <a href="{{ route('crearPermisos.create') }}" class="card-link">
                                 <div class="icon-box service-box" data-aos="fade-up"
-                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 100%;">
+                                    data-aos-delay="{{ $delay = ($delay % $max) + $espacio }}" style="height: 294px">
                                     <div class="icon">
                                         {{-- <i class="bx bx-group"></i> --}}
                                         <svg class="iconos" viewBox="0 0 24 24">
@@ -249,7 +249,7 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Crear Registros de Permisos</h4>
-                                    <p class="description">Aquí podrá crear registros de Permisos y asignarlos a los Empleados.  
+                                    <p class="description text-justify">Aquí podrá crear registros de Permisos y asignarlos a los Empleados.  
                                     </p>
                                 </div>
                             </a>
@@ -268,12 +268,11 @@
                                         </svg>
                                     </div>
                                     <h4 class="title">Mostrar Registros de Permisos</h4>
-                                    <p class="description">Aquí se podrán ver los Permisos registrados y su asignación a su respectivo trabajador.  
+                                    <p class="description text-justify">Aquí se podrán ver los Permisos registrados y su asignación a su respectivo trabajador.  
                                     </p>
                                 </div>
                             </a>
                         </div>
-
                     </div>
                 </div>
                 </div>

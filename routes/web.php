@@ -94,8 +94,13 @@ Route::get('/almacen/registrarHerramientas',[HerramientasController::class, 'cre
 Route::post('/almacen/guardarHerramientas',[HerramientasController::class, 'store'])->name('crearHerramientas.store');
 Route::get('/almacen/registrarHerramientas/buscar',[HerramientasController::class, 'search'])->name('crearHerramientas.search');
 
-Route::get('/almacen/herramientas/pdf/{id}', [HerramientasController::class,'generate_pdf'])->name('herramientas.generarpdf');//*
 Route::get('/almacen/uniformes/pdf/{id}', [UniformesController::class,'generate_pdf'])->name('uniformes.generarpdf');//*
+Route::post('/almacen/subirUniformes/pdf/{id}', [UniformesController::class,'subir_pdf'])->name('uniformes.subirpdf');//*
+Route::get('/almacen/verUniformes/pdf/{id}', [UniformesController::class,'ver_pdf'])->name('uniformes.verpdf');//*
+
+Route::get('/almacen/herramientas/pdf/{id}', [HerramientasController::class,'generate_pdf'])->name('herramientas.generarpdf');//*
+Route::post('/almacen/subirHerramientas/pdf/{id}', [HerramientasController::class,'subir_pdf'])->name('herramientas.subirpdf');//*
+Route::get('/almacen/verHerramientas/pdf/{id}', [HerramientasController::class,'ver_pdf'])->name('herramientas.verpdf');//*
 
 Route::get('/gestion/datosActa/pdf/{curp}', [FaltasController::class,'crear_datosPDF'])->name('faltas.crear_datospdf');//*
 Route::post('/gestion/generarActa/pdf/{curp}', [FaltasController::class,'datos_pdf'])->name('faltas.datospdf');//*

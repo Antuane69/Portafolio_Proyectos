@@ -21,6 +21,7 @@ class Herramientas extends Model
         'precio', 
         'cantidad',
         'total',   
+        'reporte_pdf',   
     ];
 
 }

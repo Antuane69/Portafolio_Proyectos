@@ -28,7 +28,6 @@
         table {
             margin-left: auto;
             margin-right: auto;
-            text-transform:uppercase;
         }
         
         .pdf-image {
@@ -79,7 +78,7 @@
         </table>
         <p></p>
         <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
-            <tr style="border: 1px solid #262626;background-color: #A2E4FF;">
+            <tr style="border: 1px solid #262626;border-bottom: 1px solid #262626;background-color: #A2E4FF;">
                 <th style="width: 30%; font-size:11;border: 1px solid #262626;border-bottom: 1px solid #262626">FOTO DEL ARTÍCULO</th>
                 <th style="width: 18%; font-size:11;border: 1px solid #262626;border-bottom: 1px solid #262626">DESCRIPCIÓN</th>
                 <th style="width: 18%; font-size:11;border: 1px solid #262626;border-bottom: 1px solid #262626">CANTIDAD</th>
@@ -117,13 +116,15 @@
     </tr>
     <p></p>
     <p></p>
-    <p></p>
     <tr>
         <td style="font:bold;font-size:9;text-align:justify" colspan="3">
-            "Recibi del patron LUIS SANCHEZ DE LA VEGA CASRTELLANOS, por concepto de HERRAMIENTA Y/O  EQUIPO DE TRABAJO  los cuales me obliga a usar diariamente en el desarrollo de mis labores. Los mismos que recibo en buen estado  y me obligo en los términos de los Articulos 134 Fraccion III Y IX de la Ley Federal del Trabajo a conservarlos su buen estado y utilizarlos para lo ques están destinados dentro de las condiciones de trabajo y a restituirlos cuando me sean canjeados o que el patron me los requiera.
+            Recibi del patron LUIS SANCHEZ DE LA VEGA CASRTELLANOS, por concepto de HERRAMIENTA Y/O  EQUIPO DE TRABAJO  los cuales me obliga a usar diariamente en el desarrollo de mis labores. Los mismos que recibo en buen estado  y me obligo en los términos de los Articulos 134 Fraccion III Y IX de la Ley Federal del Trabajo a conservarlos su buen estado y utilizarlos para lo ques están destinados dentro de las condiciones de trabajo y a restituirlos cuando me sean canjeados o que el patron me los requiera.
             CONDICIONES DE ENTREGA: 
-            1. Entregar herramimenta para sustitucion
-            2. Firmar las condiciones de uso del articulo"				
+            <p>
+            </p>
+            1. Entregar herramimenta para sustitucion.
+            <br>
+            2. Firmar las condiciones de uso del articulo.		
         </td>
     </tr>
     <p></p>
@@ -150,6 +151,8 @@
                 <td></td>
                 <td></td>
             </tr>
+            <p></p>
+            <p></p>
             <p></p>
             <tr style="font-weight: bold;">
                 <td style="border-bottom:0.5px solid black;" colspan="2"></td>
