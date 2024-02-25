@@ -264,6 +264,17 @@ class UniformesController extends Controller
             return response()->file($path, $headers);
         };
     } 
+
+    public function mostrar_pdf(){
+
+        $uniformes = Uniformes::where('reporte_pdf', '!=', '')
+        ->orderBy('created_at', 'desc')
+        ->get();    
+
+        return view('PDF.mostrarUniformesPDF',[
+            'uniformes' => $uniformes
+        ]);
+    }
 }
 
 

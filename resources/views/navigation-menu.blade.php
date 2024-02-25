@@ -344,7 +344,7 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                          transition duration-150 ease-in-out origin-top min-w-32">
-                                <a>
+                                <a href="{{ route('pdfInicio.show') }}">
                                     <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
                                 </a>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
@@ -368,7 +368,7 @@
                                         {{-- <a>
                                             <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Uniforme</li>
                                         </a> --}}
-                                        <a>
+                                        <a href="{{ route('uniformes.mostrarpdf') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Uniformes Firmados</li>
                                         </a>
                                     </ul>
@@ -393,7 +393,7 @@
                                     {{-- <a>
                                         <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Herramienta</li>
                                     </a> --}}
-                                    <a>
+                                    <a href="{{ route('herramientas.mostrarpdf') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Herramientas Firmados</li>
                                     </a>
                                     </ul>
@@ -418,7 +418,7 @@
                                     {{-- <a>
                                         <li class="px-3 py-1 hover:bg-gray-100">Elaborar Acta Administrativa</li>
                                     </a> --}}
-                                    <a>
+                                    <a href="{{ route('faltas.mostrarpdf') }}">
                                         <li class="px-3 py-1 hover:bg-gray-100">Ver Actas Administrativas Firmadas</li>
                                     </a>
                                     </ul>

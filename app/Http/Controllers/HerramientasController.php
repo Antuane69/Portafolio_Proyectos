@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
+use App\Models\Faltas;
+use App\Models\Uniformes;
 use App\Models\Herramientas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -12,6 +14,21 @@ use Illuminate\Support\Facades\Storage;
 
 class HerramientasController extends Controller
 {
+    public function dashboard(){
+
+        $herramientas = Herramientas::where('reporte_pdf','!=','')->count();
+        $uniformes = Uniformes::where('reporte_pdf','!=','')->count();
+        $actas = Faltas::where('acta_realizada', '!=', 'No')
+        ->groupBy('acta_administrativa', 'curp')
+        ->count();    
+
+        return view('PDF.inicioPDF',[
+            'herramientas' => $herramientas,
+            'uniformes' => $uniformes,
+            'actas' => $actas
+        ]);
+    }
+
     public function create()
     {
         $nombres = Empleados::query()->get();
@@ -160,4 +177,23 @@ class HerramientasController extends Controller
             return response()->file($path, $headers);
         };
     } 
+
+    public function mostrar_pdf(){
+
+        $herramientas = Herramientas::where('reporte_pdf', '!=', '')
+        ->orderBy('created_at', 'desc')
+        ->get();    
+        
+        foreach($herramientas as $herramienta){
+
+            $nombres = $herramienta->nombre;
+    
+            $herramienta->nombre_real = substr(str_replace('_', ', ', $nombres),1);
+
+        }
+        
+        return view('PDF.mostrarHerramientasPDF',[
+            'herramientas' => $herramientas
+        ]);
+    }
 }

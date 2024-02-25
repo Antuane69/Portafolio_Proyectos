@@ -188,4 +188,15 @@ class FaltasController extends Controller
             return response()->file($path, $headers);
         };
     }   
+
+    public function mostrar_pdf(){
+        $faltas = Faltas::where('acta_realizada', '!=', 'No')
+        ->groupBy('acta_administrativa', 'curp')
+        ->orderBy('created_at', 'desc')
+        ->get();    
+
+        return view('PDF.mostrarActasPDF',[
+            'faltas' => $faltas
+        ]);
+    }
 }

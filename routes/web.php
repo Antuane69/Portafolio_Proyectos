@@ -94,15 +94,20 @@ Route::get('/almacen/registrarHerramientas',[HerramientasController::class, 'cre
 Route::post('/almacen/guardarHerramientas',[HerramientasController::class, 'store'])->name('crearHerramientas.store');
 Route::get('/almacen/registrarHerramientas/buscar',[HerramientasController::class, 'search'])->name('crearHerramientas.search');
 
+//PDF
 Route::get('/almacen/uniformes/pdf/{id}', [UniformesController::class,'generate_pdf'])->name('uniformes.generarpdf');//*
 Route::post('/almacen/subirUniformes/pdf/{id}', [UniformesController::class,'subir_pdf'])->name('uniformes.subirpdf');//*
 Route::get('/almacen/verUniformes/pdf/{id}', [UniformesController::class,'ver_pdf'])->name('uniformes.verpdf');//*
+Route::get('/almacen/mostrarUniformes/pdf', [UniformesController::class,'mostrar_pdf'])->name('uniformes.mostrarpdf');//*
 
+Route::get('/pdf/inicio',[HerramientasController::class, 'dashboard'])->name('pdfInicio.show');
 Route::get('/almacen/herramientas/pdf/{id}', [HerramientasController::class,'generate_pdf'])->name('herramientas.generarpdf');//*
 Route::post('/almacen/subirHerramientas/pdf/{id}', [HerramientasController::class,'subir_pdf'])->name('herramientas.subirpdf');//*
 Route::get('/almacen/verHerramientas/pdf/{id}', [HerramientasController::class,'ver_pdf'])->name('herramientas.verpdf');//*
+Route::get('/pdf/mostrarHerramientas/pdf', [HerramientasController::class,'mostrar_pdf'])->name('herramientas.mostrarpdf');//*
 
 Route::get('/gestion/datosActa/pdf/{curp}', [FaltasController::class,'crear_datosPDF'])->name('faltas.crear_datospdf');//*
 Route::post('/gestion/generarActa/pdf/{curp}', [FaltasController::class,'datos_pdf'])->name('faltas.datospdf');//*
 Route::post('/gestion/subirActa/pdf/{id}', [FaltasController::class,'subir_pdf'])->name('faltas.subirpdf');//*
 Route::get('/gestion/verActa/pdf/{id}', [FaltasController::class,'ver_pdf'])->name('faltas.verpdf');//*
+Route::get('/pdf/mostrarActa/pdf', [FaltasController::class,'mostrar_pdf'])->name('faltas.mostrarpdf');//*
