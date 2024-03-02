@@ -2,7 +2,7 @@
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Crear Registro de Permiso") }}
+            {{ __("Registro de Vacación (Modo de Edición)") }}
         </h2>
     </x-slot>
 
@@ -12,19 +12,11 @@
     <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/responsive.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customDataTables.css') }}">
     @endsection
-
-    <head>
-        <!-- Otros elementos head -->
-    
-        <!-- Agrega este enlace CDN para Flatpickr -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    </head>
     
     <div class="py-12">
         <div class="mb-10 py-3 ml-16 leading-normal rounded-lg" role="alert">
             <div class="text-left">
-                <a href="{{ route('empleadosInicio.show') }}"
+                <a href="{{ route("mostrarVacaciones.show") }}"
                 class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
                 style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
@@ -38,26 +30,12 @@
             </div>
         </div>
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
-                <form id="formulario" action={{ route('crearPermisos.store') }} method="POST">
+                <form id="formulario" action={{ route("editarVacacion.store",$vacacion->id) }} method="POST">
                     @csrf
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                         <p>
-                            Registro de Permiso
+                            Registro de Vacacaciones (Modo de Edición)
                         </p>
                     </div>
                     
@@ -70,7 +48,7 @@
                                 <p>
                                     <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
                                     class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                    >
+                                    value="{{$vacacion->empleado->nombre}}">
                                 </p>
                             </div>
                             <div class='grid grid-cols-1'>
@@ -80,7 +58,7 @@
                                 <p>
                                     <input type="text" name="curp" id="curp-input" placeholder="No se ha encontrado al empleado"
                                     class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 bg-gray-200 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
-                                    readonly required>
+                                    readonly required value="{{$vacacion->curp}}">
                                     
                                     @error('curp')
                                         <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -93,64 +71,55 @@
                                 <label for="fecha_ingreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Ingreso</label>
                                 <p>
                                     <input id="fechaingreso-input" name="fecha_ingreso" placeholder="No se ha encontrado al empleado"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly/>
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly
+                                    value="{{$vacacion->empleado->fecha_ingreso}}"/>
+                                </p>
+                            </div> 
+                            <div  class='grid grid-cols-1'>
+                                <label for="dias_vacaciones" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias de Vacaciones</label>
+                                <p>
+                                    <input id="dias-input" name="dias_vacaciones" placeholder="No se ha encontrado al empleado"
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly
+                                    value="{{$vacacion->empleado->dias_vacaciones}}"/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
                                 <label for="fecha_solicitud" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de la Solicitud</label>
                                 <p>
-                                    <input id="fechaB" name="fecha_solicitud" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                    <input id="fecha" name="fecha_solicitud" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" 
+                                    value="{{$vacacion->fecha_solicitud}}"/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_inicio" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de inicio del permiso</label>
+                                <label for="fecha_inicioVac" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de inicio de las vacaciones</label>
                                 <p>
-                                    <input id="fecha" name="fecha_inicio"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" />
+                                    <input id="fechaA" name="fecha_inicioVac" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" onchange="validarDias()"
+                                    value="{{$vacacion->fecha_inicioVac}}"/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_regreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de regreso del Permiso</label>
+                                <label for="fecha_regresoVac" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha fin de las vacaciones</label>
                                 <p>
-                                    <input id="fechaA" name="fecha_regreso"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" readonly/>
+                                    <input id="fechaB" name="fecha_regresoVac" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" onchange="validarFecha()"
+                                    value="{{$vacacion->fecha_regresoVac}}"/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="dias_totales" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias de Permiso</label>
+                                <label for="diasTomados" class="mb-1 bloack uppercase text-gray-800 font-bold">* Dias a Usar</label>
                                 <p>
-                                    <input id="dias_totales" name="dias_totales"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" value="1" readonly/>
-                                </p>
-                            </div> 
-                            <div  class='grid grid-cols-1'>
-                                <label for="motivo" class="mb-2 bloack uppercase text-gray-800 font-bold">* Motivo</label>
-                                <p>
-                                    <textarea id="motivo" name="motivo"
-                                        class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        required placeholder="Ingrese el motivo del permiso">{{ old('motivo') }}</textarea>
-                                    @error('motivo')
-                                        <span style="font-size: 10pt;color:red" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </p>
-                            </div> 
-                            <div  class='grid grid-cols-1'>
-                                <label for="fecha_anteriorPermiso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del ultimo permiso (si aplicase)</label>
-                                <p>
-                                    <input id="fecha_anterior-input" name="fecha_anteriorPermiso" placeholder="No se ha encontrado anterior permiso"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly/>
+                                    <input id="dias" name="diasTomados" placeholder="La fecha no es correcta"
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly
+                                    value="{{$vacacion->dias_usados}}"/>
                                 </p>
                             </div> 
                         </div>
                     </div>
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
-                        <a href="{{ route('empleadosInicio.show') }}"
+                        <a href="{{ route('mostrarVacaciones.show') }}"
                             class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                         <button type="submit"
-                            class='w-auto bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-xl font-bold text-black px-4 py-2'
-                            >Registrar Permiso</button>
+                            class='w-auto bg-green-600 hover:bg-green-700 rounded-lg shadow-xl font-bold text-white px-4 py-2'
+                            >Guardar Cambios</button>
                     </div>
                 </form>
             </div>
@@ -170,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var nombreInput = document.getElementById('nombre_input');
     var curpInput = document.getElementById('curp-input');
     var fechaIngresoInput = document.getElementById('fechaingreso-input');
-    var fechaAnteriorInput = document.getElementById('fecha_anterior-input');
+    var diasInput = document.getElementById('dias-input');
 
     function busquedaRPE() {
         var inputValue = nombreInput.value;
@@ -183,38 +152,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function buscarRPE(nombre) {
         if (nombre.length > 1) {
-            fetch(`${SITEURL}/gestion/registrarPermisos/buscar?nombre=${nombre}`, { method: 'get' })
+            fetch(`${SITEURL}/gestion/registrarVacaciones/buscar?nombre=${nombre}`, { method: 'get' })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    console.log(data.empleado.curp);
                     document.getElementById("curp-input").value = data.empleado.curp;
                     document.getElementById("fechaingreso-input").value = data.empleado.fecha_ingreso;
-
-                    if(data.permiso_anterior == ""){
-                        document.getElementById("fecha_anterior-input").value = data.empleado.permisos[0].fecha_anteriorPermiso;
-                    }else{
-                        document.getElementById("fecha_anterior-input").value = data.permiso_anterior;
-                    }
-                    
+                    document.getElementById("dias-input").value = data.empleado.dias_vacaciones;
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     curpInput.value = "";
                     fechaIngresoInput.value = "";
-                    fechaAnteriorInput.value = "";
+                    diasInput.value = "";
                 });
         } else {
             // Si el nombre está vacío, borrar la información de curp y fecha de ingreso
             curpInput.value = "";
             fechaIngresoInput.value = "";
-            fechaAnteriorInput.value = "";
+            diasInput.value = "";
         }
     }
 });
 </script>
 
 <script>
-
+    //Obtener el día actual. 
     $(document).ready(function() {
         var date = new Date();
 
@@ -226,65 +189,49 @@ document.addEventListener('DOMContentLoaded', function() {
         if (day < 10) day = "0" + day;
 
         var today = year + "-" + month + "-" + day;
-
-        $("#fecha").attr("value", today);
-        $("#fechaA").attr("value", today);
-        $("#fechaB").attr("value", today);
+        $("#fecha").attr("max", today);
     });
 
-    // $("#fechaB").datepicker({
-    //     dateFormat: 'dd-mm-yy'
-    // });
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener elementos
-    var fechaInput = document.getElementById("fecha");
-    var fechaAInput = document.getElementById("fechaA");
-    var fechaBInput = document.getElementById("fechaB");
-
-    // Función para formatear la fecha
-    function formatFecha(date) {
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-
-        return year + "-" + month + "-" + day;
-    }
-
-    // Función para actualizar la fecha de regreso
-    function actualizarFechaA(selectedDate) {
-        var tomorrow = new Date(selectedDate);
-        tomorrow.setDate(selectedDate.getDate() + 1);
-        fechaAInput.value = formatFecha(tomorrow);
-    }
-
-    // Asignar la fecha actual al campo #fecha
-    var today = new Date();
-    //fechaInput.value = formatFecha(today);
-
-    // Calcular la fecha de regreso inicial
-    actualizarFechaA(today);
-
-    // Inicializar el datepicker solo para #fecha
-    flatpickr("#fecha", {
-        dateFormat: 'Y/m/d',
-        onChange: function(selectedDates, dateStr, instance) {
-            // Actualizar el valor de #FechaA cuando cambia #fecha
-            actualizarFechaA(selectedDates[0]);
-        }
+    $("#fecha").datepicker({
+        dateFormat: 'dd-mm-yy'
     });
-
-    flatpickr("#fechaA", {
-        dateFormat: 'Y/m/d'
+    $("#fechaA").datepicker({
+        dateFormat: 'dd-mm-yy'
     });
-
-    flatpickr("#fechaB", {
-        dateFormat: 'Y/m/d'
-    });
-});
-
-
 </script>
+
+<script>
+    function validarFecha() {
+        var fechaInput = new Date(document.getElementById("fechaA").value);
+        var fechaRegreso = new Date(document.getElementById("fechaB").value);
+
+        var fechaActual = new Date();
+
+        var diasT = document.getElementById('dias-input').value;
+
+        // Obtener la fecha límite permitida
+        var fechalimite = new Date(document.getElementById("fechaA").value);
+        fechalimite.setDate(fechaInput.getDate() + (parseInt(diasT)));
+
+        // Verificar si la fecha elegida está dentro del rango permitido
+        if (fechaRegreso > fechalimite) {
+            alert("La fecha debe ser la actual o en adelante, hasta tus días de descanso restantes. Se seleccionará la fecha actual.");
+            var formattedDate = fechaActual.toISOString().split('T')[0];
+            document.getElementById("fechaB").value = formattedDate;
+            document.getElementById('dias').value = "";            
+        }else{
+            var diasTomados = Math.ceil((fechaRegreso - fechaInput) / (1000 * 60 * 60 * 24));
+            document.getElementById('dias').value = diasTomados;
+        }
+    }
+
+    function validarDias(){
+        var fechaInput = new Date(document.getElementById("fechaA").value);
+        var fechaRegreso = new Date(document.getElementById("fechaB").value);
+
+        var diasTomados = Math.ceil((fechaRegreso - fechaInput) / (1000 * 60 * 60 * 24));
+        document.getElementById('dias').value = diasTomados;
+
+    }
+</script>
+

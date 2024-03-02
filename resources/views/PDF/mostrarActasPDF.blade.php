@@ -53,7 +53,62 @@
                                 <td align="center">
                                     <a href="{{ route('faltas.verpdf',$falta->id) }}" target="_blank">{{ $falta->acta_realizada }}</a>
                                 </td>
-                                <td align="center">Nada por el momento.</td>
+                                <td align="center" class="px-2 py-1">
+                                    <div class="in-line flex justify-center object-center">
+                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$falta->id}}">Opciones</button>   
+                                    </div>
+                                    <div class="modal fade" id="exampleModal_{{$falta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 450px; height: 350px;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                                        <div class="in-line flex justify-center object-center">
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarFaltas', ['id' => $falta->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2" action="{{ route('editarFaltas.show', $falta->id) }}">
+                                                                    @csrf         
+                                                                    <button class="mt-2 border-right  bg-gray-700 hover:bg-gray-500 text-white font-bold py-1 p-2 px-4 rounded-md">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>    
+                                                            </div>
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarFaltas.pdf', ['id' => $falta->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 ml-3 border-right  bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 p-2 px-3 rounded-md mb-1 mr-3">
+                                                                        Eliminar Archivo PDF
+                                                                    </button>  
+                                                                </form>   
+                                                                <button class="mt-2 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-4 rounded-md"
+                                                                onclick="mostrarInput('contenedorInput_{{$falta->id}}','requiredSolicitud_{{$falta->id}}')">
+                                                                    Modificar Archivo
+                                                                </button>
+                                                            </div>
+                                                        </div> 
+                                                        <div id="contenedorInput_{{$falta->id}}" hidden class="mt-2 content-center object-center">
+                                                            <form method="POST" action="{{ route('faltas.subirpdf', $falta->id) }}" enctype="multipart/form-data" >
+                                                                @csrf
+                                                                <input type="file" name="acta_PDF" id='requiredSolicitud_{{$falta->id}}' accept=".pdf" class="mt-4">
+                                                                <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-6 p-2 rounded-md">Enviar PDF</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </td>
                             </tr> 
                         @endforeach
                     </tbody>
@@ -77,6 +132,22 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+        </script>
+        <script>
+            function mostrarInput(Id_oculto,Id_required){
+                var elementoOculto = document.getElementById(Id_oculto);
+                var elementoRequired = document.getElementById(Id_required);
+
+                if (elementoOculto.hidden) {
+                    // Si está oculto, mostrarlo
+                    elementoOculto.hidden = false;
+                    elementoRequired.required = true;
+                } else {
+                    // Si está visible, ocultarlo
+                    elementoOculto.hidden = true;
+                    elementoRequired.required = false;
+                }
+            }
         </script>
     @endsection
 </x-app-layout>

@@ -30,33 +30,12 @@
             </div>
         </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
-            @if (session()->has('message'))
-                <div class="px-2 inline-flex flex-row" id="mssg-status">
-                    @if (session()->has('error'))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @else
-                        {{-- Puedes ajustar el color según el tipo de mensaje --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @endif
-                    {{ session()->get('message') }}
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6" style="width:100%;">
                 <table id="data-table" class="stripe hover translate-table"
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th class='text-center'>Fecha de la Solicitud</th>
+                            <th class='text-center'>Opciones</th>
                             <th class='text-center'>Nuevos Codigo</th>
                             <th class='text-center'>Nuevos Existencia</th>
                             <th class='text-center'>Nuevos Tallas</th>
@@ -68,6 +47,8 @@
                             <th class='text-center'>Usados Tallas</th>
                             <th class='text-center'>Usados Precio</th>
                             <th class='text-center'>Usados Descripcion</th>
+
+                            <th class='text-center'>Fecha de la Solicitud</th>
                         </tr>
                     </thead>
                     {{--Muestra mensaje de operacion exitosa y desaparece después de 2 segundos--}}
@@ -118,8 +99,41 @@
                     @endif
                     <tbody>
                         @foreach ($uniformes as $uniforme)
-                            <tr>                                    
-                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
+                            <tr>                           
+                                <td align="center" class="px-2 py-1">
+                                    <div class="in-line flex justify-center object-center">
+                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2 ml-4" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$uniforme->id}}">Opc.</button>   
+                                    </div>
+                                    <div class="modal fade" id="exampleModal_{{$uniforme->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 450px; height: 200px;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                                        <div class="in-line flex justify-center object-center">
+                                                            <form method="POST" action="{{ route('eliminarStockUniformes', ['id' => $uniforme->id]) }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                    Eliminar Registro
+                                                                </button>  
+                                                            </form>                   
+                                                            <form action="{{ route('editarStockUniformes.show', $uniforme->id) }}" method="GET" class="mb-2">
+                                                                @csrf         
+                                                                <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                    Editar Registro
+                                                                </button>                        
+                                                            </form>   
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </td>         
                                 <td align="center">{{ $uniforme->nuevos_codigo }}</td>
                                 <td align="center">{{ $uniforme->nuevos_existencia }}</td>
                                 <td align="center">{{ $uniforme->nuevos_talla }}</td>
@@ -130,6 +144,7 @@
                                 <td align="center">{{ $uniforme->usados_talla }}</td>
                                 <td align="center">{{ $uniforme->usados_precio }}</td>
                                 <td align="center">{{ $uniforme->usados_descripcion }}</td>
+                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
                             </tr> 
                         @endforeach
                     </tbody>
@@ -151,7 +166,9 @@
         <script src="https://cdn.datatables.net/plug-ins/1.12.1/filtering/type-based/accent-neutralise.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#data-table').dataTable();
+                $('#miTabla').DataTable({
+                    responsive: true
+                });
             });
         </script>
     @endsection

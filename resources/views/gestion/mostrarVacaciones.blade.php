@@ -137,27 +137,6 @@
             </div>
         </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
-            @if (session()->has('message'))
-                <div class="px-2 inline-flex flex-row" id="mssg-status">
-                    @if (session()->has('error'))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @else
-                        {{-- Puedes ajustar el color según el tipo de mensaje --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @endif
-                    {{ session()->get('message') }}
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6" style="width:100%;">
                 <table id="data-table" class="stripe hover translate-table"
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -227,15 +206,37 @@
                                 <td align="center">{{ $vacacion->dias_usados }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="in-line flex justify-center object-center">
-                                        {{-- data-bs-target="#exampleModal_{{$solicitud->id}}" --}}
-                                        <button type="button" id="opcionesButton" class="rounded bg-gray-800 hover:bg-gray-600 mr-2 text-white font-bold px-2" data-bs-toggle="modal">Opciones</button>   
-    
-                                        <form action="{{route('detallesEmpleado.show',['id'=>$vacacion->id])}}" method="GET">
-                                            <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 rounded imprimirBtn">
-                                               Más Detalles
-                                            </button>
-                                        </form>
+                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
                                     </div>
+                                    <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 450px; height: 200px;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                                        <div class="in-line flex justify-center object-center">
+                                                            <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                    Eliminar Registro
+                                                                </button>  
+                                                            </form>                   
+                                                            <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
+                                                                @csrf         
+                                                                <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                    Editar Registro
+                                                                </button>                        
+                                                            </form>   
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
                                 </td>
                             </tr> 
                         @endforeach

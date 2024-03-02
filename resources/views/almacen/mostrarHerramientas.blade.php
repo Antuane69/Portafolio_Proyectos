@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="modal fade" id="exampleModal_{{$herramienta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 350px;">
+                                            <div class="modal-content" style="width: 450px; height: 430px;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                     <button type="button" class="rounded-md bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -158,29 +158,47 @@
                                                             <div>
                                                                 <form method="GET" class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded" style="width:95%">
-                                                                        Editar Formato
+                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded-md" style="width:95%">
+                                                                        Editar Registro
                                                                     </button>                        
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-2 mt-1 rounded" data-id="{{ $herramienta->id }}">
+                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold px-2 mt-1 rounded-md" data-id="{{ $herramienta->id }}">
                                                                         Generar Recibo en PDF
                                                                     </button>                        
                                                                 </form>   
                                                             </div>
                                                             <div>
-                                                                <form method="POST" class="mb-2">
+                                                                <form method="POST" class="mb-2" action="{{ route('eliminarHerramientas',$herramienta->id) }}">
                                                                     @method('DELETE')
                                                                     @csrf         
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                        Eliminar Formato
+                                                                    <button class="mt-1 border-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 ml-2 mr-3 rounded-md">
+                                                                        Eliminar Registro
                                                                     </button>                        
                                                                 </form>   
-                                                                <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 px-3 rounded w-40"
-                                                                onclick="mostrarInput('contenedorInput_{{$herramienta->id}}','requiredSolicitud_{{$herramienta->id}}')">
-                                                                    Subir Reporte de Heramienta
-                                                                </button>
+                                                                @if ($herramienta->reporte_pdf != "")
+                                                                    <form method="POST" action="{{ route('eliminarHerramientas.pdf', ['id' => $herramienta->id]) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="mt-1 ml-2 border-right bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md mr-3" style="padding-left:18px;padding-right:18px">
+                                                                            Eliminar Archivo PDF
+                                                                        </button>  
+                                                                    </form>
+                                                                @endif
+                                                            </div>
+                                                            <div>
+                                                                @if ($herramienta->reporte_pdf != "")
+                                                                    <button class="mt-1 border-right  bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 p-2 px-3 rounded-md"
+                                                                    onclick="mostrarInput('contenedorInput_{{$herramienta->id}}','requiredSolicitud_{{$herramienta->id}}')">
+                                                                        Modificar Archivo PDF
+                                                                    </button>
+                                                                @else
+                                                                    <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-3 ml-1 rounded-md"
+                                                                    onclick="mostrarInput('contenedorInput_{{$herramienta->id}}','requiredSolicitud_{{$herramienta->id}}')">
+                                                                        Subir Reporte Herramienta
+                                                                    </button>
+                                                                @endif  
                                                             </div>
                                                         </div> 
                                                         <div id="contenedorInput_{{$herramienta->id}}" hidden class="mt-2 content-center object-center">

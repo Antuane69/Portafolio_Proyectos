@@ -235,6 +235,18 @@ class UniformesController extends Controller
 
         $uniforme = Uniformes::find($id);
 
+        if($uniforme->reporte_pdf != ""){
+            // Obtener la ruta del archivo en storage
+            $ruta = 'public/Reportes Uniformes/' . $uniforme->reporte_pdf;
+
+            // Eliminar el registro en la base de datos
+            $uniforme->reporte_pdf = '';
+
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+
+        }     
+
         $archivopdf = $request->file('uniforme_PDF')->store('public/Reportes Uniformes');
         $nombreOriginal = $id . '_Reporte Uniforme_' . $uniforme->curp . '.pdf';
 
@@ -274,6 +286,83 @@ class UniformesController extends Controller
         return view('PDF.mostrarUniformesPDF',[
             'uniformes' => $uniformes
         ]);
+    }
+
+    public function edit_show($id)
+    {
+        $uniforme = Uniformes::with('empleado')->find($id);
+        $opciones = ['Usado','Nuevo'];
+
+        return view('almacen.editUniformes',[
+            'uniforme' => $uniforme,
+            'opciones' => $opciones
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $uniforme = Uniformes::find($id);
+
+        $this->validate($request, [
+            'curp' => 'required|min:18',
+            'fecha_solicitud' => 'required|date',
+            'tipo_uniforme' => 'required',
+            'codigo' => 'required',
+            'cantidad' => 'required',
+            'total' => 'required|numeric',
+        ]);
+
+        $uniforme->curp = $request->curp;
+        $uniforme->fecha_solicitud = $request->fecha_solicitud;
+        $uniforme->tipo_uniforme = $request->tipo_uniforme;
+        $uniforme->codigo = $request->codigo;
+        $uniforme->talla = $request->talla;
+        $uniforme->cantidad = $request->cantidad;
+        $uniforme->total = $request->total;
+
+        $uniforme->save();
+
+        return redirect()->route('mostrarUniformes.show')->with('success', 'Registro de Uniformes Editado con éxito.');
+    }  
+
+    public function eliminar_pdf($id)
+    {
+        $uniforme = Uniformes::find($id);
+        
+        // Obtener la ruta del archivo en storage
+        $ruta = 'public/Reportes Uniformes/' . $uniforme->reporte_pdf;
+
+        // Eliminar el registro en la base de datos
+        $uniforme->reporte_pdf = "";
+
+        // Eliminar el archivo en storage
+        Storage::delete($ruta);
+
+        $uniforme->save();
+
+        return back()->with('success', 'PDF de Uniformes Eliminado con éxito.');
+    }   
+
+    public function eliminar($id)
+    {
+        $uniforme = Uniformes::find($id);
+
+        if($uniforme->reporte_pdf != ""){
+            // Obtener la ruta del archivo en storage
+            $ruta = 'public/Reportes Uniformes/' . $uniforme->reporte_pdf;
+
+            // Eliminar el registro en la base de datos
+            $uniforme->reporte_pdf = '';
+
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+
+            $uniforme->save();
+        }        
+
+        $uniforme->delete();
+
+        return back()->with('success', 'Registro de Uniformes Eliminado con éxito.');
     }
 }
 

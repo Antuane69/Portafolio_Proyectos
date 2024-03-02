@@ -73,4 +73,8 @@ class Empleados extends Authenticatable
         return $this->hasMany(Uniformes::class, 'curp', 'curp');
     }
 
+    public function faltas() {
+        return $this->hasMany(Faltas::class, 'curp', 'curp');
+    }
+
 }

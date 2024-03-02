@@ -60,4 +60,63 @@ class StockUniformesController extends Controller
             'empleado' => $empleado,
         ]);
     }
+
+    public function edit_show($id)
+    {
+        $stock = StockUniformes::find($id);
+        $opciones = ['Extra Chica','Chica','Mediana','Grande','Extra Grande','Unitalla'];
+        $opciones2 = ['Nuevos','Usados','Los Dos'];
+        $opciones3 = ['Filipina','Mandil','Camisa','Falda','Pantalon','Cofia'];
+
+        return view('almacen.editStockUniformes',[
+            'stock' => $stock,
+            'opciones' => $opciones,
+            'opciones2' => $opciones2,
+            'opciones3' => $opciones3
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $stock = StockUniformes::find($id);
+
+        if($request->tipo == "Nuevos"){
+            $stock->fecha_solicitud = $request->fecha_solicitud;
+            $stock->nuevos_existencia = $request->nuevos_existencia;
+            $stock->nuevos_codigo = $request->nuevos_codigo;
+            $stock->nuevos_talla = $request->nuevos_talla;
+            $stock->nuevos_precio = $request->nuevos_precio;
+            $stock->nuevos_descripcion = $request->nuevos_descripcion;
+        }elseif($request->tipo == "Usados"){
+            $stock->fecha_solicitud = $request->fecha_solicitud;
+            $stock->usados_existencia = $request->usados_existencia;
+            $stock->usados_codigo = $request->usados_codigo;
+            $stock->usados_talla = $request->usados_talla;
+            $stock->usados_precio = $request->usados_precio;
+            $stock->usados_descripcion = $request->usados_descripcion;
+        }else{
+            $stock->fecha_solicitud = $request->fecha_solicitud;
+            $stock->nuevos_existencia = $request->nuevos_existencia;
+            $stock->usados_existencia = $request->usados_existencia;
+            $stock->nuevos_codigo = $request->nuevos_codigo;
+            $stock->usados_codigo = $request->usados_codigo;
+            $stock->nuevos_talla = $request->nuevos_talla;
+            $stock->usados_talla = $request->usados_talla;
+            $stock->nuevos_precio = $request->nuevos_precio;
+            $stock->usados_precio = $request->usados_precio;
+            $stock->nuevos_descripcion = $request->nuevos_descripcion;
+            $stock->usados_descripcion = $request->usados_descripcion;
+        };
+
+        $stock->save();
+
+        return redirect()->route('mostrarStock.show');
+    }  
+
+    public function eliminar($id)
+    {
+        StockUniformes::find($id)->delete();
+
+        return back()->with('success', 'Registro de Stock de Uniformes Eliminado con éxito.');
+    }
 }

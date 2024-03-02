@@ -61,7 +61,56 @@
                                 <td align="center">
                                     <a href="{{ route('herramientas.verpdf',$herramienta->id) }}" target="_blank">{{ $herramienta->reporte_pdf }}</a>
                                 </td>
-                                <td align="center">Nada por el momento.</td>
+                                <td align="center" class="px-2 py-1">
+                                    <div class="in-line flex justify-center object-center">
+                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$herramienta->id}}">Opciones</button>   
+                                    </div>
+                                    <div class="modal fade" id="exampleModal_{{$herramienta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 450px; height: 350px;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                                        <div class="in-line flex justify-center object-center">
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarHerramientas', ['id' => $herramienta->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <button class="mt-3 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded"
+                                                                onclick="mostrarInput('contenedorInput_{{$herramienta->id}}','requiredSolicitud_{{$herramienta->id}}')">
+                                                                    Modificar Archivo
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarHerramientas.pdf', ['id' => $herramienta->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 ml-3 border-right  bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Archivo PDF
+                                                                    </button>  
+                                                                </form>   
+                                                            </div>
+                                                        </div> 
+                                                        <div id="contenedorInput_{{$herramienta->id}}" hidden class="mt-2 content-center object-center">
+                                                            <form method="POST" action="{{ route('herramientas.subirpdf', $herramienta->id) }}" enctype="multipart/form-data" >
+                                                                @csrf
+                                                                <input type="file" name="herramienta_PDF" id='requiredSolicitud_{{$herramienta->id}}' accept=".pdf" class="mt-4">
+                                                                <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-6 p-2 rounded-md">Enviar PDF</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </td> 
                             </tr> 
                         @endforeach
                     </tbody>
@@ -85,6 +134,23 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+        </script>
+
+        <script>
+            function mostrarInput(Id_oculto,Id_required){
+                var elementoOculto = document.getElementById(Id_oculto);
+                var elementoRequired = document.getElementById(Id_required);
+
+                if (elementoOculto.hidden) {
+                    // Si está oculto, mostrarlo
+                    elementoOculto.hidden = false;
+                    elementoRequired.required = true;
+                } else {
+                    // Si está visible, ocultarlo
+                    elementoOculto.hidden = true;
+                    elementoRequired.required = false;
+                }
+            }
         </script>
     @endsection
 </x-app-layout>

@@ -10,6 +10,8 @@ class Faltas extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $dates = ['deleted_at'];
     protected $table = "faltas";
 
     protected $fillable =  [
@@ -21,4 +23,8 @@ class Faltas extends Model
         'acta_administrativa',
         'acta_realizada'
     ];
+
+    public function empleado(){
+        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+    }
 }

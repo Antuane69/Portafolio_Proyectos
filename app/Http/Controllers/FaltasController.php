@@ -156,18 +156,26 @@ class FaltasController extends Controller
 
         $ruta = 'public/Actas Administrativas/' . $nombreOriginal;
 
+        if($falta->acta_realizada != "No"){
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+        }else{
+            $falta->acta_realizada = $nombreOriginal;
+        }   
+        
         Storage::move($archivopdf,$ruta);
-
-        $falta->acta_realizada = $nombreOriginal;
         $falta->save();
 
         foreach($total as $unitaria){
-            if(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada != $nombreOriginal)){
+            if(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada != $nombreOriginal)){ 
                 $unitaria->acta_realizada = $nombreOriginal;
+                $unitaria->save();
+            }elseif(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada == $nombreOriginal) && ($unitaria->id != $falta->id)){
+                // Eliminar el registro en la base de datos
+                $unitaria->acta_realizada = 'No';
                 $unitaria->save();
             }
         }
-
 
         return redirect()->back();
     }   
@@ -198,5 +206,104 @@ class FaltasController extends Controller
         return view('PDF.mostrarActasPDF',[
             'faltas' => $faltas
         ]);
+    }
+
+    public function edit_show($id)
+    {
+        $falta = Faltas::with('empleado')->find($id);
+
+        $faltasTotal = Faltas::query()
+        ->where('curp',$falta->curp)
+        ->select('curp','amonestacion','acta_administrativa','created_at')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        if($faltasTotal){
+            $amonestacion = $faltasTotal->amonestacion;
+            $acta = $faltasTotal->acta_administrativa;
+        }else{
+            $amonestacion = 0;
+            $acta = 0;
+        }
+
+        return view('gestion.editFaltas',[
+            'falta' => $falta,
+            'amonestacion' => $amonestacion,
+            'acta' => $acta
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $falta = Faltas::find($id);
+
+        $this->validate($request, [
+            'curp' => 'required',
+            'fecha_solicitud' => 'required|date',
+            'falta_cometida' => 'required|max:60',
+        ]);
+
+        $nombre = Empleados::where('curp',$request->curp)->pluck('nombre')->first();
+
+        $falta->nombre = $nombre;
+        $falta->curp = $request->curp;
+        $falta->fecha_solicitud = $request->fecha_solicitud;
+        $falta->falta_cometida = $request->falta_cometida;
+        $falta->amonestacion = $request->amonestacion;
+        $falta->acta_administrativa = $request->acta;
+
+        $falta->save();
+
+        return redirect()->route('mostrarFaltas.show')->with('success', 'Registro de Faltas Editado con éxito.');
+    } 
+
+    public function eliminar_pdf($id)
+    {
+        $falta = Faltas::find($id);
+        
+        // Obtener la ruta del archivo en storage
+        $ruta = 'public/Actas Administrativas/' . $falta->acta_realizada;
+        // Eliminar el archivo en storage
+        Storage::delete($ruta);
+        
+        $total = Faltas::all();
+
+        foreach($total as $unitaria){
+            if(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada == $falta->acta_realizada) && ($unitaria->id != $falta->id)){
+                // Eliminar el registro en la base de datos
+                $unitaria->acta_realizada = 'No';
+                $unitaria->save();
+            }
+        }
+
+        // Eliminar el registro en la base de datos
+        $falta->acta_realizada = "No";
+        $falta->save();
+
+        return back()->with('success', 'PDF de Acta Administrativa Eliminado con éxito.');
+    }   
+
+    public function eliminar($id)
+    {
+        $falta = Faltas::find($id);
+
+        $total = Faltas::where('acta_realizada',$falta->acta_realizada)->count();
+
+        if($total <= 1){
+            // Obtener la ruta del archivo en storage
+            $ruta = 'public/Actas Administrativas/' . $falta->acta_realizada;
+
+            // Eliminar el registro en la base de datos
+            $falta->acta_realizada = 'No';
+
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+
+            $falta->save();
+        }        
+
+        $falta->delete();
+
+        return back()->with('success', 'Registro de Faltas al Reglamento Eliminado con éxito.');
     }
 }

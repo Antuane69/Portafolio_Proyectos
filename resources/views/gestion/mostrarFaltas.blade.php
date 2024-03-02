@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="modal fade" id="exampleModal_{{$falta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 350px;">
+                                            <div class="modal-content" style="width: 450px; height: 380px;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                     <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -152,34 +152,49 @@
                                                     <div style="display: block; flex-direction: column; align-items: center;">
                                                         <div class="in-line flex justify-center object-center">
                                                             <div>
-                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2">
+                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2" action="{{ route('editarFaltas.show', $falta->id) }}">
                                                                     @csrf         
-                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded" style="width:95%">
-                                                                        Editar Formato
+                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 mr-3 rounded-md" style="width:95%">
+                                                                        Editar Registro
                                                                     </button>                        
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-2 mt-1 rounded" data-id="{{ $falta->curp }}">
+                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 mt-1 rounded-md" data-id="{{ $falta->curp }}">
                                                                         Generar Recibo en PDF
                                                                     </button>                        
                                                                 </form>   
                                                             </div>
                                                             <div>
-                                                                <form method="POST" class="mb-2">
+                                                                <form method="POST" class="mb-2" action="{{ route('eliminarFaltas', $falta->id) }}">
                                                                     @method('DELETE')
                                                                     @csrf         
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                        </svg> --}}
-                                                                        Eliminar Formato
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 mr-3 ml-2 rounded-md">
+                                                                        Eliminar Registro
                                                                     </button>                        
-                                                                </form>   
-                                                               <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 px-3 rounded w-40"
-                                                               onclick="mostrarInput('contenedorInput_{{$falta->id}}','requiredSolicitud_{{$falta->id}}')">
-                                                                    Subir Acta Administrativa
-                                                                </button>
+                                                                </form>    
+                                                                @if ($falta->acta_realizada != "No")
+                                                                    <form method="POST" action="{{ route('eliminarFaltas.pdf', ['id' => $falta->id]) }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="mt-1 ml-2 border-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md mr-3">
+                                                                            Eliminar Archivo PDF
+                                                                        </button>  
+                                                                    </form>
+                                                                @endif
+                                                            </div>
+                                                            <div>
+                                                                @if ($falta->acta_realizada != "No")
+                                                                    <button class="mt-1 border-right  bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 p-2 px-3 rounded-md"
+                                                                    onclick="mostrarInput('contenedorInput_{{$falta->id}}','requiredSolicitud_{{$falta->id}}')">
+                                                                        Modificar Archivo PDF
+                                                                    </button>
+                                                                @else
+                                                                    <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-3 ml-1 rounded-md"
+                                                                    onclick="mostrarInput('contenedorInput_{{$falta->id}}','requiredSolicitud_{{$falta->id}}')">
+                                                                        Subir Acta Administrativa
+                                                                    </button>
+                                                                @endif  
                                                             </div>
                                                         </div> 
                                                         <div id="contenedorInput_{{$falta->id}}" hidden class="mt-2 content-center object-center">

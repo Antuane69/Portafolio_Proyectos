@@ -10,6 +10,8 @@ class Incapacidades extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $dates = ['deleted_at'];
     protected $table = "incapacidad";
 
     protected $fillable =  [

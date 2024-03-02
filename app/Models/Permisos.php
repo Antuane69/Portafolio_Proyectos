@@ -10,6 +10,8 @@ class Permisos extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $table = "permisos";
 
     protected $fillable =  [    

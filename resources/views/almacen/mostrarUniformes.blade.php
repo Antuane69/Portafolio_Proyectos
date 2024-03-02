@@ -30,27 +30,6 @@
             </div>
         </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
-            @if (session()->has('message'))
-                <div class="px-2 inline-flex flex-row" id="mssg-status">
-                    @if (session()->has('error'))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @else
-                        {{-- Puedes ajustar el color según el tipo de mensaje --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @endif
-                    {{ session()->get('message') }}
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6" style="width:100%;">
                 <table id="data-table" class="stripe hover translate-table"
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -148,10 +127,10 @@
                                                     <div style="display: block; flex-direction: column; align-items: center;">
                                                         <div class="in-line flex justify-center object-center">
                                                             <div>
-                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2">
+                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2" action="{{ route('editarUniformes.show', $uniforme->id) }}">
                                                                     @csrf         
                                                                     <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded" style="width:95%">
-                                                                        Editar Formato
+                                                                        Editar Registro
                                                                     </button>                        
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
@@ -162,11 +141,11 @@
                                                                 </form>   
                                                             </div>
                                                             <div>
-                                                                <form method="POST" class="mb-2">
+                                                                <form method="POST" class="mb-2" action="{{ route('eliminarUniformes', $uniforme->id) }}">
                                                                     @method('DELETE')
                                                                     @csrf         
                                                                     <button class="mt-1 border-right p-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                                                        Eliminar Formato
+                                                                        Eliminar Registro
                                                                     </button>                        
                                                                 </form>   
                                                                 <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-1 px-3 rounded w-40"

@@ -10,32 +10,6 @@ use Illuminate\Support\Carbon;
 
 class PermisosController extends Controller
 {
-    public function dashboard(){
-        // if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular'))){
-
-        //     $areaJefe = Datosuser::where('rpe',auth()->user()->rpe)->first();
-        //     $nombreArea = DB::table('areas')->where('area_clave',$areaJefe->area)->first();
-
-        //     $pendientes = SolicitudVehiculo::query()->where('Estatus','Pendiente')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('Estatus','Autorizada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('Estatus','Aceptada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $activas = SolicitudVehiculo::query()->where('Estatus','!=','Finalizada')->where('Proceso',$nombreArea->area_nombre)->count();
-
-        // }else{
-        //     $pendientes = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Pendiente')->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Autorizada')->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Aceptada')->count();
-        //     $activas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->count();
-        // }
-
-        // return view('sives.solicitudes.inicioSolicitudes',[
-        //     'pendientes' => $pendientes,
-        //     'autorizadas' => $autorizadas,
-        //     'aceptadas' => $aceptadas,
-        //     'activas' => $activas
-        // ]);
-    }
-
     public function show(){
 
         $permisos = Permisos::query()->orderBy('created_at', 'desc')->with('empleado')->get();
@@ -66,6 +40,14 @@ class PermisosController extends Controller
         $fechaInicio = Carbon::parse($request->input('fecha_inicio'))->format('Y-m-d');
         $fechaRegreso = Carbon::parse($request->input('fecha_regreso'))->format('Y-m-d');
 
+        $Ultimopermiso = Permisos::where('curp',$request->curp)->orderBy('created_at', 'desc')->first();
+
+        if($Ultimopermiso == null){
+            $fechaAnterior = $fechaInicio;
+        }else{
+            $fechaAnterior = $Ultimopermiso->fecha_inicio;
+        }
+
         Permisos::create([
             'curp' => $request->curp,
             'fecha_solicitud' => $fechaSoli,
@@ -73,7 +55,7 @@ class PermisosController extends Controller
             'fecha_regreso' => $fechaRegreso,
             'dias_totales' => $request->dias_totales,
             'motivo' => $request->motivo,
-            'fecha_anteriorPermiso' => $fechaInicio,
+            'fecha_anteriorPermiso' => $fechaAnterior,
         ]);
 
         return redirect()->route('mostrarPermisos.show');
@@ -88,10 +70,63 @@ class PermisosController extends Controller
         }])
         ->first();
 
+        $test = Permisos::where('curp',$empleado->curp)->first();
+
+        if($test != null){
+            $permiso_anterior = "";
+        }else{
+            $permiso_anterior = "No existe";
+        };
+
         return response()->json([
             'success' => true,
             'empleado' => $empleado,
+            'permiso_anterior' => $permiso_anterior,
         ]);
+    }
+
+    public function edit_show($id)
+    {
+        $permiso = Permisos::find($id);
+
+        return view('gestion.editPermisos',[
+            'permiso' =>$permiso,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $permiso = Permisos::with('empleado')->find($id);
+
+        $permiso->curp = $request->curp;
+        $permiso->fecha_solicitud = $request->fecha_solicitud;
+        $permiso->fecha_inicio = $request->fecha_inicio;
+        $permiso->fecha_regreso = $request->fecha_regreso;
+        $permiso->dias_totales = $request->dias_totales;
+        $permiso->motivo = $request->motivo;
+
+        $fechaInicio = Carbon::parse($request->input('fecha_inicio'))->format('Y-m-d');
+
+        $Ultimopermiso = Permisos::where('curp',$request->curp)->orderBy('created_at', 'desc')->first();
+
+        if($Ultimopermiso == null){
+            $fechaAnterior = $fechaInicio;
+        }else{
+            $fechaAnterior = $Ultimopermiso->fecha_inicio;
+        }
+
+        $permiso->fecha_anteriorPermiso = $fechaAnterior;
+
+        $permiso->save();
+
+        return redirect()->route('mostrarPermisos.show');
+    }  
+
+    public function eliminar($id)
+    {
+        Permisos::find($id)->delete();
+
+        return back()->with('success', 'Registro de Permiso Eliminado con éxito.');
     }
     
 }

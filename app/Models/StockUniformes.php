@@ -10,6 +10,8 @@ class StockUniformes extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $dates = ['deleted_at'];
     protected $table = "stock_uniformes";
 
     protected $fillable =  [    

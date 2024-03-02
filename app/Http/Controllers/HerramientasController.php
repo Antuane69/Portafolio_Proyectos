@@ -146,7 +146,17 @@ class HerramientasController extends Controller
         ]);
 
         $herramienta = Herramientas::find($id);
-        //$total = Herramientas::all();
+        
+        if($herramienta->reporte_pdf != ""){
+            // Obtener la ruta del archivo en storage
+            $ruta = 'public/Reportes Herramientas/' . $herramienta->reporte_pdf;
+
+            // Eliminar el registro en la base de datos
+            $herramienta->reporte_pdf = '';
+
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+        }
 
         $archivopdf = $request->file('herramienta_PDF')->store('public/Reportes Herramientas');
         $nombreOriginal = $id . '_Reporte Herramienta_' . $herramienta->area . '.pdf';
@@ -195,5 +205,45 @@ class HerramientasController extends Controller
         return view('PDF.mostrarHerramientasPDF',[
             'herramientas' => $herramientas
         ]);
+    }
+
+    public function eliminar_pdf($id)
+    {
+        $herramienta = Herramientas::find($id);
+        
+        // Obtener la ruta del archivo en storage
+        $ruta = 'public/Reportes Herramientas/' . $herramienta->reporte_pdf;
+
+        // Eliminar el registro en la base de datos
+        $herramienta->reporte_pdf = "";
+
+        // Eliminar el archivo en storage
+        Storage::delete($ruta);
+
+        $herramienta->save();
+
+        return back()->with('success', 'PDF de Herramientas Eliminado con éxito.');
+    }   
+
+    public function eliminar($id)
+    {
+        $herramienta = Herramientas::find($id);
+
+        if($herramienta->reporte_pdf != ""){
+            // Obtener la ruta del archivo en storage
+            $ruta = 'public/Reportes Herramientas/' . $herramienta->reporte_pdf;
+
+            // Eliminar el registro en la base de datos
+            $herramienta->reporte_pdf = '';
+
+            // Eliminar el archivo en storage
+            Storage::delete($ruta);
+
+            $herramienta->save();
+        }        
+
+        $herramienta->delete();
+
+        return back()->with('success', 'Registro de Herramientas Eliminado con éxito.');
     }
 }

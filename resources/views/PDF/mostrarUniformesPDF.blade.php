@@ -57,7 +57,62 @@
                                 <td align="center">
                                     <a href="{{ route('uniformes.verpdf',$uniforme->id) }}" target="_blank">{{ $uniforme->reporte_pdf }}</a>
                                 </td>
-                                <td align="center">Nada por el momento.</td>
+                                <td align="center" class="px-2 py-1">
+                                    <div class="in-line flex justify-center object-center">
+                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$uniforme->id}}">Opciones</button>   
+                                    </div>
+                                    <div class="modal fade" id="exampleModal_{{$uniforme->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 450px; height: 350px;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="display: block; flex-direction: column; align-items: center;">
+                                                        <div class="in-line flex justify-center object-center">
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarUniformes', ['id' => $uniforme->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>          
+                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2" action="{{ route('editarUniformes.show', $uniforme->id) }}">
+                                                                    @csrf         
+                                                                    <button class="mt-2 border-right bg-gray-700 hover:bg-gray-500 text-white font-bold p-2 px-4 rounded-md">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>         
+                                                            </div>
+                                                            <div>
+                                                                <form method="POST" action="{{ route('eliminarUniformes.pdf', ['id' => $uniforme->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 ml-3 border-right mb-1  bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Archivo PDF
+                                                                    </button>  
+                                                                </form>   
+                                                                <button class="mt-2 border-right ml-3 bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-2 rounded-md mr-3"
+                                                                onclick="mostrarInput('contenedorInput_{{$uniforme->id}}','requiredSolicitud_{{$uniforme->id}}')">
+                                                                    Modificar Archivo PDF
+                                                                </button>
+                                                            </div>
+                                                        </div> 
+                                                        <div id="contenedorInput_{{$uniforme->id}}" hidden class="mt-2 content-center object-center">
+                                                            <form method="POST" action="{{ route('uniformes.subirpdf', $uniforme->id) }}" enctype="multipart/form-data" >
+                                                                @csrf
+                                                                <input type="file" name="uniforme_PDF" id='requiredSolicitud_{{$uniforme->id}}' accept=".pdf" class="mt-4">
+                                                                <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-6 p-2 rounded-md">Enviar PDF</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </td>
                             </tr> 
                         @endforeach
                     </tbody>
@@ -81,6 +136,22 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+        </script>
+        <script>
+            function mostrarInput(Id_oculto,Id_required){
+                var elementoOculto = document.getElementById(Id_oculto);
+                var elementoRequired = document.getElementById(Id_required);
+
+                if (elementoOculto.hidden) {
+                    // Si está oculto, mostrarlo
+                    elementoOculto.hidden = false;
+                    elementoRequired.required = true;
+                } else {
+                    // Si está visible, ocultarlo
+                    elementoOculto.hidden = true;
+                    elementoRequired.required = false;
+                }
+            }
         </script>
     @endsection
 </x-app-layout>

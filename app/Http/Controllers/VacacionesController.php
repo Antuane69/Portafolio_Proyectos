@@ -8,32 +8,6 @@ use Illuminate\Http\Request;
 
 class VacacionesController extends Controller
 {
-    public function dashboard(){
-        // if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular'))){
-
-        //     $areaJefe = Datosuser::where('rpe',auth()->user()->rpe)->first();
-        //     $nombreArea = DB::table('areas')->where('area_clave',$areaJefe->area)->first();
-
-        //     $pendientes = SolicitudVehiculo::query()->where('Estatus','Pendiente')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('Estatus','Autorizada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('Estatus','Aceptada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $activas = SolicitudVehiculo::query()->where('Estatus','!=','Finalizada')->where('Proceso',$nombreArea->area_nombre)->count();
-
-        // }else{
-        //     $pendientes = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Pendiente')->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Autorizada')->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Aceptada')->count();
-        //     $activas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->count();
-        // }
-
-        // return view('sives.solicitudes.inicioSolicitudes',[
-        //     'pendientes' => $pendientes,
-        //     'autorizadas' => $autorizadas,
-        //     'aceptadas' => $aceptadas,
-        //     'activas' => $activas
-        // ]);
-    }
-
     public function show(){
 
         $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
@@ -80,6 +54,44 @@ class VacacionesController extends Controller
             'success' => true,
             'empleado' => $empleado
         ]);
+    }
+
+    public function edit_show($id)
+    {
+        $vacacion = Vacaciones::with('empleado')->find($id);
+
+        return view('gestion.editVacaciones',[
+            'vacacion' =>$vacacion,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $vacacion = Vacaciones::find($id);
+
+        $empleado = Empleados::where('curp',$request->curp)->first();
+
+        if($request->curp == $vacacion->curp){
+            $empleado->dias_vacaciones = $empleado->dias_vacaciones + $vacacion->dias_usados;
+            $empleado->dias_vacaciones = $empleado->dias_vacaciones - $request->diasTomados;
+            $empleado->save(); 
+        };
+
+        $vacacion->curp = $request->curp;
+        $vacacion->fecha_solicitud = $request->fecha_solicitud;
+        $vacacion->fecha_inicioVac = $request->fecha_inicioVac;
+        $vacacion->fecha_regresoVac = $request->fecha_regresoVac;
+        $vacacion->dias_usados = $request->diasTomados;
+        $vacacion->save();
+
+        return redirect()->route('mostrarVacaciones.show');
+    }  
+
+    public function eliminar($id)
+    {
+        Vacaciones::find($id)->delete();
+
+        return back()->with('success', 'Registro de Vacación Eliminado con éxito.');
     }
     
 }

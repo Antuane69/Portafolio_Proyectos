@@ -9,32 +9,6 @@ use Illuminate\Http\Request;
 
 class IncapacidadesController extends Controller
 {
-    public function dashboard(){
-        // if((auth()->user()->hasRole('admin')) || (auth()->user()->hasRole('JefeParqueVehicular'))){
-
-        //     $areaJefe = Datosuser::where('rpe',auth()->user()->rpe)->first();
-        //     $nombreArea = DB::table('areas')->where('area_clave',$areaJefe->area)->first();
-
-        //     $pendientes = SolicitudVehiculo::query()->where('Estatus','Pendiente')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('Estatus','Autorizada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('Estatus','Aceptada')->where('Proceso',$nombreArea->area_nombre)->count();
-        //     $activas = SolicitudVehiculo::query()->where('Estatus','!=','Finalizada')->where('Proceso',$nombreArea->area_nombre)->count();
-
-        // }else{
-        //     $pendientes = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Pendiente')->count();
-        //     $autorizadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Autorizada')->count();
-        //     $aceptadas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->where('Estatus','Aceptada')->count();
-        //     $activas = SolicitudVehiculo::query()->where('RPE',auth()->user()->rpe)->count();
-        // }
-
-        // return view('sives.solicitudes.inicioSolicitudes',[
-        //     'pendientes' => $pendientes,
-        //     'autorizadas' => $autorizadas,
-        //     'aceptadas' => $aceptadas,
-        //     'activas' => $activas
-        // ]);
-    }
-
     public function show(){
 
         $incapacidades = Incapacidades::query()->orderBy('created_at', 'desc')->with('empleado')->get();
@@ -78,6 +52,37 @@ class IncapacidadesController extends Controller
             'success' => true,
             'empleado' => $empleado
         ]);
+    }
+
+    public function edit_show($id)
+    {
+        $incapacidad = Incapacidades::find($id);
+
+        return view('gestion.editIncapacidad',[
+            'incapacidad' =>$incapacidad,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $incapacidad = Incapacidades::with('empleado')->find($id);
+
+        $incapacidad->curp = $request->curp;
+        $incapacidad->fecha_inicio = $request->fecha_inicio;
+        $incapacidad->fecha_regreso = $request->fecha_regreso;
+        $incapacidad->dias_totales = $request->dias_totales;
+        $incapacidad->motivo = $request->motivo;
+        $incapacidad->comentarios = $request->comentarios;
+        $incapacidad->save();
+
+        return redirect()->route('mostrarIncapacidades.show');
+    }  
+
+    public function eliminar($id)
+    {
+        Incapacidades::find($id)->delete();
+
+        return back()->with('success', 'Registro de Incapacidad Eliminado con éxito.');
     }
     
 }
