@@ -19,6 +19,7 @@ class Empleados extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+    protected $dates = ['deleted_at'];
     protected $table = "empleados";
 
     protected $fillable =  [

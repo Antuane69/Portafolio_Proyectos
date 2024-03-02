@@ -130,14 +130,17 @@
                                     transition duration-150 ease-in-out origin-top-left
                                     min-w-32
                                     ">
-                                        <a href="{{ route('mostrarEmpleado.show') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
-                                        </a>
                                         <a href="{{ route('crearEmpleado.create') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
                                         </a>
+                                        <a href="{{ route('mostrarEmpleado.show') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
+                                        </a>
                                         <p>
                                         </p>
+                                        <a href="{{ route('crearBajas.extraVista') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
+                                        </a>
                                         <a href="{{ route('mostrarBajas.show') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Ver Bajas</li>
                                         </a>

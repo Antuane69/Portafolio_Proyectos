@@ -52,12 +52,14 @@ Route::post('/gestion/guardarEmpleados',[EmpleadosController::class, 'store'])->
 Route::get('/gestion/detallesEmpleados/{id}',[EmpleadosController::class, 'detalles'])->name('detallesEmpleado.show');
 Route::get('/gestion/editarEmpleados/{id}',[EmpleadosController::class, 'edit_show'])->name('editarEmpleado.show');
 Route::post('/gestion/editarEmpleadosVista/{id}',[EmpleadosController::class, 'edit_store'])->name('editarEmpleado.store');
-Route::delete('/gestion/eliminarEmpleados/{id}', [EmpleadosController::class, 'eliminar'])->name('eliminarEmpleado');
 
-Route::get('/gestion/altaBajas',[BajasController::class, 'create'])->name('crearBajas.create');
-Route::post('/gestion/guardarBajas',[BajasController::class, 'store'])->name('crearBajas.store');
+Route::get('/gestion/altaBajasExtra/vista',[BajasController::class, 'createExtraVista'])->name('crearBajas.extraVista');
+Route::post('/gestion/altaBajasExtra',[BajasController::class, 'createExtraStore'])->name('crearBajas.extraStore');
+Route::get('/gestion/altaBajas/{id}',[BajasController::class, 'create'])->name('crearBajas.create');
+Route::post('/gestion/guardarBajas/{id}',[BajasController::class, 'store'])->name('crearBajas.store');
 Route::get('/gestion/mostrarBajas',[BajasController::class, 'show'])->name('mostrarBajas.show');
 Route::get('/gestion/detallesBajas/{id}',[BajasController::class, 'detalles'])->name('detallesBajas.show');
+Route::get('/gestion/restaurarEmpleado/{id}', [BajasController::class, 'restaurar'])->name('restaurarEmpleado');
 
 Route::get('/gestion/mostrarVacaciones',[VacacionesController::class, 'show'])->name('mostrarVacaciones.show');
 Route::get('/gestion/registrarVacaciones',[VacacionesController::class, 'create'])->name('crearVacacion.create');

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use validate;
+use App\Models\Bajas;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Bajas;
+use Illuminate\Support\Facades\File;
 
 class EmpleadosController extends Controller
 {
@@ -51,9 +52,6 @@ class EmpleadosController extends Controller
             'imagen_perfil' => 'mimes:jpg,jpeg,png|max:10240',
         ]);
 
-        // $this->validate($request,[
-        // ]);
-
         $ruta = public_path() . '/img/gestion/Empleados';
 
         $perfil = $request->file('imagen_perfil');
@@ -87,6 +85,54 @@ class EmpleadosController extends Controller
         $empleado = Empleados::query()->find($id);
 
         return view('gestion.detallesEmpleado',[
+            'empleado' => $empleado,
+        ]);
+    }
+
+    public function edit_show($id)
+    {
+        $empleado = Empleados::find($id);
+
+        return view('gestion.editEmpleado',[
+            'empleado' => $empleado,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $empleado = Empleados::find($id);
+
+        $ruta = public_path() . '/img/gestion/Empleados';
+
+        $perfil = $request->file('imagen_perfil');
+        $nombreImagen =  time()."_".$perfil->getClientOriginalName();
+        $perfil->move($ruta,$nombreImagen);
+
+        $empleado->nombre = $request->nombre;
+        $empleado->curp = $request->curp;
+        $empleado->rfc = $request->rfc;
+        $empleado->nss = $request->nss;
+        $empleado->puesto = $request->puesto;
+        $empleado->fecha_ingreso = $request->fecha_ingreso;
+        $empleado->fecha_nacimiento = $request->fecha_nacimiento;
+        $empleado->fecha_2doContrato = $request->fecha_2doContrato;
+        $empleado->fecha_3erContrato = $request->fecha_3erContrato;
+        $empleado->fecha_indefinido = $request->fecha_indefinido;
+        $empleado->telefono = $request->telefono;
+        $empleado->num_clinicaSS = $request->num_clinicaSS;
+        $empleado->salario_dia = $request->salario_dia;
+        $empleado->imagen_perfil = $nombreImagen;  
+
+        $empleado->save();
+
+        return redirect()->route('mostrarEmpleado.show');
+    }  
+
+    public function eliminar($id)
+    {
+        $empleado = Empleados::find($id);
+
+        return view('gestion.crearBaja',[
             'empleado' => $empleado,
         ]);
     }

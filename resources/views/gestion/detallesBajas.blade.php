@@ -49,10 +49,10 @@
                         <h2 class="font-semibold text-xl text-white justify-self-center mt-2 mb-2">Información del Empleado</h2>
                     </div>
                     <div class="grid grid-cols-2 md:flex md:flex-col gap-5 md:gap-8 mb-5 mx-10 px-10 py-10 rounded-b-xl bg-gray-100">
-                        @if ($empleado->imagen_perfil)                            
+                        @if ($empleado->imagen_perfil != "")                            
                             <div class="w-2/5 mb-5 md:mb-0 ml-20">
                                 <label class="lbl md:text-sm">Foto del Empleado:</label>
-                                <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/' . $empleado->imagen_perfil) }}" alt="Imagen del empleado">
+                                <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Bajas/' . $empleado->imagen_perfil) }}" alt="Imagen del empleado">
                             </div>
                         @else
                             <div class="w-2/5 mb-5 md:mb-0 ml-20">
@@ -118,11 +118,11 @@
                     </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Tiempo de Anticipación:</label>
-                         <h2 class="inf">{{$empleado->tiempo_anticipacion}}</h2>
+                         <h2 class="inf">{{$empleado->anticipacion}}</h2>
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Causa de la Baja:</label>
-                         <h2 class="inf">{{$empleado->causa_baja}}</h2>
+                         <h2 class="inf">{{$empleado->causa}}</h2>
                     </div>
                 </div>
             </div>
