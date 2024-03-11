@@ -38,6 +38,15 @@ class Empleados extends Authenticatable
         'salario_dia',
         'imagen_perfil',
         'dias_vacaciones',
+        'antecedentes',
+        'recomendacion',
+        'estudios',
+        'nacimiento',
+        'domicilio',
+        'ine',
+        'nomina',
+        'ine_trasera',
+        'ine_delantera',
     ];
 
     /**
@@ -77,5 +86,24 @@ class Empleados extends Authenticatable
     public function faltas() {
         return $this->hasMany(Faltas::class, 'curp', 'curp');
     }
+
+    // En el modelo Empleado.php
+
+    public function validacionContrato()
+    {
+        // Implementa lógica para verificar si todas las columnas están completas
+        // Retorna true si todas las columnas están completas, de lo contrario, retorna false
+        $columnasRequeridas = 25;
+        $columnasCompletas = 0;
+
+        foreach ($this->getAttributes() as $valor) {
+            if (!empty($valor)) {
+                $columnasCompletas++;
+            }
+        }
+
+        return $columnasCompletas >= $columnasRequeridas;
+    }
+
 
 }

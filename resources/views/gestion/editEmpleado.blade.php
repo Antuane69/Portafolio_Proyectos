@@ -42,7 +42,7 @@
                         <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">                    
                                 <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="nombre" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Nombre
                                     </label>
                                     <p>
@@ -58,14 +58,14 @@
                                     </p>
                                 </div>
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_nacimiento" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Nacimiento</label>
+                                    <label for="fecha_nacimiento" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha de Nacimiento</label>
                                     <p>
                                         <input id="fecha_nacimiento" name="fecha_nacimiento" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required
                                         value="{{$empleado->fecha_nacimiento}}"/>
                                     </p>
                                 </div> 
                                 <div class='grid grid-cols-1'>
-                                    <label for="curp" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="curp" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Curp
                                     </label>
                                     <p>
@@ -81,7 +81,7 @@
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="rfc" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="rfc" class="mb-1 block uppercase text-gray-800 font-bold">
                                         RFC
                                     </label>
                                     <p>
@@ -97,7 +97,7 @@
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="nss" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="nss" class="mb-1 block uppercase text-gray-800 font-bold">
                                         NSS 
                                     </label>
                                     <p>
@@ -113,7 +113,7 @@
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="num_clinicaSS" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="num_clinicaSS" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Numero de Clinica del IMSS (si aplicase)
                                     </label>
                                     <p>
@@ -129,7 +129,7 @@
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="telefono" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="telefono" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Telefono
                                     </label>
                                     <p>
@@ -156,7 +156,7 @@
                         <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">  
                                 <div class='grid grid-cols-1'>
-                                    <label for="puesto" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="puesto" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Puesto
                                     </label>
                                     <p>
@@ -172,7 +172,7 @@
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="salario_dia" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="salario_dia" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Salario Diario
                                     </label>
                                     <p>
@@ -188,28 +188,28 @@
                                     </p>
                                 </div>
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_ingreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
+                                    <label for="fecha_ingreso" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
                                     <p>
                                         <input id="fecha_ingreso" name="fecha_ingreso" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" required
                                         value="{{$empleado->fecha_ingreso}}"/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_2doContrato" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del 2do. Contrato</label>
+                                    <label for="fecha_2doContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 2do. Contrato</label>
                                     <p>
                                         <input id="fecha_2doContrato" name="fecha_2doContrato" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" 
                                         value="{{$empleado->fecha_2doContrato}}"/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_3erContrato" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del 3er. Contrato</label>
+                                    <label for="fecha_3erContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 3er. Contrato</label>
                                     <p>
                                         <input id="fecha_3erContrato" name="fecha_3erContrato" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" 
                                         value="{{$empleado->fecha_3erContrato}}"/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del Contrato Indefinido</label>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del Contrato Indefinido</label>
                                     <p>
                                         <input id="fecha_indefinido" name="fecha_indefinido" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" 
                                         value="{{$empleado->fecha_indefinido}}"/>
@@ -218,12 +218,12 @@
                             </div>     
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-3 mx-7"> 
                                 <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer1">
-                                    <label for="imagen_perfil" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="imagen_perfil" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Imagen del Empleado
                                     </label>
-                                    @if ($empleado->imagen_perfil)                            
+                                    @if ($empleado->imagen_perfil != '')                            
                                         <div style="width: 200px; height: 260px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                            <img id="imgPreview1" src="{{ asset('/img/gestion/Empleados' . $empleado->imagen_perfil) }}" style="width: 180px; height: 240px;">
+                                            <img id="imgPreview1" src="{{ asset('/img/gestion/Empleados/' . $empleado->imagen_perfil) }}" style="width: 180px; height: 240px;">
                                         </div>
                                     @else
                                         <div style="width: 240px; height: 260px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
@@ -235,6 +235,142 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
                                 <div class="input-container">
                                     <input type="file" name="imagen_perfil" id="inputContainer1" class='bg-white  mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview1')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class='flex items-center justify-center md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
+                            <p>
+                                Documentación
+                            </p>
+                        </div>
+                        <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">                   
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">Carta de No Antecedentes penales (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="antecedentes" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                    <label class="mt-3 block uppercase text-gray-800 font-bold">Archivo Actual:</label>
+                                    @if ($empleado->antecedentes != "")
+                                        <a class="text-blue-600 hover:text-blue-800 underline mt-2" href="{{ route('empleados.verpdf',['antecedentes', $empleado->id]) }}" target="_blank">{{ $empleado->antecedentes }}</a>
+                                    @else
+                                        <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">carta de recomendación (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="recomendacion" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                    <label class="mt-3 block uppercase text-gray-800 font-bold">Archivo Actual:</label>
+                                    @if ($empleado->recomendacion != "")
+                                        <a class="text-blue-600 hover:text-blue-800 underline mt-2" href="{{ route('empleados.verpdf',['recomendacion', $empleado->id]) }}" target="_blank">{{ $empleado->recomendacion }}</a>
+                                    @else
+                                        <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">comprobante de estudios (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="estudios" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                    <label class="mt-3 block uppercase text-gray-800 font-bold">Archivo Actual:</label>
+                                    @if ($empleado->estudios != "")
+                                        <a class="text-blue-600 hover:text-blue-800 underline mt-2" href="{{ route('empleados.verpdf',['estudios', $empleado->id]) }}" target="_blank">{{ $empleado->estudios }}</a>
+                                    @else
+                                        <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">acta de nacimiento (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="nacimiento" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                    <label class="mt-3 block uppercase text-gray-800 font-bold">Archivo Actual:</label>
+                                    @if ($empleado->nacimiento != "")
+                                        <a class="text-blue-600 hover:text-blue-800 underline mt-2" href="{{ route('empleados.verpdf',['nacimiento', $empleado->id]) }}" target="_blank">{{ $empleado->nacimiento }}</a>
+                                    @else
+                                        <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">comprobante de domicilio (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="domicilio" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                    <label class="mt-3 block uppercase text-gray-800 font-bold">Archivo Actual:</label>
+                                    @if ($empleado->domicilio != "")
+                                        <a class="text-blue-600 hover:text-blue-800 underline mt-2" href="{{ route('empleados.verpdf',['domicilio', $empleado->id]) }}" target="_blank">{{ $empleado->domicilio }}</a>
+                                    @else
+                                        <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                </div>
+                                <div class='grid grid-cols-1 mt-4'>
+                                    <label for="ine" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Número de INE
+                                    </label>
+                                    <p>
+                                        <input type="number" name="ine" placeholder="Ingresa el número de INE del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('ine') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->ine}}">
+                                        
+                                        @error('ine')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
+                                <div class='grid grid-cols-1 mt-4'>
+                                    <label for="nomina" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Número de Nómina
+                                    </label>
+                                    <p>
+                                        <input type="number" name="nomina" id="nomina" placeholder="Ingresa el número de nómina del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nomina') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->nomina}}">
+                                        
+                                        @error('nomina')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer2">
+                                    <label for="ine_delantera" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Frente)
+                                    </label>
+                                    @if ($empleado->ine_delantera != '')                            
+                                        <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                            <img id="imgPreview2" src="{{ asset('/img/gestion/Empleados/' . $empleado->ine_delantera) }}" style="width: 300px; height: 180px;">
+                                        </div>
+                                    @else
+                                        <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                            <img id="imgPreview2" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer3">
+                                    <label for="ine_trasera" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Trasera)
+                                    </label>
+                                    @if ($empleado->ine_trasera != '')                            
+                                        <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                            <img id="imgPreview3" src="{{ asset('/img/gestion/Empleados/' . $empleado->ine_trasera) }}" style="width: 300px; height: 180px;">
+                                        </div>
+                                    @else
+                                        <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                            <img id="imgPreview3" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
+                                <div class="input-container2">
+                                    <input type="file" name="ine_delantera" id="inputContainer2" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview2')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                </div>
+                                <div class="input-container3">
+                                    <input type="file" name="ine_trasera" id="inputContainer3" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview3')" style="40px;border-color:#858585;background-color:#FFFFFF">
                                 </div>
                             </div>
                         </div>
@@ -257,6 +393,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         setupImageContainer('imageContainer1','inputContainer1');
+        setupImageContainer('imageContainer2','inputContainer2');
+        setupImageContainer('imageContainer3','inputContainer3');
         // Puedes agregar más llamadas a setupImageContainer para otros divs
     });
 

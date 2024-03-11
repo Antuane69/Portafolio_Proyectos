@@ -96,25 +96,21 @@
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="falta_cometida" class="mb-2 bloack uppercase text-gray-800 font-bold">* Falta Cometida</label>
+                                <label for="falta_cometida" class="mb-2 bloack uppercase text-gray-800 font-bold">* Tipo de Falta</label>
                                 <p>
-                                    <textarea id="falta_cometida" name="falta_cometida"
-                                        class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        required placeholder="Ingrese la falta cometida">{{ old('falta_cometida') }}</textarea>
-                                    @error('falta_cometida')
-                                        <span style="font-size: 10pt;color:red" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </p>
-                            </div> 
-                            <div  class='grid grid-cols-1'>
-                                <label for="falta" class="mb-1 bloack uppercase text-gray-800 font-bold">* Tipo de Falta</label>
-                                <p>
-                                    <select name="falta" id="falta" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
+                                    <select name="falta" id="tipo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required onchange="buscar()">             
+                                        <option value="" selected disabled>Selecciona el tipo de falta al reglamento cometida</option>
                                         @foreach($opciones as $opcion)
                                             <option value="{{$opcion}}">{{$opcion}}</option>
                                         @endforeach
+                                    </select>
+                                </p>
+                            </div> 
+                            <div  class='grid grid-cols-1'>
+                                <label for="falta_cometida" class="mb-1 bloack uppercase text-gray-800 font-bold">* Falta al Reglamento Cometida</label>
+                                <p>
+                                    <select name="falta_cometida" id="falta_cometida" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>
+                                        <option value="" selected disabled>Selecciona Primero el Tipo de Falta al Reglamento</option>
                                     </select>
                                 </p>
                             </div>
@@ -124,7 +120,7 @@
                         <a href="{{ route('empleadosInicio.show') }}"
                             class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                         <button type="submit"
-                            class='w-auto bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-xl font-bold text-black px-4 py-2'
+                            class='w-auto bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-xl font-bold text-white px-4 py-2'
                             >Registrar Falta al Reglamento</button>
                     </div>
                 </form>
@@ -198,5 +194,30 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#fecha").datepicker({
         dateFormat: 'dd-mm-yy'
     });
+
+    function buscar() {
+
+        const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+        var SITEURL = "{{ url('/') }}";
+
+        var tipo = document.getElementById('tipo').value;
+
+        fetch(SITEURL+ `/gestion/registrarFaltas/buscar/faltas?tipo=${tipo}`, { method: 'get' })
+            .then(response => response.json())
+            .then(data => {
+                var opciones = '<option value="" disabled selected hidden>Selecciona una falta al reglamento</option>';
+                if (data.faltas.length > 0) {
+                    for (let falta of data.faltas) {
+                        opciones += `<option value="${falta}">${falta}</option>`;
+                    }
+                } else {
+                    opciones += '<option value="" disabled>No se encontraron faltas</option>';
+                }
+                document.getElementById("falta_cometida").innerHTML = opciones;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
 </script>

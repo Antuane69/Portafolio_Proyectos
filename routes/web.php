@@ -76,6 +76,7 @@ Route::get('/gestion/registrarFaltas/buscar',[FaltasController::class, 'search']
 Route::get('/gestion/editarFaltas/{id}',[FaltasController::class, 'edit_show'])->name('editarFaltas.show');
 Route::post('/gestion/editarFaltasVista/{id}',[FaltasController::class, 'edit_store'])->name('editarFaltas.store');
 Route::delete('/gestion/eliminarFaltas/{id}', [FaltasController::class, 'eliminar'])->name('eliminarFaltas');
+Route::get('/gestion/registrarFaltas/buscar/faltas',[FaltasController::class, 'buscarFaltas'])->name('crearFaltas.search_faltas');
 
 Route::get('/gestion/mostrarIncapacidades',[IncapacidadesController::class, 'show'])->name('mostrarIncapacidades.show');
 Route::get('/gestion/registrarIncapacidades',[IncapacidadesController::class, 'create'])->name('crearIncapacidad.create');
@@ -134,9 +135,17 @@ Route::get('/almacen/verHerramientas/pdf/{id}', [HerramientasController::class,'
 Route::get('/pdf/mostrarHerramientas/pdf', [HerramientasController::class,'mostrar_pdf'])->name('herramientas.mostrarpdf');//*
 Route::delete('/almacen/eliminarHerramientasPDF/{id}', [HerramientasController::class, 'eliminar_pdf'])->name('eliminarHerramientas.pdf');
 
-Route::get('/gestion/datosActa/pdf/{curp}', [FaltasController::class,'crear_datosPDF'])->name('faltas.crear_datospdf');//*
-Route::post('/gestion/generarActa/pdf/{curp}', [FaltasController::class,'datos_pdf'])->name('faltas.datospdf');//*
+Route::get('/gestion/datosActa/pdf/{id}', [FaltasController::class,'crear_datosPDF'])->name('faltas.crear_datospdf');//*
+Route::post('/gestion/generarActa/pdf/{id}', [FaltasController::class,'datos_pdf'])->name('faltas.datospdf');//*
 Route::post('/gestion/subirActa/pdf/{id}', [FaltasController::class,'subir_pdf'])->name('faltas.subirpdf');//*
 Route::get('/gestion/verActa/pdf/{id}', [FaltasController::class,'ver_pdf'])->name('faltas.verpdf');//*
 Route::get('/pdf/mostrarActa/pdf', [FaltasController::class,'mostrar_pdf'])->name('faltas.mostrarpdf');//*
 Route::delete('/gestion/eliminarActa/pdf/{id}', [FaltasController::class, 'eliminar_pdf'])->name('eliminarFaltas.pdf');
+
+Route::get('/gestion/verDocumentacion/pdf/{tipo}/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
+Route::get('/gestion/datosContrato/pdf/{id}', [EmpleadosController::class,'crear_datosPDF'])->name('empleados.crear_datospdf');//*
+Route::post('/gestion/generarContrato/pdf/{id}', [EmpleadosController::class,'datos_pdf'])->name('empleados.datospdf');//*
+Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
+Route::get('/gestion/verContrato/pdf/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
+Route::get('/pdf/mostrarContrato/pdf', [EmpleadosController::class,'mostrar_pdf'])->name('empleados.mostrarpdf');//*
+Route::delete('/gestion/eliminarContrato/pdf/{id}', [EmpleadosController::class, 'eliminar_pdf'])->name('eliminarContrato.pdf');

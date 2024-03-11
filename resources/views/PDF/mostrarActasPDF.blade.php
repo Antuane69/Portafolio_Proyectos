@@ -39,7 +39,7 @@
                             <th class='text-center'>Nombre</th>
                             <th class='text-center'>Número de Acta</th>
                             <th class='text-center'>Fecha de Subida al Sistema </th>
-                            <th class='text-center'>Acta Administrativa Firmada</th>
+                            <th class='text-center'>Acta Firmada PDF</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>

@@ -118,11 +118,7 @@
                                 <td align="center">{{ $falta->falta_cometida }}</td>
                                 <td align="center">{{ $falta->amonestacion }}</td>
                                 @if ($falta->acta_administrativa >= 1)
-                                    @if ($falta->acta_realizada == 'No')
-                                        <td align="center" class="text-red-700 bg-red-200 font-bold">{{ $falta->acta_administrativa }}</td>
-                                    @else
-                                        <td align="center" class="text-green-700 bg-green-200 font-bold">{{ $falta->acta_administrativa }}</td>
-                                    @endif
+                                    <td align="center" class="text-red-700 bg-red-200 font-bold">{{ $falta->acta_administrativa }}</td>
                                 @else
                                     <td align="center">{{ $falta->acta_administrativa }}</td>
                                 @endif
@@ -154,14 +150,16 @@
                                                             <div>
                                                                 <form method="GET" class="rounded text-white font-bold py-1 px-2" action="{{ route('editarFaltas.show', $falta->id) }}">
                                                                     @csrf         
-                                                                    <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 mr-3 rounded-md" style="width:95%">
-                                                                        Editar Registro
+                                                                    <button class="mx-1 border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 mr-3 rounded-md" style="width:95%">
+                                                                        Editar 
+                                                                        <br>
+                                                                        Registro
                                                                     </button>                        
                                                                 </form>
                                                                 <form class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 mt-1 rounded-md" data-id="{{ $falta->curp }}">
-                                                                        Generar Recibo en PDF
+                                                                    <button id="abrirVentana" class="boton-accion mx-1 border-right  bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-2 mt-1 rounded-md" data-id="{{ $falta->id }}">
+                                                                        Generar Acta en PDF
                                                                     </button>                        
                                                                 </form>   
                                                             </div>
@@ -192,7 +190,7 @@
                                                                 @else
                                                                     <button class="mt-1 border-right bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-3 ml-1 rounded-md"
                                                                     onclick="mostrarInput('contenedorInput_{{$falta->id}}','requiredSolicitud_{{$falta->id}}')">
-                                                                        Subir Acta Administrativa
+                                                                        Subir Acta
                                                                     </button>
                                                                 @endif  
                                                             </div>

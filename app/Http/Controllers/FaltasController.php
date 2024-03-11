@@ -30,6 +30,51 @@ class FaltasController extends Controller
         ]);
     }
 
+    public function buscarFaltas(Request $request){
+        $tipo = $request->tipo;
+
+        if($tipo == 'Acta Administrativa'){
+            
+            $faltas = [
+                'I. Acumulación de amonestaciones',
+                'II. Faltar a trabajar sin justificante',
+                'III. Falta a las medidas de seguridad e higiene',
+                'IV. Desestabilización del orden',
+                'V. Negar el servicio o cerrar antes del horario establecido',
+                'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
+                'VII. Divulgar o comentar los sueldos recibidos',
+                'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
+                'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
+                'X. Atentar en contra de las buenas costumbres y la moral',
+                'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
+            ];
+            
+        }else{
+
+            $faltas = [
+                'I. No acatar el reglamento',
+                'II. Llegar tarde',
+                'V. No cumplir con la limpieza diaria',
+                'VI. No cumplir con los procesos de calidad y seguridad alimentaria',
+                'VII. Falta de higiene (Uniformes y, o Personal)',
+                'VIII. Comer frente a los clientes',
+                'IX. Agresión verbal o faltas de respeto a sus compañeros de trabajo',
+                'X. Usar celular dentro de las áreas de servicio, y, o horas de trabajo',
+                'XI. Jugar, ingerir o mermar insumos por descuido (Se descontará de nómina lo mermado)',
+                'XII. Hacer mal uso de utensilios y, o equipos de trabajo',
+                'XIII. Cambiar descansos u horario de trabajo sin autorización',
+                'XIV. Dañar o rayar información de la empresa',
+                'XV. Faltantes de efectivo',
+                'XVI. No checar salidas o entradas'
+            ];
+        }
+    
+        return response()->json([
+            'success' => true,
+            'faltas' => $faltas
+        ]);
+    }
+
     public function store(Request $request)
     {
 
@@ -88,21 +133,48 @@ class FaltasController extends Controller
         ]);
     }
 
-    public function crear_datosPDF($curp){
+    public function crear_datosPDF($id){
+
         $nombres = Empleados::query()->get();
+        $falta = Faltas::find($id);
+        $curp = $falta->curp;
 
         $nombres = $nombres->pluck('nombre')->toArray();
 
         $opciones = ['Cocina','Servicio','Barra','Producción'];
 
+        $faltas = [
+            'I. Acumulación de amonestaciones',
+            'II. Faltar a trabajar sin justificante',
+            'III. Falta a las medidas de seguridad e higiene',
+            'IV. Desestabilización del orden',
+            'V. Negar el servicio o cerrar antes del horario establecido',
+            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
+            'VII. Divulgar o comentar los sueldos recibidos',
+            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
+            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
+            'X. Atentar en contra de las buenas costumbres y la moral',
+            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
+        ];
+
+        $titulo = "Acta de Amonestación";
+
+        for($i = 0; $i<11; $i++){
+            if($faltas[$i] == $falta->falta_cometida){
+                $titulo = "Acta Administrativa";
+            }
+        }
+
         return view('gestion.crearActa',[
             'opciones' => $opciones,
             'nombres' => $nombres,
-            'curp' => $curp
+            'curp' => $curp,
+            'falta' => $falta,
+            'titulo' => $titulo
         ]);
     }
 
-    public function datos_pdf(Request $request, $curp){
+    public function datos_pdf(Request $request, $id){
 
         $testigo1 = $request->nombresreg[0];
         $testigo2 = $request->nombresreg[1];
@@ -110,17 +182,43 @@ class FaltasController extends Controller
         
         $fecha_actual = Carbon::now(); // Obtiene la fecha y hora actual
 
-        $empleado =  Faltas::where('curp',$curp)->where('acta_administrativa','!=','0')
-        ->where('acta_realizada','No')->orderBy('created_at', 'desc')->first();
+        // $empleado =  Faltas::where('curp',$curp)->where('acta_administrativa','!=','0')
+        // ->where('acta_realizada','No')->orderBy('created_at', 'desc')->first();
+
+        $empleado = Faltas::find($id);
 
         $area = $request->area;
 
         $fecha_inicio = $request->fecha_inicio;
         $fecha_fin = $request->fecha_fin;
         $fecha_falta = $request->fecha_falta;
-        $horario = $request->horario;
+        $falta = $request->falta;
+        $hechos = $request->hechos;
 
-        //$resg = DB::table('resguardos')->orderBy('id','desc')->first();
+        $faltas = [
+            'I. Acumulación de amonestaciones',
+            'II. Faltar a trabajar sin justificante',
+            'III. Falta a las medidas de seguridad e higiene',
+            'IV. Desestabilización del orden',
+            'V. Negar el servicio o cerrar antes del horario establecido',
+            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
+            'VII. Divulgar o comentar los sueldos recibidos',
+            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
+            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
+            'X. Atentar en contra de las buenas costumbres y la moral',
+            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
+        ];
+
+        $tipo = "Falta de Primer Grado";
+        $titulo = "Acta de Amonestación";
+
+        for($i = 0; $i<11; $i++){
+            if($faltas[$i] == $empleado->falta_cometida){
+                $tipo = "Falta de Segundo Grado";
+                $titulo = "Acta Administrativa";
+            }
+        }
+        
         $pdf = Pdf::loadView('PDF.crearActaPDF',[
             'empleado' => $empleado,
             'fecha' => $fecha_actual,
@@ -131,11 +229,13 @@ class FaltasController extends Controller
             'fecha_inicio' => $fecha_inicio,
             'fecha_fin' => $fecha_fin,
             'fecha_falta' => $fecha_falta,
-            'horario' => $horario,
+            'falta' => $falta,
+            'hechos' => $hechos,
+            'tipo' => $tipo,
             ])->setPaper('letter', 'portrait');
 
         // Nombre del archivo PDF
-        $nombreArchivo = 'ActaAdministrativa_' . $empleado->nombre . '.pdf';
+        $nombreArchivo = $titulo . '_' . $empleado->nombre . '.pdf';
 
         // Devolver la respuesta con el archivo adjunto
         return $pdf->stream($nombreArchivo); 
@@ -149,12 +249,38 @@ class FaltasController extends Controller
         ]);
 
         $falta = Faltas::find($id);
-        $total = Faltas::all();
 
-        $archivopdf = $request->file('acta_PDF')->store('public/Actas Administrativas');
-        $nombreOriginal = $id . '_Acta Administrativa_' . $falta->curp . '.pdf';
+        $faltas = [
+            'I. Acumulación de amonestaciones',
+            'II. Faltar a trabajar sin justificante',
+            'III. Falta a las medidas de seguridad e higiene',
+            'IV. Desestabilización del orden',
+            'V. Negar el servicio o cerrar antes del horario establecido',
+            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
+            'VII. Divulgar o comentar los sueldos recibidos',
+            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
+            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
+            'X. Atentar en contra de las buenas costumbres y la moral',
+            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
+        ];
 
-        $ruta = 'public/Actas Administrativas/' . $nombreOriginal;
+        $bandera = 0;
+
+        for($i = 0; $i<11; $i++){
+            if($faltas[$i] == $falta->falta_cometida){
+                $titulo = "Acta Administrativa";
+                $bandera = 1;
+            }
+        }
+
+        if($bandera == 0){
+            $tipo = "Acta de Amonestación";
+        }
+
+        $archivopdf = $request->file('acta_PDF')->store('public/Actas');
+        $nombreOriginal = $id . '_' . $tipo . '_' . $falta->curp . '.pdf';
+
+        $ruta = 'public/Actas/' . $nombreOriginal;
 
         if($falta->acta_realizada != "No"){
             // Eliminar el archivo en storage
@@ -166,17 +292,6 @@ class FaltasController extends Controller
         Storage::move($archivopdf,$ruta);
         $falta->save();
 
-        foreach($total as $unitaria){
-            if(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada != $nombreOriginal)){ 
-                $unitaria->acta_realizada = $nombreOriginal;
-                $unitaria->save();
-            }elseif(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada == $nombreOriginal) && ($unitaria->id != $falta->id)){
-                // Eliminar el registro en la base de datos
-                $unitaria->acta_realizada = 'No';
-                $unitaria->save();
-            }
-        }
-
         return redirect()->back();
     }   
 
@@ -186,7 +301,7 @@ class FaltasController extends Controller
 
         $filename = $faltas->acta_realizada;
 
-        $path = storage_path('app/public/Actas Administrativas/' . $filename);
+        $path = storage_path('app/public/Actas/' . $filename);
         
         if (file_exists($path)) {
             // Configurar el tipo de respuesta como PDF
@@ -199,7 +314,6 @@ class FaltasController extends Controller
 
     public function mostrar_pdf(){
         $faltas = Faltas::where('acta_realizada', '!=', 'No')
-        ->groupBy('acta_administrativa', 'curp')
         ->orderBy('created_at', 'desc')
         ->get();    
 
@@ -262,46 +376,31 @@ class FaltasController extends Controller
         $falta = Faltas::find($id);
         
         // Obtener la ruta del archivo en storage
-        $ruta = 'public/Actas Administrativas/' . $falta->acta_realizada;
+        $ruta = 'public/Actas/' . $falta->acta_realizada;
         // Eliminar el archivo en storage
         Storage::delete($ruta);
-        
-        $total = Faltas::all();
-
-        foreach($total as $unitaria){
-            if(($falta->acta_administrativa == $unitaria->acta_administrativa) && ($falta->curp == $unitaria->curp) && ($unitaria->acta_realizada == $falta->acta_realizada) && ($unitaria->id != $falta->id)){
-                // Eliminar el registro en la base de datos
-                $unitaria->acta_realizada = 'No';
-                $unitaria->save();
-            }
-        }
 
         // Eliminar el registro en la base de datos
         $falta->acta_realizada = "No";
         $falta->save();
 
-        return back()->with('success', 'PDF de Acta Administrativa Eliminado con éxito.');
+        return back()->with('success', 'PDF de Acta Eliminado con éxito.');
     }   
 
     public function eliminar($id)
     {
         $falta = Faltas::find($id);
 
-        $total = Faltas::where('acta_realizada',$falta->acta_realizada)->count();
+        // Obtener la ruta del archivo en storage
+        $ruta = 'public/Actas/' . $falta->acta_realizada;
 
-        if($total <= 1){
-            // Obtener la ruta del archivo en storage
-            $ruta = 'public/Actas Administrativas/' . $falta->acta_realizada;
+        // Eliminar el registro en la base de datos
+        $falta->acta_realizada = 'No';
 
-            // Eliminar el registro en la base de datos
-            $falta->acta_realizada = 'No';
+        // Eliminar el archivo en storage
+        Storage::delete($ruta);
 
-            // Eliminar el archivo en storage
-            Storage::delete($ruta);
-
-            $falta->save();
-        }        
-
+        $falta->save();
         $falta->delete();
 
         return back()->with('success', 'Registro de Faltas al Reglamento Eliminado con éxito.');

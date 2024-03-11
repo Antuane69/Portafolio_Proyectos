@@ -33,6 +33,7 @@
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
                 <form id="formulario" action={{ route('crearBajas.extraStore') }} method="POST">
                     @csrf
+                    
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                         <p>
                             Registro de Baja de Empleado

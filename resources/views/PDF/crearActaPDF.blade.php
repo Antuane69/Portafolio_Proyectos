@@ -55,14 +55,18 @@
         </table>
         <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
             <tr>
-                <th style="font-size:12;text-align:center;font: bold" colspan="3">ACTA ADMINISTRATIVA</th>
+                @if ($tipo == 'Falta de Segundo Grado')
+                    <th style="font-size:12;text-align:center;font: bold" colspan="3">ACTA ADMINISTRATIVA</th>
+                @else
+                    <th style="font-size:12;text-align:center;font: bold" colspan="3">ACTA DE AMONESTACIÓN</th>
+                @endif
                 <p></p>
             </tr>
             <p></p>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
                     En la ciudad de Guadalajara, Jalisco, en la Sucursal López Cotilla siendo la fecha y hora actuales {{$fecha}}; se reunieron en la sucursal 
-                    Guadalajara las siguientes personas: <div style="font-weight: bold; display: inline;">LUIS SANCHEZ DE LAVEGA CASTELLANOS</div> en su carácter de Gerente y 
+                    Guadalajara las siguientes personas: <div style="font-weight: bold; display: inline;">LUIS SANCHEZ DE LAVEGA CASTELLANOS</div> en su carácter de Patrón y 
                     <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$testigo1}}, {{$testigo2}} y
                         {{$testigo3}}</div> en su calidad de testigos, con objeto de levantar la presente acta administrativa de investigación de los hechos que se le 
                     imputan al trabajador de esta empresa Sr. (a) 
@@ -79,23 +83,28 @@
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">
-                        Falta de segundo grado
-                    </div> estipulada en el reglamento interior de trabajo, la cual menciona lo siguiente: 
+                        {{$tipo}},
+                    </div> estipulada en el reglamento interior de trabajo, el cual menciona lo siguiente: 
                 </td>
             </tr>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="2">
-                    <div style="font-weight: bold; display: inline; background-color:yellow;">a) Faltar al trabajo durante un día sin justificación.</div>
+                    <div style="font-weight: bold; display: inline; background-color:yellow;">{{$falta}}.</div>
                 </td>
                 <td></td>
             </tr>
             <p></p>
             <tr style="font-size:11px;">   
-                <td style="text-align:justify;" colspan="3">
+                {{-- <td style="text-align:justify;" colspan="3">
                     De acuerdo al reglamento las faltas pueden son constitutivas de la siguiente sanción la cual consiste en LA
                     SUSPENSIÓN DE 3 DÍAS DE TRABAJO sin goce de sueldo y recepción de propinas a partir de la fecha {{$fecha_inicio}}
-                    hasta la fecha {{$fecha_fin}}, el Gerente y los testigos se trasladaron al área de la empresa en este caso al área de
+                    hasta la fecha {{$fecha_fin}}, el Patrón y los testigos se trasladaron al área de la empresa en este caso al área de
                     {{$area}} para que quede asentado que el empleado(a) <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div> efectivamente no se presentó en la fecha <div style="font-weight: bold; display: inline; background-color:yellow;">{{$empleado->fecha_solicitud}} el horario de {{$horario}} horas </div>.
+                </td> --}}
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">
+                        Los hechos ocurridos fueron los siguientes:
+                    </div> {{$hechos}}.
                 </td>
             </tr>
             <p></p>
@@ -118,7 +127,7 @@
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
                     Siendo lo anterior se da por terminada la siguiente investigación, levantando la presente acta para que quede
-                    constancia del hecho antes mencionado y que en este caso el Gerente de López Cotilla 2009 determine la resolución
+                    constancia del hecho antes mencionado y que en este caso el Patrón de López Cotilla 2009 determine la resolución
                     del presente caso conforme al reglamento interior de trabajo.
                 </td>
             </tr>
@@ -137,28 +146,38 @@
     <tr>
         <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:670px;border-collapse:collapse;font-size:10px">
             <tr style="font-weight: bold;">
-                <th style="width:35%;text-align:center" colspan="2">TRABAJADOR(A)</th>
+                <td style="width:30%;text-align:center">TRABAJADOR(A)</td>
+                <td></td>
+                <td style="width:30%;text-align:center">PATRÓN DE LA EMPRESA</td>
+                <td></td>
+                <td style="width:30%;text-align:center">COORDINADOR DEL ÁREA</td>
+
+                {{-- <th style="width:35%;text-align:center" colspan="2">TRABAJADOR(A)</th>
                 <th style='width:30%;visibility: hidden;'></th>
-                <th style="width:35%;text-align:center" colspan="2">GERENTE DE LA EMPRESA</th>
+                <th style="width:35%;text-align:center" colspan="2">PATRÓN DE LA EMPRESA</th> --}}
             </tr>
             <tr style="font-weight: bold;">
-                <td style="border-bottom:0.5px solid black;" colspan="2"></td>
+                <td style="border-bottom:0.5px solid black;"></td>
                 <td></td>
-                <td style="border-bottom:0.5px solid black;" colspan="2"></td>
+                <td style="border-bottom:0.5px solid black;"></td>
+                <td></td>
+                <td style="border-bottom:0.5px solid black;"></td>
             </tr>
             <tr style="font-weight: bold;">
-                <td style="text-align: center" colspan="2">FIRMA</td>
+                <td style="text-align: center">FIRMA</td>
                 <td></td>
-                <td style="text-align: center" colspan="2">FIRMA</td>
+                <td style="text-align: center">FIRMA</td>
+                <td></td>
+                <td style="text-align: center">FIRMA</td>
             </tr>
             <p></p>
             <p></p>
             <tr style="font-weight: bold;">
-                <td style="width:20%;text-align:center">Testigo 1</td>
+                <td style="width:30%;text-align:center">Testigo 1</td>
                 <td></td>
-                <td style="width:20%;text-align:center">Testigo 2</td>
+                <td style="width:30%;text-align:center">Testigo 2</td>
                 <td></td>
-                <td style="width:20%;text-align:center">Testigo 3</td>
+                <td style="width:30%;text-align:center">Testigo 3</td>
             </tr>
             <tr style="font-weight: bold;">
                 <td style="border-bottom:0.5px solid black;"></td>

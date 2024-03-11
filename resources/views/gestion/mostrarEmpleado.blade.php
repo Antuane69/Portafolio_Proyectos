@@ -219,50 +219,97 @@
                     @endif
                     <tbody>
                         @foreach ($empleados as $empleado)
-                            <tr>                                    
-                                <td align="center" class="font-bold">{{ $empleado->nombre }}</td>
-                                <td align="center" class="font-bold text-green-700">{{ $empleado->curp }}</td>
-                                <td align="center">{{ $empleado->rfc }}</td>
-                                <td align="center">{{ $empleado->puesto }}</td>
-                                <td align="center">{{ $empleado->fecha_ingreso }}</td>
-                                <td class=" px-2 py-1">
-                                    <div class="in-line flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$empleado->id}}">Opciones</button>   
-                                        <form action="{{route('detallesEmpleado.show',['id' => $empleado->id])}}" method="GET">
-                                            <button  class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-1 rounded-md imprimirBtn">
-                                               Más Detalles
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 200px;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div style="display: block; flex-direction: column; align-items: center;">
-                                                        <div class="in-line flex justify-center object-center">
-                                                            <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
-                                                                @csrf
-                                                                <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
-                                                                    Dar de Baja
-                                                                </button>  
-                                                            </form>                   
-                                                            <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
-                                                                @csrf         
-                                                                <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                    Editar Registro
-                                                                </button>                        
-                                                            </form>   
-                                                        </div> 
+                            <tr>  
+                                @if ($empleado->validacionContrato())
+                                    <td align="center" class="font-bold" style="background-color:#DCFFCA">{{ $empleado->nombre }}</td>
+                                    <td align="center" class="font-bold" style="background-color:#DCFFCA">{{ $empleado->curp }}</td>
+                                    <td align="center" style="background-color:#DCFFCA">{{ $empleado->rfc }}</td>
+                                    <td align="center" style="background-color:#DCFFCA">{{ $empleado->puesto }}</td>
+                                    <td align="center" style="background-color:#DCFFCA">{{ $empleado->fecha_ingreso }}</td>
+                                    <td class="px-2 py-1" style="background-color:#DCFFCA">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$empleado->id}}">Opciones</button>   
+                                            <form action="{{route('detallesEmpleado.show',['id' => $empleado->id])}}" method="GET">
+                                                <button  class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-1 rounded-md imprimirBtn">
+                                                Más Detalles
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
+                                                                    @csrf
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Dar de Baja
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div> 
+                                    </td>
+                                @else
+                                    <td align="center" class="font-bold" style="background-color:#FFECEC">{{ $empleado->nombre }}</td>
+                                    <td align="center" class="font-bold" style="background-color:#FFECEC">{{ $empleado->curp }}</td>
+                                    <td align="center" style="background-color:#FFECEC">{{ $empleado->rfc }}</td>
+                                    <td align="center" style="background-color:#FFECEC">{{ $empleado->puesto }}</td>
+                                    <td align="center" style="background-color:#FFECEC">{{ $empleado->fecha_ingreso }}</td>
+                                    <td class="px-2 py-1" style="background-color:#FFECEC">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$empleado->id}}">Opciones</button>   
+                                            <form action="{{route('detallesEmpleado.show',['id' => $empleado->id])}}" method="GET">
+                                                <button  class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-1 rounded-md imprimirBtn">
+                                                Más Detalles
+                                                </button>
+                                            </form>
                                         </div>
-                                    </div> 
-                                </td>
+                                        <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
+                                                                    @csrf
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Dar de Baja
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </td>
+                                @endif                                  
+
                             </tr> 
                         @endforeach
                     </tbody>

@@ -2,7 +2,7 @@
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Datos para el Acta Administrativa") }}
+            {{ __("Datos para la " . $titulo) }}
         </h2>
     </x-slot>
 
@@ -28,26 +28,12 @@
             </div>
         </div>
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
-                <form id="formulario" action={{ route('faltas.datospdf', $curp) }} method="POST">
+                <form id="formulario" action={{ route('faltas.datospdf', $falta->id) }} method="POST">
                     @csrf
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                         <p>
-                            Datos para el Acta Administrativa
+                            Datos para la {{$titulo}}
                         </p>
                     </div>
                     
@@ -77,6 +63,22 @@
                                 </p>
                             </div>
                             <div class='grid grid-cols-1'>
+                                <label for="falta" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    * Tipo de Falta al Reglamento
+                                </label>
+                                <p>
+                                    <input type="text" name="falta" id="falta"
+                                    class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('falta') border-red-800 bg-red-100 @enderror'
+                                    required readonly value="{{$falta->falta_cometida}}">
+                                    
+                                    @error('falta')
+                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </p>
+                            </div>
+                            {{-- <div class='grid grid-cols-1'>
                                 <label for="horario" class="mb-1 bloack uppercase text-gray-800 font-bold">
                                     * Horario al que Faltó
                                 </label>
@@ -91,16 +93,32 @@
                                         </p>
                                     @enderror
                                 </p>
+                            </div> --}}
+                            <div class='grid grid-cols-1'>
+                                <label for="hechos" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    * Declaración de los Hechos
+                                </label>
+                                <p>
+                                    <textarea id="hechos" name="hechos"
+                                    class=" focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('hechos') border-red-800 bg-red-100 @enderror"
+                                    required placeholder="Escriba lo que sucedió">{{ old('hechos') }}</textarea>
+                                    
+                                    @error('hechos')
+                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </p>
                             </div>
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_inicio" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de inicio del castigo</label>
+                                <label for="fecha_inicio" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Aplicación de la Sanción</label>
                                 <p>
                                     <input id="fecha" name="fecha_inicio"
                                     class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="fecha_fin" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha fin del castigo</label>
+                                <label for="fecha_fin" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha Fin de la Sanción</label>
                                 <p>
                                     <input id="fechaA" name="fecha_fin"
                                     class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required/>
@@ -113,7 +131,7 @@
                             class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                         <button type="submit"
                             class='w-auto bg-yellow-400 hover:bg-yellow-500 rounded-lg shadow-xl font-bold text-black px-4 py-2'
-                            >Elaborar Acta Administrativa</button>
+                            >Elaborar Acta</button>
                     </div>
                 </form>
             </div>

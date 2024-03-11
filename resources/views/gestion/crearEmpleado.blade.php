@@ -30,20 +30,6 @@
             </div>
         </div>
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
                 <form id="formulario" action={{ route('crearEmpleado.store') }} method="POST" enctype="multipart/form-data">
                         @csrf
@@ -95,12 +81,12 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <label for="rfc" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        RFC
+                                        * RFC
                                     </label>
                                     <p>
                                         <input type="text" name="rfc" id="rfc" placeholder="Ingresa el RFC del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('rfc') border-red-800 bg-red-100 @enderror'
-                                        >
+                                        required>
                                         
                                         @error('rfc')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -111,12 +97,12 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <label for="nss" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        NSS 
+                                        * NSS 
                                     </label>
                                     <p>
                                         <input type="text" name="nss" id="nss" placeholder="Ingresa el NSS del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nss') border-red-800 bg-red-100 @enderror'
-                                        >
+                                        required>
                                         
                                         @error('nss')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -237,10 +223,107 @@
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
                                 <div class="input-container">
-                                    <input type="file" name="imagen_perfil" id="inputContainer1" class='bg-white  mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview1')">
+                                    <input type="file" name="imagen_perfil" id="inputContainer1" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview1')" style="40px;border-color:#858585;background-color:#FFFFFF">
                                 </div>
                             </div>
                         </div>
+
+                        <div class='flex items-center justify-center md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
+                            <p>
+                                Documentación
+                            </p>
+                        </div>
+                        
+                        <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">                   
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">Carta de No Antecedentes penales (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="antecedentes" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">carta de recomendación (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="recomendacion" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">comprobante de estudios (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="estudios" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">acta de nacimiento (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="nacimiento" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">comprobante de domicilio (PDF)</label>
+                                    <input class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent border-black" 
+                                    name="domicilio" type='file' accept=".pdf" style="margin-left: 40px;border-color:#858585;background-color:#FFFFFF"/>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                </div>
+                                <div class='grid grid-cols-1 mt-4'>
+                                    <label for="ine" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        Número de INE
+                                    </label>
+                                    <p>
+                                        <input type="number" name="ine" placeholder="Ingresa el número de INE del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('ine') border-red-800 bg-red-100 @enderror'
+                                        >
+                                        
+                                        @error('ine')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
+                                <div class='grid grid-cols-1 mt-4'>
+                                    <label for="nomina" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        Número de Nómina
+                                    </label>
+                                    <p>
+                                        <input type="number" name="nomina" id="nomina" placeholder="Ingresa el número de nómina del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nomina') border-red-800 bg-red-100 @enderror'
+                                        >
+                                        
+                                        @error('nomina')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer2">
+                                    <label for="ine_delantera" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Frente)
+                                    </label>
+                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                        <img id="imgPreview2" style="width: 300px; height: 180px;">
+                                    </div>
+                                </div>
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer3">
+                                    <label for="ine_trasera" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Trasera)
+                                    </label>
+                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                        <img id="imgPreview3" style="width: 300px; height: 180px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
+                                <div class="input-container2">
+                                    <input type="file" name="ine_delantera" id="inputContainer2" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview2')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                </div>
+                                <div class="input-container3">
+                                    <input type="file" name="ine_trasera" id="inputContainer3" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview3')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
                             <a href="{{ route('empleadosInicio.show') }}"
                                 class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
@@ -260,6 +343,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         setupImageContainer('imageContainer1','inputContainer1');
+        setupImageContainer('imageContainer2','inputContainer2');
+        setupImageContainer('imageContainer3','inputContainer3');
         // Puedes agregar más llamadas a setupImageContainer para otros divs
     });
 
@@ -295,32 +380,3 @@
     }
 
 </script>
-
-{{-- <script>
-    var fechaInicioInput = document.getElementsByName('fecha_inicio')[0];
-    var fechaTerminoInput = document.getElementsByName('fecha_fin')[0];
-    var fechaActual = new Date(new Date().toUTCString());
-    var fechaActualString = fechaActual.toISOString().split('T')[0];
-    fechaInicioInput.setAttribute('min', fechaActualString);
-    fechaTerminoInput.setAttribute('min', fechaActualString);
-    document.getElementById("formulario").addEventListener('submit', function (event){
-        event.preventDefault();
-        event.stopPropagation();
-        var loader  =  document.getElementById("preloader");
-        var fechaInicio = document.getElementById('fecha_inicio').value;
-        var fechaTermino = document.getElementById('fecha_fin').value;
-        if(fechaInicio > fechaTermino){
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'La fecha de término no puede ser anterior a la fecha de inicio.',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    loader.style.display = "none";
-                }
-            });        
-        }else {
-            this.submit();
-        }
-    });
-</script> --}}

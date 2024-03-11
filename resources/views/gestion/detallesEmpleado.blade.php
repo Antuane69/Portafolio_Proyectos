@@ -121,6 +121,64 @@
                          <h2 class="inf">{{$empleado->fecha_indefinido}}</h2>
                     </div>
                 </div>
+                <!-- Documentación -->
+                <div class="grid grid-cols-1 col-span-2 bg-gray-600 rounded-t-xl mx-10">
+                    <h2 class="font-semibold text-xl text-white justify-self-center mt-2 mb-2">Documentación</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Carta de No Antecedentes Penales:</label>
+                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['antecedentes', $empleado->id]) }}" target="_blank">{{ $empleado->antecedentes }}</a>
+                    </div>
+                    <div class="grid cols-1">
+                        <label class="lbl md:text-sm">Carta de Recomendación:</label>
+                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['recomendacion', $empleado->id]) }}" target="_blank">{{ $empleado->recomendacion }}</a>
+                    </div>
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Comprobante de Estudios:</label>
+                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['estudios', $empleado->id]) }}" target="_blank">{{ $empleado->estudios }}</a>
+                    </div>
+                    <div class="grid cols-1">
+                        <label class="lbl md:text-sm">Acta de Nacimiento:</label>
+                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['nacimiento', $empleado->id]) }}" target="_blank">{{ $empleado->nacimiento }}</a>
+                    </div>
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Comprobante de Domicilio:</label>
+                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['domicilio', $empleado->id]) }}" target="_blank">{{ $empleado->domicilio }}</a>
+                    </div>
+                    <div class="grid cols-1">
+                        <label class="lbl md:text-sm">Número de Nómina:</label>
+                            <h2 class="inf">{{$empleado->nomina}}</h2>
+                    </div>
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Número de INE:</label>
+                            <h2 class="inf">{{$empleado->ine}}</h2>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
+                    @if ($empleado->ine_delantera)                            
+                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
+                            <label class="lbl md:text-sm">INE Delantera:</label>
+                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
+                        </div>
+                    @else
+                        <div class="grid cols-1 ml-20">
+                            <label class="lbl md:text-sm">INE Delantera:</label>
+                            <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                        </div>
+                    @endif
+                    @if ($empleado->ine_trasera)                            
+                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
+                            <label class="lbl md:text-sm">INE Trasera:</label>
+                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
+                        </div>
+                    @else
+                        <div class="grid cols-1 ml-20">
+                            <label class="lbl md:text-sm">INE Trasera:</label>
+                            <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
