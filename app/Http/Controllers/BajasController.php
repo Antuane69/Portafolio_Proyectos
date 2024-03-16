@@ -40,7 +40,7 @@ class BajasController extends Controller
     }
 
     public function create($id){
-        $empleado = Empleados::find($id);
+        $empleado = Empleados::withTrashed()->find($id);
         $fechaActual = Carbon::now(); // Obtiene la fecha y hora actual
         $diferencia = $fechaActual->diff($empleado->fecha_ingreso);
 
@@ -63,28 +63,32 @@ class BajasController extends Controller
 
     public function store(Request $request, $id){
 
-        $empleado = Empleados::find($id);
-
-        $ruta = public_path() . '/img/gestion/Empleados/' . $empleado->imagen_perfil;
+        $empleado = Empleados::withTrashed()->find($id);
 
         $this->validate($request, [
-        // ... tus reglas de validación ...
+            // ... tus reglas de validación ...
             'antiguedad' => 'required',
             'fecha_baja' => 'required|date',
             'anticipacion' => 'required',
             'causa' => 'required',
         ]);
- 
-        if (File::exists($ruta)) {
+        
+        if($empleado->imagen_perfil != ''){
+            $ruta = public_path() . '/img/gestion/Empleados/' . $empleado->imagen_perfil;
             $rutaDestino = public_path() . '/img/gestion/Bajas/' . $empleado->imagen_perfil;
             $nombreImagen = $empleado->imagen_perfil;
             // Mover la imagen
             File::move($ruta, $rutaDestino);
         }else{
-            $perfil = $request->file('imagen_perfil');
-            $nombreImagen =  time()."_".$perfil->getClientOriginalName();
-            $perfil->move($ruta,$nombreImagen);
-        };
+            if($request->file('imagen_perfil') != ''){
+                $ruta = public_path() . '/img/gestion/Empleados/' . $empleado->imagen_perfil;
+                $perfil = $request->file('imagen_perfil');
+                $nombreImagen =  time()."_".$perfil->getClientOriginalName();
+                $perfil->move($ruta,$nombreImagen);
+            }else{
+                $nombreImagen = '';
+            }
+        }
 
         Bajas::create([
             'nombre' => $empleado->nombre,
@@ -105,8 +109,6 @@ class BajasController extends Controller
         ]);
 
         $empleado->delete();
- 
-        $bajas = Bajas::all();
         
         return redirect()->route('mostrarBajas.show')->with('success', 'Empleado Dado de Baja con éxito.');
         // return redirect()->route('mostrarFaltas.show')->with('success', 'Registro de Faltas Editado con éxito.');
@@ -115,23 +117,21 @@ class BajasController extends Controller
     public function restaurar($id)
     {
         $baja = Bajas::find($id);
-        $id = Empleados::withTrashed()->where('curp',$baja->curp)->pluck('id')->first(); 
+        $id = Empleados::withTrashed()->where('nombre',$baja->nombre)->pluck('id')->first(); 
 
         // Buscar el modelo eliminado con el ID
         $elemento = Empleados::withTrashed()->find($id);
 
-        $ruta = public_path() . '/img/gestion/Bajas/' . $baja->imagen_perfil;
         // Verificar si el elemento existe
         if ($elemento) {
-            // Restaurar el elemento
-            $elemento->restore();
-
-            if (File::exists($ruta)) {
+            if($baja->imagen_perfil != ''){
+                $ruta = public_path() . '/img/gestion/Bajas/' . $baja->imagen_perfil;
                 $rutaDestino = public_path() . '/img/gestion/Empleados/' . $baja->imagen_perfil;
-                $nombreImagen = $baja->imagen_perfil;
                 // Mover la imagen
                 File::move($ruta, $rutaDestino);
             }
+            // Restaurar el elemento
+            $elemento->restore();
 
             $baja->delete();
 

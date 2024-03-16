@@ -225,7 +225,7 @@
                                     <td align="center" class="font-bold" style="background-color:#DCFFCA">{{ $empleado->curp }}</td>
                                     <td align="center" style="background-color:#DCFFCA">{{ $empleado->rfc }}</td>
                                     <td align="center" style="background-color:#DCFFCA">{{ $empleado->puesto }}</td>
-                                    <td align="center" style="background-color:#DCFFCA">{{ $empleado->fecha_ingreso }}</td>
+                                    <td align="center" style="background-color:#DCFFCA">{{ $empleado->fecha }}</td>
                                     <td class="px-2 py-1" style="background-color:#DCFFCA">
                                         <div class="in-line flex justify-center object-center">
                                             <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$empleado->id}}">Opciones</button>   
@@ -237,7 +237,7 @@
                                         </div>
                                         <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                <div class="modal-content" style="width: 600px; height: 330px;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                         <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -247,17 +247,41 @@
                                                             <div class="in-line flex justify-center object-center">
                                                                 <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
                                                                     @csrf
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                    <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-2 rounded-md mb-3 mr-3 mt-1">
                                                                         Dar de Baja
                                                                     </button>  
-                                                                </form>                   
+                                                                </form>   
+                                                                <form class="rounded text-white font-bold py-1 px-2">
+                                                                    @csrf         
+                                                                    <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
+                                                                        Generar Documentos PDF
+                                                                    </button>                        
+                                                                </form>                     
                                                                 <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
                                                                     @csrf         
-                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                    <button class="border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-2 mr-3 rounded-md mt-1">
                                                                         Editar Registro
                                                                     </button>                        
-                                                                </form>   
-                                                            </div> 
+                                                                </form> 
+                                                                @if ($empleado->documentacion != "")
+                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 mt-1 rounded-md" style="max-height: 65px"
+                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                        Modificar Archivo PDF
+                                                                    </button>
+                                                                @else
+                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 rounded-md mt-1" style="max-height: 65px"
+                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                        Subir Acta
+                                                                    </button>
+                                                                @endif  
+                                                            </div>
+                                                            <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
+                                                                <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >
+                                                                    @csrf
+                                                                    <input type="file" name="DocumentacionPDF" id='requiredSolicitud_{{$empleado->id}}' accept=".pdf" class="mt-4" style="margin-left: 120px">
+                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-left: 240px">Enviar PDF</button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -269,7 +293,7 @@
                                     <td align="center" class="font-bold" style="background-color:#FFECEC">{{ $empleado->curp }}</td>
                                     <td align="center" style="background-color:#FFECEC">{{ $empleado->rfc }}</td>
                                     <td align="center" style="background-color:#FFECEC">{{ $empleado->puesto }}</td>
-                                    <td align="center" style="background-color:#FFECEC">{{ $empleado->fecha_ingreso }}</td>
+                                    <td align="center" style="background-color:#FFECEC">{{ $empleado->fecha }}</td>
                                     <td class="px-2 py-1" style="background-color:#FFECEC">
                                         <div class="in-line flex justify-center object-center">
                                             <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$empleado->id}}">Opciones</button>   
@@ -281,7 +305,7 @@
                                         </div>
                                         <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                <div class="modal-content" style="width: 600px; height: 330px;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                         <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -291,17 +315,41 @@
                                                             <div class="in-line flex justify-center object-center">
                                                                 <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
                                                                     @csrf
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                    <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-2 rounded-md mb-3 mr-3 mt-1">
                                                                         Dar de Baja
                                                                     </button>  
-                                                                </form>                   
+                                                                </form>   
+                                                                <form class="rounded text-white font-bold py-1 px-2">
+                                                                    @csrf         
+                                                                    <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
+                                                                        Generar Documentos PDF
+                                                                    </button>                        
+                                                                </form>                     
                                                                 <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
                                                                     @csrf         
-                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                    <button class="border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-2 mr-3 rounded-md mt-1">
                                                                         Editar Registro
                                                                     </button>                        
-                                                                </form>   
-                                                            </div> 
+                                                                </form> 
+                                                                @if ($empleado->documentacion != "")
+                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 mt-1 rounded-md" style="max-height: 65px"
+                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                        Modificar Archivo PDF
+                                                                    </button>
+                                                                @else
+                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 rounded-md mt-1" style="max-height: 65px"
+                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                        Subir Acta
+                                                                    </button>
+                                                                @endif  
+                                                            </div>
+                                                            <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
+                                                                <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >
+                                                                    @csrf
+                                                                    <input type="file" name="DocumentacionPDF" id='requiredSolicitud_{{$empleado->id}}' accept=".pdf" class="mt-4" style="margin-left: 120px">
+                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-left: 240px">Enviar PDF</button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -332,6 +380,41 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded',function () {
+                //document.getElementById('abrirVentana').addEventListener('click',() => console.log('hola'));
+                var botonesAccion = document.querySelectorAll('.boton-accion');
+                botonesAccion.forEach(function (boton) {
+                    boton.addEventListener('click', function () {
+                        var idbtn = boton.getAttribute('data-id');
+                        otrapantalla(idbtn);
+                    });
+                });
+            });
+            // Definir tu función de JavaScript
+            function otrapantalla(idbtn) {
+                var nuevaVentanaURL = '{{ route("empleados.crear_datospdf", ":idbtn") }}';
+                nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
+
+                // Abre una nueva ventana
+                window.open(nuevaVentanaURL, '_blank');
+            }
+
+            function mostrarInput(Id_oculto,Id_required){
+                var elementoOculto = document.getElementById(Id_oculto);
+                var elementoRequired = document.getElementById(Id_required);
+
+                if (elementoOculto.hidden) {
+                    // Si está oculto, mostrarlo
+                    elementoOculto.hidden = false;
+                    elementoRequired.required = true;
+                } else {
+                    // Si está visible, ocultarlo
+                    elementoOculto.hidden = true;
+                    elementoRequired.required = false;
+                }
+            }
         </script>
     @endsection
 </x-app-layout>

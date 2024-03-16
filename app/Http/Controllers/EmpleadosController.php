@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use validate;
+use Carbon\Carbon;
 use App\Models\Bajas;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use PhpParser\Node\Stmt\ElseIf_;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Stmt\ElseIf_;
 
 class EmpleadosController extends Controller
 {
@@ -26,6 +28,11 @@ class EmpleadosController extends Controller
     public function show(){
 
         $empleados = Empleados::all();
+
+        foreach($empleados as $empleado){
+            $auxf = new Carbon($empleado->fecha_ingreso);
+            $empleado->fecha = $auxf->format('d/m/Y');
+        }
         
         return view('gestion.mostrarEmpleado',[
             'empleados' => $empleados
@@ -78,41 +85,41 @@ class EmpleadosController extends Controller
         }
 
         if ($request->hasFile('antecedentes')) {
-            $archivopdf = $request->file('antecedentes')->store('public/Documentación');
+            $archivopdf = $request->file('antecedentes')->store('public/Documentación/' . $request->curp);
             $antecedentes = 'antecedentes_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $antecedentes;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $antecedentes;
     
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('recomendacion')) {
-            $archivopdf = $request->file('recomendacion')->store('public/Documentación');
+            $archivopdf = $request->file('recomendacion')->store('public/Documentación/' . $request->curp);
             $recomendacion = 'recomendacion_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $recomendacion;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $recomendacion;
     
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('estudios')) {
-            $archivopdf = $request->file('estudios')->store('public/Documentación');
+            $archivopdf = $request->file('estudios')->store('public/Documentación/' . $request->curp);
             $estudios = 'estudios_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $estudios;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $estudios;
     
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('nacimiento')) {
-            $archivopdf = $request->file('nacimiento')->store('public/Documentación');
+            $archivopdf = $request->file('nacimiento')->store('public/Documentación/' . $request->curp);
             $nacimiento = 'nacimiento_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $nacimiento;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $nacimiento;
     
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('domicilio')) {
-            $archivopdf = $request->file('domicilio')->store('public/Documentación');
+            $archivopdf = $request->file('domicilio')->store('public/Documentación/' . $request->curp);
             $domicilio = 'domicilio_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $domicilio;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $domicilio;
     
             Storage::move($archivopdf,$ruta);
         }
@@ -164,6 +171,21 @@ class EmpleadosController extends Controller
     public function detalles($id){
 
         $empleado = Empleados::query()->find($id);
+
+        $auxf = new Carbon($empleado->fecha_ingreso);
+        $empleado->fecha = $auxf->format('d/m/Y');
+
+        $auxna = new Carbon($empleado->fecha_nacimiento);
+        $empleado->fechaNac = $auxna->format('d/m/Y');
+
+        $auxf2 = new Carbon($empleado->fecha_2doContrato);
+        $empleado->fecha2Contrato = $auxf2->format('d/m/Y');
+
+        $auxf3 = new Carbon($empleado->fecha_3erContrato);
+        $empleado->fecha3Contrato = $auxf3->format('d/m/Y');
+
+        $auxf4 = new Carbon($empleado->fecha_indefinido);
+        $empleado->fecha4Contrato = $auxf4->format('d/m/Y');
 
         return view('gestion.detallesEmpleado',[
             'empleado' => $empleado,
@@ -227,41 +249,41 @@ class EmpleadosController extends Controller
         }
 
         if ($request->hasFile('antecedentes')) {
-            $archivopdf = $request->file('antecedentes')->store('public/Documentación');
+            $archivopdf = $request->file('antecedentes')->store('public/Documentación/' . $request->curp);
             $antecedentes = 'antecedentes_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $antecedentes;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $antecedentes;
             $empleado->antecedentes = $antecedentes;
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('recomendacion')) {
-            $archivopdf = $request->file('recomendacion')->store('public/Documentación');
+            $archivopdf = $request->file('recomendacion')->store('public/Documentación/' . $request->curp);
             $recomendacion = 'recomendacion_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $recomendacion;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $recomendacion;
             $empleado->recomendacion = $recomendacion;  
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('estudios')) {
-            $archivopdf = $request->file('estudios')->store('public/Documentación');
+            $archivopdf = $request->file('estudios')->store('public/Documentación/' . $request->curp);
             $estudios = 'estudios_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $estudios;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $estudios;
             $empleado->estudios = $estudios;  
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('nacimiento')) {
-            $archivopdf = $request->file('nacimiento')->store('public/Documentación');
+            $archivopdf = $request->file('nacimiento')->store('public/Documentación/' . $request->curp);
             $nacimiento = 'nacimiento_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $nacimiento;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $nacimiento;
             $empleado->nacimiento = $nacimiento;  
             Storage::move($archivopdf,$ruta);
         }
 
         if ($request->hasFile('domicilio')) {
-            $archivopdf = $request->file('domicilio')->store('public/Documentación');
+            $archivopdf = $request->file('domicilio')->store('public/Documentación/' . $request->curp);
             $domicilio = 'domicilio_' . $request->nombre . ".pdf";
-            $ruta = 'public/Documentación/' . $domicilio;
+            $ruta = 'public/Documentación/' . $request->curp . '/' . $domicilio;
             $empleado->domicilio = $domicilio;  
             Storage::move($archivopdf,$ruta);
         }
@@ -316,7 +338,7 @@ class EmpleadosController extends Controller
             $filename = $empleado->domicilio; 
         };
 
-        $path = storage_path('app/public/Documentación/' . $filename);
+        $path = storage_path('app/public/Documentación/' . $empleado->curp . '/' . $filename);
         
         if (file_exists($path)) {
             // Configurar el id de respuesta como PDF
@@ -329,103 +351,68 @@ class EmpleadosController extends Controller
 
     public function crear_datosPDF($id){
 
-        $nombres = Empleados::query()->get();
-        $falta = Faltas::find($id);
-        $curp = $falta->curp;
+        $empleado = Empleados::find($id);
+        $opciones = ['Contrato Indefinido','Contrato de 30 Dias'];
+        $opciones2 = ['Casado','Soltero', 'Unión libre', 'Divorciado','Otro'];
+        $opciones3 = ['Masculino','Femenino','Otro'];
 
-        $nombres = $nombres->pluck('nombre')->toArray();
+        // Especifica la zona horaria
+        $zonaHoraria = 'America/Mexico_City';
 
-        $opciones = ['Cocina','Servicio','Barra','Producción'];
+        // Obtén la fecha actual en la zona horaria especificada
+        $fechaInicio = Carbon::now($zonaHoraria);
+        $fechaTermino = new Carbon($fechaInicio);
 
-        $faltas = [
-            'I. Acumulación de amonestaciones',
-            'II. Faltar a trabajar sin justificante',
-            'III. Falta a las medidas de seguridad e higiene',
-            'IV. Desestabilización del orden',
-            'V. Negar el servicio o cerrar antes del horario establecido',
-            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
-            'VII. Divulgar o comentar los sueldos recibidos',
-            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
-            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
-            'X. Atentar en contra de las buenas costumbres y la moral',
-            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
-        ];
+        // Sumar 30 días a la fecha original
+        $fechaTermino = $fechaTermino->addDays(30);
 
-        $titulo = "Acta de Amonestación";
-
-        for($i = 0; $i<11; $i++){
-            if($faltas[$i] == $falta->falta_cometida){
-                $titulo = "Acta Administrativa";
-            }
-        }
-
-        return view('gestion.crearActa',[
+        return view('gestion.crearContrato',[
+            'empleado' => $empleado,
             'opciones' => $opciones,
-            'nombres' => $nombres,
-            'curp' => $curp,
-            'falta' => $falta,
-            'titulo' => $titulo
+            'opciones2' => $opciones2,
+            'opciones3' => $opciones3,
+            'fechaInicio' => $fechaInicio->format('d-m-Y'),
+            'fechaTermino' => $fechaTermino->format('d-m-Y'),
         ]);
     }
 
     public function datos_pdf(Request $request, $id){
+        $empleado = Empleados::find($id);
+        // Especifica la zona horaria
+        $zonaHoraria = 'America/Mexico_City';
 
-        $testigo1 = $request->nombresreg[0];
-        $testigo2 = $request->nombresreg[1];
-        $testigo3 = $request->nombresreg[2];
-        
-        $fecha_actual = Carbon::now(); // Obtiene la fecha y hora actual
+        // Obtén la fecha actual en la zona horaria especificada
+        $fecha_actual = Carbon::now($zonaHoraria);
 
-        // $empleado =  Faltas::where('curp',$curp)->where('acta_administrativa','!=','0')
-        // ->where('acta_realizada','No')->orderBy('created_at', 'desc')->first();
+        // Formatea la fecha en el formato deseado
+        $fechaFormateada = $fecha_actual->format('d \d\e F \d\e Y');
 
-        $empleado = Faltas::find($id);
+        $fechaNacimiento = Carbon::parse($empleado->fecha_nacimiento);
+        // Calcula la diferencia en años
+        $edad = $fechaNacimiento->diffInYears($fecha_actual);
 
-        $area = $request->area;
+        $empleado->nacionalidad = $request->nacionalidad;
+        $empleado->estado_civil = $request->estadocivil;
+        $empleado->sexo = $request->sexo;
+        $empleado->domicilio = $request->domicilio;
 
-        $fecha_inicio = $request->fecha_inicio;
+        $titulo = $request->tipo;
+
+        $fecha_inicio = new Carbon($request->fecha_inicio);
+        $fecha_indefinida = new Carbon($request->fecha_indefinida);
         $fecha_fin = $request->fecha_fin;
-        $fecha_falta = $request->fecha_falta;
-        $falta = $request->falta;
-        $hechos = $request->hechos;
 
-        $faltas = [
-            'I. Acumulación de amonestaciones',
-            'II. Faltar a trabajar sin justificante',
-            'III. Falta a las medidas de seguridad e higiene',
-            'IV. Desestabilización del orden',
-            'V. Negar el servicio o cerrar antes del horario establecido',
-            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
-            'VII. Divulgar o comentar los sueldos recibidos',
-            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
-            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
-            'X. Atentar en contra de las buenas costumbres y la moral',
-            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
-        ];
-
-        $tipo = "Falta de Primer Grado";
-        $titulo = "Acta de Amonestación";
-
-        for($i = 0; $i<11; $i++){
-            if($faltas[$i] == $empleado->falta_cometida){
-                $tipo = "Falta de Segundo Grado";
-                $titulo = "Acta Administrativa";
-            }
-        }
+        $empleado->edad = $edad;
+        $empleado->quincena = $request->quincena;
         
-        $pdf = Pdf::loadView('PDF.crearActaPDF',[
+        $pdf = Pdf::loadView('PDF.crearContratoPDF',[
             'empleado' => $empleado,
             'fecha' => $fecha_actual,
-            'testigo1' => $testigo1,
-            'testigo2' => $testigo2,
-            'testigo3' => $testigo3,
-            'area' => $area,
-            'fecha_inicio' => $fecha_inicio,
+            'fecha_inicio' => $fecha_inicio->format('d/m/Y'),
+            'fecha_indefinida' => $fecha_indefinida->format('d/m/Y'),
             'fecha_fin' => $fecha_fin,
-            'fecha_falta' => $fecha_falta,
-            'falta' => $falta,
-            'hechos' => $hechos,
-            'tipo' => $tipo,
+            'fechaActual' => $fechaFormateada,
+            'titulo' => $titulo
             ])->setPaper('letter', 'portrait');
 
         // Nombre del archivo PDF
@@ -439,80 +426,39 @@ class EmpleadosController extends Controller
     {
 
         $this->validate($request, [
-            'acta_PDF' => 'required|file|mimes:pdf|max:8192',
+            'DocumentacionPDF' => 'required|file|mimes:pdf|max:8192',
         ]);
 
-        $falta = Faltas::find($id);
+        $empleado = Empleados::find($id);
 
-        $faltas = [
-            'I. Acumulación de amonestaciones',
-            'II. Faltar a trabajar sin justificante',
-            'III. Falta a las medidas de seguridad e higiene',
-            'IV. Desestabilización del orden',
-            'V. Negar el servicio o cerrar antes del horario establecido',
-            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
-            'VII. Divulgar o comentar los sueldos recibidos',
-            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
-            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
-            'X. Atentar en contra de las buenas costumbres y la moral',
-            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
-        ];
+        $archivopdf = $request->file('DocumentacionPDF')->store('public/Documentación/' . $empleado->curp);
+        $nombreOriginal = $id . '_Documentacion_' . $empleado->curp . '.pdf';
 
-        $bandera = 0;
+        $ruta = 'public/Documentación/' . $empleado->curp . '/' . $nombreOriginal;
 
-        for($i = 0; $i<11; $i++){
-            if($faltas[$i] == $falta->falta_cometida){
-                $titulo = "Acta Administrativa";
-                $bandera = 1;
-            }
-        }
+        $empleado->documentacion = $nombreOriginal;
 
-        if($bandera == 0){
-            $tipo = "Acta de Amonestación";
-        }
-
-        $archivopdf = $request->file('acta_PDF')->store('public/Actas');
-        $nombreOriginal = $id . '_' . $tipo . '_' . $falta->curp . '.pdf';
-
-        $ruta = 'public/Actas/' . $nombreOriginal;
-
-        if($falta->acta_realizada != "No"){
-            // Eliminar el archivo en storage
-            Storage::delete($ruta);
-        }else{
-            $falta->acta_realizada = $nombreOriginal;
-        }   
-        
         Storage::move($archivopdf,$ruta);
-        $falta->save();
+        $empleado->save();
 
         return redirect()->back();
     }   
 
-    public function ver_pdf($id)
-    {
-        $faltas =  Faltas::find($id);
+    // public function ver_pdf($id)
+    // {
+    //     $faltas =  Faltas::find($id);
 
-        $filename = $faltas->acta_realizada;
+    //     $filename = $faltas->acta_realizada;
 
-        $path = storage_path('app/public/Actas/' . $filename);
+    //     $path = storage_path('app/public/Actas/' . $filename);
         
-        if (file_exists($path)) {
-            // Configurar el tipo de respuesta como PDF
-            $headers = ['Content-Type' => 'application/pdf'];
+    //     if (file_exists($path)) {
+    //         // Configurar el tipo de respuesta como PDF
+    //         $headers = ['Content-Type' => 'application/pdf'];
     
-            // Descargar el archivo
-            return response()->file($path, $headers);
-        };
-    }   
+    //         // Descargar el archivo
+    //         return response()->file($path, $headers);
+    //     };
+    // }   
 
-    public function mostrar_pdf(){
-        $faltas = Faltas::where('acta_realizada', '!=', 'No')
-        ->orderBy('created_at', 'desc')
-        ->get();    
-
-        return view('PDF.mostrarActasPDF',[
-            'faltas' => $faltas
-        ]);
-    }
 }

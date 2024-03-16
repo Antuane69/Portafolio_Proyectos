@@ -146,6 +146,5 @@ Route::get('/gestion/verDocumentacion/pdf/{tipo}/{id}', [EmpleadosController::cl
 Route::get('/gestion/datosContrato/pdf/{id}', [EmpleadosController::class,'crear_datosPDF'])->name('empleados.crear_datospdf');//*
 Route::post('/gestion/generarContrato/pdf/{id}', [EmpleadosController::class,'datos_pdf'])->name('empleados.datospdf');//*
 Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
-Route::get('/gestion/verContrato/pdf/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
-Route::get('/pdf/mostrarContrato/pdf', [EmpleadosController::class,'mostrar_pdf'])->name('empleados.mostrarpdf');//*
-Route::delete('/gestion/eliminarContrato/pdf/{id}', [EmpleadosController::class, 'eliminar_pdf'])->name('eliminarContrato.pdf');
+// Route::get('/gestion/verContrato/pdf/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
+// Route::delete('/gestion/eliminarContrato/pdf/{id}', [EmpleadosController::class, 'eliminar_pdf'])->name('eliminarContrato.pdf');

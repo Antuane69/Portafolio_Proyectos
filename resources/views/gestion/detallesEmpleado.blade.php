@@ -67,7 +67,7 @@
                             </div>
                             <div>
                                 <label class="lbl md:text-sm">Fecha de Nacimiento:</label>
-                                <h2 class="inf">{{$empleado->fecha_nacimiento}}</h2>
+                                <h2 class="inf">{{$empleado->fechaNac}}</h2>
                             </div>
                             <div>
                                 <label class="lbl md:text-sm">CURP:</label>
@@ -106,19 +106,19 @@
                     </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Fecha de Ingreso:</label>
-                         <h2 class="inf">{{$empleado->fecha_ingreso}}</h2>
+                         <h2 class="inf">{{$empleado->fecha}}</h2>
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Fecha del Segundo Contrato:</label>
-                         <h2 class="inf">{{$empleado->fecha_2doContrato}}</h2>
+                         <h2 class="inf">{{$empleado->fecha2Contrato}}</h2>
                     </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Fecha del Tercer Contrato:</label>
-                         <h2 class="inf">{{$empleado->fecha_3erContrato}}</h2>
+                         <h2 class="inf">{{$empleado->fecha3Contrato}}</h2>
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Fecha del Contrato Indefinido:</label>
-                         <h2 class="inf">{{$empleado->fecha_indefinido}}</h2>
+                         <h2 class="inf">{{$empleado->fecha4Contrato}}</h2>
                     </div>
                 </div>
                 <!-- Documentación -->
@@ -128,23 +128,43 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Carta de No Antecedentes Penales:</label>
-                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['antecedentes', $empleado->id]) }}" target="_blank">{{ $empleado->antecedentes }}</a>
+                        @if ($empleado->antecedentes != "")
+                            <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['antecedentes', $empleado->id]) }}" target="_blank">{{ $empleado->antecedentes }}</a>
+                        @else
+                            <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                        @endif
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Carta de Recomendación:</label>
-                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['recomendacion', $empleado->id]) }}" target="_blank">{{ $empleado->recomendacion }}</a>
+                        @if ($empleado->recomendacion != "")
+                            <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['recomendacion', $empleado->id]) }}" target="_blank">{{ $empleado->recomendacion }}</a>
+                        @else
+                            <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                        @endif
                     </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Comprobante de Estudios:</label>
-                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['estudios', $empleado->id]) }}" target="_blank">{{ $empleado->estudios }}</a>
+                        @if ($empleado->estudios != "")
+                            <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['estudios', $empleado->id]) }}" target="_blank">{{ $empleado->estudios }}</a>
+                        @else
+                            <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                        @endif
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Acta de Nacimiento:</label>
-                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['nacimiento', $empleado->id]) }}" target="_blank">{{ $empleado->nacimiento }}</a>
+                        @if ($empleado->nacimiento != "")
+                            <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['nacimiento', $empleado->id]) }}" target="_blank">{{ $empleado->nacimiento }}</a>
+                        @else
+                            <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                        @endif
                     </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Comprobante de Domicilio:</label>
-                        <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['domicilio', $empleado->id]) }}" target="_blank">{{ $empleado->domicilio }}</a>
+                        @if ($empleado->domicilio != "")
+                            <a class="inf text-blue-600 hover:text-blue-800 underline" href="{{ route('empleados.verpdf',['domicilio', $empleado->id]) }}" target="_blank">{{ $empleado->domicilio }}</a>
+                        @else
+                            <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
+                        @endif
                     </div>
                     <div class="grid cols-1">
                         <label class="lbl md:text-sm">Número de Nómina:</label>
@@ -156,26 +176,26 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
-                    @if ($empleado->ine_delantera)                            
+                    @if ($empleado->ine_delantera != '')                            
                         <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
                             <label class="lbl md:text-sm">INE Delantera:</label>
                             <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
                         </div>
                     @else
-                        <div class="grid cols-1 ml-20">
+                        <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
                             <label class="lbl md:text-sm">INE Delantera:</label>
-                            <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
                         </div>
                     @endif
-                    @if ($empleado->ine_trasera)                            
+                    @if ($empleado->ine_trasera != "")                            
                         <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
                             <label class="lbl md:text-sm">INE Trasera:</label>
                             <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
                         </div>
                     @else
-                        <div class="grid cols-1 ml-20">
+                        <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
                             <label class="lbl md:text-sm">INE Trasera:</label>
-                            <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
                         </div>
                     @endif
                 </div>
