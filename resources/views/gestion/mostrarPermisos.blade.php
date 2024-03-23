@@ -116,12 +116,12 @@
                         @foreach ($permisos as $permiso)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $permiso->empleado->nombre }}</td>
-                                <td align="center">{{ $permiso->fecha_solicitud }}</td>
-                                <td align="center">{{ $permiso->fecha_inicio }}</td>
-                                <td align="center">{{ $permiso->fecha_regreso }}</td>
+                                <td align="center">{{ $permiso->solicitud }}</td>
+                                <td align="center">{{ $permiso->inicio }}</td>
+                                <td align="center">{{ $permiso->regreso }}</td>
                                 <td align="center">{{ $permiso->dias_totales }}</td>
                                 <td align="center">{{ $permiso->motivo }}</td>
-                                <td align="center">{{ $permiso->fecha_anteriorPermiso }}</td>
+                                <td align="center">{{ $permiso->anterior }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="in-line flex justify-center object-center">
                                         <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$permiso->id}}">Opciones</button>   

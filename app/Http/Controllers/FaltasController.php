@@ -16,6 +16,11 @@ class FaltasController extends Controller
 
         $faltas = Faltas::query()->orderBy('created_at', 'desc')->get();
 
+        foreach($faltas as $falta){
+            $auxf = new Carbon($falta->fecha_solicitud);
+            $falta->solicitud = $auxf->format('d/m/Y');
+        }
+
         return view('gestion.mostrarFaltas',[
             'faltas' => $faltas
         ]);
@@ -314,8 +319,13 @@ class FaltasController extends Controller
 
     public function mostrar_pdf(){
         $faltas = Faltas::where('acta_realizada', '!=', 'No')
-        ->orderBy('created_at', 'desc')
+        ->orderBy('updated_at', 'desc')
         ->get();    
+
+        foreach($faltas as $falta){
+            $auxf = new Carbon($falta->updated_at);
+            $falta->solicitud = $auxf->format('d/m/Y');
+        }        
 
         return view('PDF.mostrarActasPDF',[
             'faltas' => $faltas

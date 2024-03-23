@@ -114,7 +114,7 @@
                         @foreach ($faltas as $falta)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $falta->nombre }}</td>
-                                <td align="center">{{ $falta->fecha_solicitud }}</td>
+                                <td align="center">{{ $falta->solicitud }}</td>
                                 <td align="center">{{ $falta->falta_cometida }}</td>
                                 <td align="center">{{ $falta->amonestacion }}</td>
                                 @if ($falta->acta_administrativa >= 1)

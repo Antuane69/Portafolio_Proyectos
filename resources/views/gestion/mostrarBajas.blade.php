@@ -202,8 +202,8 @@
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $baja->nombre }}</td>
                                 <td align="center">{{ $baja->puesto }}</td>
-                                <td align="center">{{ $baja->fecha_ingreso }}</td>
-                                <td align="center">{{ $baja->fecha_baja }}</td>
+                                <td align="center">{{ $baja->ingreso }}</td>
+                                <td align="center">{{ $baja->baja }}</td>
                                 <td align="center">{{ $baja->antiguedad }}</td>
                                 <td align="center">{{ $baja->causa }}</td>
                                 <td class=" px-2 py-1">

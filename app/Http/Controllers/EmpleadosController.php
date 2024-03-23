@@ -138,6 +138,12 @@ class EmpleadosController extends Controller
             $archivo->move($ruta,$ine_delantera);
         }
 
+        if ($request->hasFile('nomina')) {
+            $archivo = $request->file('nomina');
+            $nomina = 'numero_tarjeta_' . $request->nombre . "." . $archivo->getClientOriginalExtension();
+            $archivo->move($ruta,$nomina);
+        } 
+
         Empleados::create([
             'nombre' => $request->nombre,
             'curp' => $request->curp,
@@ -160,7 +166,7 @@ class EmpleadosController extends Controller
             'nacimiento' => $nacimiento,
             'domicilio' => $domicilio,
             'ine' => $request->ine,
-            'nomina' => $request->nomina,
+            'nomina' => $nomina,
             'ine_trasera' => $ine_trasera,
             'ine_delantera' => $ine_delantera
         ]);
@@ -205,6 +211,7 @@ class EmpleadosController extends Controller
     {
         $this->validate($request, [
             'imagen_perfil' => 'mimes:jpg,jpeg,png|max:10240',
+            'nomina' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_trasera' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_delantera' => 'mimes:jpg,jpeg,png|max:10240',
             'antecedentes' => 'file|mimes:pdf|max:8192',
@@ -214,14 +221,6 @@ class EmpleadosController extends Controller
             'domicilio' => 'file|mimes:pdf|max:8192',
         ]);
  
-        // $ine_trasera = '';
-        // $ine_delantera = '';
-        // $antecedentes = '';
-        // $recomendacion = '';
-        // $estudios = '';
-        // $nacimiento = '';
-        // $domicilio = '';
-
         $ruta = public_path() . '/img/gestion/Empleados';
 
         $empleado = Empleados::find($id);
@@ -304,6 +303,13 @@ class EmpleadosController extends Controller
             $empleado->ine_delantera = $ine_delantera; 
         } 
 
+        if ($request->hasFile('nomina')) {
+            $archivo = $request->file('nomina');
+            $nomina = 'numero_tarjeta_' . $request->nombre . "." . $archivo->getClientOriginalExtension();
+            $archivo->move($ruta,$nomina);
+            $empleado->nomina = $nomina; 
+        } 
+
         $empleado->save();
 
         return redirect()->route('mostrarEmpleado.show');
@@ -336,6 +342,8 @@ class EmpleadosController extends Controller
         }
         elseif($id == 'domicilio'){
             $filename = $empleado->domicilio; 
+        }elseif($id == 'documentacion'){
+            $filename = $empleado->documentacion; 
         };
 
         $path = storage_path('app/public/Documentación/' . $empleado->curp . '/' . $filename);
@@ -383,9 +391,11 @@ class EmpleadosController extends Controller
 
         // Obtén la fecha actual en la zona horaria especificada
         $fecha_actual = Carbon::now($zonaHoraria);
+        $fecha_actual2 = Carbon::setLocale('es');
 
         // Formatea la fecha en el formato deseado
         $fechaFormateada = $fecha_actual->format('d \d\e F \d\e Y');
+        $fechaFormateada2 = $fecha_actual->isoFormat('dddd D [de] MMM [del] YYYY');
 
         $fechaNacimiento = Carbon::parse($empleado->fecha_nacimiento);
         // Calcula la diferencia en años
@@ -412,6 +422,7 @@ class EmpleadosController extends Controller
             'fecha_indefinida' => $fecha_indefinida->format('d/m/Y'),
             'fecha_fin' => $fecha_fin,
             'fechaActual' => $fechaFormateada,
+            'fechaActual2' => $fechaFormateada2,
             'titulo' => $titulo
             ])->setPaper('letter', 'portrait');
 
@@ -431,6 +442,13 @@ class EmpleadosController extends Controller
 
         $empleado = Empleados::find($id);
 
+        if($empleado->documentacion != ""){
+            // Obtener la ruta del archivo en storage
+            $ruta2 = 'public/Documentación/' . $empleado->curp . '/' . $empleado->documentacion;
+            // Eliminar el archivo en storage
+            Storage::delete($ruta2);
+        }
+        
         $archivopdf = $request->file('DocumentacionPDF')->store('public/Documentación/' . $empleado->curp);
         $nombreOriginal = $id . '_Documentacion_' . $empleado->curp . '.pdf';
 
@@ -443,22 +461,5 @@ class EmpleadosController extends Controller
 
         return redirect()->back();
     }   
-
-    // public function ver_pdf($id)
-    // {
-    //     $faltas =  Faltas::find($id);
-
-    //     $filename = $faltas->acta_realizada;
-
-    //     $path = storage_path('app/public/Actas/' . $filename);
-        
-    //     if (file_exists($path)) {
-    //         // Configurar el tipo de respuesta como PDF
-    //         $headers = ['Content-Type' => 'application/pdf'];
-    
-    //         // Descargar el archivo
-    //         return response()->file($path, $headers);
-    //     };
-    // }   
 
 }

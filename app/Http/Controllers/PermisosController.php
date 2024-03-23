@@ -13,6 +13,18 @@ class PermisosController extends Controller
     public function show(){
 
         $permisos = Permisos::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+
+        foreach($permisos as $permiso){
+            $auxf = new Carbon($permiso->fecha_solicitud);
+            $auxf2 = new Carbon($permiso->fecha_inicio);
+            $auxf3 = new Carbon($permiso->fecha_regreso);
+            $auxf4 = new Carbon($permiso->fecha_anteriorPermiso);
+
+            $permiso->solicitud = $auxf->format('d/m/Y');
+            $permiso->inicio = $auxf2->format('d/m/Y');
+            $permiso->regreso = $auxf3->format('d/m/Y');
+            $permiso->anterior = $auxf4->format('d/m/Y');
+        }
         
         return view('gestion.mostrarPermisos',[
             'permisos' => $permisos

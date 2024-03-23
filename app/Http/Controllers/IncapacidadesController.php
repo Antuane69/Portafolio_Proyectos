@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Empleados;
-use App\Models\Incapacidades;
 use App\Models\Vacaciones;
 use Illuminate\Http\Request;
+use App\Models\Incapacidades;
 
 class IncapacidadesController extends Controller
 {
@@ -13,6 +14,14 @@ class IncapacidadesController extends Controller
 
         $incapacidades = Incapacidades::query()->orderBy('created_at', 'desc')->with('empleado')->get();
         
+        foreach($incapacidades as $incapacidad){
+            $auxf = new Carbon($incapacidad->fecha_inicio);
+            $auxf2 = new Carbon($incapacidad->fecha_regreso);
+
+            $incapacidad->inicio = $auxf->format('d/m/Y');
+            $incapacidad->regreso = $auxf2->format('d/m/Y');
+        }
+
         return view('gestion.mostrarIncapacidades',[
             'incapacidades' => $incapacidades
         ]);

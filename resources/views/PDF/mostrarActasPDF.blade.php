@@ -49,7 +49,7 @@
                                 <td align="center" class="font-bold">{{ $falta->id }}</td>
                                 <td align="center" class="font-bold">{{ $falta->nombre }}</td>
                                 <td align="center">{{ $falta->acta_administrativa }}</td>
-                                <td align="center">{{ $falta->updated_at }}</td>
+                                <td align="center">{{ $falta->solicitud }}</td>
                                 <td align="center">
                                     <a href="{{ route('faltas.verpdf',$falta->id) }}" target="_blank">{{ $falta->acta_realizada }}</a>
                                 </td>

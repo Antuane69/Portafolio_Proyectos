@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Empleados;
 use App\Models\Vacaciones;
 use Illuminate\Http\Request;
@@ -9,9 +10,19 @@ use Illuminate\Http\Request;
 class VacacionesController extends Controller
 {
     public function show(){
-
+        
         $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
         
+        foreach($vacaciones as $vacacion){
+            $auxf = new Carbon($vacacion->fecha_solicitud);
+            $auxf2 = new Carbon($vacacion->fecha_inicioVac);
+            $auxf3 = new Carbon($vacacion->fecha_regresoVac);
+
+            $vacacion->solicitud = $auxf->format('d/m/Y');
+            $vacacion->inicio = $auxf2->format('d/m/Y');
+            $vacacion->regreso = $auxf3->format('d/m/Y');
+        }
+
         return view('gestion.mostrarVacaciones',[
             'vacaciones' => $vacaciones
         ]);

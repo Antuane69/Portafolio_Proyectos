@@ -45,14 +45,14 @@ class HerramientasController extends Controller
 
     public function show(){
 
-        $herramientas = Herramientas::all();
+        $herramientas = Herramientas::orderBy('created_at', 'desc')->get();
 
         foreach($herramientas as $herramienta){
-
             $nombres = $herramienta->nombre;
-    
             $herramienta->nombre_real = substr(str_replace('_', ', ', $nombres),1);
 
+            $auxf = new Carbon($herramienta->fecha_registro);           
+            $herramienta->registro = $auxf->format('d/m/Y');
         }
 
         return view('almacen.mostrarHerramientas',[
@@ -193,13 +193,13 @@ class HerramientasController extends Controller
         $herramientas = Herramientas::where('reporte_pdf', '!=', '')
         ->orderBy('created_at', 'desc')
         ->get();    
-        
-        foreach($herramientas as $herramienta){
 
+        foreach($herramientas as $herramienta){
             $nombres = $herramienta->nombre;
-    
             $herramienta->nombre_real = substr(str_replace('_', ', ', $nombres),1);
 
+            $auxf = new Carbon($herramienta->updated_at);
+            $herramienta->solicitud = $auxf->format('d/m/Y');
         }
         
         return view('PDF.mostrarHerramientasPDF',[

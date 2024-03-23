@@ -166,10 +166,6 @@
                             <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
                         @endif
                     </div>
-                    <div class="grid cols-1">
-                        <label class="lbl md:text-sm">Número de Nómina:</label>
-                            <h2 class="inf">{{$empleado->nomina}}</h2>
-                    </div>
                     <div class="grid cols-1 ml-20">
                         <label class="lbl md:text-sm">Número de INE:</label>
                             <h2 class="inf">{{$empleado->ine}}</h2>
@@ -179,7 +175,9 @@
                     @if ($empleado->ine_delantera != '')                            
                         <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
                             <label class="lbl md:text-sm">INE Delantera:</label>
-                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
+                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" download>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
+                            </a>
                         </div>
                     @else
                         <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
@@ -190,11 +188,26 @@
                     @if ($empleado->ine_trasera != "")                            
                         <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
                             <label class="lbl md:text-sm">INE Trasera:</label>
-                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
+                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" download>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
+                            </a>
                         </div>
                     @else
                         <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
                             <label class="lbl md:text-sm">INE Trasera:</label>
+                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                        </div>
+                    @endif
+                    @if ($empleado->nomina != "")                            
+                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20 mt-3'>
+                            <label class="lbl md:text-sm">Número de Tarjeta:</label>
+                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" download>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" alt="nomina">
+                            </a>
+                        </div>
+                    @else
+                        <div class="grid cols-1 ml-20 mt-3" style="width: 320px; height: 260px;">
+                            <label class="lbl md:text-sm">Número de Tarjeta:</label>
                             <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
                         </div>
                     @endif

@@ -57,7 +57,7 @@
                                     </div>
                                 </td>
                                 <td align="center">{{ $herramienta->descripcion }}</td>
-                                <td align="center">{{ $herramienta->updated_at }}</td>
+                                <td align="center">{{ $herramienta->solicitud }}</td>
                                 <td align="center">
                                     <a href="{{ route('herramientas.verpdf',$herramienta->id) }}" target="_blank">{{ $herramienta->reporte_pdf }}</a>
                                 </td>

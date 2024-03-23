@@ -144,7 +144,7 @@
                                 <td align="center">{{ $uniforme->usados_talla }}</td>
                                 <td align="center">{{ $uniforme->usados_precio }}</td>
                                 <td align="center">{{ $uniforme->usados_descripcion }}</td>
-                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
+                                <td align="center">{{ $uniforme->solicitud }}</td>
                             </tr> 
                         @endforeach
                     </tbody>

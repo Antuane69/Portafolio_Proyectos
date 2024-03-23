@@ -53,7 +53,7 @@
                                 <td align="center">{{ $uniforme->tipo_uniforme }}</td>
                                 <td align="center">{{ $uniforme->codigo }}</td>
                                 <td align="center">{{ $uniforme->talla }}</td>
-                                <td align="center">{{ $uniforme->updated_at }}</td>
+                                <td align="center">{{ $uniforme->solicitud }}</td>
                                 <td align="center">
                                     <a href="{{ route('uniformes.verpdf',$uniforme->id) }}" target="_blank">{{ $uniforme->reporte_pdf }}</a>
                                 </td>

@@ -94,8 +94,8 @@
                         @foreach ($incapacidades as $incapacidad)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $incapacidad->empleado->nombre }}</td>
-                                <td align="center">{{ $incapacidad->fecha_inicio }}</td>
-                                <td align="center">{{ $incapacidad->fecha_regreso }}</td>
+                                <td align="center">{{ $incapacidad->inicio }}</td>
+                                <td align="center">{{ $incapacidad->regreso }}</td>
                                 <td align="center">{{ $incapacidad->dias_totales }}</td>
                                 <td align="center">{{ $incapacidad->motivo }}</td>
                                 <td align="center" style="margin-right:5px">{{ $incapacidad->comentarios }}</td>

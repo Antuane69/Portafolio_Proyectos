@@ -95,7 +95,7 @@
                         @foreach ($uniformes as $uniforme)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $uniforme->empleado->nombre }}</td>
-                                <td align="center">{{ $uniforme->fecha_solicitud }}</td>
+                                <td align="center">{{ $uniforme->solicitud }}</td>
                                 <td align="center">{{ $uniforme->tipo_uniforme }}</td>
                                 <td align="center">{{ $uniforme->codigo }}</td>
                                 <td align="center">{{ $uniforme->talla }}</td>

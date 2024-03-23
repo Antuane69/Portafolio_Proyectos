@@ -14,6 +14,13 @@ class BajasController extends Controller
     public function show(){
 
         $bajas = Bajas::all();
+
+        foreach($bajas as $baja){
+            $auxf = new Carbon($baja->fecha_ingreso);
+            $auxf2 = new Carbon($baja->fecha_baja);
+            $baja->ingreso = $auxf->format('d/m/Y');
+            $baja->baja = $auxf2->format('d/m/Y');
+        }
         
         return view('gestion.mostrarBajas',[
             'bajas' => $bajas

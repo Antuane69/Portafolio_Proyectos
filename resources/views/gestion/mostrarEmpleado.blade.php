@@ -237,7 +237,7 @@
                                         </div>
                                         <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 600px; height: 330px;">
+                                                <div class="modal-content" style="width: 600px; height: 400px;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                         <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -245,35 +245,42 @@
                                                     <div class="modal-body">
                                                         <div style="display: block; flex-direction: column; align-items: center;">
                                                             <div class="in-line flex justify-center object-center">
-                                                                <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
-                                                                    @csrf
-                                                                    <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-2 rounded-md mb-3 mr-3 mt-1">
-                                                                        Dar de Baja
-                                                                    </button>  
-                                                                </form>   
-                                                                <form class="rounded text-white font-bold py-1 px-2">
-                                                                    @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
-                                                                        Generar Documentos PDF
-                                                                    </button>                        
-                                                                </form>                     
-                                                                <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
-                                                                    @csrf         
-                                                                    <button class="border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-2 mr-3 rounded-md mt-1">
-                                                                        Editar Registro
-                                                                    </button>                        
-                                                                </form> 
-                                                                @if ($empleado->documentacion != "")
-                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 mt-1 rounded-md" style="max-height: 65px"
-                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
-                                                                        Modificar Archivo PDF
-                                                                    </button>
-                                                                @else
-                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 rounded-md mt-1" style="max-height: 65px"
-                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
-                                                                        Subir Acta
-                                                                    </button>
-                                                                @endif  
+                                                                <div>
+                                                                    <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
+                                                                        @csrf
+                                                                        <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-4 rounded-md mb-3 mr-3 mt-1">
+                                                                            Dar de Baja
+                                                                        </button>  
+                                                                    </form>   
+                                                                    <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
+                                                                        @csrf         
+                                                                        <button class="border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-3 py-1 mr-3 rounded-md mt-1">
+                                                                            Editar Registro
+                                                                        </button>                        
+                                                                    </form> 
+                                                                </div>
+                                                                <div>
+                                                                    <form class="rounded text-white font-bold py-1 px-2">
+                                                                        @csrf         
+                                                                        <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
+                                                                            Generar Documentos PDF
+                                                                        </button>                        
+                                                                    </form>          
+                                                                    @if ($empleado->documentacion != "")
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 mt-1 rounded-md ml-1"
+                                                                        onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                            Modificar Archivo PDF
+                                                                        </button>
+                                                                    @else
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 rounded-md mt-1 ml-12"
+                                                                        onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                            Subir Acta
+                                                                        </button>
+                                                                    @endif  
+                                                                </div>
+                                                                <div>
+                                                                    <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
+                                                                </div>
                                                             </div>
                                                             <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
                                                                 <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >
@@ -305,7 +312,7 @@
                                         </div>
                                         <div class="modal fade" id="exampleModal_{{$empleado->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 600px; height: 330px;">
+                                                <div class="modal-content" style="width: 600px; height: 400px;">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
                                                         <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
@@ -313,35 +320,42 @@
                                                     <div class="modal-body">
                                                         <div style="display: block; flex-direction: column; align-items: center;">
                                                             <div class="in-line flex justify-center object-center">
-                                                                <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
-                                                                    @csrf
-                                                                    <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-2 rounded-md mb-3 mr-3 mt-1">
-                                                                        Dar de Baja
-                                                                    </button>  
-                                                                </form>   
-                                                                <form class="rounded text-white font-bold py-1 px-2">
-                                                                    @csrf         
-                                                                    <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
-                                                                        Generar Documentos PDF
-                                                                    </button>                        
-                                                                </form>                     
-                                                                <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
-                                                                    @csrf         
-                                                                    <button class="border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-2 mr-3 rounded-md mt-1">
-                                                                        Editar Registro
-                                                                    </button>                        
-                                                                </form> 
-                                                                @if ($empleado->documentacion != "")
-                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 mt-1 rounded-md" style="max-height: 65px"
-                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
-                                                                        Modificar Archivo PDF
-                                                                    </button>
-                                                                @else
-                                                                    <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-1 mr-3 rounded-md mt-1" style="max-height: 65px"
-                                                                    onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
-                                                                        Subir Acta
-                                                                    </button>
-                                                                @endif  
+                                                                <div>
+                                                                    <form method="GET" action="{{ route('crearBajas.create',$empleado->id) }}">
+                                                                        @csrf
+                                                                        <button class="border-right bg-red-500 hover:bg-red-700 text-white font-bold p-2 px-4 rounded-md mb-3 mr-3 mt-1">
+                                                                            Dar de Baja
+                                                                        </button>  
+                                                                    </form>   
+                                                                    <form action="{{ route('editarEmpleado.show', $empleado->id) }}" method="GET" class="mb-2">
+                                                                        @csrf         
+                                                                        <button class="border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-3 py-1 mr-3 rounded-md mt-1">
+                                                                            Editar Registro
+                                                                        </button>                        
+                                                                    </form> 
+                                                                </div>
+                                                                <div>
+                                                                    <form class="rounded text-white font-bold py-1 px-2">
+                                                                        @csrf         
+                                                                        <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
+                                                                            Generar Documentos PDF
+                                                                        </button>                        
+                                                                    </form>          
+                                                                    @if ($empleado->documentacion != "")
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 mt-1 rounded-md ml-1"
+                                                                        onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                            Modificar Archivo PDF
+                                                                        </button>
+                                                                    @else
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 rounded-md mt-1 ml-12"
+                                                                        onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
+                                                                            Subir Acta
+                                                                        </button>
+                                                                    @endif  
+                                                                </div>
+                                                                <div>
+                                                                    <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
+                                                                </div>
                                                             </div>
                                                             <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
                                                                 <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >

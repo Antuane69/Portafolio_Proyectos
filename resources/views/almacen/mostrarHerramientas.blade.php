@@ -117,7 +117,7 @@
                         @foreach ($herramientas as $herramienta)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $herramienta->nombre_real }}</td>
-                                <td align="center">{{ $herramienta->fecha_registro }}</td>
+                                <td align="center">{{ $herramienta->registro }}</td>
                                 <td align="center" style="width:10px">
                                     <div style="width: 140px; height: 100px;">
                                         <a href="{{ asset('img/almacen/Herramientas/' . $herramienta->imagen) }}" download>

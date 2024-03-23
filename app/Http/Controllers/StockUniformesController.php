@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
 use App\Models\StockUniformes;
@@ -23,6 +24,11 @@ class StockUniformesController extends Controller
     public function show(){
 
         $uniformes = StockUniformes::all();
+
+        foreach($uniformes as $uniforme){
+            $auxf = new Carbon($uniforme->fecha_solicitud);
+            $uniforme->solicitud = $auxf->format('d/m/Y');
+        }
         
         return view('almacen.mostrarStock',[
             'uniformes' => $uniformes

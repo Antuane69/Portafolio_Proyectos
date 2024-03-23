@@ -30,8 +30,13 @@ class UniformesController extends Controller
 
     public function show(){
 
-        $uniformes = Uniformes::all();
+        $uniformes = Uniformes::orderBy('created_at', 'desc')->get();
         
+        foreach($uniformes as $uniforme){
+            $auxf = new Carbon($uniforme->fecha_solicitud);
+            $uniforme->solicitud = $auxf->format('d/m/Y');
+        }
+
         return view('almacen.mostrarUniformes',[
             'uniformes' => $uniformes
         ]);
@@ -282,6 +287,11 @@ class UniformesController extends Controller
         $uniformes = Uniformes::where('reporte_pdf', '!=', '')
         ->orderBy('created_at', 'desc')
         ->get();    
+
+        foreach($uniformes as $uniforme){
+            $auxf = new Carbon($uniforme->updated_at);
+            $uniforme->solicitud = $auxf->format('d/m/Y');
+        }        
 
         return view('PDF.mostrarUniformesPDF',[
             'uniformes' => $uniformes

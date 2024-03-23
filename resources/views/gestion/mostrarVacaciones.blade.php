@@ -200,9 +200,9 @@
                         @foreach ($vacaciones as $vacacion)
                             <tr>                                    
                                 <td align="center" class="font-bold">{{ $vacacion->empleado->nombre }}</td>
-                                <td align="center">{{ $vacacion->fecha_solicitud }}</td>
-                                <td align="center">{{ $vacacion->fecha_inicioVac }}</td>
-                                <td align="center">{{ $vacacion->fecha_regresoVac }}</td>
+                                <td align="center">{{ $vacacion->solicitud }}</td>
+                                <td align="center">{{ $vacacion->inicio }}</td>
+                                <td align="center">{{ $vacacion->regreso }}</td>
                                 <td align="center">{{ $vacacion->dias_usados }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="in-line flex justify-center object-center">

@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-<table style="height:850px; border:1px solid black; margin-left:auto; margin-right:auto;margin-top:6mm;margin-bottom:auto;padding:3px;border-spacing:20px;">
+<table style="height:850px; border:1px solid black; margin-left:auto; margin-right:auto;margin-top:6mm;margin-bottom:6mm;padding:3px;border-spacing:20px;">
     <tr>
         <table style="margin-left:auto; margin-right:auto; width:660px">
             <tr>
@@ -53,7 +53,7 @@
                 <td></td>
             </tr>
         </table>
-        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+        <table style="margin-left:auto;margin-top:10px;margin-bottom:10px;margin-right:auto;width:680px;border-collapse:collapse;">
             <tr>
                 @if ($titulo == 'Contrato de 30 Dias')
                     <th style="font-size:12;text-align:center;" colspan="3">CONTRATO INDIVIDUAL DE TRABAJO POR 30 DÍAS COMO PERIODO DE PRUEBA</th>
@@ -68,7 +68,7 @@
                 </tr>
             @endif
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     CONTRATO INDIVIDUAL DE TRABAJO que de acuerdo a los artículos 35 y 39-a de la ley federal de trabajo,
                     celebran por una parte <div style="font-weight: bold; display: inline;">“EL PATRON” LUIS SANCHEZ DE LA VEGA CASTELLANOS </div>, con domicilio
@@ -78,19 +78,20 @@
                     <div style="font-weight: bold; display: inline;">{{$empleado->domicilio}}</div>, GUADALAJARA JALISCO.                  
                 </td>
             </tr>
+            <p></p>
             <tr>
                 <td style="font-size:12px;text-align:center;font-weight: bold" colspan="3">
                     Clausulas:
                 </td>
             </tr>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">PRIMERA. “EL PATRON”</div>, contratará a <div style="font-weight: bold; display: inline;">“EL TRABAJADOR”</div> para que bajo su dirección y dependencia
                     preste sus servicios personales como <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->puesto}}</div> debiendo desempeñarse en el domicilio de la fuente de trabajo.
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">SEGUNDA. “EL TRABAJADOR” </div>obliga a prestar sus servicios personales por un período de 
                     <div style="font-weight: bold; display: inline;">PRUEBA DE 30 DÍAS </div>para demostrar que cumple con los requisitos y conocimientos necesarios 
@@ -105,7 +106,7 @@
             </tr>
             <p></p>
             @if ($titulo == 'Contrato de 30 Dias')
-                <tr style="font-size:11px;">   
+                <tr style="font-size:12px;">   
                     <td style="text-align:justify;" colspan="3">
                         <div style="font-weight: bold; display: inline;">TERCERA. </div>Las partes acuerdan, que la duración del presente contrato será de <div style="font-weight: bold; display: inline;">30 DÍAS </div> como periodo de
                         prueba; empieza surtir sus efectos desde el día <div style="font-weight: bold; display: inline;">{{$fecha_inicio}};</div> y terminándose en consecuencia el
@@ -128,7 +129,7 @@
                     </td>
                 </tr>
             @else
-                <tr style="font-size:11px;">   
+                <tr style="font-size:12px;">   
                     <td style="text-align:justify;" colspan="3">
                         <div style="font-weight: bold; display: inline;">TERCERA. </div>
                         Las partes acuerdan, que la duración del presente contrato por <div style="font-weight: bold; display: inline;">TIEMPO INDEFINIDO</div>; empieza a
@@ -137,7 +138,7 @@
                 </tr>
             @endif
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">CUARTA.</div> El lugar de la prestación de los servicios de “EL TRABAJADOR” será el domicilio del patrón. Las
                     partes acuerdan y aceptan el trabajador que cuando por razones administrativas o de desarrollo de la
@@ -149,7 +150,7 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">QUINTA.</div> “EL TRABAJADOR” desarrollará las siguientes funciones que en forma enunciativa y no limitativa
                     se señala a continuación. Acordando “EL PATRON” y “EL TRABAJADOR” que además de las funciones que
@@ -159,60 +160,269 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px">   
+            <tr style="font-size:12px">   
+                @if ($empleado->puesto == 'PRODUCCION')
                 <td style="text-align:left;" colspan="3">
                     <div style="font-weight: bold; display: inline;">ACTIVIDADES:</div>
                     <p></p>
-                    1. Preparación y ensamble de platillos
+                    1. Realizar inventarios diariamente
                     <br>
-                    2. Completar stocks de la línea al inicio y cierre de acuerdo al checklist y Peps
+                    2. Preparación de alimentos en base al programa diario
                     <br>
-                    3. Hacer las mease and pleace de acuerdo a cada línea
+                    3. Recepción, acomodo y almacenamiento de insumos
                     <br>
-                    4. Limpiar superficie, piso y paredes todo el día
+                    4. Realizar y coordinar comida de empleados
                     <br>
-                    5. Limpieza profunda semanal
+                    5. Hacer pedidos de emergencia
                     <br>
-                    6. Recepción y almacenamiento de insumos
+                    6. Lavar y mantener conforme a normativa los refrigeradores y congeladores
                     <br>
-                    7. Limpiar cocina al cierre y completar montaje
+                    7. Lavar trastes estufa, piso, paredes, repisas, mesas y área de wash
                     <br>
-                    8. Realización de Inventarios de insumos, utensilios y vajillas
+                    8. Asistir o ayudar en preparación y ensamble de platillos
                     <br>
-                    9. Ayudar en los procesos de producción
+                    9. Revisar el reporte de nivel de Gas y hacer el pedido
                     <br>
-                    10. Registrar temperaturas
-                    <br>
-                    11. Capacitar al personal de nuevo ingreso
+                    10. Registrar la temperatura de refrigeradores
                     <br>
                 </td>
-            </tr>
-            <p></p>
-            <tr style="font-size:11px;">   
+                @elseif (($empleado->puesto == 'MESERO') || ($empleado->puesto == 'SERVICIO') || ($empleado->puesto == 'SERVICIO MIXTO'))
                 <td style="text-align:left;" colspan="3">
-                    <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                    <div style="font-weight: bold; display: inline;">ACTIVIDADES:</div>
                     <p></p>
-                    1. HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                    1.Servicio al cliente
                     <br>
-                    2. SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                    2.Recepción de pago de cuentas
                     <br>
-                    3. EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ETREGA DE LOS PLATILLOS
+                    3.Asistir o ayudar el bar o cocina cuando sea necesario
                     <br>
-                    4. CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                    4.Almacenar los insumos del área cuando indique su jefe inmediato
                     <br>
-                    5. CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                    5.Colocar salseras llenas y limpias en estaciones
+                    <br>
+                    6.Completar canastas de servicio
+                    <br>
+                    7.Comprobar y mantener la limpieza de mesas y piso
+                    <br>
+                    8.Registrar y preparar reservaciones
+                    <br>
+                    9.Dar mantenimiento a plantas y regarlas
+                    <br>
+                    10.Inventariar insumo de área
+                    <br>
+                    11.Lavar baños, barriendo y trapeando el 2do piso, así como las escaleras
+                    <br>
+                    12.Toma de órdenes para llevar
+                    <br>
+                    13.Montar y desmontar mesas para el servicio
+                    <br>
+                    14.Informar a un superior sobre dudas o quejas de los clientes
+                    <br>
+                    15.Contestar el teléfono y canalizar las llamadas de proveedores al área correspondiente
+                    <br>
+                    16.Completar el programa de limpieza diaria
+                    <br>
+                    17.Capacitar al personal de nuevo ingreso siguiendo las guías de capacitación
                     <br>
                 </td>
+                @elseif ($empleado->puesto == 'COCINERO')
+                <td style="text-align:left;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">ACTIVIDADES:</div>
+                    <p></p>
+                    1.Preparación y ensamble de platillos en base a receta
+                    <br>
+                    2.Completar stocks de la línea al inicio y cierre de acuerdo al checklist y Peps
+                    <br>
+                    3.Hacer las mease and pleace de acuerdo a cada línea
+                    <br>
+                    4.Limpiar superficie, piso y paredes todo el día
+                    <br>
+                    5.Limpieza profunda semanal
+                    <br>
+                    6.Recepción y almacenamiento de insumos
+                    <br>
+                    7.Limpiar cocina al cierre y completar montaje
+                    <br>
+                    8.Realización de Inventarios de insumos, utensilios y vajillas
+                    <br>
+                    9.Ayudar en los procesos de producción
+                    <br>
+                    10.Ayudar en el lavado de trastes cuando se requiera
+                    <br>
+                    11.Registrar temperaturas
+                    <br>
+                    12.Capacitar al personal de nuevo ingreso
+                    <br>
+                </td>
+                @elseif ($empleado->puesto == 'BARISTA')
+                <td style="text-align:left;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">ACTIVIDADES:</div>
+                    <p></p>
+                    1.Preparación de bebidas
+                    <br>
+                    2.Realizar los stocks de concentrados para bebidas
+                    <br>
+                    3.Lavar toda la cristalería que se utiliza para las bebidas
+                    <br>
+                    4.Sacudir, barrer y trapear todo el área de trabajo y realizar programa de limpieza semanal
+                    <br>
+                    5.Cobrar cuentas, cuando se requiera
+                    <br>
+                    6.Acomodar Insumos y hacer los Inventarios
+                    <br>
+                    7.Atender el teléfono
+                    <br>
+                </td>
+                @endif
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            @if ($titulo == 'Contrato de 30 Dias')
+                <tr style="font-size:12px;">   
+                    @if ($empleado->puesto == 'PRODUCCION')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <br>
+                        Realizar el programa de producción garantizando el cumplimiento del sistema de trabajo:
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ETREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @elseif (($empleado->puesto == 'MESERO') || ($empleado->puesto == 'SERVICIO') || ($empleado->puesto == 'SERVICIO MIXTO'))
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <br>
+                        Servicio a la mesa garantizando:
+                        <p></p>
+                        1. CALIDAD EN EL SERVICIO
+                        Comodidad, confianza Y seguridad del CLIENTE
+                        <br>
+                        2. CUIDADO
+                        CONSERVACION y buen uso de mobiliario y equipo de trabajo
+                        <br>
+                        3. HIGINENE
+                        Instalaciones, mobiliario, utensilios y personal
+                        <br>
+                        4. EFICIENCIA
+                        <br>
+                        5. SEGURIDAD ALIMENTARIA
+                        <br>
+                    </td>
+                    @elseif ($empleado->puesto == 'COCINERO')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ETREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @elseif ($empleado->puesto == 'BARISTA')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ETREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @endif
+                </tr>
+            @else
+                <tr style="font-size:12px;">   
+                    @if ($empleado->puesto == 'PRODUCCION')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <br>
+                        Realizar el programa de producción garantizando el cumplimiento del sistema de trabajo:
+                        <p></p>
+                        1. HIGIENE
+                        <br>
+                        2. SEGURIDAD ALIMENTARIA
+                        <br>
+                        3. CALIDAD
+                        <br>
+                        4. CUIDADO (Conservación de equipo de trabajo y trabajar bajo gestión 5´S)
+                        <br>
+                        5. EFICIENCIA Realizar y coordinar comida de empleados
+                        <br>
+                    </td>
+                    @elseif (($empleado->puesto == 'MESERO') || ($empleado->puesto == 'SERVICIO') || ($empleado->puesto == 'SERVICIO MIXTO'))
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ENTREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD EN EL SERVICIO AL CLIENTE QUE GENERE SEGURIDAD
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @elseif ($empleado->puesto == 'COCINERO')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ENTREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @elseif ($empleado->puesto == 'BARISTA')
+                    <td style="text-align:left;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">RESPONSABILIDADES:</div>
+                        <p></p>
+                        1.HIGIENE DE TODAS LAS AREAS DE TRABAJO
+                        <br>
+                        2.SEGURIDAD DE LOS ALIMENTOS BAJO LAS NORMAS ESTABLECIDAS
+                        <br>
+                        3.EFICIENCIA PARA CUMPLIR CON EL TIEMPO DE ENTREGA DE LOS PLATILLOS
+                        <br>
+                        4.CALIDAD DE LOS PLATILLOS BASADOS EN LAS RECETAS
+                        <br>
+                        5.CUIDADO DE LOS UTENCILIOS, VAJILLAS, EQUIPOS E INSUMOS
+                        <br>
+                    </td>
+                    @endif
+                </tr>
+            @endif
+            <p></p>
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     Estableciéndose que de acuerdo al anexo número uno de este contrato que en el mismo se mencionan los
                     jefes inmediatos y/o mediatos que tendrá el trabajo en el desempeño de sus labores.
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">SEXTA.</div> La duración de la jornada de trabajo será de <div style="font-weight: bold; display: inline;">6 seis horas diarias </div>en la jornada diurna o vespertina,
                     o jornada mixta de <div style="font-weight: bold; display: inline;">8 horas</div>, cuando se le requiera. En consecuencia la jornada de trabajo es continua por lo
@@ -224,7 +434,7 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">SEPTIMA.</div> Por cada seis días de trabajo, tendrá el trabajador un descanso semanal de un día con pago de
                     salario; el mismo lo disfrutará un día de lunes a viernes de cada semana, pudiendo variar éste de acuerdo a
@@ -238,18 +448,38 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
-                <td style="text-align:justify;" colspan="3">
-                    <div style="font-weight: bold; display: inline;">OCTAVA.</div> El trabajador percibirá por la prestación de los servicios, como salario la cantidad de 
-                    <div style="font-weight: bold; display: inline;">$ {{$empleado->quincena}} POR QUINCENA</div>, salario que se le pagará los días 15 y 30 o 31 de la quincena laboral vencida, mediante el
-                    sistema de pago vía transferencia electrónica bancaria o efectivo; estando obligado el trabajador a firmar las
-                    constancias de pago respectivos; teniéndose en cuenta lo dispuesto en los Artículos 101, 108 y 109 de la Ley
-                    y sometiéndose el trabajador a los descuentos que deban hacerse por orden expresa de la ley del seguro
-                    social y de la ley del impuesto sobre la renta.                                   
-                </td>
-            </tr>
+            @if (!($empleado->puesto == 'MESERO') && !($empleado->puesto == 'SERVICIO') && !($empleado->puesto == 'SERVICIO MIXTO'))
+                <tr style="font-size:12px;">   
+                    <td style="text-align:justify;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">OCTAVA.</div> El trabajador percibirá por la prestación de los servicios, como salario la cantidad de 
+                        <div style="font-weight: bold; display: inline;">$ {{$empleado->quincena}} POR QUINCENA</div>, salario que se le pagará los días 15 y 30 o 31 de la quincena laboral vencida, mediante el
+                        sistema de pago vía transferencia electrónica bancaria o efectivo; estando obligado el trabajador a firmar las
+                        constancias de pago respectivos; teniéndose en cuenta lo dispuesto en los Artículos 101, 108 y 109 de la Ley
+                        y sometiéndose el trabajador a los descuentos que deban hacerse por orden expresa de la ley del seguro
+                        social y de la ley del impuesto sobre la renta.                                   
+                    </td>
+                </tr>
+                <p></p>
+            @endif
+        </table>
+    </tr>
+    <tr>
+        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
             <p></p>
-            <tr style="font-size:11px;">   
+            @if (($empleado->puesto == 'MESERO') || ($empleado->puesto == 'SERVICIO') || ($empleado->puesto == 'SERVICIO MIXTO'))
+                <tr style="font-size:12px;">   
+                    <td style="text-align:justify;" colspan="3">
+                        <div style="font-weight: bold; display: inline;">OCTAVA.</div> El trabajador percibirá por la prestación de los servicios, como salario la cantidad de 
+                        <div style="font-weight: bold; display: inline;">$ {{$empleado->quincena}} POR QUINCENA</div>, salario que se le pagará los días 15 y 30 o 31 de la quincena laboral vencida, mediante el
+                        sistema de pago vía transferencia electrónica bancaria o efectivo; estando obligado el trabajador a firmar las
+                        constancias de pago respectivos; teniéndose en cuenta lo dispuesto en los Artículos 101, 108 y 109 de la Ley
+                        y sometiéndose el trabajador a los descuentos que deban hacerse por orden expresa de la ley del seguro
+                        social y de la ley del impuesto sobre la renta.                                   
+                    </td>
+                </tr>
+            @endif
+            <p></p>
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">NOVENA.</div> El trabajador se obliga a checar su tarjeta y firmar las listas de asistencia a la entrada y salida de
                     sus labores; igualmente se obliga a cumplir con las disposiciones que se contienen para el desempeño de su
@@ -257,7 +487,7 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">DÉCIMA.</div> El trabajador se obliga a someterse a los reconocimientos y exámenes médicos que periódicamente
                     establezca el patrón en los términos del Artículo 134 Fracción XX de la Ley; el médico que practique los
@@ -265,7 +495,7 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">DÉCIMA PRIMERA.</div> El trabajador tendrá la obligación y deberá integrarse a los planes y programas de
                     capacitación y adiestramiento así como a los de Seguridad e Higiene en el trabajo que establezca el patrón en
@@ -275,32 +505,28 @@
                 </td>
             </tr>
             <p></p>
-        </table>
-    </tr>
-    <tr>
-        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">DÉCIMA SEGUNDA.</div> El trabajador se obliga dar fiel cumplimiento a las disposiciones dispuestas en el Artículo
                     134 de la Ley que son: sus obligaciones en el desempeño de sus labores al servicio del patrón.                                                                                
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">DÉCIMA TERCERA.</div> Las partes acuerdan que todo lo no previsto en el presente contrato: se estará a lo
                     dispuesto por la Ley.
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     Leído que les fue a las partes comparecientes, y enterados de su alcance y consecuencias legales, lo ratifican
                     en todo una de sus partes ante la presencia de dos testigos hábiles para testificar y sin tachas legales.                    
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
+            <tr style="font-size:12px;">   
                 <td style="text-align:justify;" colspan="3">
                     El presente contrato individual de trabajo, se firma en este día
                     <div style="font-weight: bold; display: inline;">{{$fechaActual}} EN LA CIUDAD DE GUADALAJARA, JALISCO.</div>
@@ -350,6 +576,146 @@
                 <td></td>
                 <td></td>
                 <td style="width:30%;text-align:center">Testigo 2 </td>
+            </tr>
+        </table>
+    </tr>
+    @if (!($empleado->puesto == 'MESERO') && !($empleado->puesto == 'SERVICIO') && !($empleado->puesto == 'SERVICIO MIXTO'))
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    @else
+        <p></p>
+    @endif
+    <tr>
+        <p></p>
+        <table style="margin-left:auto; margin-right:auto; width:660px">
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td style="text-align:left;">
+                    <img style="margin-right: 100px" src="{{ public_path('assets/tokyoLogo.png') }}" width="80" height="80"> 
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <p></p>
+        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+            <tr>
+                <th style="font-size:12;text-align:center;" colspan="3">RECIBO DEL REGLAMENTO DE SEGURIDAD E HIGIENE</th>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">RECIBÍ:</div> de <div style="font-weight: bold; display: inline;">“LUIS SANCHEZ DE LA VEGA CASTELLANOS”</div>, un ejemplar del reglamento de Higiene y Seguridad con instrucciones para prestar primero auxilios; y de <div style="font-weight: bold; display: inline;"> LOS CUALES RECIBO EJEMPLAR.</div> Los cuales me obligo a cumplirlos fielmente, ya que son bases para protección de mi vida y de mi salud. Se me ha explicado y se me hacen saber sus alcances y consecuencias legales, incluso para los casos que no les dé cabal y cumplido cumplimiento, los cuales son obligatorios como normas patronales, de conformidad a lo ordenado, por los artículos 47 fracción XII, 134 fracciones II, III, X y XI ambos de la Ley Federal de Trabajo.
+                </td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    Nombre del trabajador: {{$empleado->nombre}}.
+                    <br>
+                    Fecha: {{$fechaActual}}.
+                    <br>
+                    Entregó: Departamento de Recursos Humanos.
+                    <p></p>
+                    Recibí de conformidad, los documento mencionados:
+                    <p></p>
+                </td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-weight: bold;">
+                <td style="border-bottom:0.5px solid black;"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align:center"> FIRMA TRABAJADOR(A)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align: center;text-transform:uppercase">{{$empleado->nombre}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </tr>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <tr>
+        <p></p>
+        <table style="margin-left:auto; margin-right:auto; width:660px">
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td style="text-align:left;">
+                    <img style="margin-right: 100px" src="{{ public_path('assets/tokyoLogo.png') }}" width="80" height="80"> 
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <p></p>
+        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+            <tr>
+                <th style="font-size:12;text-align:center;" colspan="3">RECIBO DE REGLAMENTO INTERIOR DE TRABAJO</th>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">RECIBÍ:</div> de <div style="font-weight: bold; display: inline;">“LUIS SANCHEZ DE LA VEGA CASTELLANOS”</div>, por conducto del Departamento de Recursos Humanos, <div style="font-weight: bold; display: inline;">REGLAMENTO INTERIOR DE TRABAJO Y CODIGO DE CONDUCTA</div>, vigente y que es obligatorio para todo los que trabajamos en esta empresa. Comprometiéndome a cumplirlo; y declaro expresamente, que se me ha explicado su contenido sus alcances y consecuencia legales, incluyendo para el caso de no cumplirlo y así como los elementos técnicos para el desempeño de los trabajos que tengo que ejecutar. Me obligo a cumplirlo y respetarlo de conformidad a lo ordenado por los artículos 422 y 423 de la Ley Federal de Trabajo. Por lo que acepto y reconozco que <div style="font-weight: bold; display: inline;">“LUIS SANCHEZ DE LA VEGA CASTELLANOS”</div>, está cumpliendo su obligación de darle publicidad; y lo recibo de conformidad el ejemplar del reglamento, conociendo el texto del mismo.
+                </td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    Nombre del trabajador: {{$empleado->nombre}}.
+                    <br>
+                    Fecha: {{$fechaActual}}.
+                    <p></p>
+                    Recibí de conformidad.
+                    <p></p>
+                </td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-weight: bold;">
+                <td style="border-bottom:0.5px solid black;"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align:center"> FIRMA TRABAJADOR(A)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align: center;text-transform:uppercase">{{$empleado->nombre}}</td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
     </tr>
