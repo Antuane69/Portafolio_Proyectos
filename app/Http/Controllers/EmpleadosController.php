@@ -361,8 +361,9 @@ class EmpleadosController extends Controller
 
         $empleado = Empleados::find($id);
         $opciones = ['Contrato Indefinido','Contrato de 30 Dias'];
-        $opciones2 = ['Casado','Soltero', 'Unión libre', 'Divorciado','Otro'];
+        $opciones2 = ['Casado(a)','Soltero(a)', 'Unión libre', 'Divorciado(a)','Otro'];
         $opciones3 = ['Masculino','Femenino','Otro'];
+        $opciones4 = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 
         // Especifica la zona horaria
         $zonaHoraria = 'America/Mexico_City';
@@ -379,6 +380,7 @@ class EmpleadosController extends Controller
             'opciones' => $opciones,
             'opciones2' => $opciones2,
             'opciones3' => $opciones3,
+            'opciones4' => $opciones4,
             'fechaInicio' => $fechaInicio->format('d-m-Y'),
             'fechaTermino' => $fechaTermino->format('d-m-Y'),
         ]);
@@ -394,8 +396,8 @@ class EmpleadosController extends Controller
         $fecha_actual2 = Carbon::setLocale('es');
 
         // Formatea la fecha en el formato deseado
-        $fechaFormateada = $fecha_actual->format('d \d\e F \d\e Y');
-        $fechaFormateada2 = $fecha_actual->isoFormat('dddd D [de] MMM [del] YYYY');
+        //$fechaFormateada = $fecha_actual->format('d \d\e F \d\e Y');
+        $fechaFormateada2 = $fecha_actual->isoFormat('dddd D [de] MMMM [del] YYYY');
 
         $fechaNacimiento = Carbon::parse($empleado->fecha_nacimiento);
         // Calcula la diferencia en años
@@ -414,6 +416,7 @@ class EmpleadosController extends Controller
 
         $empleado->edad = $edad;
         $empleado->quincena = $request->quincena;
+        $empleado->descanso = $request->descanso;
         
         $pdf = Pdf::loadView('PDF.crearContratoPDF',[
             'empleado' => $empleado,
@@ -421,8 +424,7 @@ class EmpleadosController extends Controller
             'fecha_inicio' => $fecha_inicio->format('d/m/Y'),
             'fecha_indefinida' => $fecha_indefinida->format('d/m/Y'),
             'fecha_fin' => $fecha_fin,
-            'fechaActual' => $fechaFormateada,
-            'fechaActual2' => $fechaFormateada2,
+            'fechaActual' => $fechaFormateada2,
             'titulo' => $titulo
             ])->setPaper('letter', 'portrait');
 

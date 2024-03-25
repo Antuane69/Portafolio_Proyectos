@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empleados;
 use App\Models\Faltas;
+use App\Models\Empleados;
 use App\Models\Uniformes;
 use App\Models\Herramientas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\HerramientasPivote;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class HerramientasController extends Controller
@@ -246,4 +247,84 @@ class HerramientasController extends Controller
 
         return back()->with('success', 'Registro de Herramientas Eliminado con éxito.');
     }
+
+    public function edit_show($id)
+    {
+        $herramienta = Herramientas::find($id);
+
+        $nombres = Empleados::query()->get();
+        $nombres = $nombres->pluck('nombre')->toArray();
+
+        $nombresString = $herramienta->nombre;
+        $nombresArray = explode("_", $nombresString);       
+        // Filtrar los elementos vacíos del array
+        $nombresArray = array_filter($nombresArray);
+
+        // Reindexar el array para asegurarte de que los índices sean consecutivos
+        $nombresArray = array_values($nombresArray); 
+
+        $opciones = ['Cocina','Servicio','Barra','Producción'];
+
+        return view('almacen.editHerramienta',[
+            'herramienta' => $herramienta,
+            'opciones' => $opciones,
+            'nombres' => $nombres,
+            'nombresSeleccionados' => $nombresArray,
+            'id' => $id,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nombresreg' => 'required',
+            'fecha_registro' => 'required|date',
+            'imagen' => 'mimes:jpg,jpeg,png|max:10240',
+            'descripcion' => 'required|max:80',
+            'area' => 'required',
+            'precio' => 'required|numeric', 
+            'cantidad' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+
+        $datos = $request->input('nombresreg');
+
+        $ruta = public_path() . '/img/almacen/Herramientas';
+
+        $herramienta = Herramientas::find($id);
+
+        if($request->file('imagen') != ""){
+            $imagen = $request->file('imagen');
+            $nombreImagen =  time()."_".$imagen->getClientOriginalName();
+            $imagen->move($ruta,$nombreImagen);
+
+            if($herramienta->imagen != ''){
+                File::delete($ruta . '/' . $herramienta->imagen);
+            }
+
+        }else{
+            if($herramienta->imagen != ''){
+                $nombreImagen = $herramienta->imagen;        
+            }else{
+                $nombreImagen = '';        
+            }
+        }
+        
+        $bandera = '';
+        foreach ($datos as $nombre) {
+            $bandera = $bandera . '_' . $nombre;
+        }
+
+        $herramienta->nombre = $bandera;
+        $herramienta->fecha_registro = $request->fecha_registro;
+        $herramienta->imagen = $nombreImagen;
+        $herramienta->descripcion = $request->descripcion;
+        $herramienta->area = $request->area;
+        $herramienta->precio = $request->precio;
+        $herramienta->cantidad = $request->cantidad;
+        $herramienta->total = $request->total;
+        $herramienta->save();
+
+        return redirect()->route('mostrarHerramientas.show');
+    }  
 }

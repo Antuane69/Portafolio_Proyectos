@@ -156,7 +156,7 @@
                                                     <div style="display: block; flex-direction: column; align-items: center;">
                                                         <div class="in-line flex justify-center object-center">
                                                             <div>
-                                                                <form method="GET" class="rounded text-white font-bold py-1 px-2">
+                                                                <form method="GET" action="{{ route('editarHerramientas.show',$herramienta->id) }}" class="rounded text-white font-bold py-1 px-2">
                                                                     @csrf         
                                                                     <button class="mx-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 rounded-md" style="width:95%">
                                                                         Editar Registro

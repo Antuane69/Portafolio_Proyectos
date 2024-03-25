@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'datos.completos' => \App\Http\Middleware\VerificarDatosCompletos::class,
         'bloquear.form.datos' => \App\Http\Middleware\BloquearDatosCompletos::class,
+        'auth.redirect' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
     ];
 }

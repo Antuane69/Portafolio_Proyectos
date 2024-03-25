@@ -677,8 +677,7 @@
                 <td></td>
             </tr>
         </table>
-        <p></p>
-        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+        <table style="margin-left:auto;margin-right:auto;width:680px;border-collapse:collapse;">
             <tr>
                 <th style="font-size:12;text-align:center;" colspan="3">RECIBO DE REGLAMENTO INTERIOR DE TRABAJO</th>
             </tr>
@@ -716,6 +715,141 @@
                 <td style="text-align: center;text-transform:uppercase">{{$empleado->nombre}}</td>
                 <td></td>
                 <td></td>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <p></p>
+        <table style="margin-left:auto; margin-right:auto; width:660px">
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td style="text-align:left;">
+                    <img style="margin-right: 100px" src="{{ public_path('assets/tokyoLogo.png') }}" width="80" height="80"> 
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <p></p>
+        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+            <tr>
+                <th style="font-size:12;text-align:center;" colspan="3">CONDICIONES LABORALES</th>
+            </tr>
+            <p></p>
+            <tr>
+                <td style="font-size:10;text-align:center;font-weight: bold" colspan="3">{{$empleado->puesto}}</td>
+            </tr>
+            <p></p>
+            <tr>
+                <td style="font-size:10;text-align:left;font-weight: bold;border-bottom:1px solid rgb(23, 23, 204);" colspan="3">Sueldo ${{$empleado->quincena}} quincenal.</td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">Se extenderán 3 contratos </div> de prueba por 30 días.
+                </td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    Para renovación de contrato se evaluará desempeño. En caso de tener faltas injustificadas durante el periodo de los primeros tres meses o falta al reglamento será causa suficiente para NO renovar contrato.
+                </td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">Forma de pago</div>
+                    <p></p>
+                    * El pago será quincenal los días 15, 30 o 31 con pago en efectivo o tarjeta según se indique
+                </td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">Horario</div>
+                    <p></p>
+                    * Lunes a sábados de 6:00 am a 12:00 pm. El horario se extenderá según las necesidades del restaurante, se avisará con anticipación
+                    <br>
+                    * Domingos de 12:00 am a 8:00 pm
+                    <br>
+                    * Descanso los {{$empleado->descanso}}
+                </td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">Prestaciones</div>
+                    <p></p>
+                    * Vacaciones anuales (1er año 12 días)
+                    <br>
+                    * Aguinaldo
+                    <br>
+                    * Seguro social
+                    <br>
+                    * Propinas Semanales
+                    <br>
+                    * Comedor para empleados bajo normas establecidas por Little Tokyo
+                    <br>
+                    * Talleres y capacitación para desarrollo
+                    <br>
+                    * Apoyo para transporte (Turno del cierre)
+                    <br>
+                    * Descuento del 20% en el consumo de alimentos en Little Tokyo
+                </td>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="margin-left:auto;margin-top:10px; margin-right:auto;width:680px;border-collapse:collapse;">
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    <div style="font-weight: bold; display: inline;">Causas de recisión de contrato</div>
+                    <p></p>
+                    * Cometer alguna falta estipulada dentro del reglamento interior de trabajo y de nuestro código de conducta
+                    <br>
+                    * Divulgación o falta de discreción respecto al manejo y formas de trabajo de Little Tokyo
+                    <br>
+                    * Divulgar o comentar los sueldos recibidos
+                </td>
+            </tr>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    En virtud de que conozco y me han explicado las condiciones laborales que Little Tokyo ofrece, acepto de conformidad y mutuo acuerdo, sin resistencia alguna y comprometido a cumplir con mis responsabilidades en el puesto que se me asigne.
+                </td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-weight: bold;">
+                <td style="border-bottom:0.5px solid black;"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align:center"> FIRMA TRABAJADOR(A)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;font-size:12px;">
+                <td style="text-align: center;text-transform:uppercase">{{$empleado->nombre}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <p></p>
+            <p></p>
+            <tr style="font-size:14px;">   
+                <td style="text-align:justify;" colspan="3">
+                    Fecha: {{$fechaActual}}.
+                </td>
             </tr>
         </table>
     </tr>

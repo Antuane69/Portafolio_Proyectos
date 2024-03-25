@@ -99,10 +99,6 @@
                                     * Sexo
                                 </label>
                                 <p>
-                                    {{-- <input type="text" name="sexo" id="sexo"
-                                    class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('sexo') border-red-800 bg-red-100 @enderror'
-                                    required placeholder="Ingrese el sexo del Empleado"> --}}
-
                                     <select id="sexo" name="sexo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
                                         <option value="" disabled selected>Seleccione una Opción</option>
                                         @foreach($opciones3 as $opcion)
@@ -118,15 +114,18 @@
                                 </p>
                             </div>
                             <div class='grid grid-cols-1'>
-                                <label for="domicilio" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Domicilio
+                                <label for="descanso" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    * Día de Descanso
                                 </label>
                                 <p>
-                                    <textarea id="domicilio" name="domicilio"
-                                    class="focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('domicilio') border-red-800 bg-red-100 @enderror"
-                                    required placeholder="Ingrese el domicilio del Empleado"></textarea>
-                                    
-                                    @error('domicilio')
+                                    <select id="descanso" name="descanso" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
+                                        <option value="" disabled selected>Seleccione una Opción</option>
+                                        @foreach($opciones4 as $opcion)
+                                            <option value="{{$opcion}}">{{$opcion}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('descanso')
                                         <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
                                             {{ $message }}
                                         </p>
@@ -143,6 +142,22 @@
                                     required placeholder="Ingrese la quincena en pesos mexicanos del Empleado">
                                     
                                     @error('quincena')
+                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </p>
+                            </div>
+                            <div class='grid grid-cols-1'>
+                                <label for="domicilio" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    * Domicilio
+                                </label>
+                                <p>
+                                    <textarea id="domicilio" name="domicilio"
+                                    class="focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('domicilio') border-red-800 bg-red-100 @enderror"
+                                    required placeholder="Ingrese el domicilio del Empleado"></textarea>
+                                    
+                                    @error('domicilio')
                                         <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
                                             {{ $message }}
                                         </p>
