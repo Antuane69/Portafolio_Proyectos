@@ -69,7 +69,7 @@
                                     </label>
                                     <p>
                                         <input type="text" name="curp" id="curp" placeholder="Ingresa el CURP del empleado"
-                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
+                                        class='uppercase focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
                                         required>
                                         
                                         @error('curp')
@@ -85,7 +85,7 @@
                                     </label>
                                     <p>
                                         <input type="text" name="rfc" id="rfc" placeholder="Ingresa el RFC del empleado"
-                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('rfc') border-red-800 bg-red-100 @enderror'
+                                        class='uppercase focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('rfc') border-red-800 bg-red-100 @enderror'
                                         required>
                                         
                                         @error('rfc')
@@ -160,7 +160,7 @@
                                     </label>
                                     <p>
                                         <input type="text" name="puesto" id="puesto" placeholder="Ingresa el puesto de trabajo del empleado"
-                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('puesto') border-red-800 bg-red-100 @enderror'
+                                        class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('puesto') border-red-800 bg-red-100 @enderror'
                                         required>
                                         
                                         @error('puesto')

@@ -75,6 +75,7 @@ class EmpleadosController extends Controller
         $estudios = '';
         $nacimiento = '';
         $domicilio = '';
+        //$nomina = '';
 
         $ruta = public_path() . '/img/gestion/Empleados';
 
@@ -166,7 +167,7 @@ class EmpleadosController extends Controller
             'nacimiento' => $nacimiento,
             'domicilio' => $domicilio,
             'ine' => $request->ine,
-            'nomina' => $nomina,
+            'nomina' => $request->nomina,
             'ine_trasera' => $ine_trasera,
             'ine_delantera' => $ine_delantera
         ]);

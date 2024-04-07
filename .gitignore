@@ -3,9 +3,12 @@
 /public/hot
 /public/storage
 /public/imagen
-/public/imagen_5s
-/public/entregas
-/public/img/SIVE
+/public/storage/Actas
+/public/storage/Documentación
+/public/storage/Reportes Herramientas
+/public/storage/Reportes Uniformes
+/public/img/almacen
+/public/img/gestion
 /storage/*.key
 .phpunit.result.cache
 docker-compose.override.yml
