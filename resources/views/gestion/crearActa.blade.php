@@ -78,22 +78,6 @@
                                     @enderror
                                 </p>
                             </div>
-                            {{-- <div class='grid grid-cols-1'>
-                                <label for="horario" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Horario al que Faltó
-                                </label>
-                                <p>
-                                    <input type="text" name="horario" id="horario" placeholder="Ejemplo: 15:00 a 23:00"
-                                    class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('horario') border-red-800 bg-red-100 @enderror'
-                                    required>
-                                    
-                                    @error('horario')
-                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
-                                            {{ $message }}
-                                        </p>
-                                    @enderror
-                                </p>
-                            </div> --}}
                             <div class='grid grid-cols-1'>
                                 <label for="hechos" class="mb-1 bloack uppercase text-gray-800 font-bold">
                                     * Declaración de los Hechos

@@ -26,6 +26,7 @@ class CreateBajasTable extends Migration
             $table->string('causa');
             $table->string('anticipacion')->nullable();
             $table->string('telefono')->nullable();
+            $table->string('imagen_perfil')->nullable();
             $table->Integer('num_clinicaSS')->nullable();
             $table->integer('total_bajas')->nullable();
             $table->timestamps();

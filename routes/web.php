@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaltasController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\HerramientasController;
+use App\Http\Controllers\HorariosController;
 use App\Http\Controllers\VacacionesController;
 use App\Http\Controllers\IncapacidadesController;
 use App\Http\Controllers\PermisosController;
@@ -147,4 +148,11 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
     // Route::get('/gestion/verContrato/pdf/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
     // Route::delete('/gestion/eliminarContrato/pdf/{id}', [EmpleadosController::class, 'eliminar_pdf'])->name('eliminarContrato.pdf');
+
+    Route::get('/horario/verHorario', [HorariosController::class,'show'])->name('horario.mostrar');
+    Route::post('/horario/crearHorario/guardar', [HorariosController::class,'store'])->name('horario.store');
+    Route::get('/horario/crearTemplate', [HorariosController::class,'createTemplate'])->name('template.crear');
+    Route::get('/horario/llenarTemplate', [HorariosController::class,'storeTemplate'])->name('template.store');
+    Route::post('/horario/filtroHorarios', [HorariosController::class,'filtro'])->name('horario.filtro');
+
 });

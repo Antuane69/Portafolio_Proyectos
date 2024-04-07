@@ -1,109 +1,3 @@
-{{-- <style>
-    body {
-        font-family: 'Varela Round', sans-serif;
-    }
-
-    .modal-confirm {
-        color: #636363;
-        width: 400px;
-    }
-
-    .modal-confirm .modal-content {
-        padding: 20px;
-        border-radius: 5px;
-        border: none;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .modal-confirm .modal-header {
-        border-bottom: none;
-        position: relative;
-    }
-
-    .modal-confirm h4 {
-        text-align: center;
-        font-size: 26px;
-        margin: 30px 0 -10px;
-    }
-
-    .modal-confirm .close {
-        position: absolute;
-        top: -5px;
-        right: -2px;
-    }
-
-    .modal-confirm .modal-body {
-        color: #999;
-    }
-
-    .modal-confirm .modal-footer {
-        border: none;
-        text-align: center;
-        border-radius: 5px;
-        font-size: 13px;
-        padding: 10px 15px 25px;
-    }
-
-    .modal-confirm .modal-footer a {
-        color: #999;
-    }
-
-    .modal-confirm .icon-box {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto;
-        border-radius: 50%;
-        z-index: 9;
-        text-align: center;
-        border: 3px solid #f15e5e;
-    }
-
-    .modal-confirm .icon-box i {
-        color: #f15e5e;
-        font-size: 46px;
-        display: inline-block;
-        margin-top: 13px;
-    }
-
-    .modal-confirm .btn,
-    .modal-confirm .btn:active {
-        color: #fff;
-        border-radius: 4px;
-        background: #60c7c1;
-        text-decoration: none;
-        transition: all 0.4s;
-        line-height: normal;
-        min-width: 120px;
-        border: none;
-        min-height: 40px;
-        border-radius: 3px;
-        margin: 0 5px;
-    }
-
-    .modal-confirm .btn-secondary {
-        background: #c1c1c1;
-    }
-
-    .modal-confirm .btn-secondary:hover,
-    .modal-confirm .btn-secondary:focus {
-        background: #a8a8a8;
-    }
-
-    .modal-confirm .btn-danger {
-        background: #f15e5e;
-    }
-
-    .modal-confirm .btn-danger:hover,
-    .modal-confirm .btn-danger:focus {
-        background: #ee3535;
-    }
-
-    .trigger-btn {
-        display: inline-block;
-        margin: 100px auto;
-    }
-</style> --}}
 
 <x-app-layout>
     @section('title', 'Little-Tokyo Administración')
@@ -263,7 +157,7 @@
                                                                     <form class="rounded text-white font-bold py-1 px-2">
                                                                         @csrf         
                                                                         <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white mb-3 font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $empleado->id }}">
-                                                                            Generar Documentos PDF
+                                                                            Generar Documentación PDF
                                                                         </button>                        
                                                                     </form>          
                                                                     @if ($empleado->documentacion != "")
@@ -274,7 +168,7 @@
                                                                     @else
                                                                         <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 rounded-md mt-1 ml-12"
                                                                         onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
-                                                                            Subir Acta
+                                                                            Subir Documentación
                                                                         </button>
                                                                     @endif  
                                                                 </div>

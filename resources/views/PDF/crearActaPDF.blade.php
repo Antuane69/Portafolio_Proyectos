@@ -67,10 +67,10 @@
                 <td style="text-align:justify;" colspan="3">
                     En la ciudad de Guadalajara, Jalisco, en la Sucursal López Cotilla siendo la fecha y hora actuales {{$fecha}}; se reunieron en la sucursal 
                     Guadalajara las siguientes personas: <div style="font-weight: bold; display: inline;">LUIS SANCHEZ DE LAVEGA CASTELLANOS</div> en su carácter de Patrón y 
-                    <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$testigo1}}, {{$testigo2}} y
+                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}}, {{$testigo2}} y
                         {{$testigo3}}</div> en su calidad de testigos, con objeto de levantar la presente acta administrativa de investigación de los hechos que se le 
                     imputan al trabajador de esta empresa Sr. (a) 
-                    <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div>.                    
+                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div>.                    
                 </td>
             </tr>
             <p></p>
@@ -89,7 +89,7 @@
             </tr>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="2">
-                    <div style="font-weight: bold; display: inline; background-color:yellow;">{{$falta}}.</div>
+                    <div style="font-weight: bold; display: inline;">{{$falta}}.</div>
                 </td>
                 <td></td>
             </tr>
@@ -99,7 +99,7 @@
                     De acuerdo al reglamento las faltas pueden son constitutivas de la siguiente sanción la cual consiste en LA
                     SUSPENSIÓN DE 3 DÍAS DE TRABAJO sin goce de sueldo y recepción de propinas a partir de la fecha {{$fecha_inicio}}
                     hasta la fecha {{$fecha_fin}}, el Patrón y los testigos se trasladaron al área de la empresa en este caso al área de
-                    {{$area}} para que quede asentado que el empleado(a) <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div> efectivamente no se presentó en la fecha <div style="font-weight: bold; display: inline; background-color:yellow;">{{$empleado->fecha_solicitud}} el horario de {{$horario}} horas </div>.
+                    {{$area}} para que quede asentado que el empleado(a) <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> efectivamente no se presentó en la fecha <div style="font-weight: bold; display: inline;">{{$empleado->fecha_solicitud}} el horario de {{$horario}} horas </div>.
                 </td> --}}
                 <td style="text-align:justify;" colspan="3">
                     <div style="font-weight: bold; display: inline;">
@@ -110,17 +110,17 @@
             <p></p>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
-                    Se interroga al primer testigo <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$testigo1}} </div>, el cual afirma que <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div> no se presentó a laborar el día mencionado.
+                    Se interroga al primer testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}} </div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no se presentó a laborar el día mencionado.
                 </td>
             </tr>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
-                    Se interroga al segundo testigo <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$testigo2}}</div>, el cual afirma que <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
+                    Se interroga al segundo testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo2}}</div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
                 </td>
             </tr>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
-                    Y por último se interroga a <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$testigo3}}</div> que confirma que <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
+                    Y por último se interroga a <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo3}}</div> que confirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
                 </td>
             </tr>
             <p></p>
@@ -135,7 +135,7 @@
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
                     El presente documento leído que les fue a los asistentes, la ratifican en todas sus partes, firmando en el lugar de
-                    trabajo para constancia y los efectos legales del caso siendo la fecha y hora actuales <div style="font-weight: bold; display: inline; background-color:yellow;text-transform: uppercase;">{{$fecha}}</div> en que se actúa.
+                    trabajo para constancia y los efectos legales del caso siendo la fecha y hora actuales <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$fecha}}</div> en que se actúa.
                 </td>
             </tr>
             <p></p>
