@@ -230,10 +230,73 @@ class HorariosController extends Controller
         $nombres_ser = $nombres_a->whereIn('puesto', ['SERVICIO', 'MESERO', 'SERVICIO MIXTO'])->pluck('nombre')->toArray();
         $nombres_bar = $nombres_a->where('puesto','BARISTA')->pluck('nombre')->toArray();
         
+        $contadorCocina = array();
+        $contadorServicio = array();
+        $contadorBarra = array();
+
+        for ($i = 0; $i < 3; $i++) {
+            $lunes = $request->input("Cocineroslunes" . $i);
+            $martes = $request->input("Cocinerosmartes" . $i);
+            $miercoles = $request->input("Cocinerosmiercoles" . $i);
+            $jueves = $request->input("Cocinerosjueves" . $i);
+            $viernes = $request->input("Cocinerosviernes" . $i);
+            $sabado = $request->input("Cocinerossabado" . $i);
+            $domingo = $request->input("Cocinerosdomingo" . $i);
+        
+            $contadorCocina[] = array(
+                'lunes' => $lunes,
+                'martes' => $martes,
+                'miercoles' => $miercoles,
+                'jueves' => $jueves,
+                'viernes' => $viernes,
+                'sabado' => $sabado,
+                'domingo' => $domingo
+            );
+
+            $lunes = $request->input("Serviciolunes" . $i);
+            $martes = $request->input("Serviciomartes" . $i);
+            $miercoles = $request->input("Serviciomiercoles" . $i);
+            $jueves = $request->input("Serviciojueves" . $i);
+            $viernes = $request->input("Servicioviernes" . $i);
+            $sabado = $request->input("Serviciosabado" . $i);
+            $domingo = $request->input("Serviciodomingo" . $i);
+        
+            $contadorServicio[] = array(
+                'lunes' => $lunes,
+                'martes' => $martes,
+                'miercoles' => $miercoles,
+                'jueves' => $jueves,
+                'viernes' => $viernes,
+                'sabado' => $sabado,
+                'domingo' => $domingo
+            );
+
+            $lunes = $request->input("Barralunes" . $i);
+            $martes = $request->input("Barramartes" . $i);
+            $miercoles = $request->input("Barramiercoles" . $i);
+            $jueves = $request->input("Barrajueves" . $i);
+            $viernes = $request->input("Barraviernes" . $i);
+            $sabado = $request->input("Barrasabado" . $i);
+            $domingo = $request->input("Barradomingo" . $i);
+        
+            $contadorBarra[] = array(
+                'lunes' => $lunes,
+                'martes' => $martes,
+                'miercoles' => $miercoles,
+                'jueves' => $jueves,
+                'viernes' => $viernes,
+                'sabado' => $sabado,
+                'domingo' => $domingo
+            );
+        }
+
         return view('horarios.crearRegistroHorario',[
             'nombres' => $nombres,
             'nombres_ser' => $nombres_ser,
             'nombres_bar' => $nombres_bar,
+            'contadorCocina' => $contadorCocina,
+            'contadorBarra' => $contadorBarra,
+            'contadorServicio' => $contadorServicio,
         ]);
     }
 

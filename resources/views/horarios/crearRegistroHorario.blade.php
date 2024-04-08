@@ -113,49 +113,56 @@
                                         </td>
                                     @endif
                                     <td align="center" class="font-bold">
-                                        <select name="cocinerolunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocinerolunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['lunes']}}">             
                                             @foreach($nombres as $nombre)
                                                 <option value="{{$nombre}}">{{$nombre}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocineromartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocineromartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['martes']}}">             
                                             @foreach($nombres as $nombre2)
                                                 <option value="{{$nombre2}}">{{$nombre2}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocineromiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocineromiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['miercoles']}}">             
                                             @foreach($nombres as $nombre3)
                                                 <option value="{{$nombre3}}">{{$nombre3}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocinerojueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocinerojueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['jueves']}}">             
                                             @foreach($nombres as $nombre4)
                                                 <option value="{{$nombre4}}">{{$nombre4}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocineroviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocineroviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['viernes']}}">             
                                             @foreach($nombres as $nombre5)
                                                 <option value="{{$nombre5}}">{{$nombre5}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocinerosabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocinerosabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['sabado']}}">             
                                             @foreach($nombres as $nombre6)
                                                 <option value="{{$nombre6}}">{{$nombre6}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="cocinerodomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="cocinerodomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorCocina[$k]['domingo']}}">             
                                             @foreach($nombres as $nombre7)
                                                 <option value="{{$nombre7}}">{{$nombre7}}</option>
                                             @endforeach
@@ -199,49 +206,56 @@
                                         </td>
                                     @endif
                                     <td align="center" class="font-bold">
-                                        <select name="serviciolunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciolunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['lunes']}}">             
                                             @foreach($nombres_ser as $nombre)
                                                 <option value="{{$nombre}}">{{$nombre}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="serviciomartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciomartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['martes']}}">             
                                             @foreach($nombres_ser as $nombre2)
                                                 <option value="{{$nombre2}}">{{$nombre2}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="serviciomiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciomiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['miercoles']}}">             
                                             @foreach($nombres_ser as $nombre3)
                                                 <option value="{{$nombre3}}">{{$nombre3}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="serviciojueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciojueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['jueves']}}">             
                                             @foreach($nombres_ser as $nombre4)
                                                 <option value="{{$nombre4}}">{{$nombre4}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="servicioviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="servicioviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['viernes']}}">             
                                             @foreach($nombres_ser as $nombre5)
                                                 <option value="{{$nombre5}}">{{$nombre5}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="serviciosabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciosabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['sabado']}}">             
                                             @foreach($nombres_ser as $nombre6)
                                                 <option value="{{$nombre6}}">{{$nombre6}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="serviciodomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="serviciodomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorServicio[$k]['domingo']}}">             
                                             @foreach($nombres_ser as $nombre7)
                                                 <option value="{{$nombre7}}">{{$nombre7}}</option>
                                             @endforeach
@@ -285,49 +299,56 @@
                                         </td>
                                     @endif
                                     <td align="center" class="font-bold">
-                                        <select name="barlunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barlunes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['lunes']}}">             
                                             @foreach($nombres_bar as $nombre)
                                                 <option value="{{$nombre}}">{{$nombre}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="barmartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barmartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['martes']}}">             
                                             @foreach($nombres_bar as $nombre2)
                                                 <option value="{{$nombre2}}">{{$nombre2}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="barmiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barmiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['miercoles']}}">             
                                             @foreach($nombres_bar as $nombre3)
                                                 <option value="{{$nombre3}}">{{$nombre3}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="barjueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barjueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['jueves']}}">             
                                             @foreach($nombres_bar as $nombre4)
                                                 <option value="{{$nombre4}}">{{$nombre4}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="barviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['viernes']}}">             
                                             @foreach($nombres_bar as $nombre5)
                                                 <option value="{{$nombre5}}">{{$nombre5}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="barsabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="barsabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['sabado']}}">             
                                             @foreach($nombres_bar as $nombre6)
                                                 <option value="{{$nombre6}}">{{$nombre6}}</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td align="center" class="font-bold">
-                                        <select name="bardomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
+                                        <select name="bardomingo{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required
+                                            data-maximum-selection-length="{{$contadorBarra[$k]['domingo']}}">             
                                             @foreach($nombres_bar as $nombre7)
                                                 <option value="{{$nombre7}}">{{$nombre7}}</option>
                                             @endforeach

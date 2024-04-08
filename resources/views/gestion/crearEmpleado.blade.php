@@ -132,7 +132,7 @@
                                         Telefono
                                     </label>
                                     <p>
-                                        <input type="text" name="telefono" id="telefono" placeholder="Ingresa el número de telefono del empleado"
+                                        <input type="number" name="telefono" id="telefono" placeholder="Ingresa el número de telefono del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('telefono') border-red-800 bg-red-100 @enderror'
                                         >
                                         
@@ -159,20 +159,17 @@
                                         * Puesto
                                     </label>
                                     <p>
-                                        <input type="text" name="puesto" id="puesto" placeholder="Ingresa el puesto de trabajo del empleado"
-                                        class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('puesto') border-red-800 bg-red-100 @enderror'
-                                        required>
-                                        
-                                        @error('puesto')
-                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                        <select id="puesto" name="puesto" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
+                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @foreach($puestos as $puesto)
+                                                <option value="{{$puesto}}">{{$puesto}}</option>
+                                            @endforeach
+                                        </select>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <label for="salario_dia" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        * Salario Diario
+                                        Salario Diario
                                     </label>
                                     <p>
                                         <input type="number" name="salario_dia" id="salario_dia" placeholder="Ingresa el salario diario del empleado"
@@ -263,12 +260,60 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                 </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
+                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer4">
+                                    <label for="nomina" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Número de Tarjeta
+                                    </label>
+                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                        <img id="imgPreview4" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                    </div>
+                                </div>
+
+                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer2">
+                                    <label for="ine_delantera" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Frente)
+                                    </label>
+                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                        <img id="imgPreview2" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                    </div>
+                                </div>
+
+                                <div class='grid grid-cols-1'>
+                                    <div class="input-container2">
+                                        <input type="file" name="ine_delantera" id="inputContainer2" class='bg-white mt-1 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview2')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                    </div>
+                                </div>    
+                                
+                                <div class='grid grid-cols-1'>
+                                    <div class="input-container3">
+                                        <input type="file" name="ine_trasera" id="inputContainer3" class='bg-white mt-1 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview3')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                    </div>
+                                </div>
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer3">
+                                    <label for="ine_trasera" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Imagen de la INE (Trasera)
+                                    </label>
+                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
+                                        <img id="imgPreview3" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                    </div>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <div class="input-container4">
+                                        <input type="file" name="nomina" id="inputContainer4" class='bg-white mt-1 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview4')" style="40px;border-color:#858585;background-color:#FFFFFF">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
                                 <div class='grid grid-cols-1 mt-4'>
-                                    <label for="ine" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="ine" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Número de INE
                                     </label>
                                     <p>
-                                        <input type="number" name="ine" placeholder="Ingresa el número de INE del empleado"
+                                        <input type="number" name="ine" id="ine" placeholder="Ingresa el número de INE del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('ine') border-red-800 bg-red-100 @enderror'
                                         >
                                         
@@ -278,48 +323,6 @@
                                             </p>
                                         @enderror
                                     </p>
-                                </div>
-                                <div class='grid grid-cols-1 mt-4'>
-                                    <label for="nomina" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        Número de Nómina
-                                    </label>
-                                    <p>
-                                        <input type="number" name="nomina" id="nomina" placeholder="Ingresa el número de nómina del empleado"
-                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nomina') border-red-800 bg-red-100 @enderror'
-                                        >
-                                        
-                                        @error('nomina')
-                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
-                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer2">
-                                    <label for="ine_delantera" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        Imagen de la INE (Frente)
-                                    </label>
-                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview2" style="width: 300px; height: 180px;">
-                                    </div>
-                                </div>
-                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer3">
-                                    <label for="ine_trasera" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        Imagen de la INE (Trasera)
-                                    </label>
-                                    <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview3" style="width: 300px; height: 180px;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7"> 
-                                <div class="input-container2">
-                                    <input type="file" name="ine_delantera" id="inputContainer2" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview2')" style="40px;border-color:#858585;background-color:#FFFFFF">
-                                </div>
-                                <div class="input-container3">
-                                    <input type="file" name="ine_trasera" id="inputContainer3" class='bg-white mt-4 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview3')" style="40px;border-color:#858585;background-color:#FFFFFF">
                                 </div>
                             </div>
                         </div>
@@ -345,6 +348,7 @@
         setupImageContainer('imageContainer1','inputContainer1');
         setupImageContainer('imageContainer2','inputContainer2');
         setupImageContainer('imageContainer3','inputContainer3');
+        setupImageContainer('imageContainer4','inputContainer4');
         // Puedes agregar más llamadas a setupImageContainer para otros divs
     });
 

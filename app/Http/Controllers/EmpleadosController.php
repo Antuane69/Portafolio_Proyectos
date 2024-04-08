@@ -41,7 +41,11 @@ class EmpleadosController extends Controller
 
     public function create()
     {
-        return view('gestion.crearEmpleado');
+        $puestos = ['SERVICIO','BARISTA','PRODUCCION','COCINERO','SERVICIO MIXTO','WASH'];
+
+        return view('gestion.crearEmpleado',[
+            'puestos' => $puestos
+        ]);
     }
 
     public function store(Request $request)
@@ -75,7 +79,7 @@ class EmpleadosController extends Controller
         $estudios = '';
         $nacimiento = '';
         $domicilio = '';
-        //$nomina = '';
+        $nomina = '';
 
         $ruta = public_path() . '/img/gestion/Empleados';
 
@@ -167,7 +171,7 @@ class EmpleadosController extends Controller
             'nacimiento' => $nacimiento,
             'domicilio' => $domicilio,
             'ine' => $request->ine,
-            'nomina' => $request->nomina,
+            'nomina' => $nomina,
             'ine_trasera' => $ine_trasera,
             'ine_delantera' => $ine_delantera
         ]);

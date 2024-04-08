@@ -80,7 +80,7 @@
                 <form id="formulario" action={{ route('template.store') }} enctype="multipart/form-data">
                     @csrf
                     <div id="tabla1" class="tabla">
-                        <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">COCINEROS</p>
+                        <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">COCINA</p>
                         <table id="data-table1" class="stripe hover translate-table data-table"
                             style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                             <thead>

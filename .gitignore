@@ -1,6 +1,7 @@
 /public/storage
 /public/img/almacen
 /public/img/gestion
+/public/css
 
 /vendor
 /node_modules
