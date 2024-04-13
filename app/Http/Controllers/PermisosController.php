@@ -12,8 +12,35 @@ class PermisosController extends Controller
 {
     public function show(){
 
-        $permisos = Permisos::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+        if(auth()->user()->hasRole('admin')){
+            $permisos = Permisos::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+        }else{
+            $permisos = Permisos::where('curp',auth()->user()->curp)->orderBy('created_at', 'desc')->with('empleado')->get();
+        }
 
+        if($permisos){
+            foreach($permisos as $permiso){
+                $auxf = new Carbon($permiso->fecha_solicitud);
+                $auxf2 = new Carbon($permiso->fecha_inicio);
+                $auxf3 = new Carbon($permiso->fecha_regreso);
+                $auxf4 = new Carbon($permiso->fecha_anteriorPermiso);
+    
+                $permiso->solicitud = $auxf->format('d/m/Y');
+                $permiso->inicio = $auxf2->format('d/m/Y');
+                $permiso->regreso = $auxf3->format('d/m/Y');
+                $permiso->anterior = $auxf4->format('d/m/Y');
+            }
+        }
+        
+        return view('gestion.mostrarPermisos',[
+            'permisos' => $permisos
+        ]);
+    }
+
+    public function show_pendientes(){
+        
+        $permisos = Permisos::where('estado','Pendiente')->orderBy('created_at', 'desc')->with('empleado')->get();
+        
         foreach($permisos as $permiso){
             $auxf = new Carbon($permiso->fecha_solicitud);
             $auxf2 = new Carbon($permiso->fecha_inicio);
@@ -25,8 +52,8 @@ class PermisosController extends Controller
             $permiso->regreso = $auxf3->format('d/m/Y');
             $permiso->anterior = $auxf4->format('d/m/Y');
         }
-        
-        return view('gestion.mostrarPermisos',[
+
+        return view('gestion.mostrarPermisosPendientes',[
             'permisos' => $permisos
         ]);
     }
@@ -141,4 +168,23 @@ class PermisosController extends Controller
         return back()->with('success', 'Registro de Permiso Eliminado con éxito.');
     }
     
+    public function accept(Request $request, $id){
+        
+        $solicitud = Permisos::find($id);
+        $solicitud->where('id',$id)->update(['comentario' => $request->comentario]); 
+        $solicitud->where('id',$id)->update(['estado' => 'Si']); 
+        $solicitud->save();
+
+        return back()->with('success', 'Se ha aceptado correctamente la solicitud');
+    }
+
+    public function reject(Request $request, $id){
+
+        $solicitud = Permisos::find($id);
+        $solicitud->where('id',$id)->update(['comentario' => $request->comentario]);  
+        $solicitud->where('id',$id)->update(['estado' => 'No']); 
+        $solicitud->save();
+
+        return back()->with('success', 'Se ha rechazado correctamente la solicitud');
+    }
 }

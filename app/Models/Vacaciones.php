@@ -21,6 +21,8 @@ class Vacaciones extends Model
         'fecha_regresoVac',
         'total_diasDescanso',
         'dias_usados',
+        'estado',
+        'comentario',
     ];
 
     public function empleado(){

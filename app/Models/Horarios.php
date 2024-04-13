@@ -21,21 +21,7 @@ class Horarios extends Model
         'cocinero_jueves',
         'cocinero_viernes',
         'cocinero_sabado',
-        'cocinero_domingo',
-        'servicio_lunes',
-        'servicio_martes',
-        'servicio_miercoles',
-        'servicio_jueves',
-        'servicio_viernes',
-        'servicio_sabado',
-        'servicio_domingo',
-        'barra_lunes',
-        'barra_martes',
-        'barra_miercoles',
-        'barra_jueves',
-        'barra_viernes',
-        'barra_sabado',
-        'barra_domingo',
+        'cocinero_domingo'
     ];
 
 }

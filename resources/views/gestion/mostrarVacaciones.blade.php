@@ -1,115 +1,24 @@
-{{-- <style>
-    body {
-        font-family: 'Varela Round', sans-serif;
+<style>
+    #data-table {
+        border-collapse: collapse;
+        width: 100%;
     }
-
-    .modal-confirm {
-        color: #636363;
-        width: 400px;
-    }
-
-    .modal-confirm .modal-content {
-        padding: 20px;
-        border-radius: 5px;
-        border: none;
+    #data-table th, #data-table td {
+        padding: 8px;
         text-align: center;
-        font-size: 14px;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
     }
-
-    .modal-confirm .modal-header {
-        border-bottom: none;
-        position: relative;
+    #data-table tr td {
+        border-bottom: 1px solid #000000;
     }
-
-    .modal-confirm h4 {
-        text-align: center;
-        font-size: 26px;
-        margin: 30px 0 -10px;
-    }
-
-    .modal-confirm .close {
-        position: absolute;
-        top: -5px;
-        right: -2px;
-    }
-
-    .modal-confirm .modal-body {
-        color: #999;
-    }
-
-    .modal-confirm .modal-footer {
-        border: none;
-        text-align: center;
-        border-radius: 5px;
-        font-size: 13px;
-        padding: 10px 15px 25px;
-    }
-
-    .modal-confirm .modal-footer a {
-        color: #999;
-    }
-
-    .modal-confirm .icon-box {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto;
-        border-radius: 50%;
-        z-index: 9;
-        text-align: center;
-        border: 3px solid #f15e5e;
-    }
-
-    .modal-confirm .icon-box i {
-        color: #f15e5e;
-        font-size: 46px;
-        display: inline-block;
-        margin-top: 13px;
-    }
-
-    .modal-confirm .btn,
-    .modal-confirm .btn:active {
-        color: #fff;
-        border-radius: 4px;
-        background: #60c7c1;
-        text-decoration: none;
-        transition: all 0.4s;
-        line-height: normal;
-        min-width: 120px;
-        border: none;
-        min-height: 40px;
-        border-radius: 3px;
-        margin: 0 5px;
-    }
-
-    .modal-confirm .btn-secondary {
-        background: #c1c1c1;
-    }
-
-    .modal-confirm .btn-secondary:hover,
-    .modal-confirm .btn-secondary:focus {
-        background: #a8a8a8;
-    }
-
-    .modal-confirm .btn-danger {
-        background: #f15e5e;
-    }
-
-    .modal-confirm .btn-danger:hover,
-    .modal-confirm .btn-danger:focus {
-        background: #ee3535;
-    }
-
-    .trigger-btn {
-        display: inline-block;
-        margin: 100px auto;
-    }
-</style> --}}
+</style>
 
 <x-app-layout>
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Registro de Empleados') }}
+            {{ __('Histórico de Solicitudes de Vacaciones') }}
         </h2>
     </x-slot>
 
@@ -121,7 +30,7 @@
     @endsection
 
     <div class="py-10">
-        <div class="mb-10 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
+        <div class="mb-3 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
             <div class="text-left">
                 <a href="{{ route('empleadosInicio.show') }}"
                     class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
@@ -135,9 +44,19 @@
                     Regresar
                 </a>
             </div>
+
+            @if (auth()->user()->hasRole('admin'))                
+                <div class="text-right">
+                    <a href="{{ route('vacacionesPendientes.show') }}" class='w-auto mb-10 bg-blue-500 hover:bg-blue-600 rounded-lg shadow-xl font-medium text-white px-4 py-2 mr-20'>
+                        Solicitudes Pendientes de Autorizar
+                    </a>
+                </div>
+            @endif
+
         </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6" style="width:100%;">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 mb-3" style="width:100%;">
+                <p class="text-center content-center items-center text-xl mt-3 font-bold my-3">Histórico de Solicitudes de Vacaciones</p>
                 <table id="data-table" class="stripe hover translate-table"
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
@@ -147,6 +66,8 @@
                             <th class='text-center'>Fecha de Inicio de las Vacaciones</th>
                             <th class='text-center'>Fecha Fin de las Vacaciones</th>
                             <th class='text-center'>Dias Tomados</th>
+                            <th class='text-center'>Autorizada</th>
+                            <th class='text-center'>Comentario</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -198,46 +119,134 @@
                     @endif
                     <tbody>
                         @foreach ($vacaciones as $vacacion)
-                            <tr>                                    
-                                <td align="center" class="font-bold">{{ $vacacion->empleado->nombre }}</td>
-                                <td align="center">{{ $vacacion->solicitud }}</td>
-                                <td align="center">{{ $vacacion->inicio }}</td>
-                                <td align="center">{{ $vacacion->regreso }}</td>
-                                <td align="center">{{ $vacacion->dias_usados }}</td>
-                                <td class=" px-2 py-1">
-                                    <div class="in-line flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
-                                    </div>
-                                    <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 200px;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div style="display: block; flex-direction: column; align-items: center;">
-                                                        <div class="in-line flex justify-center object-center">
-                                                            <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
-                                                                    Eliminar Registro
-                                                                </button>  
-                                                            </form>                   
-                                                            <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
-                                                                @csrf         
-                                                                <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                    Editar Registro
-                                                                </button>                        
-                                                            </form>   
-                                                        </div> 
+                            <tr>     
+                                @if($vacacion->estado == 'Si')
+                                    <td align="center" style="background-color:#DCFFCA"  class="font-bold">{{ $vacacion->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->solicitud }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->inicio }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->regreso }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->dias_usados }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->estado }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->comentario }}</td>
+                                    <td class=" px-2 py-1" style="background-color:#DCFFCA">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div> 
+                                    </td>
+                                @elseif ($vacacion->estado == 'No')
+                                    <td align="center" style="background-color:#FFECEC"  class="font-bold">{{ $vacacion->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->solicitud }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->inicio }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->regreso }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->dias_usados }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->estado }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $vacacion->comentario }}</td>     
+                                    <td class=" px-2 py-1" style="background-color:#FFECEC">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
                                         </div>
-                                    </div> 
-                                </td>
+                                        <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </td>
+                                @else
+                                    <td align="center" style="background-color:#FFFFE3"  class="font-bold">{{ $vacacion->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->solicitud }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->inicio }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->regreso }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->dias_usados }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->estado }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->comentario }}</td>     
+                                    <td class=" px-2 py-1" style="background-color:#FFFFE3">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </td>
+                                @endif       
                             </tr> 
                         @endforeach
                     </tbody>

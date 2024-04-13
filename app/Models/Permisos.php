@@ -22,6 +22,8 @@ class Permisos extends Model
         'dias_totales',
         'motivo',
         'fecha_anteriorPermiso',
+        'estado',
+        'comentario',
     ];
 
     public function empleado(){

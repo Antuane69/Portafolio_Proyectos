@@ -1,3 +1,19 @@
+<style>
+    #data-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #data-table th, #data-table td {
+        padding: 8px;
+        text-align: center;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+    }
+    #data-table tr td {
+        border-bottom: 1px solid #000000;
+    }
+</style>
+
 <x-app-layout>
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
@@ -14,7 +30,7 @@
     @endsection
 
     <div class="py-10">
-        <div class="mb-10 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
+        <div class="mb-3 py-3 ml-16 leading-normal text-green-500 rounded-lg" role="alert">
             <div class="text-left">
                 <a href="{{ route('empleadosInicio.show') }}"
                 class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
@@ -28,30 +44,19 @@
                 Regresar
                 </a>
             </div>
-        </div>
-        <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
-            @if (session()->has('message'))
-                <div class="px-2 inline-flex flex-row" id="mssg-status">
-                    @if (session()->has('error'))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @else
-                        {{-- Puedes ajustar el color según el tipo de mensaje --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 h-5 w-5 inline-flex"
-                        viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd" />
-                        </svg>
-                    @endif
-                    {{ session()->get('message') }}
+
+            @if (auth()->user()->hasRole('admin'))                
+                <div class="text-right">
+                    <a href="{{ route('permisosPendientes.show') }}" class='w-auto mb-10 bg-blue-500 hover:bg-blue-600 rounded-lg shadow-xl font-medium text-white px-4 py-2 mr-20'>
+                        Solicitudes Pendientes de Autorizar
+                    </a>
                 </div>
             @endif
+
+        </div>
+        <div class="mx-auto sm:px-6 lg:px-8" style="width:80rem;">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6" style="width:100%;">
+                <p class="text-center content-center items-center text-xl mt-3 font-bold my-3">Histórico de Solicitudes de Permisos</p>
                 <table id="data-table" class="stripe hover translate-table"
                     style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
@@ -61,8 +66,10 @@
                             <th class='text-center'>Fecha Inicio del Permiso</th>
                             <th class='text-center'>Fecha Regreso del Permiso</th>
                             <th class='text-center'>Dias Totales</th>
-                            <th class='text-center'>Motivo</th>
                             <th class='text-center'>Fecha del Anterior Permiso</th>
+                            <th class='text-center'>Motivo</th>
+                            <th class='text-center'>Autorizado</th>
+                            <th class='text-center'>Comentario</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -114,48 +121,140 @@
                     @endif
                     <tbody>
                         @foreach ($permisos as $permiso)
-                            <tr>                                    
-                                <td align="center" class="font-bold">{{ $permiso->empleado->nombre }}</td>
-                                <td align="center">{{ $permiso->solicitud }}</td>
-                                <td align="center">{{ $permiso->inicio }}</td>
-                                <td align="center">{{ $permiso->regreso }}</td>
-                                <td align="center">{{ $permiso->dias_totales }}</td>
-                                <td align="center">{{ $permiso->motivo }}</td>
-                                <td align="center">{{ $permiso->anterior }}</td>
-                                <td class=" px-2 py-1">
-                                    <div class="in-line flex justify-center object-center">
-                                        <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$permiso->id}}">Opciones</button>   
-                                    </div>
-                                    <div class="modal fade" id="exampleModal_{{$permiso->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="width: 450px; height: 200px;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                    <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div style="display: block; flex-direction: column; align-items: center;">
-                                                        <div class="in-line flex justify-center object-center">
-                                                            <form method="POST" action="{{ route('eliminarPermiso', ['id' => $permiso->id]) }}">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
-                                                                    Eliminar Registro
-                                                                </button>  
-                                                            </form>                   
-                                                            <form action="{{ route('editarPermiso.show', $permiso->id) }}" method="GET" class="mb-2">
-                                                                @csrf         
-                                                                <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                    Editar Registro
-                                                                </button>                        
-                                                            </form>   
-                                                        </div> 
+                            <tr>     
+                                @if($permiso->estado == 'Si')
+                                    <td align="center" style="background-color:#DCFFCA"  class="font-bold">{{ $permiso->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->solicitud }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->inicio }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->regreso }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->dias_totales }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->anterior }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->motivo }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->estado }}</td>
+                                    <td align="center" style="background-color:#DCFFCA" >{{ $permiso->comentario }}</td>
+                                    <td class=" px-2 py-1" style="background-color:#DCFFCA">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$permiso->id}}">Opciones</button>   
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$permiso->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarPermiso', ['id' => $permiso->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarPermiso.show', $permiso->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                @elseif ($permiso->estado == 'No')
+                                    <td align="center" style="background-color:#FFECEC"  class="font-bold">{{ $permiso->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->solicitud }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->inicio }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->regreso }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->dias_totales }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->anterior }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->motivo }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->estado }}</td>
+                                    <td align="center" style="background-color:#FFECEC" >{{ $permiso->comentario }}</td>   
+                                    <td class=" px-2 py-1" style="background-color:#FFECEC">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$permiso->id}}">Opciones</button>   
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$permiso->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarPermiso', ['id' => $permiso->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarPermiso.show', $permiso->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td align="center" style="background-color:#FFFFE3"  class="font-bold">{{ $permiso->empleado->nombre }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->solicitud }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->inicio }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->regreso }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->dias_totales }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->anterior }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->motivo }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->estado }}</td>
+                                    <td align="center" style="background-color:#FFFFE3" >{{ $permiso->comentario }}</td>   
+                                    <td class=" px-2 py-1" style="background-color:#FFFFE3">
+                                        <div class="in-line flex justify-center object-center">
+                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$permiso->id}}">Opciones</button>   
+                                        </div>
+                                        <div class="modal fade" id="exampleModal_{{$permiso->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width: 450px; height: 200px;">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div style="display: block; flex-direction: column; align-items: center;">
+                                                            <div class="in-line flex justify-center object-center">
+                                                                <form method="POST" action="{{ route('eliminarPermiso', ['id' => $permiso->id]) }}">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
+                                                                        Eliminar Registro
+                                                                    </button>  
+                                                                </form>                   
+                                                                <form action="{{ route('editarPermiso.show', $permiso->id) }}" method="GET" class="mb-2">
+                                                                    @csrf         
+                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
+                                                                        Editar Registro
+                                                                    </button>                        
+                                                                </form>   
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                @endif  
                             </tr> 
                         @endforeach
                     </tbody>

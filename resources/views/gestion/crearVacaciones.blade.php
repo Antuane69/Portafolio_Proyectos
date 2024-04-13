@@ -30,20 +30,6 @@
             </div>
         </div>
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
                 <form id="formulario" action={{ route('crearVacacion.store') }} method="POST">
                     @csrf
@@ -59,11 +45,19 @@
                                 <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
                                     * Nombre
                                 </label>
-                                <p>
-                                    <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
-                                    class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                    >
-                                </p>
+                                @if (auth()->user()->hasRole('admin'))                                    
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        required>
+                                    </p>
+                                @else
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        required readonly value="{{auth()->user()->nombre}}">
+                                    </p>
+                                @endif
                             </div>
                             <div class='grid grid-cols-1'>
                                 <label for="curp" class="mb-1 bloack uppercase text-gray-800 font-bold">

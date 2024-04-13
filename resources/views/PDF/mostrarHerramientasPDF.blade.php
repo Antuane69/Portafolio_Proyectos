@@ -1,3 +1,18 @@
+<style>
+    #data-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #data-table th, #data-table td {
+        padding: 8px;
+        text-align: center;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+    }
+    #data-table tr td {
+        border-bottom: 1px solid #000000;
+    }
+</style>
 <x-app-layout>
     @section('title', 'Little-Tokyo PDFs')
     <x-slot name="header">

@@ -2,19 +2,39 @@
 
     <style>
         /* Agrega bordes a la tabla */
-        #data-table1 {
+        #data-table {
             border-collapse: collapse;
             width: 100%;
         }
-        #data-table1 th, #data-table1 td {
+        #data-table th, #data-table td {
             padding: 8px;
             text-align: center;
             border-left: 1px solid #dddddd;
             border-right: 1px solid #dddddd;
         }
-        #data-table1 tr td {
+        #data-table tr td {
             border-bottom: 1px solid #000000;
         }
+
+        /* Estilos para las filas impares */
+        #data-table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Cambia el color de fondo para las filas impares */
+        }
+
+        /* Estilos para las filas pares */
+        #data-table tbody tr:nth-child(even) {
+            background-color: #ffffff; /* Cambia el color de fondo para las filas pares */
+        }
+
+        #data-table tbody tr td {
+            max-width: 150px; /* Ajusta el ancho máximo según sea necesario */
+        }
+
+        /* Estilo para la última columna */
+        /* #data-table tbody tr td:last-child {
+            background-color: #ffffff; 
+        } */
+        
     </style>
     
     @section('title', 'Little-Tokyo Administración')
@@ -55,7 +75,9 @@
                 <p id="NombreArea" class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">{{$nombreArea}}</p>
             </div>           
         </div>
-
+        <div class="alert" id="elementoOculto" style=" display: none; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; position: relative; padding: 0.75rem 1.25rem; margin-bottom: 1rem; border-radius: 10px; margin: 10px;">
+            <p>No hay datos disponibles para mostrar en la tabla.</p>
+        </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:100 rem;">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 pb-4" style="width:100%;">                
                 <div class="w-full flex justify-center items-center mb-2">
@@ -66,7 +88,11 @@
                                 <select id="areaFiltro" name="area"
                                     class="py-2 px-4 rounded-lg border-2 border-green-600 mb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
                                     @foreach($areas as $area)
-                                        <option value="{{$area}}">{{$area}}</option>
+                                        @if($area == $nombreArea)
+                                            <option value="{{$area}}" selected>{{$area}}</option>
+                                        @else
+                                            <option value="{{$area}}">{{$area}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -78,33 +104,91 @@
                     </div>
                 </div>
 
-                <table id="data-table" class="stripe hover translate-table data-table pb-2 pt-2"
-                    style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                    <thead>
+                <table id="data-table" class="stripe hover translate-table data-table pb-3 mb-4"
+                    style="width:100%; padding-top: 2em;  padding-bottom: 2em;">
+                    <thead class="mt-4">
                         <tr>
-                            <th class='text-center font-bold'>Turno</th>
-                            <th class='text-center font-bold'>Lunes</th>
-                            <th class='text-center font-bold'>Martes</th>
-                            <th class='text-center font-bold'>Miércoles</th>
-                            <th class='text-center font-bold'>Jueves</th>
-                            <th class='text-center font-bold'>Viernes</th>
-                            <th class='text-center font-bold'>Sábado</th>
-                            <th class='text-center font-bold'>Domingo</th>
+                            <th class='text-center'>Turno</th>
+                            <th class='text-center'>Lunes</th>
+                            <th class='text-center'>Martes</th>
+                            <th class='text-center'>Miércoles</th>
+                            <th class='text-center'>Jueves</th>
+                            <th class='text-center'>Viernes</th>
+                            <th class='text-center'>Sábado</th>
+                            <th class='text-center'>Domingo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for ($k = 0;$k<3;$k++)
-                            <tr>     
-                                <td align="center" class="font-bold">{{ $horario->turno[$k] }}</td>
-                                <td align="center">{{ $horario->clunes[$k] }}</td>
-                                <td align="center">{{ $horario->cmartes[$k] }}</td>
-                                <td align="center">{{ $horario->cmiercoles[$k] }}</td>
-                                <td align="center">{{ $horario->cjueves[$k] }}</td>
-                                <td align="center">{{ $horario->cviernes[$k] }}</td>
-                                <td align="center">{{ $horario->csabado[$k] }}</td>
-                                <td align="center">{{ $horario->cdomingo[$k] }}</td>
-                            </tr> 
-                        @endfor
+                        @if ($nombreArea == 'COCINA')
+                            <p class="hidden">{{$aux = 1}}</p>
+                            @for ($k = 0;$k<4;$k++)
+                                <tr>     
+                                    <td align="center" class="font-bold">{{ $horario->turno[$k] }}</td>
+                                    <td align="center">{{ $horario->clunes[$k] }}</td>
+                                    <td align="center">{{ $horario->cmartes[$k] }}</td>
+                                    <td align="center">{{ $horario->cmiercoles[$k] }}</td>
+                                    <td align="center">{{ $horario->cjueves[$k] }}</td>
+                                    <td align="center">{{ $horario->cviernes[$k] }}</td>
+                                    <td align="center">{{ $horario->csabado[$k] }}</td>
+                                    @if ($aux == 1)                               
+                                        <td align="center" rowspan="3">{{ $horario->cdomingo[$k] }}</td>     
+                                        <p class="hidden">{{$aux = 0}}</p>
+                                    @elseif ($k == 3)
+                                        <td align="center">{{ $horario->cdomingo[$k] }}</td>
+                                    @else
+                                        <div class="hidden">
+                                            <td align="center">{{ $horario->cdomingo[$k] }}</td>
+                                        </div>
+                                    @endif
+                                </tr> 
+                            @endfor
+                        @elseif ($nombreArea == 'SERVICIO')
+                            <p class="hidden">{{$aux = 1}}</p>
+                            @for ($k = 0;$k<4;$k++)
+                                <tr>     
+                                    <td align="center" class="font-bold">{{ $horario->turno[$k] }}</td>
+                                    <td align="center">{{ $horario->slunes[$k] }}</td>
+                                    <td align="center">{{ $horario->smartes[$k] }}</td>
+                                    <td align="center">{{ $horario->smiercoles[$k] }}</td>
+                                    <td align="center">{{ $horario->sjueves[$k] }}</td>
+                                    <td align="center">{{ $horario->sviernes[$k] }}</td>
+                                    <td align="center">{{ $horario->ssabado[$k] }}</td>
+                                    @if ($aux == 1)                               
+                                        <td align="center" rowspan="3">{{ $horario->sdomingo[$k] }}</td>     
+                                        <p class="hidden">{{$aux = 0}}</p>
+                                    @elseif ($k == 3)
+                                        <td align="center">{{ $horario->sdomingo[$k] }}</td>
+                                    @else
+                                        <div class="hidden">
+                                            <td align="center">{{ $horario->sdomingo[$k] }}</td>
+                                        </div>
+                                    @endif
+                                </tr> 
+                            @endfor
+                        @else
+                            <p class="hidden">{{$aux = 1}}</p>
+                            @for ($k = 0;$k<2;$k++)
+                                <tr>     
+                                    <td align="center" class="font-bold">{{ $horario->turnoBarra[$k] }}</td>
+                                    <td align="center">{{ $horario->blunes[$k] }}</td>
+                                    <td align="center">{{ $horario->bmartes[$k] }}</td>
+                                    <td align="center">{{ $horario->bmiercoles[$k] }}</td>
+                                    <td align="center">{{ $horario->bjueves[$k] }}</td>
+                                    <td align="center">{{ $horario->bviernes[$k] }}</td>
+                                    <td align="center">{{ $horario->bsabado[$k] }}</td>
+                                    @if ($aux == 1)                               
+                                        <td align="center" rowspan="3">{{ $horario->bdomingo[$k] }}</td>     
+                                        <p class="hidden">{{$aux = 0}}</p>
+                                    @elseif ($k == 3)
+                                        <td align="center">{{ $horario->bdomingo[$k] }}</td>
+                                    @else
+                                        <div class="hidden">
+                                            <td align="center">{{ $horario->bdomingo[$k] }}</td>
+                                        </div>
+                                    @endif
+                                </tr> 
+                            @endfor
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -134,6 +218,7 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+            
         </script>
         <script>
             function filter() {
@@ -158,47 +243,102 @@
                     } else
                         return response.json()
                 }).then(data => {
+                    console.log(data.horario);
                     // Obtén la referencia de la tabla
                     var dataTable = $('#data-table').DataTable();
                     // Limpiar la tabla antes de agregar nuevos datos
                     dataTable.clear();
 
-                    if (data.horario.length == 0) {
+                    if (data.success == false) {
                         elementoOculto.style.display = "block"; // Mostrar el mensaje
                         setTimeout(function () {
                             elementoOculto.style.display = "none"; // Ocultar el mensaje después de 3 segundos
                         }, 3000);
+
+                        // Dibujar la tabla
+                        dataTable.draw();
+                        // Centrar elementos en la tabla después de dibujar
+                        $(document).ready(function() {
+                            // Aplicar clases de estilo para centrar
+                            $('#data-table').addClass('text-center').addClass('align-middle');
+                        });
+
+                    }else{
+
+                       // Limpiar el contenido de la tabla antes de agregar nuevos datos
+                       $('#data-table tbody').empty();
+                       // Construir el HTML de las filas
+                       let tableHtml = '';
+
+                        if(area === 'BARRA'){
+                            // Agregar filas al HTML de la tabla
+                            for (let k = 0; k < 4; k++) {
+                                var turno = '<p class="font-bold">:turno</p>';
+                                turno = turno.replace(':turno', data.horario.turno[k]);
+    
+                                tableHtml += `
+                                    <tr>
+                                        <td>${turno}</td>
+                                        <td>${data.horario.lunes[k]}</td>
+                                        <td>${data.horario.martes[k]}</td>
+                                        <td>${data.horario.miercoles[k]}</td>
+                                        <td>${data.horario.jueves[k]}</td>
+                                        <td>${data.horario.viernes[k]}</td>
+                                        <td>${data.horario.sabado[k]}</td>
+                                        <td>${data.horario.domingo[k]}</td>
+                                    </tr>`;
+                            }
+    
+                            // Insertar el HTML de la tabla en el DOM
+                            $('#data-table tbody').html(tableHtml);
+    
+                        }else{
+
+                            // Agregar filas al HTML de la tabla
+                            for (let k = 0; k < 4; k++) {
+                                var turno = '<p class="font-bold">:turno</p>';
+                                turno = turno.replace(':turno', data.horario.turno[k]);
+    
+                                if (k === 0) {
+                                    tableHtml += `
+                                        <tr>
+                                            <td>${turno}</td>
+                                            <td>${data.horario.lunes[k]}</td>
+                                            <td>${data.horario.martes[k]}</td>
+                                            <td>${data.horario.miercoles[k]}</td>
+                                            <td>${data.horario.jueves[k]}</td>
+                                            <td>${data.horario.viernes[k]}</td>
+                                            <td>${data.horario.sabado[k]}</td>
+                                            <td>${data.horario.domingo[k]}</td>
+                                        </tr>`;
+                                } else {
+                                    tableHtml += `
+                                        <tr>
+                                            <td>${turno}</td>
+                                            <td>${data.horario.lunes[k]}</td>
+                                            <td>${data.horario.martes[k]}</td>
+                                            <td>${data.horario.miercoles[k]}</td>
+                                            <td>${data.horario.jueves[k]}</td>
+                                            <td>${data.horario.viernes[k]}</td>
+                                            <td>${data.horario.sabado[k]}</td>
+                                            <td>${k === 3 ? data.horario.domingo[k] : ''}</td>
+                                        </tr>`;
+                                }
+                            }
+    
+                            // Insertar el HTML de la tabla en el DOM
+                            $('#data-table tbody').html(tableHtml);
+    
+                            // Aplicar rowspan a la primera celda de la columna Domingo
+                            $('#data-table tbody tr:eq(0) td:eq(7)').attr('rowspan', '3');
+                        }
+
+                        $(document).ready(function() {
+                            // Aplicar clases de estilo para centrar
+                            $('#data-table').addClass('text-center').addClass('align-middle');
+                        });
                     } 
-
-                    // Agregar nuevos datos a la tabla
-                    for (let k = 0; k < 3; k++){
-                        var turno = '<p class=" font-bold "> :turno </p>';
-                        turno = turno.replace(':turno',data.horario.turno[k]);
-
-                        dataTable.row.add([
-                            // data.horario.turno[k],
-                            `<td>
-                                    ${turno}
-                            </td>`,
-                            data.horario.lunes[k],
-                            data.horario.martes[k],
-                            data.horario.miercoles[k],
-                            data.horario.jueves[k],
-                            data.horario.viernes[k],
-                            data.horario.sabado[k],
-                            data.horario.domingo[k]
-                        ]);
-                    }
-
                     document.getElementById('NombreArea').innerText = area;
-
-                    // Dibujar la tabla
-                    dataTable.draw();
-                    // Centrar elementos en la tabla después de dibujar
-                    $(document).ready(function() {
-                        // Aplicar clases de estilo para centrar
-                        $('#data-table').addClass('text-center').addClass('align-middle');
-                    });
                 });
             }
         </script>

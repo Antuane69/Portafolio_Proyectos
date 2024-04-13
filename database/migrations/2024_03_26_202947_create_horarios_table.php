@@ -22,20 +22,6 @@ class CreateHorariosTable extends Migration
             $table->string('cocinero_viernes', 500)->nullable();
             $table->string('cocinero_sabado', 500)->nullable();
             $table->string('cocinero_domingo', 500)->nullable();
-            $table->string('servicio_lunes', 500)->nullable();
-            $table->string('servicio_martes', 500)->nullable();
-            $table->string('servicio_miercoles', 500)->nullable();
-            $table->string('servicio_jueves', 500)->nullable();
-            $table->string('servicio_viernes', 500)->nullable();
-            $table->string('servicio_sabado', 500)->nullable();
-            $table->string('servicio_domingo', 500)->nullable();
-            $table->string('barra_lunes', 500)->nullable();
-            $table->string('barra_martes', 500)->nullable();
-            $table->string('barra_miercoles', 500)->nullable();
-            $table->string('barra_jueves', 500)->nullable();
-            $table->string('barra_viernes', 500)->nullable();
-            $table->string('barra_sabado', 500)->nullable();
-            $table->string('barra_domingo', 500)->nullable();
             $table->timestamps();
         });
     }

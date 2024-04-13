@@ -91,8 +91,6 @@
                     <!-- Navigation Links -->
                     <div class="MENU">
                         <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
-                            @if (Auth::user()->hasRole('admin'))
-                                
                             <div class="group inline-block items-center ml-3" align="left" width="30">
                                 <button
                                     class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
@@ -106,151 +104,205 @@
                                         </svg>
                                     </span>
                                 </button>
-                                <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-                            transition duration-150 ease-in-out origin-top min-w-32">
-                                    <a href="{{ route('empleadosInicio.show') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                    </a>
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                            <span class="pr-1 flex-1">Recursos Humanos</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute                                
+                                    transition duration-150 ease-in-out origin-top min-w-32">
+                                    @if (auth()->user()->hasRole('admin'))
+                                        <a href="{{ route('empleadosInicio.show') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
+                                        </a>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Recursos Humanos</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
 
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32
-                                        ">
-                                            <a href="{{ route('crearEmpleado.create') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32
+                                            ">
+                                                <a href="{{ route('crearEmpleado.create') }}">
+                                                    <li class="px-3 py-1 hover:bg-gray-100">Dar de Alta</li>
+                                                </a>
+                                                <a href="{{ route('mostrarEmpleado.show') }}">
+                                                    <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
+                                                </a>
+                                                <p>
+                                                </p>
+                                                <a href="{{ route('crearBajas.extraVista') }}">
+                                                    <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
+                                                </a>
+                                                <a href="{{ route('mostrarBajas.show') }}">
+                                                    <li class="px-3 py-1 hover:bg-gray-100">Ver Bajas</li>
+                                                </a>
+                                            </ul>
+                                        </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Vacaciones</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearVacacion.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
                                             </a>
-                                            <a href="{{ route('mostrarEmpleado.show') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Empleados</li>
+                                            <a href="{{ route('mostrarVacaciones.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
                                             </a>
-                                            <p>
-                                            </p>
-                                            <a href="{{ route('crearBajas.extraVista') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
+                                            </ul>
+                                        </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Faltas al Reglamento</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearFaltas.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Faltas al Reglamento</li>
                                             </a>
-                                            <a href="{{ route('mostrarBajas.show') }}">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Bajas</li>
+                                            <a href="{{ route('mostrarFaltas.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Faltas al Reglamento</li>
                                             </a>
-                                            {{-- <a href="">
-                                                <li class="px-3 py-1 hover:bg-gray-100">Dar de Baja</li>
-                                            </a> --}}
-                                        </ul>
-                                    </li>
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                            <span class="pr-1 flex-1">Vacaciones</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                            </ul>
+                                        </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Incapacidades</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
 
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32">
-                                        <a href="{{ route('crearVacacion.create') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
-                                        </a>
-                                        <a href="{{ route('mostrarVacaciones.show') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
-                                        </a>
-                                        </ul>
-                                    </li>
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                            <span class="pr-1 flex-1">Faltas al Reglamento</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearIncapacidad.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Incapacidad</li>
+                                            </a>
+                                            <a href="{{ route('mostrarIncapacidades.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Incapacidad</li>
+                                            </a>
+                                            </ul>
+                                        </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Permisos</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
 
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32">
-                                        <a href="{{ route('crearFaltas.create') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Faltas al Reglamento</li>
-                                        </a>
-                                        <a href="{{ route('mostrarFaltas.show') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Faltas al Reglamento</li>
-                                        </a>
-                                        </ul>
-                                    </li>
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                            <span class="pr-1 flex-1">Incapacidades</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearPermisos.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
+                                            </a>
+                                            <a href="{{ route('mostrarPermisos.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
+                                            </a>
+                                            </ul>
+                                        </li>
 
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32">
-                                        <a href="{{ route('crearIncapacidad.create') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Incapacidad</li>
-                                        </a>
-                                        <a href="{{ route('mostrarIncapacidades.show') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Incapacidad</li>
-                                        </a>
-                                        </ul>
-                                    </li>
-                                    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                        <button
-                                            class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                            <span class="pr-1 flex-1">Permisos</span>
-                                            <span class="mr-auto">
-                                                <svg class="fill-current h-4 w-4
-                                        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                    @else
 
-                                        <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                        transition duration-150 ease-in-out origin-top-left
-                                        min-w-32">
-                                        <a href="{{ route('crearPermisos.create') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
-                                        </a>
-                                        <a href="{{ route('mostrarPermisos.show') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
-                                        </a>
-                                        </ul>
-                                    </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Vacaciones</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearVacacion.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
+                                            </a>
+                                            <a href="{{ route('mostrarVacaciones.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
+                                            </a>
+                                            </ul>
+                                        </li>
+                                        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                            <button
+                                                class="w-full text-left flex items-center outline-none focus:outline-none text-black">
+                                                <span class="pr-1 flex-1">Permisos</span>
+                                                <span class="mr-auto">
+                                                    <svg class="fill-current h-4 w-4
+                                            transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            <ul class="bg-white border rounded-sm absolute top-0 right-0
+                                            transition duration-150 ease-in-out origin-top-left
+                                            min-w-32">
+                                            <a href="{{ route('crearPermisos.create') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
+                                            </a>
+                                            <a href="{{ route('mostrarPermisos.show') }}">
+                                                <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
+                                            </a>
+                                            </ul>
+                                        </li>
+                                        
+                                    @endif
                                 </ul>
                             </div>
 
+                            @if (auth()->user()->hasRole('admin'))
                             <div class="group inline-block items-center ml-3" align="left" width="30">
                                 <button
                                     class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
@@ -366,9 +418,6 @@
                                         transition duration-150 ease-in-out origin-top-left
                                         min-w-32
                                         ">
-                                            {{-- <a>
-                                                <li class="px-3 py-1 hover:bg-gray-100">Elaborar Recibo de Uniforme</li>
-                                            </a> --}}
                                             <a href="{{ route('uniformes.mostrarpdf') }}">
                                                 <li class="px-3 py-1 hover:bg-gray-100">Ver Recibos de Uniformes Firmados</li>
                                             </a>

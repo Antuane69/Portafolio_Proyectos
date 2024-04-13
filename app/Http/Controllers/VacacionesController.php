@@ -11,7 +11,32 @@ class VacacionesController extends Controller
 {
     public function show(){
         
-        $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+        if(auth()->user()->hasRole('admin')){
+            $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+        }else{
+            $vacaciones = Vacaciones::where('curp',auth()->user()->curp)->orderBy('created_at', 'desc')->with('empleado')->get();
+        }
+        
+        if($vacaciones){
+            foreach($vacaciones as $vacacion){
+                $auxf = new Carbon($vacacion->fecha_solicitud);
+                $auxf2 = new Carbon($vacacion->fecha_inicioVac);
+                $auxf3 = new Carbon($vacacion->fecha_regresoVac);
+    
+                $vacacion->solicitud = $auxf->format('d/m/Y');
+                $vacacion->inicio = $auxf2->format('d/m/Y');
+                $vacacion->regreso = $auxf3->format('d/m/Y');
+            }
+        }
+
+        return view('gestion.mostrarVacaciones',[
+            'vacaciones' => $vacaciones
+        ]);
+    }
+
+    public function show_pendientes(){
+        
+        $vacaciones = Vacaciones::where('estado','Pendiente')->orderBy('created_at', 'desc')->with('empleado')->get();
         
         foreach($vacaciones as $vacacion){
             $auxf = new Carbon($vacacion->fecha_solicitud);
@@ -23,7 +48,7 @@ class VacacionesController extends Controller
             $vacacion->regreso = $auxf3->format('d/m/Y');
         }
 
-        return view('gestion.mostrarVacaciones',[
+        return view('gestion.mostrarVacacionesPendientes',[
             'vacaciones' => $vacaciones
         ]);
     }
@@ -105,4 +130,23 @@ class VacacionesController extends Controller
         return back()->with('success', 'Registro de Vacación Eliminado con éxito.');
     }
     
+    public function accept(Request $request, $id){
+        
+        $solicitud = Vacaciones::find($id);
+        $solicitud->where('id',$id)->update(['comentario' => $request->comentario]); 
+        $solicitud->where('id',$id)->update(['estado' => 'Si']); 
+        $solicitud->save();
+
+        return back()->with('success', 'Se ha aceptado correctamente la solicitud');
+    }
+
+    public function reject(Request $request, $id){
+
+        $solicitud = Vacaciones::find($id);
+        $solicitud->where('id',$id)->update(['comentario' => $request->comentario]);  
+        $solicitud->where('id',$id)->update(['estado' => 'No']); 
+        $solicitud->save();
+
+        return back()->with('success', 'Se ha rechazado correctamente la solicitud');
+    }
 }
