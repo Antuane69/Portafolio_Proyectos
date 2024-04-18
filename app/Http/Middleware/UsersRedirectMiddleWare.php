@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfNotAuthenticated
+class UsersRedirectMiddleWare
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class RedirectIfNotAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || (!auth()->user()->hasRole('admin'))) {
+        if (!Auth::check()) {
             return redirect()->route('login_2');
         }
 

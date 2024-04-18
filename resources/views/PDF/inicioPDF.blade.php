@@ -1,13 +1,30 @@
+<style>
+    .background-image {
+        position: absolute; /* Posición absoluta para superponer la imagen de fondo */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/sakura.jpg'); /* Ruta relativa a partir de la carpeta public */
+        background-size: cover;
+        background-position: center;
+        filter: brightness(80%); 
+        opacity: 0.7;
+        z-index: -1; /* Colocar detrás del contenido */
+    }
+
+</style>
 <x-app2>
 
     @section('title', 'Little-Tokyo Almacén')
 
     <body>
         <!-- ======= Hero Section ======= -->
-        <section id="hero" class="d-flex align-items-center" style="background-color: #C7EDFF">
+        <section id="hero" class="d-flex align-items-center" style="position:absolute">
+            <div class="background-image"></div>
             <div class="container" data-aos="zoom-out" data-aos-delay="100">
                 <h1>Bienvenido (a) a <span style="color: #851B1B">Little Tokyo.</span></h1>
-                <h2>Sistema de Administración de PDFs.</h2>
+                <h2 class="font-bold text-black">Sistema de Administración de PDFs.</h2>
                 <div class="d-flex">
                     <a href="#featured-services" class="btn-get-started scrollto shadow-md rounded-lg" style="color: #000000; background:#FFFF7B"><b>Opciones</b></a>
                 </div>
@@ -23,7 +40,7 @@
                         $espacio = 100;
                         $max = 400;
                     @endphp
-                    <div class="row">
+                    <div class="row mt-64">
                         <div class="col-md-3 mb-5">
                             <a href="{{ route('herramientas.mostrarpdf') }}" class="text-white">
                                 <div class="card text-black rounded-lg overflow-hidden shadow-md" style="background-color: #FFFF7B">

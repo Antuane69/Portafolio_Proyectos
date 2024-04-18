@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BajasController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Models\Empleados;
 use App\Models\Incapacidades;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,11 @@ use App\Models\Herramientas;
 |
 */
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if(Auth::check()){
+        return view('dashboard');
+    }else{
+        return view('auth.login');
+    };
 })->name('dashboard');
 
 Route::get('/', function () {
@@ -43,7 +48,6 @@ Route::get('/', function () {
 Route::middleware(['auth.redirect'])->group( function () {
 
     // Gestion
-    Route::get('/gestion/empleados/inicio',[EmpleadosController::class, 'dashboard'])->name('empleadosInicio.show');
     Route::get('/gestion/mostrarEmpleados',[EmpleadosController::class, 'show'])->name('mostrarEmpleado.show');
     Route::get('/gestion/altaEmpleados',[EmpleadosController::class, 'create'])->name('crearEmpleado.create');
     Route::post('/gestion/guardarEmpleados',[EmpleadosController::class, 'store'])->name('crearEmpleado.store');
@@ -59,14 +63,7 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::get('/gestion/detallesBajas/{id}',[BajasController::class, 'detalles'])->name('detallesBajas.show');
     Route::get('/gestion/restaurarEmpleado/{id}', [BajasController::class, 'restaurar'])->name('restaurarEmpleado');
     
-    Route::get('/gestion/mostrarVacaciones',[VacacionesController::class, 'show'])->name('mostrarVacaciones.show');
     Route::get('/gestion/mostrarVacaciones/Pendientes',[VacacionesController::class, 'show_pendientes'])->name('vacacionesPendientes.show');
-    Route::get('/gestion/registrarVacaciones',[VacacionesController::class, 'create'])->name('crearVacacion.create');
-    Route::post('/gestion/guardarVacaciones',[VacacionesController::class, 'store'])->name('crearVacacion.store');
-    Route::get('/gestion/registrarVacaciones/buscar',[VacacionesController::class, 'search'])->name('crearVacacion.search');
-    Route::get('/gestion/editarVacaciones/{id}',[VacacionesController::class, 'edit_show'])->name('editarVacacion.show');
-    Route::post('/gestion/editarVacacionesVista/{id}',[VacacionesController::class, 'edit_store'])->name('editarVacacion.store');
-    Route::delete('/gestion/eliminarVacaciones/{id}', [VacacionesController::class, 'eliminar'])->name('eliminarVacacion');
     Route::post('/gestion/aceptarVacaciones/{id}',[VacacionesController::class, 'accept'])->name('aceptarVacacion.accept');
     Route::post('/gestion/rechazarVacaciones/{id}',[VacacionesController::class, 'reject'])->name('rechazarVacacion.reject');
 
@@ -87,14 +84,7 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::post('/gestion/editarIncapacidadesVista/{id}',[IncapacidadesController::class, 'edit_store'])->name('editarIncapacidad.store');
     Route::delete('/gestion/eliminarIncapacidades/{id}', [IncapacidadesController::class, 'eliminar'])->name('eliminarIncapacidad');
     
-    Route::get('/gestion/mostrarPermisos',[PermisosController::class, 'show'])->name('mostrarPermisos.show');
     Route::get('/gestion/mostrarPermisos/Pendientes',[PermisosController::class, 'show_pendientes'])->name('permisosPendientes.show');
-    Route::get('/gestion/registrarPermisos',[PermisosController::class, 'create'])->name('crearPermisos.create');
-    Route::post('/gestion/guardarPermisos',[PermisosController::class, 'store'])->name('crearPermisos.store');
-    Route::get('/gestion/registrarPermisos/buscar',[PermisosController::class, 'search'])->name('crearPermisos.search');
-    Route::get('/gestion/editarPermisos/{id}',[PermisosController::class, 'edit_show'])->name('editarPermiso.show');
-    Route::post('/gestion/editarPermisosVista/{id}',[PermisosController::class, 'edit_store'])->name('editarPermiso.store');
-    Route::delete('/gestion/eliminarPermisos/{id}', [PermisosController::class, 'eliminar'])->name('eliminarPermiso');
     Route::post('/gestion/aceptarPermisos/{id}',[PermisosController::class, 'accept'])->name('aceptarPermiso.accept');
     Route::post('/gestion/rechazarPermisos/{id}',[PermisosController::class, 'reject'])->name('rechazarPermiso.reject');
 
@@ -153,11 +143,36 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::post('/gestion/generarContrato/pdf/{id}', [EmpleadosController::class,'datos_pdf'])->name('empleados.datospdf');//*
     Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
 
+});
+
+Route::middleware(['users.redirect'])->group( function () {
+
+    Route::get('/gestion/empleados/inicio',[EmpleadosController::class, 'dashboard'])->name('empleadosInicio.show');
+    Route::get('/gestion/detallesEmpleados/navigation/{curp}',[EmpleadosController::class, 'detalles_navigation'])->name('detallesEmpleado.nav');
+
+    Route::get('/gestion/mostrarVacaciones',[VacacionesController::class, 'show'])->name('mostrarVacaciones.show');
+    Route::get('/gestion/registrarVacaciones',[VacacionesController::class, 'create'])->name('crearVacacion.create');
+    Route::post('/gestion/guardarVacaciones',[VacacionesController::class, 'store'])->name('crearVacacion.store');
+    Route::get('/gestion/registrarVacaciones/buscar',[VacacionesController::class, 'search'])->name('crearVacacion.search');
+    Route::get('/gestion/editarVacaciones/{id}',[VacacionesController::class, 'edit_show'])->name('editarVacacion.show');
+    Route::post('/gestion/editarVacacionesVista/{id}',[VacacionesController::class, 'edit_store'])->name('editarVacacion.store');
+    Route::delete('/gestion/eliminarVacaciones/{id}', [VacacionesController::class, 'eliminar'])->name('eliminarVacacion');
+
+    Route::get('/gestion/mostrarPermisos',[PermisosController::class, 'show'])->name('mostrarPermisos.show');
+    Route::get('/gestion/registrarPermisos',[PermisosController::class, 'create'])->name('crearPermisos.create');
+    Route::post('/gestion/guardarPermisos',[PermisosController::class, 'store'])->name('crearPermisos.store');
+    Route::get('/gestion/registrarPermisos/buscar',[PermisosController::class, 'search'])->name('crearPermisos.search');
+    Route::get('/gestion/editarPermisos/{id}',[PermisosController::class, 'edit_show'])->name('editarPermiso.show');
+    Route::post('/gestion/editarPermisosVista/{id}',[PermisosController::class, 'edit_store'])->name('editarPermiso.store');
+    Route::delete('/gestion/eliminarPermisos/{id}', [PermisosController::class, 'eliminar'])->name('eliminarPermiso');
+
     Route::get('/horario/verHorario', [HorariosController::class,'show'])->name('horario.mostrar');
     Route::post('/horario/crearHorario/guardar', [HorariosController::class,'store'])->name('horario.store');
-
     Route::get('/horario/crearTemplate', [HorariosController::class,'createTemplate'])->name('template.crear');
     Route::get('/horario/llenarTemplate', [HorariosController::class,'storeTemplate'])->name('template.store');
     Route::post('/horario/filtroHorarios', [HorariosController::class,'filtro'])->name('horario.filtro');
+
+    Route::get('/cambiarContraseña', [ChangePasswordController::class,'cambiar_contraseña'])->name('cambiar_contraseña');
+    Route::post('/guardarContraseña', [ChangePasswordController::class,'guardar_contraseña'])->name('guardar_contraseña');
 
 });

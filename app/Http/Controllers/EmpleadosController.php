@@ -203,6 +203,30 @@ class EmpleadosController extends Controller
         ]);
     }
 
+    public function detalles_navigation($curp){
+
+        $empleado = Empleados::where('curp',$curp)->first();
+
+        $auxf = new Carbon($empleado->fecha_ingreso);
+        $empleado->fecha = $auxf->format('d/m/Y');
+
+        $auxna = new Carbon($empleado->fecha_nacimiento);
+        $empleado->fechaNac = $auxna->format('d/m/Y');
+
+        $auxf2 = new Carbon($empleado->fecha_2doContrato);
+        $empleado->fecha2Contrato = $auxf2->format('d/m/Y');
+
+        $auxf3 = new Carbon($empleado->fecha_3erContrato);
+        $empleado->fecha3Contrato = $auxf3->format('d/m/Y');
+
+        $auxf4 = new Carbon($empleado->fecha_indefinido);
+        $empleado->fecha4Contrato = $auxf4->format('d/m/Y');
+
+        return view('gestion.detallesEmpleado',[
+            'empleado' => $empleado,
+        ]);
+    }
+
     public function edit_show($id)
     {
         $empleado = Empleados::find($id);

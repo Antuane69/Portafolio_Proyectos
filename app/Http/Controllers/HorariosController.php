@@ -264,10 +264,9 @@ class HorariosController extends Controller
 
         $nombres_coc = $nombres->where('puesto','COCINERO')->pluck('nombre')->toArray();
         $nombres_ser = $nombres->whereIn('puesto', ['SERVICIO', 'MESERO', 'SERVICIO MIXTO'])->pluck('nombre')->toArray();
-        $nombres_bar = $nombres->where('puesto','BARISTA')->pluck('nombre')->toArray();
         
-        //$contadorCocina = count($nombres_coc);
-        $contadorCocina = 5;
+        $contadorCocina = count($nombres_coc);
+        //$contadorCocina = 5;
         $arregloCocina = array();
         $arregloServicio = array();
 
@@ -691,7 +690,7 @@ class HorariosController extends Controller
                 'area' => 'Cocina'
             ]);
 
-        }else if($puesto == 'SERVICIO' || $puesto == 'MESERO' || $puesto == 'SERVICIO MIXTO' || $puesto == 'BARISTA'){
+        }else if($puesto == 'SERVICIO' || $puesto == 'MESERO' || $puesto == 'SERVICIO MIXTO'){
 
             return view('horarios.crearRegistroHorarioServicio',[
                 'nombres_ser' => $nombres_ser,

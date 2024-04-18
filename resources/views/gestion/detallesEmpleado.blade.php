@@ -28,9 +28,15 @@
     </x-slot>
     <div class="mt-4 px-4 py-3 ml-11 leading-normal text-green-500 rounded-lg" role="alert">
         <div class="text-left">
-            <a href="{{ route('mostrarEmpleado.show') }}"
-            class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
-            style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
+            @if (auth()->user()->hasRole('admin'))                
+                <a href="{{ route('mostrarEmpleado.show') }}"
+                class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
+                style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
+            @else
+                <a href='{{ route('dashboard') }}'
+                class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
+                style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
+            @endif
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
                 fill="currentColor">
                 <path fill-rule="evenodd"
@@ -154,52 +160,56 @@
                             <p class="text-red-700 hover:text-red-900 underline mt-2">No Hay Archivo Asignado</p>
                         @endif
                     </div>
-                    <div class="grid cols-1">
-                        <label class="lbl md:text-sm">Número de INE:</label>
-                            <h2 class="inf">{{$empleado->ine}}</h2>
+                    @if (auth()->user()->hasRole('admin'))
+                        <div class="grid cols-1">
+                            <label class="lbl md:text-sm">Número de INE:</label>
+                                <h2 class="inf">{{$empleado->ine}}</h2>
+                        </div>
+                    @endif
+                </div>
+                @if (auth()->user()->hasRole('admin'))                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
+                        @if ($empleado->ine_delantera != '')                            
+                            <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
+                                <label class="lbl md:text-sm">INE Delantera:</label>
+                                <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" download>
+                                    <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
+                                </a>
+                            </div>
+                        @else
+                            <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
+                                <label class="lbl md:text-sm">INE Delantera:</label>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                            </div>
+                        @endif
+                        @if ($empleado->ine_trasera != "")                            
+                            <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
+                                <label class="lbl md:text-sm">INE Trasera:</label>
+                                <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" download>
+                                    <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
+                                </a>
+                            </div>
+                        @else
+                            <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
+                                <label class="lbl md:text-sm">INE Trasera:</label>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                            </div>
+                        @endif
+                        @if ($empleado->nomina != "")                            
+                            <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20 mt-3'>
+                                <label class="lbl md:text-sm">Número de Tarjeta:</label>
+                                <a href="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" download>
+                                    <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" alt="nomina">
+                                </a>
+                            </div>
+                        @else
+                            <div class="grid cols-1 ml-20 mt-3" style="width: 320px; height: 260px;">
+                                <label class="lbl md:text-sm">Número de Tarjeta:</label>
+                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                            </div>
+                        @endif
                     </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-10 px-10 py-10 rounded-b-xl bg-gray-100 mb-5">
-                    @if ($empleado->ine_delantera != '')                            
-                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
-                            <label class="lbl md:text-sm">INE Delantera:</label>
-                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" download>
-                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_delantera) }}" alt="ine_delantera">
-                            </a>
-                        </div>
-                    @else
-                        <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
-                            <label class="lbl md:text-sm">INE Delantera:</label>
-                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
-                        </div>
-                    @endif
-                    @if ($empleado->ine_trasera != "")                            
-                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20'>
-                            <label class="lbl md:text-sm">INE Trasera:</label>
-                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" download>
-                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->ine_trasera) }}" alt="ine_trasera">
-                            </a>
-                        </div>
-                    @else
-                        <div class="grid cols-1 ml-20" style="width: 320px; height: 260px;">
-                            <label class="lbl md:text-sm">INE Trasera:</label>
-                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
-                        </div>
-                    @endif
-                    @if ($empleado->nomina != "")                            
-                        <div style="width: 320px; height: 200px;" class='grid cols-1 ml-20 mt-3'>
-                            <label class="lbl md:text-sm">Número de Tarjeta:</label>
-                            <a href="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" download>
-                                <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 180px;" src="{{ asset('img/gestion/Empleados/' . $empleado->nomina) }}" alt="nomina">
-                            </a>
-                        </div>
-                    @else
-                        <div class="grid cols-1 ml-20 mt-3" style="width: 320px; height: 260px;">
-                            <label class="lbl md:text-sm">Número de Tarjeta:</label>
-                            <img class='rounded-md md:w-full mt-4' style="width: 300px; height: 240px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
-                        </div>
-                    @endif
-                </div>
+                @endif
             </div>
         </div>
     </div>

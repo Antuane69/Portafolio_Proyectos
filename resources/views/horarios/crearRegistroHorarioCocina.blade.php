@@ -95,6 +95,7 @@
                                             <option value="{{$nombre}}">{{$nombre}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['lunes']}}</p>
                                 </td>
                                 <td align="center" class="font-bold">
                                     <select name="cocineromartes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple"
@@ -103,6 +104,7 @@
                                             <option value="{{$nombre2}}">{{$nombre2}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['martes']}}</p>
                                 </td>
                                 <td align="center" class="font-bold">
                                     <select name="cocineromiercoles{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple"
@@ -111,6 +113,7 @@
                                             <option value="{{$nombre3}}">{{$nombre3}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['miercoles']}}</p>
                                 </td>
                                 <td align="center" class="font-bold">
                                     <select name="cocinerojueves{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple"
@@ -119,6 +122,7 @@
                                             <option value="{{$nombre4}}">{{$nombre4}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['jueves']}}</p>
                                 </td>
                                 <td align="center" class="font-bold">
                                     <select name="cocineroviernes{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple"
@@ -127,6 +131,7 @@
                                             <option value="{{$nombre5}}">{{$nombre5}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['viernes']}}</p>
                                 </td>
                                 <td align="center" class="font-bold">
                                     <select name="cocinerosabado{{$k}}[]" class='form-control js-example-basic-multiple js-states' multiple="multiple"
@@ -135,6 +140,7 @@
                                             <option value="{{$nombre6}}">{{$nombre6}}</option>
                                         @endforeach
                                     </select>
+                                    <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[$k]['sabado']}}</p>
                                 </td>
                                 @if ($aux == 1)                                    
                                     <td align="center" class="font-bold" rowspan="3">
@@ -144,6 +150,7 @@
                                                 <option value="{{$nombre7}}">{{$nombre7}}</option>
                                             @endforeach
                                         </select>
+                                        <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[0]['domingo']}}</p>
                                     </td>
                                     <p class="hidden">{{$aux = 0}}</p>
                                 @elseif ($k == 3)
@@ -154,6 +161,7 @@
                                                 <option value="{{$nombre8}}">{{$nombre8}}</option>
                                             @endforeach
                                         </select>
+                                        <p class="mt-2 text-sm font-semibold text-center content-center justify-center">Mínimo: {{$arregloCocina[3]['domingo']}}</p>
                                     </td>
                                 @else
                                     <td>
