@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Permisos;
 use App\Models\Empleados;
+use App\Mail\TokyoCorreos;
 use Illuminate\Http\Request;
 use App\Models\Incapacidades;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class PermisosController extends Controller
 {
     public function show(){
 
         if(auth()->user()->hasRole('admin')){
-            $permisos = Permisos::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+            $permisos = Permisos::where('estado','!=','Pendiente')->orderBy('created_at', 'desc')->with('empleado')->get();
         }else{
             $permisos = Permisos::where('curp',auth()->user()->curp)->orderBy('created_at', 'desc')->with('empleado')->get();
         }
@@ -29,6 +31,9 @@ class PermisosController extends Controller
                 $permiso->inicio = $auxf2->format('d/m/Y');
                 $permiso->regreso = $auxf3->format('d/m/Y');
                 $permiso->anterior = $auxf4->format('d/m/Y');
+
+                $nombres = $permiso->empleados_cubren;
+                $permiso->nombre_real = substr(str_replace('_', ', ', $nombres),1);
             }
         }
         
@@ -51,6 +56,9 @@ class PermisosController extends Controller
             $permiso->inicio = $auxf2->format('d/m/Y');
             $permiso->regreso = $auxf3->format('d/m/Y');
             $permiso->anterior = $auxf4->format('d/m/Y');
+
+            $nombres = $permiso->empleados_cubren;
+            $permiso->nombre_real = substr(str_replace('_', ', ', $nombres),1);
         }
 
         return view('gestion.mostrarPermisosPendientes',[
@@ -60,20 +68,35 @@ class PermisosController extends Controller
 
     public function create()
     {
-        return view('gestion.crearPermisos');
+        if(auth()->user()->hasRole('admin')){
+            $nombres = Empleados::all();
+        }else{
+            $nombres = Empleados::where('puesto',auth()->user()->puesto)->get();
+        }
+        $nombres = $nombres->pluck('nombre')->toArray();
+
+        return view('gestion.crearPermisos',[
+            'nombres' => $nombres
+        ]);
     }
 
     public function store(Request $request)
     {
     
         $this->validate($request, [
+            'nombresreg' => 'required',
             'curp' => 'required|min:18',
             'fecha_solicitud' => 'required|date',
             'fecha_inicio' => 'required|date',
             'motivo' => 'required|max:100',
         ]);
+        
+        $datos = $request->input('nombresreg');
+        $empleado['nombre'] = "";
 
-        // Formatear las fechas utilizando Carbon
+        foreach ($datos as $nombre) {
+            $empleado['nombre'] = $empleado['nombre'] . '_' . $nombre;
+        }
 
         $fechaSoli = Carbon::parse($request->input('fecha_solicitud'))->format('Y-m-d');
         $fechaInicio = Carbon::parse($request->input('fecha_inicio'))->format('Y-m-d');
@@ -95,9 +118,13 @@ class PermisosController extends Controller
             'dias_totales' => $request->dias_totales,
             'motivo' => $request->motivo,
             'fecha_anteriorPermiso' => $fechaAnterior,
+            'estado' => 'Pendiente',
+            'empleados_cubren' => $empleado['nombre'],
         ]);
 
-        return redirect()->route('mostrarPermisos.show');
+        $id = Permisos::max('id');
+
+        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Pedir']);
     }
 
     public function search(Request $request){
@@ -175,7 +202,7 @@ class PermisosController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'Si']); 
         $solicitud->save();
 
-        return back()->with('success', 'Se ha aceptado correctamente la solicitud');
+        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Autorizada']);
     }
 
     public function reject(Request $request, $id){
@@ -185,6 +212,20 @@ class PermisosController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'No']); 
         $solicitud->save();
 
-        return back()->with('success', 'Se ha rechazado correctamente la solicitud');
+        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Rechazada']);
+    }
+
+    public function correo($tipo,$id,$aux){
+
+        Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$id,$aux));
+
+        if($aux == 'Pedir'){
+            return redirect()->route('mostrarPermisos.show');
+        }elseif($aux == 'Autorizada'){
+            return redirect()->route('mostrarPermisos.show')->with('success', 'Se ha aceptado correctamente la solicitud');
+        }elseif($aux == 'Rechazada'){
+            return redirect()->route('mostrarPermisos.show')->with('success', 'Se ha rechazado correctamente la solicitud');
+        }
+
     }
 }

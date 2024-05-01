@@ -23,6 +23,7 @@ class Vacaciones extends Model
         'dias_usados',
         'estado',
         'comentario',
+        'empleados_cubren',
     ];
 
     public function empleado(){

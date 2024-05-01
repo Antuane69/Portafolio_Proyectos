@@ -169,6 +169,7 @@
                             <th class='text-center'>Dias Totales</th>
                             <th class='text-center'>Fecha del Anterior Permiso</th>
                             <th class='text-center'>Motivo</th>
+                            <th class='text-center'>Empleados que Cubren</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -228,6 +229,7 @@
                                 <td align="center">{{ $permiso->dias_totales }}</td>
                                 <td align="center">{{ $permiso->anterior }}</td>
                                 <td align="center">{{ $permiso->motivo }}</td>
+                                <td align="center" class="font-bold">{{ $permiso->nombre_real }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="flex justify-center rounded-lg text-lg" role="group">
                                         {{-- Boton eliminar permiso --}}

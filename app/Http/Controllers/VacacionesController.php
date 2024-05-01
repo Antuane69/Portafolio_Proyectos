@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TokyoCorreos;
 use Carbon\Carbon;
 use App\Models\Empleados;
 use App\Models\Vacaciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class VacacionesController extends Controller
 {
     public function show(){
         
         if(auth()->user()->hasRole('admin')){
-            $vacaciones = Vacaciones::query()->orderBy('created_at', 'desc')->with('empleado')->get();
+            $vacaciones = Vacaciones::where('estado','!=','Pendiente')->orderBy('created_at', 'desc')->with('empleado')->get();
         }else{
             $vacaciones = Vacaciones::where('curp',auth()->user()->curp)->orderBy('created_at', 'desc')->with('empleado')->get();
         }
@@ -26,6 +28,9 @@ class VacacionesController extends Controller
                 $vacacion->solicitud = $auxf->format('d/m/Y');
                 $vacacion->inicio = $auxf2->format('d/m/Y');
                 $vacacion->regreso = $auxf3->format('d/m/Y');
+
+                $nombres = $vacacion->empleados_cubren;
+                $vacacion->nombre_real = substr(str_replace('_', ', ', $nombres),1);
             }
         }
 
@@ -46,6 +51,9 @@ class VacacionesController extends Controller
             $vacacion->solicitud = $auxf->format('d/m/Y');
             $vacacion->inicio = $auxf2->format('d/m/Y');
             $vacacion->regreso = $auxf3->format('d/m/Y');
+
+            $nombres = $vacacion->empleados_cubren;
+            $vacacion->nombre_real = substr(str_replace('_', ', ', $nombres),1);
         }
 
         return view('gestion.mostrarVacacionesPendientes',[
@@ -55,21 +63,34 @@ class VacacionesController extends Controller
 
     public function create()
     {
-        return view('gestion.crearVacaciones');
+        if(auth()->user()->hasRole('admin')){
+            $nombres = Empleados::all();
+        }else{
+            $nombres = Empleados::where('puesto',auth()->user()->puesto)->get();
+        }
+        $nombres = $nombres->pluck('nombre')->toArray();
+
+        return view('gestion.crearVacaciones',[
+            'nombres' => $nombres
+        ]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
+            'nombresreg' => 'required',
             'curp' => 'required|min:18',
             'fecha_solicitud' => 'required|date',
             'fecha_inicioVac' => 'required|date',
             'fecha_regresoVac' => 'required|date|after:fecha_inicioVac',
         ]);
 
-        $empleado = Empleados::where('curp',$request->curp)->first();
-        $empleado->dias_vacaciones = $empleado->dias_vacaciones - $request->diasTomados;
-        $empleado->save(); 
+        $datos = $request->input('nombresreg');
+        $empleado['nombre'] = "";
+
+        foreach ($datos as $nombre) {
+            $empleado['nombre'] = $empleado['nombre'] . '_' . $nombre;
+        }
 
         Vacaciones::create([
             'curp' => $request->curp,
@@ -77,9 +98,14 @@ class VacacionesController extends Controller
             'fecha_inicioVac' => $request->fecha_inicioVac,
             'fecha_regresoVac' => $request->fecha_regresoVac,
             'dias_usados' => $request->diasTomados,
+            'estado' => 'Pendiente',
+            'empleados_cubren' => $empleado['nombre'],
         ]);
 
-        return redirect()->route('mostrarVacaciones.show');
+        $id = Vacaciones::max('id');
+
+        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Pedir']);
+
     }
 
     public function search(Request $request){
@@ -131,13 +157,18 @@ class VacacionesController extends Controller
     }
     
     public function accept(Request $request, $id){
-        
+
         $solicitud = Vacaciones::find($id);
         $solicitud->where('id',$id)->update(['comentario' => $request->comentario]); 
         $solicitud->where('id',$id)->update(['estado' => 'Si']); 
+
+        $empleado = Empleados::where('curp',$solicitud->curp)->first();
+        $empleado->dias_vacaciones = $empleado->dias_vacaciones - $solicitud->dias_usados;
+        $empleado->save(); 
+
         $solicitud->save();
 
-        return back()->with('success', 'Se ha aceptado correctamente la solicitud');
+        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Autorizada']);
     }
 
     public function reject(Request $request, $id){
@@ -147,6 +178,20 @@ class VacacionesController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'No']); 
         $solicitud->save();
 
-        return back()->with('success', 'Se ha rechazado correctamente la solicitud');
+        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Rechazada']);
+    }
+
+    public function correo($tipo,$id,$aux){
+
+        Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$id,$aux));
+
+        if($aux == 'Pedir'){
+            return redirect()->route('mostrarVacaciones.show');
+        }elseif($aux == 'Autorizada'){
+            return redirect()->route('mostrarVacaciones.show')->with('success', 'Se ha aceptado correctamente la solicitud');
+        }elseif($aux == 'Rechazada'){
+            return redirect()->route('mostrarVacaciones.show')->with('success', 'Se ha rechazado correctamente la solicitud');
+        }
+
     }
 }

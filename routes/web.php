@@ -143,6 +143,11 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::post('/gestion/generarContrato/pdf/{id}', [EmpleadosController::class,'datos_pdf'])->name('empleados.datospdf');//*
     Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
 
+    // correos
+    Route::get('/correos/Vacaciones/{tipo}/{id}/{aux}',[VacacionesController::class, 'correo'])->name('vacaciones.correo');
+    Route::get('/correos/Permisos/{tipo}/{id}/{aux}',[PermisosController::class, 'correo'])->name('permisos.correo');
+    Route::get('/correos/Horarios/{tipo}/{id}/{aux}',[HorariosController::class, 'correo'])->name('horarios.correo');
+
 });
 
 Route::middleware(['users.redirect'])->group( function () {
@@ -174,5 +179,7 @@ Route::middleware(['users.redirect'])->group( function () {
 
     Route::get('/cambiarContraseña', [ChangePasswordController::class,'cambiar_contraseña'])->name('cambiar_contraseña');
     Route::post('/guardarContraseña', [ChangePasswordController::class,'guardar_contraseña'])->name('guardar_contraseña');
+    
+    Route::get('/roles', [EmpleadosController::class,'roles'])->name('roles');
 
 });

@@ -167,6 +167,7 @@
                             <th class='text-center'>Fecha de Inicio de las Vacaciones</th>
                             <th class='text-center'>Fecha Fin de las Vacaciones</th>
                             <th class='text-center'>Dias Tomados</th>
+                            <th class='text-center'>Empleados que Cubren</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -224,6 +225,7 @@
                                 <td align="center">{{ $vacacion->inicio }}</td>
                                 <td align="center">{{ $vacacion->regreso }}</td>
                                 <td align="center">{{ $vacacion->dias_usados }}</td>
+                                <td align="center" class="font-bold">{{ $vacacion->nombre_real }}</td>
                                 <td class=" px-2 py-1">
                                     <div class="flex justify-center rounded-lg text-lg" role="group">
                                         {{-- Boton eliminar vacacion --}}

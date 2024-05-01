@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/responsive.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customDataTables.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endsection
 
     <head>
@@ -135,6 +136,18 @@
                                     class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="text" readonly/>
                                 </p>
                             </div> 
+                            <div class='grid grid-cols-1'>
+                                <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    * Cubriran el descanso
+                                </label>
+                                <p>
+                                    <select name="nombresreg[]" class='form-control js-example-basic-multiple js-states' multiple="multiple">             
+                                        @foreach($nombres as $nombre)
+                                            <option value="{{$nombre}}">{{$nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
@@ -151,9 +164,16 @@
 </x-app-layout>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Agrega este script al final del body o en la sección de scripts de tu vista Blade -->
 
 <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            placeholder: 'Selecciona los que cubrirán tu descanso',
+            theme: "classic"
+        });
+    });
 
 document.addEventListener('DOMContentLoaded', function() {
     const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;

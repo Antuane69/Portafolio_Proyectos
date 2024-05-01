@@ -56,22 +56,6 @@
                                 </p>
                             </div>
                             <div class='grid grid-cols-1'>
-                                <label for="nacionalidad" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Nacionalidad
-                                </label>
-                                <p>
-                                    <input type="text" name="nacionalidad" id="nacionalidad"
-                                    class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nacionalidad') border-red-800 bg-red-100 @enderror'
-                                    required placeholder="Ingrese la nacionalidad del Empleado">
-                                    
-                                    @error('nacionalidad')
-                                        <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
-                                            {{ $message }}
-                                        </p>
-                                    @enderror
-                                </p>
-                            </div>
-                            <div class='grid grid-cols-1'>
                                 <label for="estadocivil" class="mb-1 bloack uppercase text-gray-800 font-bold">
                                     * Estado Civil
                                 </label>
@@ -137,7 +121,7 @@
                                     * Quincena
                                 </label>
                                 <p>
-                                    <input type="text" name="quincena" id="quincena"
+                                    <input type="number" name="quincena" id="quincena"
                                     class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('quincena') border-red-800 bg-red-100 @enderror'
                                     required placeholder="Ingrese la quincena en pesos mexicanos del Empleado">
                                     

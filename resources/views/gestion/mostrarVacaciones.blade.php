@@ -68,6 +68,7 @@
                             <th class='text-center'>Dias Tomados</th>
                             <th class='text-center'>Autorizada</th>
                             <th class='text-center'>Comentario</th>
+                            <th class='text-center'>Empleados que Cubren</th>
                             <th class='text-center'>Opciones</th>
                         </tr>
                     </thead>
@@ -128,6 +129,7 @@
                                     <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->dias_usados }}</td>
                                     <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->estado }}</td>
                                     <td align="center" style="background-color:#DCFFCA" >{{ $vacacion->comentario }}</td>
+                                    <td align="center" class="font-bold" style="background-color:#DCFFCA">{{ $vacacion->nombre_real }}</td>
                                     <td class=" px-2 py-1" style="background-color:#DCFFCA">
                                         <div class="in-line flex justify-center object-center">
                                             <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
@@ -170,49 +172,8 @@
                                     <td align="center" style="background-color:#FFECEC" >{{ $vacacion->dias_usados }}</td>
                                     <td align="center" style="background-color:#FFECEC" >{{ $vacacion->estado }}</td>
                                     <td align="center" style="background-color:#FFECEC" >{{ $vacacion->comentario }}</td>     
+                                    <td align="center" class="font-bold" style="background-color:#FFECEC">{{ $vacacion->nombre_real }}</td>
                                     <td class=" px-2 py-1" style="background-color:#FFECEC">
-                                        <div class="in-line flex justify-center object-center">
-                                            <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
-                                        </div>
-                                        <div class="modal fade" id="exampleModal_{{$vacacion->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content" style="width: 450px; height: 200px;">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
-                                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div style="display: block; flex-direction: column; align-items: center;">
-                                                            <div class="in-line flex justify-center object-center">
-                                                                <form method="POST" action="{{ route('eliminarVacacion', ['id' => $vacacion->id]) }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="mt-1 border-right  bg-red-500 hover:bg-red-700 text-white font-bold py-1 p-2 px-3 rounded-md mr-3">
-                                                                        Eliminar Registro
-                                                                    </button>  
-                                                                </form>                   
-                                                                <form action="{{ route('editarVacacion.show', $vacacion->id) }}" method="GET" class="mb-2">
-                                                                    @csrf         
-                                                                    <button class="mt-1 border-right  bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 p-2 px-3 rounded">
-                                                                        Editar Registro
-                                                                    </button>                        
-                                                                </form>   
-                                                            </div> 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </td>
-                                @else
-                                    <td align="center" style="background-color:#FFFFE3"  class="font-bold">{{ $vacacion->empleado->nombre }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->solicitud }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->inicio }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->regreso }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->dias_usados }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->estado }}</td>
-                                    <td align="center" style="background-color:#FFFFE3" >{{ $vacacion->comentario }}</td>     
-                                    <td class=" px-2 py-1" style="background-color:#FFFFE3">
                                         <div class="in-line flex justify-center object-center">
                                             <button type="button" id="opcionesButton" class="rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$vacacion->id}}">Opciones</button>   
                                         </div>

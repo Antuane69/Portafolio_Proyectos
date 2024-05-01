@@ -24,6 +24,7 @@ class Permisos extends Model
         'fecha_anteriorPermiso',
         'estado',
         'comentario',
+        'empleados_cubren'
     ];
 
     public function empleado(){

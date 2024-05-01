@@ -6,11 +6,14 @@ use validate;
 use Carbon\Carbon;
 use App\Models\Bajas;
 use App\Models\Empleados;
+use App\Mail\TokyoCorreos;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use PhpParser\Node\Stmt\ElseIf_;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class EmpleadosController extends Controller
@@ -260,9 +263,25 @@ class EmpleadosController extends Controller
         $empleado->puesto = $request->puesto;
         $empleado->fecha_ingreso = $request->fecha_ingreso;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
-        $empleado->fecha_2doContrato = $request->fecha_2doContrato;
-        $empleado->fecha_3erContrato = $request->fecha_3erContrato;
-        $empleado->fecha_indefinido = $request->fecha_indefinido;
+
+        // Convertir el texto a un objeto de tipo Carbon (fecha)
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_2doContrato);
+        // Formatear la fecha como 'Y/m/d'
+        $fechaFormateada = $fecha->format('Y/m/d');
+        $empleado->fecha_2doContrato = $fechaFormateada;
+
+        // Convertir el texto a un objeto de tipo Carbon (fecha)
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_3erContrato);
+        // Formatear la fecha como 'Y/m/d'
+        $fechaFormateada = $fecha->format('Y/m/d');
+        $empleado->fecha_3erContrato = $fechaFormateada;
+
+        // Convertir el texto a un objeto de tipo Carbon (fecha)
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_indefinido);
+        // Formatear la fecha como 'Y/m/d'
+        $fechaFormateada = $fecha->format('Y/m/d');
+        $empleado->fecha_indefinido = $fechaFormateada;
+
         $empleado->telefono = $request->telefono;
         $empleado->num_clinicaSS = $request->num_clinicaSS;
         $empleado->salario_dia = $request->salario_dia;
@@ -432,7 +451,7 @@ class EmpleadosController extends Controller
         // Calcula la diferencia en años
         $edad = $fechaNacimiento->diffInYears($fecha_actual);
 
-        $empleado->nacionalidad = $request->nacionalidad;
+        $empleado->nacionalidad = 'Mexicana';
         $empleado->estado_civil = $request->estadocivil;
         $empleado->sexo = $request->sexo;
         $empleado->domicilio = $request->domicilio;
@@ -492,5 +511,46 @@ class EmpleadosController extends Controller
 
         return redirect()->back();
     }   
+
+    public function roles()
+    {
+        $curps = ['REFJ970121HJCYRZ00','RATZ000308MJCMMRA8','GARA000919HJCRYNA4','CULY941014MCLLNL04','TOCH981103MSRVRN00'];
+
+        $users = Empleados::whereIn('curp',$curps)->get(); // Obtener el usuario por su ID
+        $useraux = Empleados::where('nombre','Diego Isaid Perez Garcia')->first(); // Obtener el usuario por su ID
+        
+        $role = DB::table('roles')->where('name', 'coordinador')->first(); // Obtener el rol por su nombre
+
+        foreach($users as $user){
+            $user->roles()->attach($role->id);
+        }
+        $useraux->roles()->attach($role->id);
+
+        $user->save();
+        $useraux->save();
+
+        return redirect()->back();
+    }
+
+    public function evaluarContrato(){
+        $empleados = Empleados::all();
+        $fecha_actual = Carbon::now();
+        $tipo = 'Contrato';
+        $aux = '';
+
+        foreach($empleados as $empleado){
+            $diferencia = $fecha_actual->diff($empleado->fecha_3erContrato); 
+            // Obtener los componentes de la diferencia
+            $anios = $diferencia->y;
+            $meses = $diferencia->m;
+            $dias = $diferencia->d;
+
+            if($anios == 0 && $meses == 0 && $dias <= 3){
+                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
+            }
+        }
+
+        return redirect()->route('empleadosInicio.show');        
+    }
 
 }
