@@ -811,7 +811,7 @@ class HorariosController extends Controller
 
             $id = Horarios::max('id');
 
-            return redirect()->route('solicitud.correo', ['tipo' => 'Horarios', 'id' => $id, 'aux' => 'Cocina']);
+            return redirect()->route('horarios.correo', ['tipo' => 'Horarios', 'id' => $id, 'aux' => 'Cocina']);
             
         }else{
 
@@ -915,7 +915,7 @@ class HorariosController extends Controller
 
             $id = Horarios::max('id');
 
-            return redirect()->route('solicitud.correo', ['tipo' => 'Horarios', 'id' => $id, 'aux' => 'Servicio']);
+            return redirect()->route('horarios.correo', ['tipo' => 'Horarios', 'id' => $id, 'aux' => 'Servicio']);
         };
     }
 

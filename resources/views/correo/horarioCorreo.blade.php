@@ -1,12 +1,5 @@
 <x-correos-layout>
-    <header style="box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);background-color:#FFFFFF">
-        <div class="header">
-            <h2 style="font-weight: 600; font-size: 1.25rem; color: #374151;">
-                {{ __($titulo) }}
-            </h2>
-        </div>
-    </header>
-    
+ 
     @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <style>
@@ -140,13 +133,12 @@
                 <div class="content-section">
                     <div>
                         <a>
-                            {{-- <img src="{{ $message->embed(public_path('assets/cfeCorreo.gif')) }}" alt="Imagen de ejemplo"> --}}
-                            <img class="rounded-md md w-2/3 hover:w-10 transition-shadow" src="{{ $message->embed(public_path('assets/cfeCorreo.gif')) }}" style="width: 500px; height: 130px;">
+                            <img class="rounded-md md w-2/3 hover:w-10 transition-shadow" src="{{ $message->embed(public_path('assets/tokyoLogo.png')) }}" style="width: 150px; height: 150px;">
                         </a>                          
                     </div>
                     <p class="content-paragraph">
                         @if ($aux == "Servicio")
-                            El presente correo es con intención de comunicar que el horario de Servicio se a creado exitosamente por el (la) empleado(a) {{$solicitud->nombre}}, con fecha de {{$fecha}}.
+                            El presente correo es con intención de comunicar que el horario de Servicio se ha creado exitosamente por el (la) empleado(a) {{$solicitud->nombre}}, con fecha de {{$fecha}}.
                         @elseif ($aux == "Cocina")
                             El presente correo es con intención de comunicar que el horario de Cocina se a creado exitosamente por el (la) empleado(a) {{$solicitud->nombre}}, con fecha de {{$fecha}}.
                         @endif

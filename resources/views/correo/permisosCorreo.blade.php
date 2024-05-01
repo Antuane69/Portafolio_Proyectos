@@ -1,11 +1,4 @@
 <x-correos-layout>
-    <header style="box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);background-color:#FFFFFF">
-        <div class="header">
-            <h2 style="font-weight: 600; font-size: 1.25rem; color: #374151;">
-                {{ __($titulo) }}
-            </h2>
-        </div>
-    </header>
     
     @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
@@ -140,13 +133,12 @@
                 <div class="content-section">
                     <div>
                         <a>
-                            {{-- <img src="{{ $message->embed(public_path('assets/cfeCorreo.gif')) }}" alt="Imagen de ejemplo"> --}}
-                            <img class="rounded-md md w-2/3 hover:w-10 transition-shadow" src="{{ $message->embed(public_path('assets/cfeCorreo.gif')) }}" style="width: 500px; height: 130px;">
+                            <img class="rounded-md md w-2/3 hover:w-10 transition-shadow" src="{{ $message->embed(public_path('assets/tokyoLogo.png')) }}" style="width: 150px; height: 150px;">
                         </a>                          
                     </div>
                     <p class="content-paragraph">
                         @if ($aux == "Pedir")
-                            El presente correo es con intención de comunicar que el (la) empleado(a) {{$solicitud->nombre}} a solicitado un permiso el dia {{$solicitud->fecha_inicio}}, terminando en la fecha {{$solicitud->fecha_regreso}}.
+                            El presente correo es con intención de comunicar que el (la) empleado(a) {{$solicitud->nombre}} a solicitado un permiso el dia {{$solicitud->inicio}}, terminando en la fecha {{$solicitud->regreso}}.
                         @elseif ($aux == "Autorizada")
                             El presente correo es con intención de comunicar que su permiso ha sido Autorizado por Recursos Humanos, a fecha de {{$fecha}}.
                         @else
@@ -170,11 +162,11 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td align="center">{{ $solicitud->nombre }}</td>
-                                    <td align="center" style="font-weight: bold;">{{ $solicitud->fecha_inicio }}</td>
-                                    <td align="center">{{ $solicitud->fecha_regreso }}</td>
+                                    <td align="center">{{ $solicitud->empleado->nombre }}</td>
+                                    <td align="center" style="font-weight: bold;">{{ $solicitud->inicio }}</td>
+                                    <td align="center">{{ $solicitud->regreso }}</td>
                                     <td align="center">{{ $solicitud->motivo }}</td>
-                                    <td align="center">{{ $solicitud->empleados_cubren }}</td>
+                                    <td align="center">{{ $solicitud->nombre_real }}</td>
                                     @if($aux == 'Rechazada')
                                         <td align="center">{{ $solicitud->comentario }}</td>
                                     @endif

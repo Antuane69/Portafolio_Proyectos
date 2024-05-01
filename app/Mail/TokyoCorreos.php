@@ -65,6 +65,15 @@ class TokyoCorreos extends Mailable
                 $titulo = 'Solicitud Rechazada de Vacaciones';
             }
 
+            $auxf2 = new Carbon($solicitud->fecha_inicioVac);
+            $auxf3 = new Carbon($solicitud->fecha_regresoVac);
+
+            $solicitud->inicio = $auxf2->format('d/m/Y');
+            $solicitud->regreso = $auxf3->format('d/m/Y');
+
+            $nombres = $solicitud->empleados_cubren;
+            $solicitud->nombre_real = substr(str_replace('_', ', ', $nombres),1);
+
             $vista = 'correo.vacacionesCorreo';
 
         }elseif($this->tipo == 'Permisos'){
@@ -77,6 +86,15 @@ class TokyoCorreos extends Mailable
             }elseif($this->aux == 'Rechazada'){
                 $titulo = 'Solicitud Rechazada de Permiso';
             }
+
+            $auxf2 = new Carbon($solicitud->fecha_inicio);
+            $auxf3 = new Carbon($solicitud->fecha_regreso);
+
+            $solicitud->inicio = $auxf2->format('d/m/Y');
+            $solicitud->regreso = $auxf3->format('d/m/Y');
+
+            $nombres = $solicitud->empleados_cubren;
+            $solicitud->nombre_real = substr(str_replace('_', ', ', $nombres),1);
 
             $vista = 'correo.permisosCorreo';
 

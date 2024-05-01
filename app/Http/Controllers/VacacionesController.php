@@ -104,7 +104,7 @@ class VacacionesController extends Controller
 
         $id = Vacaciones::max('id');
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Pedir']);
+        return redirect()->route('vacaciones.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Pedir']);
 
     }
 
@@ -168,7 +168,7 @@ class VacacionesController extends Controller
 
         $solicitud->save();
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Autorizada']);
+        return redirect()->route('vacaciones.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Autorizada']);
     }
 
     public function reject(Request $request, $id){
@@ -178,7 +178,7 @@ class VacacionesController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'No']); 
         $solicitud->save();
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Rechazada']);
+        return redirect()->route('vacaciones.correo', ['tipo' => 'Vacaciones', 'id' => $id, 'aux' => 'Rechazada']);
     }
 
     public function correo($tipo,$id,$aux){

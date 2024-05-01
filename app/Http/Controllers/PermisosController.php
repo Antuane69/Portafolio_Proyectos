@@ -124,7 +124,7 @@ class PermisosController extends Controller
 
         $id = Permisos::max('id');
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Pedir']);
+        return redirect()->route('permisos.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Pedir']);
     }
 
     public function search(Request $request){
@@ -202,7 +202,7 @@ class PermisosController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'Si']); 
         $solicitud->save();
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Autorizada']);
+        return redirect()->route('permisos.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Autorizada']);
     }
 
     public function reject(Request $request, $id){
@@ -212,7 +212,7 @@ class PermisosController extends Controller
         $solicitud->where('id',$id)->update(['estado' => 'No']); 
         $solicitud->save();
 
-        return redirect()->route('solicitud.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Rechazada']);
+        return redirect()->route('permisos.correo', ['tipo' => 'Permisos', 'id' => $id, 'aux' => 'Rechazada']);
     }
 
     public function correo($tipo,$id,$aux){
