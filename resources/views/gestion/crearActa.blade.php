@@ -41,7 +41,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">                    
                             <div class='grid grid-cols-1'>
                                 <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Testigos (3 en total)
+                                    * Testigos
                                 </label>
                                 <select name="nombresreg[]" class='form-control js-example-basic-multiple js-states' multiple="multiple" required>             
                                     @foreach($nombres as $nombre)

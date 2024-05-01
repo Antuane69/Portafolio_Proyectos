@@ -180,15 +180,21 @@ class FaltasController extends Controller
     }
 
     public function datos_pdf(Request $request, $id){
+        $testigo1 = '';
+        $testigo2 = '';
+        $testigo3 = '';
+ 
+        for($i=0;$i<count($request->nombresreg);$i++){
+            if($i == 0){
+                $testigo1 = $request->nombresreg[$i];
+            }elseif($i == 1){
+                $testigo2 = $request->nombresreg[$i];
+            }else{
+                $testigo3 = $request->nombresreg[$i];
+            }
+        }
 
-        $testigo1 = $request->nombresreg[0];
-        $testigo2 = $request->nombresreg[1];
-        $testigo3 = $request->nombresreg[2];
-        
         $fecha_actual = Carbon::now(); // Obtiene la fecha y hora actual
-
-        // $empleado =  Faltas::where('curp',$curp)->where('acta_administrativa','!=','0')
-        // ->where('acta_realizada','No')->orderBy('created_at', 'desc')->first();
 
         $empleado = Faltas::find($id);
 

@@ -67,8 +67,10 @@
                 <td style="text-align:justify;" colspan="3">
                     En la ciudad de Guadalajara, Jalisco, en la Sucursal López Cotilla siendo la fecha y hora actuales {{$fecha}}; se reunieron en la sucursal 
                     Guadalajara las siguientes personas: <div style="font-weight: bold; display: inline;">LUIS SANCHEZ DE LAVEGA CASTELLANOS</div> en su carácter de Patrón y 
-                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}}, {{$testigo2}} y
-                        {{$testigo3}}</div> en su calidad de testigos, con objeto de levantar la presente acta administrativa de investigación de los hechos que se le 
+                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}}, @if ($testigo2 != '')
+                        {{$testigo2}} y {{$testigo3}}
+                    @endif 
+                        </div> en su calidad de testigos, con objeto de levantar la presente acta administrativa de investigación de los hechos que se le 
                     imputan al trabajador de esta empresa Sr. (a) 
                     <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div>.                    
                 </td>
