@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Horarios;
 use App\Models\Permisos;
 use App\Models\Empleados;
+use App\Models\HorariosServicio;
 use App\Models\Vacaciones;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -44,15 +45,16 @@ class TokyoCorreos extends Mailable
         $fecha = Carbon::now()->format('d/m/Y');
 
         if($this->tipo == 'Horarios'){
-            $solicitud = Horarios::find($this->id);
-
+            
             if($this->aux == 'Servicio'){
                 $titulo = 'Horario de Servicio Creado';
+                $solicitud = HorariosServicio::find($this->id);
             }elseif($this->aux == 'Cocina'){
+                $solicitud = Horarios::find($this->id);
                 $titulo = 'Horario de Cocina Creado';
             }
 
-            $vista = 'correo.horariosCorreo';
+            $vista = 'correo.horarioCorreo';
 
         }elseif($this->tipo == 'Vacaciones'){
             $solicitud = Vacaciones::find($this->id);

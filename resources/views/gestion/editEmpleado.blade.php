@@ -215,6 +215,22 @@
                                         value="{{$empleado->fecha_indefinido}}" readonly/>
                                     </p>
                                 </div> 
+                                <div class='grid grid-cols-1'>
+                                    <label for="vacaciones" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        * Dias de Vacaciones
+                                    </label>
+                                    <p>
+                                        <input type="number" name="vacaciones" id="vacaciones" placeholder="Ingresa los dias de vacaciones del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('vacaciones') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->dias_vacaciones}}" required>
+                                        
+                                        @error('vacaciones')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
                             </div>     
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-3 mx-7"> 
                                 <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer1">

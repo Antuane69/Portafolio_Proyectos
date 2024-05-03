@@ -58,6 +58,7 @@ class EmpleadosController extends Controller
             'nombre' => 'required|max:60',
             'curp' => 'required|min:18',
             'puesto' => 'required',
+            'vacaciones' => 'required',
             'fecha_ingreso' => 'required|date',
             'fecha_nacimiento' => 'required|date',
             'fecha_2doContrato' => 'date',
@@ -77,6 +78,7 @@ class EmpleadosController extends Controller
 
         $ine_trasera = '';
         $ine_delantera = '';
+        $nombreImagen = '';
         $antecedentes = '';
         $recomendacion = '';
         $estudios = '';
@@ -163,6 +165,7 @@ class EmpleadosController extends Controller
             'fecha_2doContrato' => $request->fecha_2doContrato,
             'fecha_3erContrato' => $request->fecha_3erContrato,
             'fecha_indefinido' => $request->fecha_indefinido,
+            'dias_vacaciones' => $request->vacaciones,
             'telefono' => $request->telefono,
             'num_clinicaSS' => $request->num_clinicaSS,
             'salario_dia' => $request->salario_dia,
@@ -264,25 +267,19 @@ class EmpleadosController extends Controller
         $empleado->fecha_ingreso = $request->fecha_ingreso;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
 
-        // Convertir el texto a un objeto de tipo Carbon (fecha)
-        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_2doContrato);
-        // Formatear la fecha como 'Y/m/d'
-        $fechaFormateada = $fecha->format('Y/m/d');
-        $empleado->fecha_2doContrato = $fechaFormateada;
+        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_2doContrato);
+        $empleado->fecha_2doContrato = $fecha;
 
         // Convertir el texto a un objeto de tipo Carbon (fecha)
-        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_3erContrato);
-        // Formatear la fecha como 'Y/m/d'
-        $fechaFormateada = $fecha->format('Y/m/d');
-        $empleado->fecha_3erContrato = $fechaFormateada;
+        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_3erContrato);
+        $empleado->fecha_3erContrato = $fecha;
 
         // Convertir el texto a un objeto de tipo Carbon (fecha)
-        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_indefinido);
-        // Formatear la fecha como 'Y/m/d'
-        $fechaFormateada = $fecha->format('Y/m/d');
-        $empleado->fecha_indefinido = $fechaFormateada;
+        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_indefinido);
+        $empleado->fecha_indefinido = $fecha;
 
         $empleado->telefono = $request->telefono;
+        $empleado->dias_vacaciones = $request->vacaciones;
         $empleado->num_clinicaSS = $request->num_clinicaSS;
         $empleado->salario_dia = $request->salario_dia;
         $empleado->ine = $request->ine;  

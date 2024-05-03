@@ -138,9 +138,9 @@
                     </div>
                     <p class="content-paragraph">
                         @if ($aux == "Servicio")
-                            El presente correo es con intención de comunicar que el horario de Servicio se ha creado exitosamente por el (la) empleado(a) {{$solicitud->nombre}}, con fecha de {{$fecha}}.
+                            El presente correo es con intención de comunicar que el horario de Servicio se ha creado exitosamente por el (la) empleado(a) {{auth()->user()->nombre}}, con fecha de {{$fecha}}.
                         @elseif ($aux == "Cocina")
-                            El presente correo es con intención de comunicar que el horario de Cocina se a creado exitosamente por el (la) empleado(a) {{$solicitud->nombre}}, con fecha de {{$fecha}}.
+                            El presente correo es con intención de comunicar que el horario de Cocina se a creado exitosamente por el (la) empleado(a) {{auth()->user()->nombre}}, con fecha de {{$fecha}}.
                         @endif
                     </p>
                     <p class="content-paragraph font-bold text-m">Favor de ingresar a la página para ver más detalles acerca del horario: <a href="{{ route('horario.mostrar') }}" target="_blank" style="font-weight:bold;color:#0369a1">Da click aquí.</a> </p>

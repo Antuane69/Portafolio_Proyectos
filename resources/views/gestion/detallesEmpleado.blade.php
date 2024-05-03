@@ -114,6 +114,10 @@
                         <label class="lbl md:text-sm">Fecha del Contrato Indefinido:</label>
                          <h2 class="inf">{{$empleado->fecha4Contrato}}</h2>
                     </div>
+                    <div class="grid cols-1 ml-20">
+                        <label class="lbl md:text-sm">Dias de Vacaciones Restantes:</label>
+                         <h2 class="inf">{{$empleado->dias_vacaciones}}</h2>
+                    </div>
                 </div>
                 <!-- Documentación -->
                 <div class="grid grid-cols-1 col-span-2 bg-gray-600 rounded-t-xl mx-10">

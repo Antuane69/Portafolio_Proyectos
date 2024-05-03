@@ -100,7 +100,7 @@ class HorariosController extends Controller
                 'nombreArea' => $nombreArea
             ]);
 
-        }else{
+        }else if($horarioServicio){
             $nombreArea = 'SERVICIO';
 
             $nombres = $horarioServicio->servicio_lunes;
@@ -240,6 +240,12 @@ class HorariosController extends Controller
                 'areas' => $areas,
                 'nombreArea' => $nombreArea
             ]);
+        }else{
+            return view('horarios.mostrarRegistroHorarios',[
+                'horario' => '',
+                'areas' => $areas,
+                'nombreArea' => 'COCINA'
+            ]);
         }
     }
 
@@ -264,461 +270,942 @@ class HorariosController extends Controller
             return !in_array($empleado->nombre, $arrayVacaciones);
         });
 
-        $nombres_coc = $nombres->where('puesto','COCINERO')->pluck('nombre')->toArray();
-        $nombres_ser = $nombres->whereIn('puesto', ['SERVICIO', 'MESERO', 'SERVICIO MIXTO'])->pluck('nombre')->toArray();
-        
-        $contadorCocina = count($nombres_coc);
-        $contadorServicio = count($nombres_ser);
-        
-        $arregloCocina = array();
-        $arregloServicio = array();
-
-        if($contadorCocina == 5){
-
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 1,
-                'sabado' => 1,
-                'domingo' => 5 
-            );
+        if($puesto == 'COCINERO' || $puesto == 'PRODUCCION' || $puesto == 'WASH' || $puesto == 'Administracion'){
+            $horario = Horarios::orderBy('created_at', 'desc')->first();
             
-            $arregloCocina[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 3,
-                'domingo' => 5 
-            );
+            $nombres_coc = $nombres->where('puesto','COCINERO')->pluck('nombre')->toArray();
+            $contadorCocina = count($nombres_coc);
+            $arregloCocina = array();
 
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 1,
-                'domingo' => 5 
-            );
+            if($horario){
+                $fechaHorario = Carbon::createFromFormat('Y-m-d H:i:s', $horario->created_at);
 
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
+                // $fechaAux = '2024/05/10';
+                // $fechaCarbon = Carbon::createFromFormat('Y/m/d', $fechaAux);
+                // $diferenciaDias = $fechaCarbon->diffInDays($fechaHorario);
+    
+                $diferenciaDias = $auxf->diffInDays($fechaHorario);
+    
+                // Verificar si la diferencia es mayor a 6 días
+                if ($diferenciaDias >= 6) {
 
-        }elseif($contadorCocina == 6){
+                    if($contadorCocina == 5){
 
-            $arregloCocina[] = array(
-                'lunes' => 2,
-                'martes' => 1,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 1,
+                            'sabado' => 1,
+                            'domingo' => 5 
+                        );
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 3,
+                            'domingo' => 5 
+                        );
             
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 3,
-                'domingo' => 6 
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 2,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 1,
-                'domingo' => 6 
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorCocina == 7){
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 1,
+                            'domingo' => 5 
+                        );
             
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 3,
-                'viernes' => 3,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
             
-            $arregloCocina[] = array(
-                'lunes' => 0,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 0,
-                'viernes' => 1,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 3,
-                'viernes' => 3,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorCocina == 8){
-
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 3,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 7 
-            );
+                    }elseif($contadorCocina == 6){
             
-            $arregloCocina[] = array(
-                'lunes' => 0,
-                'martes' => 0,
-                'miercoles' => 0,
-                'jueves' => 0,
-                'viernes' => 0,
-                'sabado' => 1,
-                'domingo' => 7
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 4,
-                'viernes' => 4,
-                'sabado' => 3,
-                'domingo' => 7 
-            );
-
-            $arregloCocina[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorCocina == 9){
+                        $arregloCocina[] = array(
+                            'lunes' => 2,
+                            'martes' => 1,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 3,
+                            'domingo' => 6 
+                        );
             
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 4,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 8 
-            );
+                        $arregloCocina[] = array(
+                            'lunes' => 2,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 1,
+                            'domingo' => 6 
+                        );
             
-            $arregloCocina[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 1,
-                'sabado' => 1,
-                'domingo' => 8
-            );
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorCocina == 7){
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 3,
+                            'viernes' => 3,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 0,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 0,
+                            'viernes' => 1,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 3,
+                            'viernes' => 3,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorCocina == 8){
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 3,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 7 
+                        );
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 0,
+                            'martes' => 0,
+                            'miercoles' => 0,
+                            'jueves' => 0,
+                            'viernes' => 0,
+                            'sabado' => 1,
+                            'domingo' => 7
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 4,
+                            'viernes' => 4,
+                            'sabado' => 3,
+                            'domingo' => 7 
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorCocina == 9){
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 4,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 8 
+                        );
+                        
+                        $arregloCocina[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 1,
+                            'sabado' => 1,
+                            'domingo' => 8
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 3,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 8 
+                        );
+            
+                        $arregloCocina[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }
 
-            $arregloCocina[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 3,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 8 
-            );
+                    return view('horarios.crearRegistroHorarioCocina',[
+                        'nombres' => $nombres_coc,
+                        'arregloCocina' => $arregloCocina,
+                        'area' => 'Cocina'
+                    ]);
 
-            $arregloCocina[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
+                }else{
 
+                    $fecha = $horario->created_at->format('d/m/Y');
+                    return view('horarios.crearRegistroHorarioCocina',[
+                        'nombres' => $fecha,
+                        'arregloCocina' => $arregloCocina,
+                        'area' => ''
+                    ]);
+                }
+            }else{
+
+                if($contadorCocina == 5){
+
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 1,
+                        'sabado' => 1,
+                        'domingo' => 5 
+                    );
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 3,
+                        'domingo' => 5 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 1,
+                        'domingo' => 5 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorCocina == 6){
+
+                    $arregloCocina[] = array(
+                        'lunes' => 2,
+                        'martes' => 1,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 3,
+                        'domingo' => 6 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 2,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 1,
+                        'domingo' => 6 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorCocina == 7){
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 3,
+                        'viernes' => 3,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 0,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 0,
+                        'viernes' => 1,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 3,
+                        'viernes' => 3,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorCocina == 8){
+
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 3,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 7 
+                    );
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 0,
+                        'martes' => 0,
+                        'miercoles' => 0,
+                        'jueves' => 0,
+                        'viernes' => 0,
+                        'sabado' => 1,
+                        'domingo' => 7
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 4,
+                        'viernes' => 4,
+                        'sabado' => 3,
+                        'domingo' => 7 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorCocina == 9){
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 4,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 8 
+                    );
+                    
+                    $arregloCocina[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 1,
+                        'sabado' => 1,
+                        'domingo' => 8
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 3,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 8 
+                    );
+
+                    $arregloCocina[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }
+
+                return view('horarios.crearRegistroHorarioCocina',[
+                    'nombres' => $nombres_coc,
+                    'arregloCocina' => $arregloCocina,
+                    'area' => 'Cocina'
+                ]);
+            }
+
+        }else{
+            $horarioServicio = HorariosServicio::orderBy('created_at', 'desc')->first();
+
+            $nombres_ser = $nombres->whereIn('puesto', ['SERVICIO', 'MESERO', 'SERVICIO MIXTO'])->pluck('nombre')->toArray();
+            $contadorServicio = count($nombres_ser);
+            $arregloServicio = array();
+
+            if($horarioServicio){
+                $fechaHorarioServicio = Carbon::createFromFormat('Y-m-d H:i:s', $horarioServicio->created_at);
+
+                // $fechaAux = '2024/05/6';
+                // $fechaCarbon = Carbon::createFromFormat('Y/m/d', $fechaAux);
+                // $diferenciaDias = $fechaCarbon->diffInDays($fechaHorarioServicio);
+    
+                $diferenciaDias = $auxf->diffInDays($fechaHorarioServicio);
+            
+                // Verificar si la diferencia es mayor a 6 días
+                if ($diferenciaDias >= 6) {
+
+                    if($contadorServicio == 5){
+
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 1,
+                            'sabado' => 1,
+                            'domingo' => 5 
+                        );
+                        
+                        $arregloServicio[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 3,
+                            'domingo' => 5 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 1,
+                            'domingo' => 5 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorServicio == 6){
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 2,
+                            'martes' => 1,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+                        
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 3,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 2,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 2,
+                            'viernes' => 2,
+                            'sabado' => 1,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorServicio == 7){
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 3,
+                            'viernes' => 3,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+                        
+                        $arregloServicio[] = array(
+                            'lunes' => 0,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 0,
+                            'viernes' => 1,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 3,
+                            'viernes' => 3,
+                            'sabado' => 2,
+                            'domingo' => 6 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorServicio == 8){
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 3,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 7 
+                        );
+                        
+                        $arregloServicio[] = array(
+                            'lunes' => 0,
+                            'martes' => 0,
+                            'miercoles' => 0,
+                            'jueves' => 0,
+                            'viernes' => 0,
+                            'sabado' => 1,
+                            'domingo' => 7
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 4,
+                            'viernes' => 4,
+                            'sabado' => 3,
+                            'domingo' => 7 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 1,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }elseif($contadorServicio == 9){
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 4,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 8 
+                        );
+                        
+                        $arregloServicio[] = array(
+                            'lunes' => 1,
+                            'martes' => 1,
+                            'miercoles' => 1,
+                            'jueves' => 1,
+                            'viernes' => 1,
+                            'sabado' => 1,
+                            'domingo' => 8
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 3,
+                            'martes' => 3,
+                            'miercoles' => 3,
+                            'jueves' => 3,
+                            'viernes' => 4,
+                            'sabado' => 4,
+                            'domingo' => 8 
+                        );
+            
+                        $arregloServicio[] = array(
+                            'lunes' => 2,
+                            'martes' => 2,
+                            'miercoles' => 2,
+                            'jueves' => 2,
+                            'viernes' => 0,
+                            'sabado' => 0,
+                            'domingo' => 1 
+                        );
+            
+                    }
+
+                    return view('horarios.crearRegistroHorarioServicio',[
+                        'nombres_ser' => $nombres_ser,
+                        'arregloServicio' => $arregloServicio,
+                        'area' => 'Servicio'
+                    ]);
+
+                }else{
+
+                    $fecha = $horarioServicio->created_at->format('d/m/Y');
+                    return view('horarios.crearRegistroHorarioServicio',[
+                        'nombres_ser' => $fecha,
+                        'arregloServicio' => $arregloServicio,
+                        'area' => ''
+                    ]);
+                }
+            }else{
+                if($contadorServicio == 5){
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 1,
+                        'sabado' => 1,
+                        'domingo' => 5 
+                    );
+                    
+                    $arregloServicio[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 3,
+                        'domingo' => 5 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 1,
+                        'domingo' => 5 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorServicio == 6){
+
+                    $arregloServicio[] = array(
+                        'lunes' => 2,
+                        'martes' => 1,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+                    
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 3,
+                        'domingo' => 6 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 2,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 2,
+                        'viernes' => 2,
+                        'sabado' => 1,
+                        'domingo' => 6 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorServicio == 7){
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 3,
+                        'viernes' => 3,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+                    
+                    $arregloServicio[] = array(
+                        'lunes' => 0,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 0,
+                        'viernes' => 1,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 3,
+                        'viernes' => 3,
+                        'sabado' => 2,
+                        'domingo' => 6 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorServicio == 8){
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 3,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 7 
+                    );
+                    
+                    $arregloServicio[] = array(
+                        'lunes' => 0,
+                        'martes' => 0,
+                        'miercoles' => 0,
+                        'jueves' => 0,
+                        'viernes' => 0,
+                        'sabado' => 1,
+                        'domingo' => 7
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 4,
+                        'viernes' => 4,
+                        'sabado' => 3,
+                        'domingo' => 7 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 1,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }elseif($contadorServicio == 9){
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 4,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 8 
+                    );
+                    
+                    $arregloServicio[] = array(
+                        'lunes' => 1,
+                        'martes' => 1,
+                        'miercoles' => 1,
+                        'jueves' => 1,
+                        'viernes' => 1,
+                        'sabado' => 1,
+                        'domingo' => 8
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 3,
+                        'martes' => 3,
+                        'miercoles' => 3,
+                        'jueves' => 3,
+                        'viernes' => 4,
+                        'sabado' => 4,
+                        'domingo' => 8 
+                    );
+
+                    $arregloServicio[] = array(
+                        'lunes' => 2,
+                        'martes' => 2,
+                        'miercoles' => 2,
+                        'jueves' => 2,
+                        'viernes' => 0,
+                        'sabado' => 0,
+                        'domingo' => 1 
+                    );
+
+                }
+
+                return view('horarios.crearRegistroHorarioServicio',[
+                    'nombres_ser' => $nombres_ser,
+                    'arregloServicio' => $arregloServicio,
+                    'area' => 'Servicio'
+                ]);
+            }
         }
-
-        if($contadorServicio == 5){
-
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 1,
-                'sabado' => 1,
-                'domingo' => 5 
-            );
-            
-            $arregloServicio[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 3,
-                'domingo' => 5 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 1,
-                'domingo' => 5 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorServicio == 6){
-
-            $arregloServicio[] = array(
-                'lunes' => 2,
-                'martes' => 1,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-            
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 3,
-                'domingo' => 6 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 2,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 2,
-                'viernes' => 2,
-                'sabado' => 1,
-                'domingo' => 6 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorServicio == 7){
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 3,
-                'viernes' => 3,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-            
-            $arregloServicio[] = array(
-                'lunes' => 0,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 0,
-                'viernes' => 1,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 3,
-                'viernes' => 3,
-                'sabado' => 2,
-                'domingo' => 6 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorServicio == 8){
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 3,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 7 
-            );
-            
-            $arregloServicio[] = array(
-                'lunes' => 0,
-                'martes' => 0,
-                'miercoles' => 0,
-                'jueves' => 0,
-                'viernes' => 0,
-                'sabado' => 1,
-                'domingo' => 7
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 4,
-                'viernes' => 4,
-                'sabado' => 3,
-                'domingo' => 7 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 1,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }elseif($contadorServicio == 9){
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 4,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 8 
-            );
-            
-            $arregloServicio[] = array(
-                'lunes' => 1,
-                'martes' => 1,
-                'miercoles' => 1,
-                'jueves' => 1,
-                'viernes' => 1,
-                'sabado' => 1,
-                'domingo' => 8
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 3,
-                'martes' => 3,
-                'miercoles' => 3,
-                'jueves' => 3,
-                'viernes' => 4,
-                'sabado' => 4,
-                'domingo' => 8 
-            );
-
-            $arregloServicio[] = array(
-                'lunes' => 2,
-                'martes' => 2,
-                'miercoles' => 2,
-                'jueves' => 2,
-                'viernes' => 0,
-                'sabado' => 0,
-                'domingo' => 1 
-            );
-
-        }
-
-        if($puesto == 'COCINERO' || $puesto == 'PRODUCCION'){
-            
-            return view('horarios.crearRegistroHorarioCocina',[
-                'nombres' => $nombres_coc,
-                'arregloCocina' => $arregloCocina,
-                'area' => 'Cocina'
-            ]);
-
-        }else if($puesto == 'SERVICIO' || $puesto == 'MESERO' || $puesto == 'SERVICIO MIXTO' || $puesto == 'Administracion'){
-
-            return view('horarios.crearRegistroHorarioServicio',[
-                'nombres_ser' => $nombres_ser,
-                'arregloServicio' => $arregloServicio,
-                'area' => 'Servicio'
-            ]);
-        }
-
     }
 
     public function store(Request $request, $area)
     {
- 
         for($k = 1;$k < 22;$k++){
             ${'datos' . $k} = '';
         }
@@ -913,7 +1400,7 @@ class HorariosController extends Controller
                 'barra_domingo' => $datos21,
             ]);
 
-            $id = Horarios::max('id');
+            $id = HorariosServicio::max('id');
 
             return redirect()->route('horarios.correo', ['tipo' => 'Horarios', 'id' => $id, 'aux' => 'Servicio']);
         };

@@ -71,8 +71,13 @@
 
         <div class="w-full flex justify-center items-center mb-2">
             <div class="text-center">
-                <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-2">Fecha del Horario Actual: {{$horario->registro}}</p>
-                <p id="NombreArea" class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">{{$nombreArea}}</p>
+                @if ($horario != '')
+                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-2">Fecha del Horario Actual: 
+                    {{$horario->registro}}</p>
+                    <p id="NombreArea" class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">{{$nombreArea}}</p>
+                @else
+                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-2">No hay horarios creados actualmente.</p>                    
+                @endif
             </div>           
         </div>
         <div class="alert" id="elementoOculto" style=" display: none; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; position: relative; padding: 0.75rem 1.25rem; margin-bottom: 1rem; border-radius: 10px; margin: 10px;">
@@ -83,27 +88,29 @@
                 <div class="w-full flex justify-center items-center mb-2">
                     <div class="text-center">
                         <div class="flex flex-row">
-                            <div class="mr-4">
-                                <label class="block uppercase md:text-sm text-xs text-gray-500 font-semibold" for="area">Área:</label>
-                                <select id="areaFiltro" name="area"
-                                    class="py-2 px-4 rounded-lg border-2 border-green-600 mb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                                    @foreach($areas as $area)
-                                        @if($area == $nombreArea)
-                                            <option value="{{$area}}" selected>{{$area}}</option>
-                                        @else
-                                            <option value="{{$area}}">{{$area}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="grid grid-rows-1 place-items-center mt-3">
-                                <button onClick="filter()" style="text-decoration:none;"
-                                    id="filtro_id" class="rounded bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 mx-2 ml-2">Filtrar</button>
-                            </div>
+                            @if ($horario != '')                                
+                                <div class="mr-4">
+                                    <label class="block uppercase md:text-sm text-xs text-gray-500 font-semibold" for="area">Área:</label>
+                                    <select id="areaFiltro" name="area"
+                                        class="py-2 px-4 rounded-lg border-2 border-green-600 mb-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                        @foreach($areas as $area)
+                                            @if($area == $nombreArea)
+                                                <option value="{{$area}}" selected>{{$area}}</option>
+                                            @else
+                                                <option value="{{$area}}">{{$area}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="grid grid-rows-1 place-items-center mt-3">
+                                    <button onClick="filter()" style="text-decoration:none;"
+                                        id="filtro_id" class="rounded bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 mx-2 ml-2">Filtrar</button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-
+                @if ($horario != '')  
                 <table id="data-table" class="stripe hover translate-table data-table pb-3 mb-4"
                     style="width:100%; padding-top: 2em;  padding-bottom: 2em;">
                     <thead class="mt-4">
@@ -191,6 +198,7 @@
                         @endif
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
     </div>

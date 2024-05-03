@@ -184,29 +184,49 @@
                                     </p>
                                 </div>
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_ingreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
+                                    <label for="fecha_ingreso" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
                                     <p>
-                                        <input id="fecha_ingreso" name="fecha_ingreso" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" required/>
+                                        <input id="fecha" name="fecha_ingreso" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" required
+                                        onchange="CambiarFecha()"/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_2doContrato" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del 2do. Contrato</label>
+                                    <label for="fecha_2doContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 2do. Contrato</label>
                                     <p>
-                                        <input id="fecha_2doContrato" name="fecha_2doContrato" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                        <input id="fechaA" name="fecha_2doContrato" class="w-5/6 bg-gray-200 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
+                                        value="Ingrese una fecha de ingreso" readonly/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_3erContrato" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del 3er. Contrato</label>
+                                    <label for="fecha_3erContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 3er. Contrato</label>
                                     <p>
-                                        <input id="fecha_3erContrato" name="fecha_3erContrato" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                        <input id="fechaB" name="fecha_3erContrato" class="w-5/6 bg-gray-200 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
+                                        value="Ingrese una fecha de ingreso" readonly/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_indefinido" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha del Contrato Indefinido</label>
+                                    <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del Contrato Indefinido</label>
                                     <p>
-                                        <input id="fecha_indefinido" name="fecha_indefinido" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" />
+                                        <input id="fechaC" name="fecha_indefinido" class="bg-gray-200 w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
+                                        value="Ingrese una fecha de ingreso" readonly/>
                                     </p>
                                 </div> 
+                                <div class='grid grid-cols-1'>
+                                    <label for="vacaciones" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                        * Dias de Vacaciones
+                                    </label>
+                                    <p>
+                                        <input type="number" name="vacaciones" id="vacaciones" placeholder="Ingresa los dias de vacaciones del empleado"
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('vacaciones') border-red-800 bg-red-100 @enderror'
+                                        required>
+                                        
+                                        @error('vacaciones')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </p>
+                                </div>
                             </div>     
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-3 mx-7"> 
                                 <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer1">
@@ -214,7 +234,7 @@
                                         Imagen del Empleado
                                     </label>
                                     <div style="width: 200px; height: 260px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview1" style="width: 180px; height: 240px;">
+                                        <img id="imgPreview1" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 180px; height: 240px;">
                                     </div>
                                 </div>
                             </div>
@@ -381,6 +401,68 @@
         //Modificamos el atributo src de la etiqueta img
         $imgPreview.src = objectURL;
                 
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var date = new Date();
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = year + "-" + month + "-" + day;
+        $("#fecha").attr("value", today);
+
+        // LLamada a que se puedan clickear los divs de las imagenes
+        CambiarFecha();
+    });
+
+    function CambiarFecha() {
+        var fechaInput = document.getElementById('fecha').value;
+        var fechaInicial = new Date(fechaInput);
+
+        var ndoContrato = fechaInicial.setDate(fechaInicial.getDate() + 31);
+        var ndoContratoF = new Date(ndoContrato);
+        var terContrato = ndoContratoF.setDate(ndoContratoF.getDate() + 31);
+        var terContratoF = new Date(terContrato);
+        var indefinido = terContratoF.setDate(terContratoF.getDate() + 31);
+
+        var date = new Date(ndoContrato);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today = day + '/' + month + "/" + year;
+
+
+        var date = new Date(terContrato);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today2 = day + '/' + month + "/" + year;
+
+
+        var date = new Date(indefinido);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today3 = day + '/' + month + "/" + year;
+
+
+        document.getElementById('fechaA').value = today;
+        document.getElementById('fechaB').value = today2;
+        document.getElementById('fechaC').value = today3;
     }
 
 </script>

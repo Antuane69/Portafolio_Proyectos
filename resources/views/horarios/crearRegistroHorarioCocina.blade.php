@@ -50,6 +50,7 @@
         </div>
         <div class="mx-auto sm:px-6 lg:px-8" style="width:100 rem;">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 mb-3" style="width:100%;">
+                @if ($area != '')
                 <form id="formulario" action={{ route('horario.store',$area) }} method="POST" enctype="multipart/form-data">
                     @csrf
                     <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">COCINA</p>
@@ -185,6 +186,10 @@
                             >Crear Plantilla de Cocina</button>
                     </div>
                 </form>
+                @else
+                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">No Se Puede Registrar otro Horario</p>
+                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4 text-gray-800">Ya se elaboró uno el dia <span class="text-red-700 font-bold">{{$nombres}}</span> y el sistema no permite hacerlos con menos de 6 dias de diferencia.</p>
+                @endif
             </div>
         </div>
     </div>
