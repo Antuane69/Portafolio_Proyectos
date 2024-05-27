@@ -1,22 +1,25 @@
 <?php
 
-use App\Http\Controllers\BajasController;
-use App\Http\Controllers\ChangePasswordController;
+use App\Models\Faltas;
 use App\Models\Empleados;
+use App\Models\Herramientas;
 use App\Models\Incapacidades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BajasController;
 use App\Http\Controllers\FaltasController;
-use App\Http\Controllers\EmpleadosController;
-use App\Http\Controllers\HerramientasController;
+use App\Http\Controllers\NominaController;
 use App\Http\Controllers\HorariosController;
-use App\Http\Controllers\VacacionesController;
-use App\Http\Controllers\IncapacidadesController;
 use App\Http\Controllers\PermisosController;
-use App\Http\Controllers\StockUniformesController;
+use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\UniformesController;
-use App\Models\Faltas;
-use App\Models\Herramientas;
+use App\Http\Controllers\VacacionesController;
+use App\Http\Controllers\HerramientasController;
+use App\Http\Controllers\IncapacidadesController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StockUniformesController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,22 +31,25 @@ use App\Models\Herramientas;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/dashboard', function () {
-    if(Auth::check()){
-        return view('dashboard');
-    }else{
-        return view('auth.login');
-    };
-})->name('dashboard');
+Route::get('/dashboard',[DashboardController::class, 'inicio'])->name('dashboard');
+Route::get('/',[DashboardController::class, 'inicio'])->name('login_2');
+// Route::get('/dashboard', function () {
 
-Route::get('/', function () {
+//     if(Auth::check()){
+//         return view('dashboard');
+//     }else{
+//         return view('auth.login');
+//     };
+// })->name('dashboard');
+
+// Route::get('/', function () {
     
-    if(Auth::check()){
-        return view('dashboard');
-    }else{
-        return view('auth.login');
-    };
-})->name('login_2');
+//     if(Auth::check()){
+//         return view('dashboard');
+//     }else{
+//         return view('auth.login');
+//     };
+// })->name('login_2');
 
 Route::middleware(['auth.redirect'])->group( function () {
 
@@ -62,7 +68,10 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::get('/gestion/mostrarBajas',[BajasController::class, 'show'])->name('mostrarBajas.show');
     Route::get('/gestion/detallesBajas/{id}',[BajasController::class, 'detalles'])->name('detallesBajas.show');
     Route::get('/gestion/restaurarEmpleado/{id}', [BajasController::class, 'restaurar'])->name('restaurarEmpleado');
-    
+    Route::get('/gestion/editarBajasVista/{id}',[BajasController::class, 'edit_show'])->name('editarBaja.show');
+    Route::post('/gestion/editarBajas/{id}',[BajasController::class, 'edit_store'])->name('editarBaja.store');
+    Route::get('/gestion/bajas/antiguedad/{baja}/{ingreso}',[BajasController::class, 'antiguedad'])->name('antiguedad');
+
     Route::get('/gestion/mostrarVacaciones/Pendientes',[VacacionesController::class, 'show_pendientes'])->name('vacacionesPendientes.show');
     Route::post('/gestion/aceptarVacaciones/{id}',[VacacionesController::class, 'accept'])->name('aceptarVacacion.accept');
     Route::post('/gestion/rechazarVacaciones/{id}',[VacacionesController::class, 'reject'])->name('rechazarVacacion.reject');
@@ -148,6 +157,10 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::get('/correos/Permisos/{tipo}/{id}/{aux}',[PermisosController::class, 'correo'])->name('permisos.correo');
     Route::get('/correos/Horarios/{tipo}/{id}/{aux}',[HorariosController::class, 'correo'])->name('horarios.correo');
 
+    //Nómina
+    Route::get('/nominas/subirExcel',[NominaController::class, 'csv'])->name('nomina.csv');
+    Route::post('/nominas/subirExcel/guardado',[NominaController::class, 'store_csv'])->name('nomina.storecsv');
+
 });
 
 Route::middleware(['users.redirect'])->group( function () {
@@ -180,6 +193,8 @@ Route::middleware(['users.redirect'])->group( function () {
     Route::get('/cambiarContraseña', [ChangePasswordController::class,'cambiar_contraseña'])->name('cambiar_contraseña');
     Route::post('/guardarContraseña', [ChangePasswordController::class,'guardar_contraseña'])->name('guardar_contraseña');
     
+    Route::get('/editarHistorico', [DashboardController::class,'editar_historico'])->name('editar_historico');
+
     Route::get('/roles', [EmpleadosController::class,'roles'])->name('roles');
 
 });

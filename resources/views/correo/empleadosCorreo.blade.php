@@ -155,7 +155,11 @@
                                     <td align="center">{{ $solicitud->nombre }}</td>
                                     <td align="center" style="font-weight: bold;">{{ $solicitud->puesto }}</td>
                                     <td align="center">{{ $solicitud->fecha_ingreso }}</td>
-                                    <td align="center">{{ $solicitud->fecha_3erContrato }}</td>
+                                    @if($aux == 'Contrato Indefinido')
+                                        <td align="center">{{ $solicitud->fecha_indefinido }}</td>
+                                    @else
+                                        <td align="center">{{ $solicitud->fecha_3erContrato }}</td>
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>

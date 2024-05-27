@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use App\Models\Faltas;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
@@ -366,6 +367,7 @@ class FaltasController extends Controller
     public function edit_store(Request $request, $id)
     {
         $falta = Faltas::find($id);
+        $originalValues = $falta->getOriginal();
 
         $this->validate($request, [
             'curp' => 'required',
@@ -384,6 +386,25 @@ class FaltasController extends Controller
 
         $falta->save();
 
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $falta->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Falta al Reglamento',
+        ]);
+        
         return redirect()->route('mostrarFaltas.show')->with('success', 'Registro de Faltas Editado con éxito.');
     } 
 

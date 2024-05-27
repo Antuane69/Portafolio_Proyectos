@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\TokyoCorreos;
 use Carbon\Carbon;
+use App\Models\Audit;
 use App\Models\Empleados;
+use App\Mail\TokyoCorreos;
 use App\Models\Vacaciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -130,6 +131,7 @@ class VacacionesController extends Controller
     public function edit_store(Request $request, $id)
     {
         $vacacion = Vacaciones::find($id);
+        $originalValues = $vacacion->getOriginal();
 
         $empleado = Empleados::where('curp',$request->curp)->first();
 
@@ -145,6 +147,25 @@ class VacacionesController extends Controller
         $vacacion->fecha_regresoVac = $request->fecha_regresoVac;
         $vacacion->dias_usados = $request->diasTomados;
         $vacacion->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $vacacion->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Vacaciones',
+        ]);
 
         return redirect()->route('mostrarVacaciones.show');
     }  

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Audit;
 use App\Models\Empleados;
 use Illuminate\Http\Request;
 use App\Models\StockUniformes;
@@ -14,10 +15,12 @@ class StockUniformesController extends Controller
 
         $opciones = ['Extra Chica','Chica','Mediana','Grande','Extra Grande'];
         $opciones2 = ['Nuevos','Usados','Los Dos'];
+        $opciones3 = ['Filipina Unisex','Mandil Cocina','Mandil Mesero','Playera Polo Hombre','Playera Polo Mujer'];
 
         return view('almacen.stockUniformes',[
             'opciones' => $opciones,
-            'opciones2' => $opciones2
+            'opciones2' => $opciones2,
+            'opciones3' => $opciones3
         ]);
     }
 
@@ -72,7 +75,7 @@ class StockUniformesController extends Controller
         $stock = StockUniformes::find($id);
         $opciones = ['Extra Chica','Chica','Mediana','Grande','Extra Grande','Unitalla'];
         $opciones2 = ['Nuevos','Usados','Los Dos'];
-        $opciones3 = ['Filipina','Mandil','Camisa','Falda','Pantalon','Cofia'];
+        $opciones3 = ['Filipina Unisex','Mandil Cocina','Mandil Mesero','Playera Polo Hombre','Playera Polo Mujer'];
 
         return view('almacen.editStockUniformes',[
             'stock' => $stock,
@@ -85,6 +88,7 @@ class StockUniformesController extends Controller
     public function edit_store(Request $request, $id)
     {
         $stock = StockUniformes::find($id);
+        $originalValues = $stock->getOriginal();
 
         if($request->tipo == "Nuevos"){
             $stock->fecha_solicitud = $request->fecha_solicitud;
@@ -115,6 +119,25 @@ class StockUniformesController extends Controller
         };
 
         $stock->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $stock->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Stock',
+        ]);
 
         return redirect()->route('mostrarStock.show');
     }  

@@ -67,8 +67,8 @@
                 <td style="text-align:justify;" colspan="3">
                     En la ciudad de Guadalajara, Jalisco, en la Sucursal López Cotilla siendo la fecha y hora actuales {{$fecha}}; se reunieron en la sucursal 
                     Guadalajara las siguientes personas: <div style="font-weight: bold; display: inline;">LUIS SANCHEZ DE LAVEGA CASTELLANOS</div> en su carácter de Patrón y 
-                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}}, @if ($testigo2 != '')
-                        {{$testigo2}} y {{$testigo3}}
+                    <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}} @if ($testigo2 != '' && $testigo3 != '')
+                        , {{$testigo2}} y {{$testigo3}} @elseif ($testigo2 != '') y {{$testigo2}}
                     @endif 
                         </div> en su calidad de testigos, con objeto de levantar la presente acta administrativa de investigación de los hechos que se le 
                     imputan al trabajador de esta empresa Sr. (a) 
@@ -110,21 +110,27 @@
                 </td>
             </tr>
             <p></p>
-            <tr style="font-size:11px;">   
-                <td style="text-align:justify;" colspan="3">
-                    Se interroga al primer testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}} </div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no se presentó a laborar el día mencionado.
-                </td>
-            </tr>
-            <tr style="font-size:11px;">   
-                <td style="text-align:justify;" colspan="3">
-                    Se interroga al segundo testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo2}}</div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
-                </td>
-            </tr>
-            <tr style="font-size:11px;">   
-                <td style="text-align:justify;" colspan="3">
-                    Y por último se interroga a <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo3}}</div> que confirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> no asistió a trabajar.
-                </td>
-            </tr>
+            @if ($testigo1 != '')                
+                <tr style="font-size:11px;">   
+                    <td style="text-align:justify;" colspan="3">
+                        Se interroga al primer testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo1}} </div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> incumplió el reglamento.
+                    </td>
+                </tr>
+            @endif
+            @if ($testigo2 != '')                
+                <tr style="font-size:11px;">   
+                    <td style="text-align:justify;" colspan="3">
+                        Se interroga al segundo testigo <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo2}}</div>, el cual afirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> incumplió el reglamento.
+                    </td>
+                </tr>
+            @endif
+            @if ($testigo3 != '')                
+                <tr style="font-size:11px;">   
+                    <td style="text-align:justify;" colspan="3">
+                        Y por último se interroga a <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$testigo3}}</div> que confirma que <div style="font-weight: bold; display: inline;text-transform: uppercase;">{{$empleado->nombre}}</div> incumplió el reglamento.
+                    </td>
+                </tr>
+            @endif
             <p></p>
             <tr style="font-size:11px;">   
                 <td style="text-align:justify;" colspan="3">
@@ -153,10 +159,6 @@
                 <td style="width:30%;text-align:center">PATRÓN DE LA EMPRESA</td>
                 <td></td>
                 <td style="width:30%;text-align:center">COORDINADOR DEL ÁREA</td>
-
-                {{-- <th style="width:35%;text-align:center" colspan="2">TRABAJADOR(A)</th>
-                <th style='width:30%;visibility: hidden;'></th>
-                <th style="width:35%;text-align:center" colspan="2">PATRÓN DE LA EMPRESA</th> --}}
             </tr>
             <tr style="font-weight: bold;">
                 <td style="border-bottom:0.5px solid black;"></td>
@@ -175,25 +177,43 @@
             <p></p>
             <p></p>
             <tr style="font-weight: bold;">
-                <td style="width:30%;text-align:center">Testigo 1</td>
-                <td></td>
-                <td style="width:30%;text-align:center">Testigo 2</td>
-                <td></td>
-                <td style="width:30%;text-align:center">Testigo 3</td>
+                @if ($testigo1 != '')
+                    <td style="width:30%;text-align:center">Testigo 1</td>
+                    <td></td>
+                @endif
+                @if ($testigo2 != '')                    
+                    <td style="width:30%;text-align:center">Testigo 2</td>
+                    <td></td>
+                @endif    
+                @if ($testigo3 != '')
+                    <td style="width:30%;text-align:center">Testigo 3</td>
+                @endif
             </tr>
             <tr style="font-weight: bold;">
-                <td style="border-bottom:0.5px solid black;"></td>
-                <td></td>
-                <td style="border-bottom:0.5px solid black;"></td>
-                <td></td>
-                <td style="border-bottom:0.5px solid black;"></td>
+                @if ($testigo1 != '')
+                    <td style="border-bottom:0.5px solid black;"></td>
+                    <td></td>
+                @endif
+                @if ($testigo2 != '')                    
+                    <td style="border-bottom:0.5px solid black;"></td>
+                    <td></td>
+                @endif    
+                @if ($testigo3 != '')
+                    <td style="border-bottom:0.5px solid black;"></td>
+                @endif
             </tr>
             <tr style="font-weight: bold;">
-                <td style="text-align: center">FIRMA</td>
-                <td></td>
-                <td style="text-align: center">FIRMA</td>
-                <td></td>
-                <td style="text-align: center">FIRMA</td>
+                @if ($testigo1 != '')
+                    <td style="text-align: center">FIRMA</td>
+                    <td></td>
+                @endif
+                @if ($testigo2 != '')                    
+                    <td style="text-align: center">FIRMA</td>
+                    <td></td>
+                @endif    
+                @if ($testigo3 != '')
+                    <td style="text-align: center">FIRMA</td>
+                @endif
             </tr>
         </table>
     </tr>

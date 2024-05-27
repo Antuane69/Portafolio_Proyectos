@@ -240,7 +240,7 @@
         fechalimite.setDate(fechaInput.getDate() + (parseInt(diasT) + 1));
 
         // Verificar si la fecha elegida está dentro del rango permitido
-        if (fechaRegreso > fechalimite || fechaRegreso < fechaActual) {
+        if (fechaRegreso > fechalimite) {
             alert("La fecha debe ser la actual o en adelante, hasta tus días de descanso restantes. Se seleccionará la fecha actual.");
             var formattedDate = fechaActual.toISOString().split('T')[0];
             document.getElementById("fechaB").value = formattedDate;

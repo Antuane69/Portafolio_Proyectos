@@ -81,12 +81,12 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <label for="rfc" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        * RFC
+                                        RFC
                                     </label>
                                     <p>
                                         <input type="text" name="rfc" id="rfc" placeholder="Ingresa el RFC del empleado"
                                         class='uppercase focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('rfc') border-red-800 bg-red-100 @enderror'
-                                        required>
+                                        >
                                         
                                         @error('rfc')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -97,12 +97,12 @@
                                 </div>
                                 <div class='grid grid-cols-1'>
                                     <label for="nss" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        * NSS 
+                                        NSS 
                                     </label>
                                     <p>
                                         <input type="text" name="nss" id="nss" placeholder="Ingresa el NSS del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nss') border-red-800 bg-red-100 @enderror'
-                                        required>
+                                        >
                                         
                                         @error('nss')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -174,7 +174,7 @@
                                     <p>
                                         <input type="number" name="salario_dia" id="salario_dia" placeholder="Ingresa el salario diario del empleado"
                                         class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('salario_dia') border-red-800 bg-red-100 @enderror'
-                                        >
+                                        step="0.01" min="0">
                                         
                                         @error('salario_dia')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -213,12 +213,12 @@
                                 </div> 
                                 <div class='grid grid-cols-1'>
                                     <label for="vacaciones" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        * Dias de Vacaciones
+                                        Dias de Vacaciones
                                     </label>
                                     <p>
                                         <input type="number" name="vacaciones" id="vacaciones" placeholder="Ingresa los dias de vacaciones del empleado"
-                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('vacaciones') border-red-800 bg-red-100 @enderror'
-                                        required>
+                                        class=' focus:outline-none focus:ring-2 mb-1 bg-gray-200 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('vacaciones') border-red-800 bg-red-100 @enderror'
+                                        value="2" readonly>
                                         
                                         @error('vacaciones')
                                             <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -282,21 +282,21 @@
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
-                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer4">
+                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer2">
                                     <label for="nomina" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Número de Tarjeta
                                     </label>
                                     <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview4" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                        <img id="imgPreview2" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
                                     </div>
                                 </div>
 
-                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer2">
+                                <div class='grid grid-cols-1 mt-4' onclick="openInput()" id="imageContainer3">
                                     <label for="ine_delantera" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Imagen de la INE (Frente)
                                     </label>
                                     <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview2" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                        <img id="imgPreview3" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
                                     </div>
                                 </div>
 
@@ -311,12 +311,12 @@
                                         <input type="file" name="ine_trasera" id="inputContainer3" class='bg-white mt-1 border-black p-2 w-5/6 rounded-lg border-2' accept=".jpg, .jpeg, .png, .svg" onchange="previewImage(event, '#imgPreview3')" style="40px;border-color:#858585;background-color:#FFFFFF">
                                     </div>
                                 </div>
-                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer3">
+                                <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer4">
                                     <label for="ine_trasera" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Imagen de la INE (Trasera)
                                     </label>
                                     <div style="width: 320px; height: 200px;" class='bg-white mt-2 text-center border-yellow-200 overflow-hidden mx-auto focus:outline-none focus:ring-2  focus:border-transparent p-2 w-5/6 rounded-lg border-2'>
-                                        <img id="imgPreview3" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
+                                        <img id="imgPreview4" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" style="width: 300px; height: 180px;">
                                     </div>
                                 </div>
                                 <div class='grid grid-cols-1'>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFechaToTableHorarios extends Migration
+class CreateTableNomina extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddFechaToTableHorarios extends Migration
      */
     public function up()
     {
-        Schema::table('horarios', function (Blueprint $table) {
-            $table->string('fecha_aux')->nullable();
+        Schema::table('nomina', function (Blueprint $table) {
+            //
         });
     }
 
@@ -25,7 +25,7 @@ class AddFechaToTableHorarios extends Migration
      */
     public function down()
     {
-        Schema::table('table_horarios', function (Blueprint $table) {
+        Schema::table('nomina', function (Blueprint $table) {
             //
         });
     }

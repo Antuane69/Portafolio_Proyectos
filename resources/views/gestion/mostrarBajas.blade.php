@@ -117,12 +117,18 @@
                                 <td class=" px-2 py-1">
                                     <div class="in-line flex justify-center object-center">
                                         <form action="{{route('restaurarEmpleado',['id'=>$baja->id])}}" method="GET">
-                                            <button  class="ml-1 bg-green-600 hover:bg-green-700 text-white font-bold px-1 mr-3 rounded imprimirBtn">
+                                            <button  class="ml-1 bg-green-600 hover:bg-green-700 text-white font-bold mt-1.5 px-1 mr-3 rounded imprimirBtn">
                                                Restaurar Empleado
                                             </button>
                                         </form>
+                                        <form action="{{ route('editarBaja.show', $baja->id) }}" method="GET">
+                                            @csrf         
+                                            <button class="border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-3 mr-3 rounded-md mt-1">
+                                                Editar Registro
+                                            </button>                        
+                                        </form> 
                                         <form action="{{route('detallesBajas.show',['id'=>$baja->id])}}" method="GET">
-                                            <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 rounded imprimirBtn">
+                                            <button  class="ml-1 bg-blue-500 hover:bg-blue-700 text-white mt-1.5 font-bold px-3 rounded-md imprimirBtn">
                                                Más Detalles
                                             </button>
                                         </form>

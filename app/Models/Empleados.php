@@ -47,6 +47,7 @@ class Empleados extends Authenticatable
         'nomina',
         'ine_trasera',
         'ine_delantera',
+        'liquidacion_dias',
     ];
 
     /**

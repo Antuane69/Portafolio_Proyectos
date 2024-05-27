@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Audit;
 use App\Models\Empleados;
 use App\Models\Vacaciones;
 use Illuminate\Http\Request;
@@ -75,6 +76,7 @@ class IncapacidadesController extends Controller
     public function edit_store(Request $request, $id)
     {
         $incapacidad = Incapacidades::with('empleado')->find($id);
+        $originalValues = $incapacidad->getOriginal();
 
         $incapacidad->curp = $request->curp;
         $incapacidad->fecha_inicio = $request->fecha_inicio;
@@ -83,6 +85,25 @@ class IncapacidadesController extends Controller
         $incapacidad->motivo = $request->motivo;
         $incapacidad->comentarios = $request->comentarios;
         $incapacidad->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $incapacidad->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Incapacidad',
+        ]);
 
         return redirect()->route('mostrarIncapacidades.show');
     }  

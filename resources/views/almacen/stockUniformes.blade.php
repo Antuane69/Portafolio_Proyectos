@@ -101,7 +101,7 @@
                                     <p>
                                         <select required id="Id_nuevos2" name="nuevos_codigo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
                                             <option value="">Seleccione una Opcion</option>
-                                            @foreach($opciones2 as $opcion)
+                                            @foreach($opciones3 as $opcion)
                                                 <option value="{{$opcion}}">{{$opcion}}</option>
                                             @endforeach
                                         </select>
@@ -168,7 +168,7 @@
                                     <p>
                                         <select id="Id_usados2" name="usados_codigo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
                                             <option value="">Seleccione una Opcion</option>
-                                            @foreach($opciones2 as $opcion)
+                                            @foreach($opciones3 as $opcion)
                                                 <option value="{{$opcion}}">{{$opcion}}</option>
                                             @endforeach
                                         </select>

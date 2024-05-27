@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use App\Models\Empleados;
 use App\Models\Uniformes;
 use App\Models\Herramientas;
@@ -57,6 +58,19 @@ class UniformesController extends Controller
             'cantidad' => 'required',
             'total' => 'required|numeric',
         ]);
+
+        if($request->tipo_uniforme == 'Nuevo'){
+            $stock = StockUniformes::where('nuevos_codigo',$request->codigo)->where('nuevos_talla',$request->talla)->first();
+        }else{
+            $stock = StockUniformes::where('usados_codigo',$request->codigo)->where('usados_talla',$request->talla)->first();
+        }
+
+        if($stock->usados_existencia != '' || $stock->usados_existencia != null){
+            $stock->usados_existencia = $stock->usados_existencia - $request->cantidad;  
+        }else{
+            $stock->nuevos_existencia = $stock->nuevos_existencia - $request->cantidad;  
+        }
+        $stock->save();
 
         Uniformes::create([
             'curp' => $request->curp,
@@ -312,6 +326,7 @@ class UniformesController extends Controller
     public function edit_store(Request $request, $id)
     {
         $uniforme = Uniformes::find($id);
+        $originalValues = $uniforme->getOriginal();
 
         $this->validate($request, [
             'curp' => 'required|min:18',
@@ -329,8 +344,26 @@ class UniformesController extends Controller
         $uniforme->talla = $request->talla;
         $uniforme->cantidad = $request->cantidad;
         $uniforme->total = $request->total;
-
         $uniforme->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $uniforme->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Uniforme',
+        ]);
 
         return redirect()->route('mostrarUniformes.show')->with('success', 'Registro de Uniformes Editado con éxito.');
     }  

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use App\Models\Faltas;
 use App\Models\Empleados;
 use App\Models\Uniformes;
@@ -292,6 +293,7 @@ class HerramientasController extends Controller
         $ruta = public_path() . '/img/almacen/Herramientas';
 
         $herramienta = Herramientas::find($id);
+        $originalValues = $herramienta->getOriginal();
 
         if($request->file('imagen') != ""){
             $imagen = $request->file('imagen');
@@ -325,6 +327,25 @@ class HerramientasController extends Controller
         $herramienta->total = $request->total;
         $herramienta->save();
 
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $herramienta->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Herramienta',
+        ]);
+        
         return redirect()->route('mostrarHerramientas.show');
     }  
 }

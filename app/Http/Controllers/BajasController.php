@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use App\Models\Bajas;
 use App\Models\Empleados;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Illuminate\Http\Request;
 
 class BajasController extends Controller
 {
@@ -146,5 +147,91 @@ class BajasController extends Controller
         } else {
             return redirect()->route('mostrarBajas.show')->with('success', 'Registro de Empleado No Encontrado.');
         }
+    }
+
+    public function edit_show($id)
+    {
+        $empleado = Bajas::find($id);
+        $puestos = ['SERVICIO','BARISTA','PRODUCCION','COCINERO','SERVICIO MIXTO','WASH'];
+
+        return view('gestion.editBajaEmpleado',[
+            'empleado' => $empleado,
+            'puestos' => $puestos,
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $this->validate($request, [
+            'imagen_perfil' => 'mimes:jpg,jpeg,png|max:10240',
+        ]);
+ 
+        $ruta = public_path() . '/img/gestion/Empleados';
+
+        $empleado = Bajas::find($id);
+        $originalValues = $empleado->getOriginal();
+        
+        $empleado->nombre = $request->nombre;
+        $empleado->curp = $request->curp;
+        $empleado->nss = $request->nss;
+        $empleado->puesto = $request->puesto;
+        $empleado->fecha_ingreso = $request->fecha_ingreso;
+        $empleado->fecha_baja = $request->fecha_baja;
+        $empleado->fecha_nacimiento = $request->fecha_nacimiento;
+        $empleado->telefono = $request->telefono;
+        $empleado->num_clinicaSS = $request->num_clinicaSS;
+
+        $empleado->antiguedad = $request->antiguedad;
+        $empleado->anticipacion = $request->anticipacion;  
+        $empleado->causa = $request->causa;  
+
+        if ($request->hasFile('imagen_perfil')) {
+            $perfil = $request->file('imagen_perfil');
+            $nombreImagen =  "PP_" . $request->nombre  . "." . $perfil->getClientOriginalExtension();
+            $perfil->move($ruta,$nombreImagen);
+            $empleado->imagen_perfil = $nombreImagen;
+        }
+        $empleado->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $empleado->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Baja',
+        ]);
+
+        return redirect()->route('mostrarBajas.show');
+    } 
+
+    public function antiguedad($baja, $ingreso){
+
+        // Convertir el texto a un objeto de tipo Carbon (fecha)
+        $fecha_baja = Carbon::createFromFormat('Y-m-d',$baja);
+        $fecha_ingreso = Carbon::createFromFormat('Y-m-d',$ingreso);
+
+        $diferencia = $fecha_baja->diff($fecha_ingreso);
+
+        // Obtener los componentes de la diferencia
+        $anios = $diferencia->y;
+        $meses = $diferencia->m;
+        $dias = $diferencia->d;
+
+        $antiguedad = $anios . " años, " . $meses . " meses y " . $dias . " días.";
+        return response()->json([
+            'success' => true,
+            'antiguedad' => $antiguedad
+        ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use validate;
 use Carbon\Carbon;
+use App\Models\Audit;
 use App\Models\Bajas;
 use App\Models\Empleados;
 use App\Mail\TokyoCorreos;
@@ -58,22 +59,20 @@ class EmpleadosController extends Controller
             'nombre' => 'required|max:60',
             'curp' => 'required|min:18',
             'puesto' => 'required',
-            'vacaciones' => 'required',
             'fecha_ingreso' => 'required|date',
             'fecha_nacimiento' => 'required|date',
-            'fecha_2doContrato' => 'date',
-            'fecha_3erContrato' => 'date',
-            'fecha_indefinido' => 'date',
             'telefono' => 'max:12',
-            'salario_dia' => 'required|numeric|min:100',
+            'salario_dia' => 'required|numeric|min:0',
+
             'imagen_perfil' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_trasera' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_delantera' => 'mimes:jpg,jpeg,png|max:10240',
-            'antecedentes' => 'file|mimes:pdf|max:8192',
-            'recomendacion' => 'file|mimes:pdf|max:8192',
-            'estudios' => 'file|mimes:pdf|max:8192',
-            'nacimiento' => 'file|mimes:pdf|max:8192',
-            'domicilio' => 'file|mimes:pdf|max:8192',
+
+            'antecedentes' => 'file|mimes:pdf|max:10240',
+            'recomendacion' => 'file|mimes:pdf|max:10240',
+            'estudios' => 'file|mimes:pdf|max:10240',
+            'nacimiento' => 'file|mimes:pdf|max:10240',
+            'domicilio' => 'file|mimes:pdf|max:10240',
         ]);
 
         $ine_trasera = '';
@@ -154,6 +153,10 @@ class EmpleadosController extends Controller
             $archivo->move($ruta,$nomina);
         } 
 
+        $segundo = \DateTime::createFromFormat('d/m/Y', $request->fecha_2doContrato);
+        $tercero = \DateTime::createFromFormat('d/m/Y', $request->fecha_3erContrato);
+        $indefinido = \DateTime::createFromFormat('d/m/Y', $request->fecha_indefinido);
+
         Empleados::create([
             'nombre' => $request->nombre,
             'curp' => $request->curp,
@@ -162,9 +165,9 @@ class EmpleadosController extends Controller
             'puesto' => $request->puesto,
             'fecha_ingreso' => $request->fecha_ingreso,
             'fecha_nacimiento' => $request->fecha_nacimiento,
-            'fecha_2doContrato' => $request->fecha_2doContrato,
-            'fecha_3erContrato' => $request->fecha_3erContrato,
-            'fecha_indefinido' => $request->fecha_indefinido,
+            'fecha_2doContrato' => $segundo,
+            'fecha_3erContrato' => $tercero,
+            'fecha_indefinido' => $indefinido,
             'dias_vacaciones' => $request->vacaciones,
             'telefono' => $request->telefono,
             'num_clinicaSS' => $request->num_clinicaSS,
@@ -236,9 +239,20 @@ class EmpleadosController extends Controller
     public function edit_show($id)
     {
         $empleado = Empleados::find($id);
+        $puestos = ['SERVICIO','BARISTA','PRODUCCION','COCINERO','SERVICIO MIXTO','WASH'];
+
+        $aux = new Carbon($empleado->fecha_2doContrato);
+        $empleado->contrato_2 = $aux->format('d/m/Y');
+
+        $aux = new Carbon($empleado->fecha_3erContrato);
+        $empleado->contrato_3 = $aux->format('d/m/Y');
+
+        $aux = new Carbon($empleado->fecha_indefinido);
+        $empleado->indefinido = $aux->format('d/m/Y');
 
         return view('gestion.editEmpleado',[
             'empleado' => $empleado,
+            'puestos' => $puestos,
         ]);
     }
 
@@ -249,16 +263,18 @@ class EmpleadosController extends Controller
             'nomina' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_trasera' => 'mimes:jpg,jpeg,png|max:10240',
             'ine_delantera' => 'mimes:jpg,jpeg,png|max:10240',
-            'antecedentes' => 'file|mimes:pdf|max:8192',
-            'recomendacion' => 'file|mimes:pdf|max:8192',
-            'estudios' => 'file|mimes:pdf|max:8192',
-            'nacimiento' => 'file|mimes:pdf|max:8192',
-            'domicilio' => 'file|mimes:pdf|max:8192',
+            'antecedentes' => 'file|mimes:pdf|max:10240',
+            'recomendacion' => 'file|mimes:pdf|max:10240',
+            'estudios' => 'file|mimes:pdf|max:10240',
+            'nacimiento' => 'file|mimes:pdf|max:10240',
+            'domicilio' => 'file|mimes:pdf|max:10240',
         ]);
  
         $ruta = public_path() . '/img/gestion/Empleados';
 
         $empleado = Empleados::find($id);
+        $originalValues = $empleado->getOriginal();
+
         $empleado->nombre = $request->nombre;
         $empleado->curp = $request->curp;
         $empleado->rfc = $request->rfc;
@@ -267,15 +283,15 @@ class EmpleadosController extends Controller
         $empleado->fecha_ingreso = $request->fecha_ingreso;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
 
-        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_2doContrato);
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_2doContrato);
         $empleado->fecha_2doContrato = $fecha;
 
         // Convertir el texto a un objeto de tipo Carbon (fecha)
-        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_3erContrato);
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_3erContrato);
         $empleado->fecha_3erContrato = $fecha;
 
         // Convertir el texto a un objeto de tipo Carbon (fecha)
-        $fecha = Carbon::createFromFormat('Y-m-d', $request->fecha_indefinido);
+        $fecha = Carbon::createFromFormat('d/m/Y', $request->fecha_indefinido);
         $empleado->fecha_indefinido = $fecha;
 
         $empleado->telefono = $request->telefono;
@@ -356,6 +372,25 @@ class EmpleadosController extends Controller
         } 
 
         $empleado->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $empleado->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Empleado',
+        ]);
 
         return redirect()->route('mostrarEmpleado.show');
     }  
@@ -484,7 +519,7 @@ class EmpleadosController extends Controller
     {
 
         $this->validate($request, [
-            'DocumentacionPDF' => 'required|file|mimes:pdf|max:8192',
+            'DocumentacionPDF' => 'required|file|mimes:pdf|max:10240',
         ]);
 
         $empleado = Empleados::find($id);
@@ -527,27 +562,6 @@ class EmpleadosController extends Controller
         $useraux->save();
 
         return redirect()->back();
-    }
-
-    public function evaluarContrato(){
-        $empleados = Empleados::all();
-        $fecha_actual = Carbon::now();
-        $tipo = 'Contrato';
-        $aux = '';
-
-        foreach($empleados as $empleado){
-            $diferencia = $fecha_actual->diff($empleado->fecha_3erContrato); 
-            // Obtener los componentes de la diferencia
-            $anios = $diferencia->y;
-            $meses = $diferencia->m;
-            $dias = $diferencia->d;
-
-            if($anios == 0 && $meses == 0 && $dias <= 3){
-                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
-            }
-        }
-
-        return redirect()->route('empleadosInicio.show');        
     }
 
 }

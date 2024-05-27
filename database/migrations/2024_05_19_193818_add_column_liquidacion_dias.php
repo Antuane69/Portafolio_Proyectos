@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFechaToTableHorariosServicio extends Migration
+class AddColumnLiquidacionDias extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddFechaToTableHorariosServicio extends Migration
      */
     public function up()
     {
-        Schema::table('table_horarios_servicio', function (Blueprint $table) {
+        Schema::table('empleados', function (Blueprint $table) {
             //
+        });
+
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->string('liquidacion_dias')->nullable();
         });
     }
 
@@ -25,8 +29,8 @@ class AddFechaToTableHorariosServicio extends Migration
      */
     public function down()
     {
-        Schema::table('table_horarios_servicio', function (Blueprint $table) {
-            //
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->dropColumn('liquidacion_dias');
         });
     }
 }

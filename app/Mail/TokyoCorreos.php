@@ -60,7 +60,7 @@ class TokyoCorreos extends Mailable
             $solicitud = Vacaciones::find($this->id);
 
             if($this->aux == 'Pedir'){
-                $titulo = 'Solicitud de Prestamo de Vacaciones';
+                $titulo = 'Solicitud de Vacaciones';
             }elseif($this->aux == 'Autorizada'){
                 $titulo = 'Solicitud Autorizada de Vacaciones';
             }elseif($this->aux == 'Rechazada'){
@@ -82,11 +82,11 @@ class TokyoCorreos extends Mailable
             $solicitud = Permisos::find($this->id);
 
             if($this->aux == 'Pedir'){
-                $titulo = 'Solicitud de Prestamo de Permiso';
+                $titulo = 'Solicitud de Permiso Laboral';
             }elseif($this->aux == 'Autorizada'){
-                $titulo = 'Solicitud Autorizada de Permiso';
+                $titulo = 'Solicitud Autorizada de Permiso Laboral';
             }elseif($this->aux == 'Rechazada'){
-                $titulo = 'Solicitud Rechazada de Permiso';
+                $titulo = 'Solicitud Rechazada de Permiso Laboral';
             }
 
             $auxf2 = new Carbon($solicitud->fecha_inicio);
@@ -101,9 +101,14 @@ class TokyoCorreos extends Mailable
             $vista = 'correo.permisosCorreo';
 
         }elseif($this->tipo == 'Contrato'){
-            $solicitud = Empleados::find($this->tipo);
+            $solicitud = Empleados::find($this->id);
 
-            $titulo = 'Contrato del Empleado Apunto de Vencer';
+            if($this->aux == 'Tercer Contrato'){
+                $titulo = 'Tercer Contrato del Empleado Apunto de Vencer';
+            }elseif($this->aux == 'Contrato Indefinido'){
+                $titulo = 'Contrato Indefinido del Empleado Apunto de Vencer';
+            }
+
             $vista = 'correo.empleadosCorreo';
 
         }else{

@@ -49,18 +49,18 @@
                         <h2 class="font-semibold text-xl text-white justify-self-center mt-2 mb-2">Información del Empleado</h2>
                     </div>
                     <div class="grid grid-cols-2 md:flex md:flex-col gap-5 md:gap-8 mb-5 mx-10 px-10 py-10 rounded-b-xl bg-gray-100">
-                        @if ($empleado->imagen_perfil != "")                            
-                            <div class="w-2/5 mb-5 md:mb-0 ml-20">
+                        @if ($empleado->imagen_perfil)                            
+                            <div class="w-2/5 mb-8 md:mb-0 ml-20 mt-3" style="width: 220px; height: 280px;">
                                 <label class="lbl md:text-sm">Foto del Empleado:</label>
-                                <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Bajas/' . $empleado->imagen_perfil) }}" alt="Imagen del empleado">
+                                <img class='rounded-md md:w-full mt-4' style="width: 200px; height: 260px;" src="{{ asset('img/gestion/Empleados/' . $empleado->imagen_perfil) }}" alt="Imagen del empleado">
                             </div>
                         @else
-                            <div class="w-2/5 mb-5 md:mb-0 ml-20">
+                            <div class="w-2/5 mb-8 md:mb-0 ml-20 mt-3" style="width: 260px; height: 280px;">
                                 <label class="lbl md:text-sm">Foto del Empleado:</label>
-                                <img class='rounded-md md:w-full mt-4' src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
+                                <img class='rounded-md md:w-full mt-4' style="width: 240px; height: 260px;" src="{{ asset('img/gestion/Empleados/noImage.jpg') }}" alt="Imagen del empleado">
                             </div>
                         @endif
-                        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
                             <div>
                                 <label class="lbl md:text-sm">Nombre:</label>
                                 <h2 class="inf">{{$empleado->nombre}}</h2>
@@ -72,10 +72,6 @@
                             <div>
                                 <label class="lbl md:text-sm">CURP:</label>
                                 <h2 class="inf">{{$empleado->curp}}</h2>
-                            </div>
-                            <div>
-                                <label class="lbl md:text-sm">RFC:</label>
-                                <h2 class="inf">{{$empleado->rfc}}</h2>
                             </div>
                             <div>
                                 <label class="lbl md:text-sm">NSS:</label>

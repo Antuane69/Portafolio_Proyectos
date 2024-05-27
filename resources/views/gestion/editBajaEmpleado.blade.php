@@ -2,7 +2,7 @@
     @section('title', 'Little-Tokyo Administración')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __("Baja de Empleado") }}
+            {{ __("Registro de Empleado (Modo de Edición)") }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
     <div class="py-12">
         <div class="mb-10 py-3 ml-16 leading-normal rounded-lg" role="alert">
             <div class="text-left">
-                <a href="{{ route("mostrarEmpleado.show") }}"
+                <a href="{{ route('mostrarBajas.show') }}"
                 class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
                 style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E'" onmouseout="this.style.backgroundColor='#FFFF7B'">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-flex" viewBox="0 0 20 20"
@@ -31,81 +31,101 @@
         </div>
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl md:rounded-lg">
-                <form id="formulario" action={{ route('crearBajas.store',$empleado->id) }} method="POST" enctype="multipart/form-data">
+                <form id="formulario" action={{ route("editarBaja.store",$empleado->id) }} method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                             <p>
-                                Datos del Empleado
+                                Datos del Empleado (Modo de Edición)
                             </p>
                         </div>
                         
                         <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">                    
                                 <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="nombre" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Nombre
                                     </label>
                                     <p>
                                         <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nombre') border-red-800 bg-red-100 @enderror'
-                                        required readonly value="{{$empleado->nombre}}">
+                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nombre') border-red-800 bg-red-100 @enderror'
+                                        required value="{{$empleado->nombre}}">
+                                        
+                                        @error('nombre')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_nacimiento" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Nacimiento</label>
+                                    <label for="fecha_nacimiento" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha de Nacimiento</label>
                                     <p>
-                                        <input id="fecha_nacimiento" name="fecha_nacimiento" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent bg-gray-200" type="date" readonly required
+                                        <input id="fecha_nacimiento" name="fecha_nacimiento" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" required
                                         value="{{$empleado->fecha_nacimiento}}"/>
                                     </p>
                                 </div> 
                                 <div class='grid grid-cols-1'>
-                                    <label for="curp" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="curp" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Curp
                                     </label>
                                     <p>
                                         <input type="text" name="curp" id="curp" placeholder="Ingresa el CURP del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
-                                        required readonly value="{{$empleado->curp}}">
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('curp') border-red-800 bg-red-100 @enderror'
+                                        required value="{{$empleado->curp}}">
+                                        
+                                        @error('curp')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="rfc" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        RFC
-                                    </label>
-                                    <p>
-                                        <input type="text" name="rfc" id="rfc" placeholder="Ingresa el RFC del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('rfc') border-red-800 bg-red-100 @enderror'
-                                        required readonly value="{{$empleado->rfc}}">
-                                    </p>
-                                </div>
-                                <div class='grid grid-cols-1'>
-                                    <label for="nss" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="nss" class="mb-1 block uppercase text-gray-800 font-bold">
                                         NSS 
                                     </label>
                                     <p>
                                         <input type="text" name="nss" id="nss" placeholder="Ingresa el NSS del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nss') border-red-800 bg-red-100 @enderror'
-                                        value="{{$empleado->nss}}" readonly required>
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nss') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->nss}}">
+                                        
+                                        @error('nss')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="num_clinicaSS" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        Numero de Clinica del IMSS
+                                    <label for="num_clinicaSS" class="mb-1 block uppercase text-gray-800 font-bold">
+                                        Numero de Clinica del IMSS (si aplicase)
                                     </label>
                                     <p>
                                         <input type="number" name="num_clinicaSS" id="num_clinicaSS" placeholder="Ingresa el número de la clinica del IMSS del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('num_clinicaSS') border-red-800 bg-red-100 @enderror'
-                                        value="{{$empleado->num_clinicaSS}}" readonly required>
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('num_clinicaSS') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->num_clinicaSS}}">
+                                        
+                                        @error('num_clinicaSS')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="telefono" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="telefono" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Telefono
                                     </label>
                                     <p>
                                         <input type="text" name="telefono" id="telefono" placeholder="Ingresa el número de telefono del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('telefono') border-red-800 bg-red-100 @enderror'
-                                        value="{{$empleado->telefono}}" readonly required>
+                                        class=' focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('telefono') border-red-800 bg-red-100 @enderror'
+                                        value="{{$empleado->telefono}}">
+                                        
+                                        @error('telefono')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                             </div>
@@ -113,33 +133,35 @@
 
                         <div class='flex items-center justify-center  md:gap-8 gap-4 pt-3 pb-2 font-bold text-3xl text-slate-700 rounded-t-xl mx-10 mt-5' style="background-color: #FFFF7B">
                             <p>
-                                Información del Trabajo
+                                Datos de la Vacante (Modo de Edición)
                             </p>
                         </div>
+                        
                         <div class="mb-5 mx-10 px-10 py-5 text-center rounded-b-xl bg-gray-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7">  
                                 <div class='grid grid-cols-1'>
-                                    <label for="puesto" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="puesto" class="mb-1 block uppercase text-gray-800 font-bold">
                                         * Puesto
                                     </label>
                                     <p>
-                                        <input type="text" name="puesto" id="puesto" placeholder="Ingresa el puesto de trabajo del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('puesto') border-red-800 bg-red-100 @enderror'
-                                        value="{{$empleado->puesto}}" required readonly>
-                                    </p>
-                                </div>
-                                <div class='grid grid-cols-1'>
-                                    <label for="salario_dia" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                        * Salario Diario
-                                    </label>
-                                    <p>
-                                        <input type="number" name="salario_dia" id="salario_dia" placeholder="Ingresa el salario diario del empleado"
-                                        class='bg-gray-200 focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('salario_dia') border-red-800 bg-red-100 @enderror' readonly required
-                                        value="{{$empleado->salario_dia}}">
+                                        <select id="puesto" name="puesto" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
+                                            @foreach($puestos as $puesto)
+                                                @if ($empleado->puesto == $puesto)
+                                                    <option value="{{$puesto}}" selected>{{$puesto}}</option>
+                                                @else
+                                                    <option value="{{$puesto}}">{{$puesto}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('puesto')
+                                            <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </p>
                                 </div>
                                 <div  class='grid grid-cols-1'>
-                                    <label for="fecha_ingreso" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
+                                    <label for="fecha_ingreso" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha de Ingreso al Empleo </label>
                                     <p>
                                         <input id="ingreso_id" name="fecha_ingreso" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" required
                                         value="{{$empleado->fecha_ingreso}}" onchange="antiguedadFunction()"/>
@@ -149,7 +171,7 @@
                                     <label for="fecha_baja" class="mb-1 bloack uppercase text-gray-800 font-bold">* Fecha de Baja del Empleo </label>
                                     <p>
                                         <input id="baja_id" name="fecha_baja" class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="date" required
-                                        value="{{$fecha_baja}}" onchange="antiguedadFunction()"/>
+                                        value="{{$empleado->fecha_baja}}" onchange="antiguedadFunction()"/>
                                     </p>
                                 </div> 
                                 <div class='grid grid-cols-1'>
@@ -159,7 +181,7 @@
                                     <p>
                                         <input type="text" name="antiguedad" id="antiguedad" placeholder="Ingresa la antiguedad del empleado"
                                         class='focus:outline-none focus:ring-2 mb-1 bg-gray-200 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('antiguedad') border-red-800 bg-red-100 @enderror'
-                                        value="{{$antiguedad}}" readonly>
+                                        value="{{$empleado->antiguedad}}" readonly>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
@@ -169,7 +191,7 @@
                                     <p>
                                         <input type="text" name="anticipacion" id="anticipacion" placeholder="Ingrese el tiempo de anticipación antes de la baja"
                                         class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('anticipacion') border-red-800 bg-red-100 @enderror'
-                                        required>
+                                        value="{{$empleado->anticipacion}}" required>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
@@ -179,13 +201,13 @@
                                     <p>
                                         <textarea id="causa" name="causa"
                                         class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        required placeholder="Ingrese la causa de la baja"></textarea>
+                                        required placeholder="Ingrese la causa de la baja">{{$empleado->causa}}</textarea>
                                     </p>
                                 </div>
-                            </div>    
+                            </div>     
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-3 mx-7"> 
                                 <div class='grid grid-cols-1' onclick="openInput()" id="imageContainer1">
-                                    <label for="imagen_perfil" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                    <label for="imagen_perfil" class="mb-1 block uppercase text-gray-800 font-bold">
                                         Imagen del Empleado
                                     </label>
                                     @if ($empleado->imagen_perfil != '')                            
@@ -206,11 +228,11 @@
                             </div>
                         </div>
                         <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
-                            <a href="{{ route("mostrarEmpleado.show") }}"
+                            <a href="{{ route('mostrarBajas.show') }}"
                                 class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Cancelar</a>
                             <button type="submit"
                                 class='w-auto bg-green-600 hover:bg-green-700 rounded-lg shadow-xl font-bold text-white px-4 py-2'
-                                >Guardar Baja del Empleado</button>
+                                >Guardar Cambios</button>
                         </div>
                     </div>
                 </form>
@@ -224,7 +246,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         setupImageContainer('imageContainer1','inputContainer1');
-        // Puedes agregar más llamadas a setupImageContainer para otros divs
     });
 
     function setupImageContainer(containerId,inputID) {
@@ -275,6 +296,4 @@
             });
     }    
 
-</script>               
-
-   
+</script>

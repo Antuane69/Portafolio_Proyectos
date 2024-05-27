@@ -198,21 +198,21 @@
                                     <label for="fecha_2doContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 2do. Contrato</label>
                                     <p>
                                         <input id="fechaA" name="fecha_2doContrato" class="w-5/6 bg-gray-200 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
-                                        value="{{$empleado->fecha_2doContrato}}" readonly/>
+                                        value="{{$empleado->contrato_2}}" readonly/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
                                     <label for="fecha_3erContrato" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del 3er. Contrato</label>
                                     <p>
                                         <input id="fechaB" name="fecha_3erContrato" class="w-5/6 bg-gray-200 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
-                                        value="{{$empleado->fecha_3erContrato}}" readonly/>
+                                        value="{{$empleado->contrato_3}}" readonly/>
                                     </p>
                                 </div> 
                                 <div  class='grid grid-cols-1'>
                                     <label for="fecha_indefinido" class="mb-1 block uppercase text-gray-800 font-bold">* Fecha del Contrato Indefinido</label>
                                     <p>
                                         <input id="fechaC" name="fecha_indefinido" class="bg-gray-200 w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent" type="text" 
-                                        value="{{$empleado->fecha_indefinido}}" readonly/>
+                                        value="{{$empleado->indefinido}}" readonly/>
                                     </p>
                                 </div> 
                                 <div class='grid grid-cols-1'>

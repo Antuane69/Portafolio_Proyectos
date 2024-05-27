@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audit;
 use App\Models\Permisos;
 use App\Models\Empleados;
 use App\Mail\TokyoCorreos;
@@ -163,6 +164,7 @@ class PermisosController extends Controller
     public function edit_store(Request $request, $id)
     {
         $permiso = Permisos::with('empleado')->find($id);
+        $originalValues = $permiso->getOriginal();
 
         $permiso->curp = $request->curp;
         $permiso->fecha_solicitud = $request->fecha_solicitud;
@@ -182,8 +184,26 @@ class PermisosController extends Controller
         }
 
         $permiso->fecha_anteriorPermiso = $fechaAnterior;
-
         $permiso->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $permiso->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'Permiso',
+        ]);
 
         return redirect()->route('mostrarPermisos.show');
     }  
