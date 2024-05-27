@@ -266,8 +266,8 @@
             });
             // Definir tu función de JavaScript
             function otrapantalla(idbtn) {
-                var nuevaVentanaURL = '{{ route("herramientas.generarpdf", ":idbtn") }}';
-                nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
+                var nuevaVentanaURL = '{{ route("herramientas.generarpdf", ":id") }}';
+                nuevaVentanaURL = nuevaVentanaURL.replace(':id', idbtn);
 
                 // Abre una nueva ventana
                 window.open(nuevaVentanaURL, '_blank');

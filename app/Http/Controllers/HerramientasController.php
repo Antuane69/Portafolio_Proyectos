@@ -124,7 +124,7 @@ class HerramientasController extends Controller
 
     public function generate_pdf($id)//Funcion para generar el pdf de resguardo
     {
-        $herramienta =  Herramientas::find($id)->first();
+        $herramienta =  Herramientas::find($id);
 
         $nombres = $herramienta->nombre;
         $herramienta->nombre_real = substr(str_replace('_', ', ', $nombres),1);

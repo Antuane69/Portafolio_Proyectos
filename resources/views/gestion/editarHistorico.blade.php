@@ -158,7 +158,7 @@
 
                 var tipo = document.getElementById('tipoFiltro').value;
 
-                fetch(SITEURL + '/horario/filtroHorarios',{
+                fetch(SITEURL + '/horario/filtro/editarHistorico',{
                     method: 'POST',
                     body: JSON.stringify({
                         tipo: tipo,
@@ -174,7 +174,6 @@
                     } else
                         return response.json()
                 }).then(data => {
-                    console.log(data.horario);
                     // Obtén la referencia de la tabla
                     var dataTable = $('#data-table').DataTable();
                     // Limpiar la tabla antes de agregar nuevos datos
@@ -188,88 +187,23 @@
 
                         // Dibujar la tabla
                         dataTable.draw();
+
+                    }else{
+                        data.historial.forEach(item => {
+                            dataTable.row.add([
+                                item.nombre_usuario,
+                                item.campo_real,
+                                item.fecha_cambio
+                            ]);
+                        });
+                        // Dibujar la tabla
+                        dataTable.draw();
                         // Centrar elementos en la tabla después de dibujar
                         $(document).ready(function() {
                             // Aplicar clases de estilo para centrar
                             $('#data-table').addClass('text-center').addClass('align-middle');
                         });
-
-                    }else{
-
-                       // Limpiar el contenido de la tabla antes de agregar nuevos datos
-                       $('#data-table tbody').empty();
-                       // Construir el HTML de las filas
-                       let tableHtml = '';
-
-                        if(tipo === 'BARRA'){
-                            // Agregar filas al HTML de la tabla
-                            for (let k = 0; k < 4; k++) {
-                                var turno = '<p class="font-bold">:turno</p>';
-                                turno = turno.replace(':turno', data.horario.turno[k]);
-    
-                                tableHtml += `
-                                    <tr>
-                                        <td>${turno}</td>
-                                        <td>${data.horario.lunes[k]}</td>
-                                        <td>${data.horario.martes[k]}</td>
-                                        <td>${data.horario.miercoles[k]}</td>
-                                        <td>${data.horario.jueves[k]}</td>
-                                        <td>${data.horario.viernes[k]}</td>
-                                        <td>${data.horario.sabado[k]}</td>
-                                        <td>${data.horario.domingo[k]}</td>
-                                    </tr>`;
-                            }
-    
-                            // Insertar el HTML de la tabla en el DOM
-                            $('#data-table tbody').html(tableHtml);
-    
-                        }else{
-
-                            // Agregar filas al HTML de la tabla
-                            for (let k = 0; k < 4; k++) {
-                                var turno = '<p class="font-bold">:turno</p>';
-                                turno = turno.replace(':turno', data.horario.turno[k]);
-    
-                                if (k === 0) {
-                                    tableHtml += `
-                                        <tr>
-                                            <td>${turno}</td>
-                                            <td>${data.horario.lunes[k]}</td>
-                                            <td>${data.horario.martes[k]}</td>
-                                            <td>${data.horario.miercoles[k]}</td>
-                                            <td>${data.horario.jueves[k]}</td>
-                                            <td>${data.horario.viernes[k]}</td>
-                                            <td>${data.horario.sabado[k]}</td>
-                                            <td>${data.horario.domingo[k]}</td>
-                                        </tr>`;
-                                } else {
-                                    tableHtml += `
-                                        <tr>
-                                            <td>${turno}</td>
-                                            <td>${data.horario.lunes[k]}</td>
-                                            <td>${data.horario.martes[k]}</td>
-                                            <td>${data.horario.miercoles[k]}</td>
-                                            <td>${data.horario.jueves[k]}</td>
-                                            <td>${data.horario.viernes[k]}</td>
-                                            <td>${data.horario.sabado[k]}</td>
-                                            <td>${k === 3 ? data.horario.domingo[k] : ''}</td>
-                                        </tr>`;
-                                }
-                            }
-    
-                            // Insertar el HTML de la tabla en el DOM
-                            $('#data-table tbody').html(tableHtml);
-    
-                            // Aplicar rowspan a la primera celda de la columna Domingo
-                            $('#data-table tbody tr:eq(0) td:eq(7)').attr('rowspan', '3');
-                        }
-
-                        $(document).ready(function() {
-                            // Aplicar clases de estilo para centrar
-                            $('#data-table').addClass('text-center').addClass('align-middle');
-                        });
                     } 
-                    document.getElementById('NombreArea').innerText = tipo;
                 });
             }
         </script>

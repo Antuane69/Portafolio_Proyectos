@@ -115,7 +115,7 @@ class DashboardController extends Controller
     }
 
     public function editar_historico(){
-        $historial = Audit::where('tipo','Empleado')->get();
+        $historial = Audit::where('tipo','Empleado')->latest()->get();
 
         foreach($historial as $item){
 
@@ -139,6 +139,33 @@ class DashboardController extends Controller
         return view('gestion.editarHistorico',[
             'historial' => $historial,
             'tipos' => $tipos,
+        ]);
+    }
+
+    public function filtro(Request $request)
+    {
+        $historial = Audit::where('tipo', $request->tipo)->latest()->get();
+
+        foreach($historial as $item){
+
+            $aCampo = explode('*', str_replace('|', ', ', $item->campos));
+
+            // Obtén el índice del último elemento
+            $lastIndex = count($aCampo) - 1;
+            // Obtén el último elemento del array
+            $lastElement = $aCampo[$lastIndex];
+            // Elimina el último carácter del último elemento
+            $aCampo[$lastIndex] = substr($lastElement, 0, -1);
+
+            $item->campo_real = $aCampo;
+
+            $aux = new Carbon($item->fecha_cambio);
+            $item->fecha = $aux->format('d/m/Y');
+        }
+        
+        return response()->json([
+            'success' => true,
+            'historial' => $historial
         ]);
     }
 }

@@ -121,7 +121,7 @@
                                 <p>
                                     <textarea id="motivo" name="motivo"
                                         class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        required placeholder="Ingrese la falta cometida">{{ $incapacidad->motivo }}</textarea>
+                                        required placeholder="Ingrese el motivo de la incapacidad">{{ $incapacidad->motivo }}</textarea>
                                     @error('motivo')
                                         <span style="font-size: 10pt;color:red" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -134,7 +134,7 @@
                                 <p>
                                     <textarea id="comentarios" name="comentarios"
                                         class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        placeholder="Ingrese la falta cometida">{{ $incapacidad->comentarios }}</textarea>
+                                        placeholder="Ingrese un comentario para la solicitud">{{ $incapacidad->comentarios }}</textarea>
                                     @error('comentarios')
                                         <span style="font-size: 10pt;color:red" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -200,27 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-</script>
-
-<script>
-    //Obtener el día actual. 
-    $(document).ready(function() {
-        var date = new Date();
-
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-
-        var today = year + "-" + month + "-" + day;
-        $("#fecha").attr("value", today);
-    });
-
-    $("#fecha").datepicker({
-        dateFormat: 'dd-mm-yy'
-    });
 </script>
 
 <script>

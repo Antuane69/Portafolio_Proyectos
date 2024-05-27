@@ -357,10 +357,34 @@ class FaltasController extends Controller
             $acta = 0;
         }
 
+        $Acta = [
+            'I. Acumulación de amonestaciones',
+            'II. Faltar a trabajar sin justificante',
+            'III. Falta a las medidas de seguridad e higiene',
+            'IV. Desestabilización del orden',
+            'V. Negar el servicio o cerrar antes del horario establecido',
+            'VI. Presentarse al trabajo en estado de embriaguez o bajo la influencia de algún narcótico',
+            'VII. Divulgar o comentar los sueldos recibidos',
+            'VIII. Abandonar el trabajo en medio de la jornada, sin autorización',
+            'IX. Negarse a laborar en otro horario, tiempo extra o días festivos',
+            'X. Atentar en contra de las buenas costumbres y la moral',
+            'XI. Usar equipos, materiales e instalaciones del restaurante para negocios personales',
+        ];
+
+        if(in_array($falta->falta_cometida, $Acta)){
+            $tipo = 'Acta Administrativa';
+        }else{
+            $tipo = 'Amonestación';
+        }
+
+        $opciones = ['Amonestación','Acta Administrativa'];
+
         return view('gestion.editFaltas',[
             'falta' => $falta,
             'amonestacion' => $amonestacion,
-            'acta' => $acta
+            'acta' => $acta,
+            'opciones' => $opciones,
+            'tipoFalta' => $tipo,
         ]);
     }
 

@@ -189,11 +189,12 @@ Route::middleware(['users.redirect'])->group( function () {
     Route::get('/horario/crearTemplate', [HorariosController::class,'createTemplate'])->name('template.crear');
     Route::get('/horario/llenarTemplate', [HorariosController::class,'storeTemplate'])->name('template.store');
     Route::post('/horario/filtroHorarios', [HorariosController::class,'filtro'])->name('horario.filtro');
-
+    
     Route::get('/cambiarContraseña', [ChangePasswordController::class,'cambiar_contraseña'])->name('cambiar_contraseña');
     Route::post('/guardarContraseña', [ChangePasswordController::class,'guardar_contraseña'])->name('guardar_contraseña');
     
     Route::get('/editarHistorico', [DashboardController::class,'editar_historico'])->name('editar_historico');
+    Route::post('/horario/filtro/editarHistorico', [DashboardController::class,'filtro'])->name('editar_historico.filtro');
 
     Route::get('/roles', [EmpleadosController::class,'roles'])->name('roles');
 

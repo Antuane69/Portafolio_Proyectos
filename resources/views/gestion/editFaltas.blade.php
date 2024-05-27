@@ -84,18 +84,27 @@
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
-                                <label for="falta_cometida" class="mb-2 bloack uppercase text-gray-800 font-bold">* Falta al Reglamento Cometida</label>
+                                <label for="falta_cometida" class="mb-2 bloack uppercase text-gray-800 font-bold">* Tipo de Falta</label>
                                 <p>
-                                    <textarea id="falta_cometida" name="falta_cometida"
-                                        class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                        required placeholder="Ingrese la falta cometida">{{$falta->falta_cometida}}</textarea>
-                                    @error('falta_cometida')
-                                        <span style="font-size: 10pt;color:red" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <select name="falta" id="tipo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required onchange="buscarFalta()">             
+                                        @foreach($opciones as $opcion)
+                                            @if ($opcion == $tipoFalta)
+                                                <option value="{{$opcion}}" selected>{{$opcion}}</option>
+                                            @else
+                                                <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </p>
                             </div> 
+                            <div  class='grid grid-cols-1'>
+                                <label for="falta_cometida" class="mb-1 bloack uppercase text-gray-800 font-bold">* Falta al Reglamento Cometida</label>
+                                <p>
+                                    <select name="falta_cometida" id="faltaID" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>
+                                        <option value="{{$falta->falta_cometida}}" selected>{{$falta->falta_cometida}}</option>
+                                    </select>
+                                </p>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7 mt-4"> 
                             <div class='grid grid-cols-1'>
@@ -172,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(`${SITEURL}/gestion/registrarFaltas/buscar?nombre=${nombre}`, { method: 'get' })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.empleado.curp);
                     document.getElementById("curp-input").value = data.empleado.curp;
                     document.getElementById("fechaingreso-input").value = data.empleado.fecha_ingreso;
                 })
@@ -187,6 +195,39 @@ document.addEventListener('DOMContentLoaded', function() {
             fechaIngresoInput.value = "";
         }
     }
+
+    buscarFalta();
+
 });
+
+    function buscarFalta() {
+
+        const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+        var SITEURL = "{{ url('/') }}";
+
+        var tipo = document.getElementById('tipo').value;
+        var faltaCometida = document.getElementById('faltaID').value;
+
+        fetch(SITEURL+ `/gestion/registrarFaltas/buscar/faltas?tipo=${tipo}`, { method: 'get' })
+            .then(response => response.json())
+            .then(data => {
+                var opciones = '';
+                if (data.faltas.length > 0) {
+                    for (let falta of data.faltas) {
+                        if(falta == faltaCometida){
+                            opciones += `<option value="${falta}" selected>${falta}</option>`;
+                        }else{
+                            opciones += `<option value="${falta}">${falta}</option>`;
+                        }
+                    }
+                } else {
+                    opciones += '<option value="" disabled>No se encontraron faltas</option>';
+                }
+                document.getElementById("faltaID").innerHTML = opciones;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 </script>
 

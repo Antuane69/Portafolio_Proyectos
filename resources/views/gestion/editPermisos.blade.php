@@ -92,7 +92,7 @@
                                 <p>
                                     <input id="fecha" name="fecha_inicio"
                                     class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent" type="date" 
-                                    value="{{$permiso->fecha_inicio}}"/>
+                                    value="{{$permiso->fecha_inicio}}" onchange="cambiarFecha()"/>
                                 </p>
                             </div> 
                             <div  class='grid grid-cols-1'>
@@ -175,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(`${SITEURL}/gestion/registrarPermisos/buscar?nombre=${nombre}`, { method: 'get' })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     document.getElementById("curp-input").value = data.empleado.curp;
                     document.getElementById("fechaingreso-input").value = data.empleado.fecha_ingreso;
 
@@ -199,65 +198,47 @@ document.addEventListener('DOMContentLoaded', function() {
             fechaAnteriorInput.value = "";
         }
     }
+
+    cambiarFecha();
 });
 </script>
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener elementos
-    var fechaInput = document.getElementById("fecha");
-    var fechaAInput = document.getElementById("fechaA");
-    //var fechaBInput = document.getElementById("fechaB");
+    function cambiarFecha(){
+        // Obtener elementos
+        var fechaInput = document.getElementById("fecha");
+        var fechaAInput = document.getElementById("fechaA");
 
-    // Función para formatear la fecha
-    function formatFecha(date) {
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
+        // Función para formatear la fecha
+        function formatFecha(date) {
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
 
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
 
-        return year + "-" + month + "-" + day;
-    }
-
-    // Función para actualizar la fecha de regreso
-    function actualizarFechaA(selectedDate) {
-        var tomorrow = new Date(selectedDate);
-        tomorrow.setDate(selectedDate.getDate() + 1);
-        var test = formatFecha(tomorrow);
-        // console.log(test);
-        fechaAInput.value = '';
-        fechaAInput.value = test;
-        console.log(fechaAInput.value);
-    }
-
-    // Asignar la fecha actual al campo #fecha
-    //var today = new Date();
-    //fechaInput.value = formatFecha(today);
-
-    // Calcular la fecha de regreso inicial
-    //actualizarFechaA(fechaAInput);
-
-    // Inicializar el datepicker solo para #fecha
-    flatpickr("#fecha", {
-        dateFormat: 'Y/m/d',
-        onChange: function(selectedDates, dateStr, instance) {
-            // Actualizar el valor de #FechaA cuando cambia #fecha
-            console.log(selectedDates[0]);
-            actualizarFechaA(selectedDates[0]);
+            return year + "-" + month + "-" + day;
         }
-    });
 
-    // flatpickr("#fechaA", {
-    //     dateFormat: 'Y/m/d'
-    // });
+        // Función para actualizar la fecha de regreso
+        function actualizarFechaA(selectedDate) {
+            var tomorrow = new Date(selectedDate);
+            tomorrow.setDate(selectedDate.getDate() + 1);
+            var test = formatFecha(tomorrow);
+            fechaAInput.value = '';
+            fechaAInput.value = test;
+        }
 
-    // flatpickr("#fechaB", {
-    //     dateFormat: 'Y/m/d'
-    // });
-});
-
+        // Inicializar el datepicker solo para #fecha
+        flatpickr("#fecha", {
+            dateFormat: 'Y-m-d',
+            onChange: function(selectedDates, dateStr, instance) {
+                // Actualizar el valor de #FechaA cuando cambia #fecha
+                actualizarFechaA(selectedDates[0]);
+            }
+        });
+    }
 
 </script>
