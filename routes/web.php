@@ -160,6 +160,9 @@ Route::middleware(['auth.redirect'])->group( function () {
     //Nómina
     Route::get('/nominas/subirExcel',[NominaController::class, 'csv'])->name('nomina.csv');
     Route::post('/nominas/subirExcel/guardado',[NominaController::class, 'store_csv'])->name('nomina.storecsv');
+    Route::get('/nominas/historico',[NominaController::class, 'historico'])->name('nomina.historico');
+    Route::get('/nominas/ver',[NominaController::class, 'show'])->name('nomina.mostrar');
+    Route::post('/nominas/guardar',[NominaController::class, 'store'])->name('nomina.store');
 
 });
 

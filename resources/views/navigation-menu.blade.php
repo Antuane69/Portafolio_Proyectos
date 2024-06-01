@@ -512,9 +512,9 @@
                                         <a href="{{ route('nomina.csv') }}">
                                             <li class="px-3 py-1 hover:bg-gray-100">Subir Excel</li>
                                         </a>
-                                        {{-- <a href="{{ route('horario.mostrar') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Horario</li>
-                                        </a> --}}
+                                        <a href="{{ route('nomina.historico') }}">
+                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Nómina Actual</li>
+                                        </a>
                                     </ul>
                                 </ul>
                             </div>

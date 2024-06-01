@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableNomina extends Migration
+class AddDeletedAtToNominas extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateTableNomina extends Migration
     public function up()
     {
         Schema::table('nomina', function (Blueprint $table) {
-            //
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +26,7 @@ class CreateTableNomina extends Migration
     public function down()
     {
         Schema::table('nomina', function (Blueprint $table) {
-            //
+            $table->dropSoftDeletes();
         });
     }
 }
