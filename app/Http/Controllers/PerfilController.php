@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\NotIn;
 use Intervention\Image\Facades\Image;
 
 class PerfilController extends Controller
@@ -24,8 +26,15 @@ class PerfilController extends Controller
         $request->request->add(['username' => Str::slug($request->username)]);
 
         $this->validate($request,[
-            'username' => 'required|unique:users,username,.auth()->user()->id|min:2|max:20, 
-            not_in:Twitter,twitter,editar-perfil,Facebook,facebook'
+            'username' => [
+                'required',
+                Rule::unique('users', 'username')->ignore(auth()->user()),
+                'min:2',
+                'max:20',
+                Rule::notIn('twitter','facebook')
+            ]
+            // 'username' => 'required|unique:users,username,{auth()->user()->username}|min:2|max:20, 
+            // not_in:Twitter,twitter,editar-perfil,Facebook,facebook'
         ]);
 
         if($request->imagen)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -24,10 +25,13 @@ class RegisterController extends Controller
 
         //Validacion
         $this->validate($request,[
-            'name' => 'required|min:10|max:30',
+            'name' => 'required|min:10|max:60',
             'username' => 'required|unique:users|min:2|max:20',
             'email' => 'required|unique:users|email|max:50',
-            'password' => 'required|confirmed|min:6|max:15'
+            'password' => 'required|confirmed|min:6|max:15',
+            'estatus' => ['required',Rule::in(['Cliente','Vendedor'])],
+            // 'estatus' => 'required',
+            'codigoval' => ['required_if:estatus,Vendedor',Rule::in(['1234','4321','2468']),'nullable']
         ]);
 
         User::create([
@@ -35,6 +39,8 @@ class RegisterController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'estatus' => $request->estatus,
+            'codigoval' => $request->codigoval
         ]);
 
         /* autenticar usuario

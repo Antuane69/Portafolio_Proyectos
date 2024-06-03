@@ -22,6 +22,11 @@ class LoginController extends Controller
             return back()->with('mensaje',"Credenciales Incorrectas");
         }
 
-        return redirect()->route('posts.index',auth()->user()->username);
+        if(auth()->user()->estatus == "Vendedor"){
+            return redirect()->route('posts.index',auth()->user()->username);
+        }else{
+            return redirect()->route('home');
+        }
+
     }
 }

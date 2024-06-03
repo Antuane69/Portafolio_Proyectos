@@ -14,9 +14,17 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
+            $table->string('marca');
+            $table->string('modelo');
+            $table->integer('anio');
+            $table->string('color');
+            $table->bigInteger('precio');
+            $table->text('fallas');
             $table->text('descripcion');
+            $table->integer('existencia');
+            $table->string('estado')->default('No');
             $table->string('imagen');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

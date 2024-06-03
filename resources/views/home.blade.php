@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('Titulo')
-    Muro de publicaciones
+    Muro de venta de vehiculos
 @endsection
 
 @section('contenido')
 
-    <x-listar-post :posts="$posts" />
+    <x-listar-post :posts="$posts" :filtrado="$filtrado"/>
 
 @endsection

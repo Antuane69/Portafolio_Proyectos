@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('Titulo')
-    Inicia Sesion en Devstagram
+    Inicia Sesion en Motor's New
 @endsection
 
 @section('contenido')
     <div class="md:flex md:justify-center md:gap-8 md:items-center">
-        <div class='mr-3'>
-            <img src="{{ asset('img/lp1.png')}}"alt="Imagen de Login">
+        <div class='sm w-9/12 lg:w-4/12 px-2'>
+            <img src="{{ asset('img/lp3.jpg')}}"alt="Imagen de Login">
         </div>
             <div class="md:w-6/7 bg-white p-6 rounded-lg shadow-xl">
                 <form method="POST" action="{{route('login')}}">
@@ -23,7 +23,7 @@
                     </div>
                     <div class='mb-4'>
                         <label for="password" class="mb-2 bloack uppercase text-gray-800 font-bold">
-                            Password
+                            Contraseña
                         </label>
                         <input type="password" name="password" id="password" placeholder="Tu contraseña" class='border p-3 w-full rounded-lg @error('password') border-red-800 bg-red-100 @enderror'>
                         @error('password')
@@ -38,7 +38,7 @@
                         <input type="checkbox" name="remember"> <label class="text-sm text-gray-600">Mantener la sesion abierta</label>
                     </div>
 
-                    <input type="submit" value="Iniciar Sesion" class="bg-blue-800 hover:bg-blue-400 transition-colors cursor-pointer 
+                    <input type="submit" value="Iniciar Sesion" class="bg-orange-900 hover:bg-orange-700 transition-colors cursor-pointer 
                            uppercase font-bold w-full p-3 text-white rounded-lg">
                 </form>
             </div>

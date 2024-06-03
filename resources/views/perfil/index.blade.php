@@ -23,7 +23,7 @@
                 </label>
                 <input type="file" name="imagen" id="imagen" class='bg-white border p-4 w-full rounded-lg' accept=".jpg, .jpeg, .png, .svg">
             </div>
-            <input type="submit" value="Guardar Cambios" class="bg-blue-800 hover:bg-blue-400 transition-colors cursor-pointer 
+            <input type="submit" value="Guardar Cambios" class="bg-orange-900 hover:bg-orange-700 transition-colors cursor-pointer 
             uppercase font-bold w-full p-3 text-white rounded-lg">
             </form>
         </div>

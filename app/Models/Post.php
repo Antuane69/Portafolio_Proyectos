@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Models\Like;
+use App\Models\Comprar;
 use App\Models\Comentario;
+use App\Models\ComprarCuenta;
+use App\Models\ComprarOferta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,7 +16,14 @@ class Post extends Model
 
     protected $fillable = [
         'titulo',
+        'marca',
+        'modelo',
+        'anio',
+        'color',
+        'precio',
+        'fallas',
         'descripcion',
+        'existencia',
         'imagen',
         'user_id'
     ];
@@ -37,5 +47,24 @@ class Post extends Model
     {
         return $this->likes->contains('user_id',$user->id);
     }
+
+    public function compras()
+    {
+        return $this->hasMany(Comprar::class);
+    }
     
+    public function compracuenta()
+    {
+        return $this->hasMany(ComprarCuenta::class);
+    }
+
+    public function compraoferta()
+    {
+        return $this->hasMany(ComprarOferta::class);
+    }
+
+    public function ventas()
+    {
+        return $this->hasMany(Ventas::class);
+    }
 }

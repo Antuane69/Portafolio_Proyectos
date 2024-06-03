@@ -8,11 +8,13 @@
     <div class="flex justify-center">
         <div class='w-full md:w-8/12 lg:w-6/12 flex flex-col items-center md:flex-row'>
             <div class="sm w-8/12 lg:w-6/12 px-5">
-                <img src="{{ $user->imagen ? asset('perfiles') . '/' . $user->imagen : asset('img/usuario.jpg')}}" alt="Imagen de usuario">
+                <img class="rounded-full" src="{{ $user->imagen ? asset('perfiles') . '/' . $user->imagen : asset('img/usuario.jpg')}}" alt="Imagen de usuario">
             </div>
             <div class="md:w-8/12 lg:w-6/12 px-5 flex flex-col items-center md:justify-center md:items-start py-10 md:py-10">
-                <div class='flex items-center gap-2'S>
-                    <p class="text-black text-2xl font-bold">{{$user->username}}</p>
+                <div class='flex items-center gap-2'>
+                    <a href="{{route('posts.index',$user)}}">
+                        <p class="text-black text-2xl font-bold">{{$user->username}}</p>
+                    </a>
                     @auth
                     @if ($user->id === auth()->user()->id)
                     <p>
@@ -28,47 +30,51 @@
                     @endif
                     @endauth
                 </div>
-                    
+                <p class="text-gray-400 text-sm font-bold font-serif">{{$user->estatus}}</p>
+                <div>
+                    @if (auth()->user()->estatus === "Cliente")              
+                    <p class=' text-m mb-3 mt-5 font-bold'>
+                        {{$user->likes->count()}}
+                        <span class="font-normal">@choice('Articulo de interés|Articulos de interés',$user->followings->count())</</span>
+                    </p>          
                     <p class=' text-m mb-3 font-bold mt-5'>
-                        {{$user->followers->count()}}
-                    <span class="font-normal">@choice('Seguidor|Seguidores',$user->followers->count())</span>
-                </p>
-                <p class=' text-m mb-3 font-bold'>
-                    {{$user->followings->count()}}
-                    <span class="font-normal">Siguiendo</span>
-                </p>
-                <p class=' text-m mb-3 font-bold'>
-                    {{$user->posts->count()}}
-                    <span class="font-normal">Posts</span>
-                </p>
-
-                @auth    
-                @if ($user->id !== auth()->user()->id)    
-                    @if (!$user->siguiendo(auth()->user()))
-                        <form action="{{route('users.follow',$user)}}" method="POST">
-                            @csrf
-                            <input type="submit" class="bg-blue-800 hover:bg-blue-600 text-white rounded-lg text-sm uppercase font-bold cursor-pointer px-3 py-1" value="Seguir">
-                        </form>
+                        <a href="{{route('comprascliente.index',auth()->user()->username)}}">
+                            {{$aux}}
+                            <span class="font-normal">@choice('Compra|Compras',($aux))</span>
+                        </a>
+                    </p>
                     @else
-                        <form action="{{route('users.unfollow',$user)}}" method="POST">
-                            @method("DELETE")
-                            @csrf
-                            <input type="submit" class="bg-red-800 hover:bg-red-600 text-white rounded-lg text-sm uppercase font-bold cursor-pointer px-3 py-1" value="Dejar de Seguir">
-                        </form>
-                    @endif
-                @endauth
-                @endif
+                        <p class=' text-m mt-5 font-bold'>
+                            <a href="{{route('posts.index',[$user,$a])}}">
+                                {{$a}}
+                                <span class="font-normal">@choice('Oferta pendiente|Ofertas pendientes',$user->followings->count())</</span>
+                            </a>
+                        </p> 
+                        <p class=' text-m mb-3 font-bold'>
+                            <a href="{{route('posts.view',[$user,$a])}}">
+                                {{$user->posts->count()}}
+                                <span class="font-normal">Publicaciones</span>
+                            </a>
+                        </p>
+                    @endif    
+                </div>
             </div>
-
         </div>
     </div>
 
     <section class='container mx-auto mt-10'>
         <hr>
-        <h2 class='text-3xl text-center font-bold my-10'>
-            Tus Publicaciones
-        </h2>
-        <x-listar-post :posts="$posts"/>
+        @if ($user->estatus === "Vendedor")
+            <h2 class='text-3xl text-center font-bold my-10'>
+                Tus ofertas pendientes
+            </h2>
+            <x-listar-ofertas :posts="$posts"/>
+        @else
+            <h2 class='text-3xl text-center font-bold my-10'>
+                Tus artículos de interés
+            </h2>
+            <x-listar-post :posts="$posts" :filtrado="$filtrado"/>
+        @endif
     </section>
 
 @endsection

@@ -20,6 +20,11 @@ class PostFactory extends Factory
     {
         return [
             'titulo' => $this->faker->sentence(5),
+            'marca' => $this->faker->sentence(5),
+            'modelo' => $this->faker->sentence(5),
+            'color' => $this->faker->sentence(5),
+            'precio' => $this->faker->randomNumber(),
+            'fallas' => $this->faker->sentence(10),
             'descripcion' => $this->faker->sentence(20),
             'imagen' => $this->faker->uuid() . 'jpg',
             'user_id' => $this->faker->randomElement([1,2,3])
