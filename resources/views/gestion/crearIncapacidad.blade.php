@@ -201,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-    //Obtener el día actual. 
     $(document).ready(function() {
         var date = new Date();
 
@@ -214,9 +213,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var today = year + "-" + month + "-" + day;
         $("#fecha").attr("value", today);
+        $("#fechaA").attr("value", today);
     });
 
     $("#fecha").datepicker({
+        dateFormat: 'dd-mm-yy'
+    });
+    $("#fechaA").datepicker({
         dateFormat: 'dd-mm-yy'
     });
 </script>

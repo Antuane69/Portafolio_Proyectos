@@ -103,7 +103,7 @@
                             <th class='text-center'>Total Horas</th>
                             <th class='text-center'>Total Minutos</th>
                             <th class='text-center'>Total</th>
-                            <th class='text-center'>Opciones</th>
+                            <th class='text-center' style="width: 40%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,7 +113,22 @@
                                 <td align="center">{{ $nomina->horas }}</td>
                                 <td align="center">{{ $nomina->minutos }}</td>
                                 <td align="center" class="font-bold">${{ $nomina->total }}</td>
-                                <td align="center">Opciones</td> 
+                                <td align="center">
+                                    <div class="in-line flex justify-center object-center">
+                                        <form class="rounded text-white font-bold py-1 px-2">
+                                            @csrf         
+                                            <button id="abrirVentana" class="boton-accion border-right bg-gray-600 hover:bg-gray-700 text-white font-bold mr-3 px-2 p-2 rounded-md" data-id="{{ $nomina->id }}">
+                                                Generar Nómina en PDF
+                                            </button>                        
+                                        </form> 
+                                        <form action="{{ route('editarNomina.show', $nomina->id) }}" method="GET">
+                                            @csrf         
+                                            <button class="border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-3 py-1 mr-3 rounded-md mt-1">
+                                                Editar Registro
+                                            </button>                        
+                                        </form>   
+                                    </div>
+                                </td> 
                             </tr> 
                         @endforeach
                     </tbody>
@@ -136,6 +151,24 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+
+            document.addEventListener('DOMContentLoaded',function () {
+                var botonesAccion = document.querySelectorAll('.boton-accion');
+                botonesAccion.forEach(function (boton) {
+                    boton.addEventListener('click', function () {
+                        var idbtn = boton.getAttribute('data-id');
+                        otrapantalla(idbtn);
+                    });
+                });
+            });
+            // Definir tu función de JavaScript
+            function otrapantalla(idbtn) {
+                var nuevaVentanaURL = '{{ route("nomina.datospdf", ":idbtn") }}';
+                nuevaVentanaURL = nuevaVentanaURL.replace(':idbtn', idbtn);
+
+                // Abre una nueva ventana
+                window.open(nuevaVentanaURL, '_blank');
+            }
         </script>
     @endsection
 </x-app-layout>

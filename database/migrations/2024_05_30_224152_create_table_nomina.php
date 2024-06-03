@@ -19,6 +19,15 @@ class CreateTableNomina extends Migration
             $table->string('horas');
             $table->string('minutos');
             $table->double('total',10,3)->nullable();
+            $table->double('imss',6,2)->nullable();
+            $table->double('prima_v',6,2)->nullable();
+            $table->double('festivos',6,2)->nullable();
+            $table->double('descuentos',6,2)->nullable();
+            $table->double('comida',6,2)->nullable();
+            $table->double('prima_d',6,2)->nullable();
+            $table->double('bonos',6,2)->nullable();
+            $table->double('host',6,2)->nullable();
+            $table->double('gasolina',6,2)->nullable();
             $table->timestamps();
         });
     }

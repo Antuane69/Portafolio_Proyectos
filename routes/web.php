@@ -33,23 +33,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 Route::get('/dashboard',[DashboardController::class, 'inicio'])->name('dashboard');
 Route::get('/',[DashboardController::class, 'inicio'])->name('login_2');
-// Route::get('/dashboard', function () {
-
-//     if(Auth::check()){
-//         return view('dashboard');
-//     }else{
-//         return view('auth.login');
-//     };
-// })->name('dashboard');
-
-// Route::get('/', function () {
-    
-//     if(Auth::check()){
-//         return view('dashboard');
-//     }else{
-//         return view('auth.login');
-//     };
-// })->name('login_2');
 
 Route::middleware(['auth.redirect'])->group( function () {
 
@@ -152,6 +135,10 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::post('/gestion/generarContrato/pdf/{id}', [EmpleadosController::class,'datos_pdf'])->name('empleados.datospdf');//*
     Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
 
+    // Route::get('/gestion/verDocumentacion/pdf/{tipo}/{id}', [EmpleadosController::class,'ver_pdf'])->name('empleados.verpdf');//*
+    // Route::get('/gestion/datosContrato/pdf/{id}', [EmpleadosController::class,'crear_datosPDF'])->name('empleados.crear_datospdf');//*
+    // Route::post('/gestion/subirContrato/pdf/{id}', [EmpleadosController::class,'subir_pdf'])->name('empleados.subirpdf');//*
+
     // correos
     Route::get('/correos/Vacaciones/{tipo}/{id}/{aux}',[VacacionesController::class, 'correo'])->name('vacaciones.correo');
     Route::get('/correos/Permisos/{tipo}/{id}/{aux}',[PermisosController::class, 'correo'])->name('permisos.correo');
@@ -163,7 +150,10 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::get('/nominas/historico',[NominaController::class, 'historico'])->name('nomina.historico');
     Route::get('/nominas/ver',[NominaController::class, 'show'])->name('nomina.mostrar');
     Route::post('/nominas/guardar',[NominaController::class, 'store'])->name('nomina.store');
-
+    Route::get('/nomina/generarNomina/pdf/{id}', [NominaController::class,'datos_pdf'])->name('nomina.datospdf');//*
+    Route::get('/nomina/editarNominaVista/{id}',[NominaController::class, 'edit_show'])->name('editarNomina.show');
+    Route::post('/nomina/editarNomina/{id}',[NominaController::class, 'edit_store'])->name('editarNomina.store');
+    Route::get('/nomina/buscar/total',[NominaController::class, 'search_total'])->name('nomina.search_total');
 });
 
 Route::middleware(['users.redirect'])->group( function () {

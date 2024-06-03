@@ -19,6 +19,15 @@ class Nomina extends Model
         'horas',
         'minutos',
         'total',
+        'imss',
+        'prima_v',
+        'festivos',
+        'descuentos',
+        'comida',
+        'prima_d',
+        'bonos',
+        'host',
+        'gasolina',
     ];
 
     public function empleado(){

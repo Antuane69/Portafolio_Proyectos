@@ -279,14 +279,8 @@ class HorariosController extends Controller
 
             if($horario){
                 $fechaHorario = Carbon::createFromFormat('Y-m-d H:i:s', $horario->created_at);
-
-                // $fechaAux = '2024/05/10';
-                // $fechaCarbon = Carbon::createFromFormat('Y/m/d', $fechaAux);
-                // $diferenciaDias = $fechaCarbon->diffInDays($fechaHorario);
-    
                 $diferenciaDias = $auxf->diffInDays($fechaHorario);
-    
-                // Verificar si la diferencia es mayor a 6 días
+
                 if ($diferenciaDias >= 6) {
 
                     if($contadorCocina == 5){
@@ -457,7 +451,7 @@ class HorariosController extends Controller
                             'domingo' => 1 
                         );
             
-                    }elseif($contadorCocina == 9){
+                    }else{
                         
                         $arregloCocina[] = array(
                             'lunes' => 3,
@@ -686,7 +680,7 @@ class HorariosController extends Controller
                         'domingo' => 1 
                     );
 
-                }elseif($contadorCocina == 9){
+                }else{
                     
                     $arregloCocina[] = array(
                         'lunes' => 3,
@@ -746,14 +740,8 @@ class HorariosController extends Controller
 
             if($horarioServicio){
                 $fechaHorarioServicio = Carbon::createFromFormat('Y-m-d H:i:s', $horarioServicio->created_at);
-
-                // $fechaAux = '2024/05/6';
-                // $fechaCarbon = Carbon::createFromFormat('Y/m/d', $fechaAux);
-                // $diferenciaDias = $fechaCarbon->diffInDays($fechaHorarioServicio);
-    
                 $diferenciaDias = $auxf->diffInDays($fechaHorarioServicio);
             
-                // Verificar si la diferencia es mayor a 6 días
                 if ($diferenciaDias >= 6) {
 
                     if($contadorServicio == 5){
@@ -924,7 +912,7 @@ class HorariosController extends Controller
                             'domingo' => 1 
                         );
             
-                    }elseif($contadorServicio == 9){
+                    }else{
             
                         $arregloServicio[] = array(
                             'lunes' => 3,
@@ -1151,7 +1139,7 @@ class HorariosController extends Controller
                         'domingo' => 1 
                     );
 
-                }elseif($contadorServicio == 9){
+                }else{
 
                     $arregloServicio[] = array(
                         'lunes' => 3,

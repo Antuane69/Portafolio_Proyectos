@@ -476,7 +476,6 @@ class EmpleadosController extends Controller
         $fecha_actual2 = Carbon::setLocale('es');
 
         // Formatea la fecha en el formato deseado
-        //$fechaFormateada = $fecha_actual->format('d \d\e F \d\e Y');
         $fechaFormateada2 = $fecha_actual->isoFormat('dddd D [de] MMMM [del] YYYY');
 
         $fechaNacimiento = Carbon::parse($empleado->fecha_nacimiento);

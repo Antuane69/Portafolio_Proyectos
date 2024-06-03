@@ -181,21 +181,23 @@
                                                                             Modificar Archivo PDF
                                                                         </button>
                                                                     @else
-                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 rounded-md mt-1 ml-12"
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 rounded-md"
                                                                         onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
                                                                             Subir Documentación
                                                                         </button>
                                                                     @endif  
                                                                 </div>
-                                                                <div>
-                                                                    <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
-                                                                </div>
+                                                                @if($empleado->documentacion != "")                                                                    
+                                                                    <div>
+                                                                        <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                             <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
                                                                 <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >
                                                                     @csrf
                                                                     <input type="file" name="DocumentacionPDF" id='requiredSolicitud_{{$empleado->id}}' accept=".pdf" class="mt-4" style="margin-left: 120px">
-                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-left: 240px">Enviar PDF</button>
+                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-right: 30px">Enviar PDF</button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -251,26 +253,28 @@
                                                                         </button>                        
                                                                     </form>          
                                                                     @if ($empleado->documentacion != "")
-                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 mt-1 rounded-md ml-1"
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-1 mr-3 mt-1 rounded-md"
                                                                         onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
                                                                             Modificar Archivo PDF
                                                                         </button>
                                                                     @else
-                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 px-3 py-3 mr-3 rounded-md mt-1 ml-12"
+                                                                        <button class="border-right bg-purple-700 hover:bg-purple-900 text-white font-bold p-2 rounded-md"
                                                                         onclick="mostrarInput('contenedorInput_{{$empleado->id}}','requiredSolicitud_{{$empleado->id}}')">
                                                                             Subir Acta
                                                                         </button>
                                                                     @endif  
                                                                 </div>
-                                                                <div>
-                                                                    <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
-                                                                </div>
+                                                                @if($empleado->documentacion != "")                                                                    
+                                                                    <div>
+                                                                        <button onclick="window.open('{{ route('empleados.verpdf', ['documentacion', $empleado->id]) }}', '_blank')" class="border bg-green-700 hover:bg-green-900 text-white font-bold p-2 px-4 rounded-md mb-3 mt-1">Ver Documentación</button>
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                             <div id="contenedorInput_{{$empleado->id}}" hidden class="mt-2 content-center object-center">
                                                                 <form method="POST" action="{{ route('empleados.subirpdf', $empleado->id) }}" enctype="multipart/form-data" >
                                                                     @csrf
                                                                     <input type="file" name="DocumentacionPDF" id='requiredSolicitud_{{$empleado->id}}' accept=".pdf" class="mt-4" style="margin-left: 120px">
-                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-left: 240px">Enviar PDF</button>
+                                                                    <button type="submit" class="text-m text-white bg-green-600 hover:bg-green-800 font-bold mt-4 p-2 rounded-md" style="margin-right: 30px">Enviar PDF</button>
                                                                 </form>
                                                             </div>
                                                         </div>

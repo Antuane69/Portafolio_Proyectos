@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Audit;
 use App\Models\Nomina;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,8 +43,19 @@ class NominaController extends Controller
         $k = 0;
 
         foreach($nominas as $nomina){
+            $nomina->imss = 59.81;
+            $nomina->prima_v = $request->input("prima_vacacional" . $k);
+            $nomina->festivos = $request->input("festivos" . $k);
+            $nomina->descuentos = $request->input("descuentos" . $k);
+            $nomina->comida = $request->input("comida" . $k);
+            $nomina->prima_d = $request->input("prima" . $k); 
+            $nomina->bonos = $request->input("bonos" . $k); 
+            $nomina->host = $request->input("host" . $k); 
+            $nomina->gasolina = $request->input("gasolina" . $k); 
+
             $sueldo_hora = 260 / 6;
-            $nomina_f = (($nomina->minutos/60) * $sueldo_hora) + ($nomina->horas * $sueldo_hora) + ($request->input("host" . $k)) + ($request->input("prima" . $k)) + ($request->input("gasolina" . $k)) + ($request->input("bonos" . $k)) + ($request->input("prima_vacacional" . $k)) + ($request->input("festivos" . $k)) + ($request->input("comida" . $k)) + 59.81 - ($request->input("descuentos" . $k));
+            $nomina_f = (($nomina->minutos/60) * $sueldo_hora) + ($nomina->horas * $sueldo_hora) + $nomina->bonos + $nomina->host + $nomina->gasolina
+            + $nomina->prima_v + $nomina->festivos + $nomina->prima_d - ($nomina->imss + $nomina->comida + 75.46 + $nomina->descuentos);
             $nomina_total = round($nomina_f, 2); // Redondea a 2 decimales sin formatear
 
             // Guarda el valor redondeado directamente
@@ -50,17 +64,18 @@ class NominaController extends Controller
             $k++;
         }
 
+        return redirect()->route('nomina.historico')->with('success', 'Datos guardados correctamente.');
     }
 
     public function csv(){
-        return view('nomina.subirCSV');
+        return view('nomina.subircsv');
     }
 
     public function store_csv(Request $request)
     {
         // Validar que el archivo sea un CSV o XLS/XLSX
         $validator = Validator::make($request->all(), [
-            'csv_file' => 'required|file|mimes:csv,txt,xls,xlsx',
+            'csv_file' => 'required|file|mimes:xls,xlsx',
         ]);
 
         if ($validator->fails()) {
@@ -81,6 +96,7 @@ class NominaController extends Controller
         $numero_trabajo = 0;
         $aux = false;
 
+        Nomina::truncate();
         foreach($data as $datos){
             $cont++;
             if($cont%2 == 1){
@@ -218,9 +234,39 @@ class NominaController extends Controller
             }
             $array = [];
         }
-        //dd($pruebas);
         
         return redirect()->route('nomina.mostrar')->with('success', 'Archivo procesado correctamente.');
+    }
+
+    public function datos_pdf($id){
+        $zonaHoraria = 'America/Mexico_City';
+        $nomina = Nomina::find($id);
+
+        // Obtén la fecha actual en la zona horaria especificada
+        Carbon::setLocale('es');
+        $fecha_actual = Carbon::createFromFormat('Y-m-d H:i:s', $nomina->created_at);
+        $fecha_final = $fecha_actual->copy()->addDays(15);
+
+        $fechaFormateada1 = $fecha_actual->isoFormat('D [de] MMMM [del] YYYY');
+        $fechaFormateada2 = $fecha_final->isoFormat('D [de] MMMM [del] YYYY');
+        
+        $salario = 260;
+        $salario_h = round(($salario/6),2);
+
+        $pdf = Pdf::loadView('PDF.crearNominaPDF',[
+            'nomina' => $nomina,
+            'fecha' => $fecha_actual,
+            'fecha_actual' => $fechaFormateada1,
+            'fecha_final' => $fechaFormateada2,
+            'salario_d' => $salario,
+            'salario_h' => $salario_h,
+            ])->setPaper('letter', 'portrait');
+
+        // Nombre del archivo PDF
+        $nombreArchivo = 'Nomina_' . $nomina->nombre . '.pdf';
+
+        // Devolver la respuesta con el archivo adjunto
+        return $pdf->stream($nombreArchivo); 
     }
 
     //pruebas
@@ -291,5 +337,84 @@ class NominaController extends Controller
         }
 
         return $data;
+    }
+
+    public function edit_show($id)
+    {
+        $nomina = Nomina::find($id);
+
+        return view('gestion.editNomina',[
+            'nomina' => $nomina
+        ]);
+    }
+
+    public function edit_store(Request $request, $id)
+    {
+        $nomina = Nomina::find($id);
+        $originalValues = $nomina->getOriginal();
+
+        $nomina->horas = $request->horas;
+        $nomina->minutos = $request->minutos;
+        $nomina->prima_v = $request->prima_v;
+        $nomina->festivos = $request->festivos;
+        $nomina->descuentos = $request->descuentos;
+        $nomina->comida = $request->comida;
+        $nomina->prima_d = $request->prima_d;
+        $nomina->bonos = $request->bonos;
+        $nomina->host = $request->host;
+        $nomina->gasolina = $request->gasolina;
+
+        $sueldo_hora = 260 / 6;
+        $nomina_f = (($nomina->minutos/60) * $sueldo_hora) + ($nomina->horas * $sueldo_hora) + $nomina->bonos + $nomina->host + $nomina->gasolina
+        + $nomina->prima_v + $nomina->festivos + $nomina->prima_d - ($nomina->imss + $nomina->comida + 75.46 + $nomina->descuentos);
+        $nomina_total = round($nomina_f, 2); // Redondea a 2 decimales sin formatear
+        $nomina->total = $nomina_total;
+
+        $nomina->save();
+
+        // Registrar los cambios en la tabla de auditoría
+        $changes = $nomina->getChanges();
+        $campos = '';
+        foreach ($changes as $field => $newValue) {
+            if ($field == 'updated_at') {
+                continue;
+            }
+            if ($originalValues[$field] != $newValue) {
+                $campos .= $field . '|';
+            }
+        }
+
+        Audit::create([
+            'nombre_usuario' => auth()->user()->nombre,
+            'campos' => $campos,
+            'fecha_cambio' => now(),
+            'tipo' => 'nomina',
+        ]);
+
+        return redirect()->route('nomina.historico')->with('success', 'Datos editados correctamente.');
+    }  
+
+    public function search_total(Request $request){
+
+        $horas = $request->horas;
+        $minutos = $request->minutos;
+        $primav = $request->primav;
+        $festivos = $request->festivos;
+        $descuentos = $request->descuentos;
+        $comida = $request->comida;
+        $primad = $request->primad;
+        $bonos = $request->bonos;
+        $host = $request->host;
+        $gasolina = $request->gasolina;
+
+        $sueldo_hora = 260 / 6;
+        $nomina_f = (($minutos/60) * $sueldo_hora) + ($horas * $sueldo_hora) + $bonos + $host + $gasolina
+        + $primav + $festivos + $primad - (59.81 + $comida + 75.46 + $descuentos);
+        $total = round($nomina_f, 2); // Redondea a 2 decimales sin formatear
+
+        return response()->json([
+            'success' => true,
+            'total' => $total
+        ]);
     }
 }
