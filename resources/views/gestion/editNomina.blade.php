@@ -48,12 +48,12 @@
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-8 mx-7">                    
                             <div class='grid grid-cols-1'>
                                 <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                    * Nombre
+                                    Nombre
                                 </label>
                                 <p>
                                     <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
                                     class='bg-gray-200 focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                    readonly value="{{$nomina->nombre}}">
+                                    readonly value="{{$nomina->nombre_real}}">
                                 </p>
                             </div>
                             <div class='grid grid-cols-1'>

@@ -31,7 +31,7 @@ class Nomina extends Model
     ];
 
     public function empleado(){
-        return $this->belongsTo(Empleados::class, 'curp', 'curp');
+        return $this->belongsTo(NumTrabajo::class, 'curp', 'numero');
     }
 
 }

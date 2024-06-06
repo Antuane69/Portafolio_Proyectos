@@ -72,7 +72,7 @@
             <p></p>
             <tr style="text-align:center;font-size:14px;font-weight: bold;">
                 <td style="text-align:center;" colspan="5">
-                    Nombre del Empleado: 
+                    Nombre del Empleado: {{$nomina->nombre_real}}
                 </td>
             </tr>
         </table>
@@ -189,7 +189,7 @@
             </tr>
             <tr style="font-weight: bold;">
                 <td colspan="2">
-                    NOMBRE: <div style="text-decoration: underline; display: inline;">{{$nomina->nombre}}</div>
+                    NOMBRE: <div style="text-decoration: underline; display: inline;">{{$nomina->nombre_real}}</div>
                 </td>
                 <td></td>
                 <td></td>

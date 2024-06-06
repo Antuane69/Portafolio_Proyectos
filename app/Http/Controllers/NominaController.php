@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Audit;
 use App\Models\Nomina;
+use App\Models\Empleados;
+use App\Models\NumTrabajo;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -15,8 +17,20 @@ class NominaController extends Controller
 {
 
     public function historico(){
-        
-        $nominas = Nomina::all();
+        $nominas = Nomina::with('empleado')->get();
+
+        foreach($nominas as $nomina){
+            if($nomina->empleado){
+                $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+                if($empleado_ob){
+                    $nomina->nombre_real = $empleado_ob->nombre;
+                }else{
+                    $nomina->nombre_real = $nomina->empleado->nombre;
+                }
+            }else{
+                $nomina->nombre_real = 'No existe en base de datos';
+            }
+        }
         // Suma todos los valores de la columna 'total'
         $total = Nomina::where('horas','!=','0')->sum('total');
     
@@ -28,7 +42,21 @@ class NominaController extends Controller
     }
 
     public function show(){
-        $nominas = Nomina::all();
+        $nominas = Nomina::with('empleado')->get();
+
+        foreach($nominas as $nomina){
+            if($nomina->empleado){
+                $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+                if($empleado_ob){
+                    $nomina->nombre_real = $empleado_ob->nombre;
+                }else{
+                    $nomina->nombre_real = $nomina->empleado->nombre;
+                }
+            }else{
+                $nomina->nombre_real = 'No existe en base de datos';
+            }
+        }
+
         $k = 0;
 
         return view('nomina.mostrarNomina',[
@@ -240,12 +268,22 @@ class NominaController extends Controller
 
     public function datos_pdf($id){
         $zonaHoraria = 'America/Mexico_City';
-        $nomina = Nomina::find($id);
+        $nomina = Nomina::with('empleado')->find($id);
+        if($nomina->empleado){
+            $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+            if($empleado_ob){
+                $nomina->nombre_real = $empleado_ob->nombre;
+            }else{
+                $nomina->nombre_real = $nomina->empleado->nombre;
+            }
+        }else{
+            $nomina->nombre_real = 'No existe en base de datos';
+        }
 
         // Obtén la fecha actual en la zona horaria especificada
         Carbon::setLocale('es');
-        $fecha_actual = Carbon::createFromFormat('Y-m-d H:i:s', $nomina->created_at);
-        $fecha_final = $fecha_actual->copy()->addDays(15);
+        $fecha_final = Carbon::createFromFormat('Y-m-d H:i:s', $nomina->created_at);
+        $fecha_actual = $fecha_final->copy()->subDays(15);
 
         $fechaFormateada1 = $fecha_actual->isoFormat('D [de] MMMM [del] YYYY');
         $fechaFormateada2 = $fecha_final->isoFormat('D [de] MMMM [del] YYYY');
@@ -263,7 +301,7 @@ class NominaController extends Controller
             ])->setPaper('letter', 'portrait');
 
         // Nombre del archivo PDF
-        $nombreArchivo = 'Nomina_' . $nomina->nombre . '.pdf';
+        $nombreArchivo = 'Nomina_' . $nomina->nombre_real . '.pdf';
 
         // Devolver la respuesta con el archivo adjunto
         return $pdf->stream($nombreArchivo); 
@@ -341,7 +379,17 @@ class NominaController extends Controller
 
     public function edit_show($id)
     {
-        $nomina = Nomina::find($id);
+        $nomina = Nomina::with('empleado')->find($id);
+        if($nomina->empleado){
+            $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+            if($empleado_ob){
+                $nomina->nombre_real = $empleado_ob->nombre;
+            }else{
+                $nomina->nombre_real = $nomina->empleado->nombre;
+            }
+        }else{
+            $nomina->nombre_real = 'No existe en base de datos';
+        }
 
         return view('gestion.editNomina',[
             'nomina' => $nomina
@@ -388,7 +436,7 @@ class NominaController extends Controller
             'nombre_usuario' => auth()->user()->nombre,
             'campos' => $campos,
             'fecha_cambio' => now(),
-            'tipo' => 'nomina',
+            'tipo' => 'Nomina',
         ]);
 
         return redirect()->route('nomina.historico')->with('success', 'Datos editados correctamente.');
@@ -415,6 +463,15 @@ class NominaController extends Controller
         return response()->json([
             'success' => true,
             'total' => $total
+        ]);
+    }
+
+    public function show_numtrab()
+    {
+        $trabajadores = NumTrabajo::all();
+
+        return view('gestion.mostrarNumeroTrabajadores',[
+            'trabajadores' => $trabajadores
         ]);
     }
 }

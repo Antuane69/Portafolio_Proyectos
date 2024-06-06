@@ -64,17 +64,6 @@
             </div>
         </div>
 
-        {{-- <div class="w-full flex justify-center items-center mb-2">
-            <div class="text-center">
-                @if ($horario != '')
-                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-2">Fecha del Horario Actual: 
-                    {{$horario->registro}}</p>
-                    <p id="NombreArea" class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-4">{{$nombreArea}}</p>
-                @else
-                    <p class="ml-3 font-bold text-xl mt-6 text-center content-center justify-center mb-2">No hay horarios creados actualmente.</p>                    
-                @endif
-            </div>           
-        </div> --}}
         <div class="alert" id="elementoOculto" style=" display: none; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; position: relative; padding: 0.75rem 1.25rem; margin-bottom: 1rem; border-radius: 10px; margin: 10px;">
             <p>No hay datos disponibles para mostrar en la tabla.</p>
         </div>
@@ -140,13 +129,6 @@
 
         <script>
             $(document).ready(function() {
-                $('.js-example-basic-multiple').select2({
-                    placeholder: 'Selecciona los Encargados',
-                    theme: "classic"
-                });
-            });
-
-            $(document).ready(function() {
                 $('#data-table').dataTable();
             });
             
@@ -158,7 +140,7 @@
 
                 var tipo = document.getElementById('tipoFiltro').value;
 
-                fetch(SITEURL + '/horario/filtro/editarHistorico',{
+                fetch(SITEURL + '/editarHistorico/filtro',{
                     method: 'POST',
                     body: JSON.stringify({
                         tipo: tipo,

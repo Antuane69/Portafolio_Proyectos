@@ -134,7 +134,7 @@ class DashboardController extends Controller
             $item->fecha = $aux->format('d/m/Y');
         }
 
-        $tipos = ['Empleado','Vacaciones','Falta al Reglamento','Incapacidad','Permiso','Herramienta','Uniforme','Stock','Baja'];
+        $tipos = ['Empleado','Vacaciones','Falta al Reglamento','Incapacidad','Permiso','Herramienta','Uniforme','Stock','Baja','Nomina'];
 
         return view('gestion.editarHistorico',[
             'historial' => $historial,

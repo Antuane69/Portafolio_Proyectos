@@ -109,7 +109,7 @@
                     <tbody>
                         @foreach ($nominas as $nomina)
                             <tr>  
-                                <td align="center" class="font-bold">{{ $nomina->curp }}</td>
+                                <td align="center" class="font-bold">{{$nomina->nombre_real}}</td>
                                 <td align="center">{{ $nomina->horas }}</td>
                                 <td align="center">{{ $nomina->minutos }}</td>
                                 <td align="center" class="font-bold">${{ $nomina->total }}</td>

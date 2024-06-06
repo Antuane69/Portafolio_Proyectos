@@ -509,13 +509,15 @@
                                 </button>
                                 <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
                                 transition duration-150 ease-in-out origin-top min-w-32">
-                                        <a href="{{ route('nomina.csv') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Subir Excel</li>
-                                        </a>
-                                        <a href="{{ route('nomina.historico') }}">
-                                            <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Nómina Actual</li>
-                                        </a>
-                                    </ul>
+                                    <a href="{{ route('nomina.csv') }}">
+                                        <li class="px-3 py-1 hover:bg-gray-100">Subir Excel</li>
+                                    </a>
+                                    <a href="{{ route('nomina.historico') }}">
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registro de Nómina Actual</li>
+                                    </a>
+                                    <a href="{{ route('nomina.numerotrabajador') }}">
+                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Relación Número de Trabajador</li>
+                                    </a>
                                 </ul>
                             </div>
                             @endif
