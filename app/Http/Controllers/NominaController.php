@@ -474,4 +474,61 @@ class NominaController extends Controller
             'trabajadores' => $trabajadores
         ]);
     }
+
+    public function store_numtrab(Request $request){
+        $this->validate($request, [
+        // ... tus reglas de validación ...
+            'numero' => 'required',
+            'nombre' => 'required',
+        ]);
+
+        NumTrabajo::create([
+            'numero' => $request->numero,
+            'nombre' => $request->nombre,
+        ]);
+
+        return redirect()->back()->with('success', 'Registro Guardado');
+    }
+
+    public function editshow_numtrab(Request $request, $id){
+        $this->validate($request, [
+        // ... tus reglas de validación ...
+            'numero' => 'required',
+            'nombre' => 'required',
+        ]);
+
+        $trabajador = NumTrabajo::find($id);
+        $trabajador->numero = $request->numero;
+        $trabajador->nombre = $request->nombre;
+        $trabajador->save();
+
+        return redirect()->back()->with('success', 'Registro Editado con Exito');
+    }
+
+    public function search_numtrab(Request $request){
+        $numeros = NumTrabajo::all();
+        $existe = false;
+        $numero = $request->numero;
+        $nombre = $request->nombre;
+        foreach($numeros as $num){
+            if($num->numero == $numero){
+                $existe = true;
+            }
+
+            if($num->nombre == $nombre){
+                $existe = true;
+            }            
+        }
+
+        return response()->json([
+            'success' => true,
+            'existe' => $existe
+        ]);
+    }
+
+    public function delete_numtrab($id){
+        NumTrabajo::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Registro Eliminado');
+    }
 }

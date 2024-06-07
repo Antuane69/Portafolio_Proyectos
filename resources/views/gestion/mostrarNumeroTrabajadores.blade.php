@@ -67,8 +67,53 @@
         <div class="mx-auto sm:px-6 lg:px-8" style="width:100 rem;">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-6 pb-4" style="width:100%;">                
                 <div class="flex justify-end">
-                    <button type="button" id="opcionesButton" class="mr-10 rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Registro Nuevo</button>
+                    <button type="button" id="opcionesButton" class="mr-10 rounded-md bg-gray-800 hover:bg-gray-600 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_1">Crear Registro Nuevo</button>
                 </div>
+                @if (session()->has('success'))
+                    <style>
+                        .auto-fade {
+                            animation: fadeOut 2s ease-in-out forwards;
+                        }
+
+                        @keyframes fadeOut {
+                            0% {
+                                opacity: 1;
+                            }
+                            90% {
+                                opacity: 1;
+                            }
+                            100% {
+                                opacity: 0;
+                                display: none;
+                            }
+                        }
+                    </style>
+                    <div class="alert alert-success auto-fade px-2 inline-flex flex-row text-green-600">
+                        {{ session()->get('success') }}
+                    </div> 
+                @elseif (session()->has('error'))
+                    <style>
+                        .auto-fade {
+                            animation: fadeOut 2s ease-in-out forwards;
+                        }
+
+                        @keyframes fadeOut {
+                            0% {
+                                opacity: 1;
+                            }
+                            90% {
+                                opacity: 1;
+                            }
+                            100% {
+                                opacity: 0;
+                                display: none;
+                            }
+                        }
+                    </style>
+                    <div class="auto-fade inline-flex flex-row text-red-600 bg-red-100 border border-red-400 rounded py-2 px-4 my-2">
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
                 <table id="data-table" class="stripe hover translate-table data-table pb-3 mb-4"
                     style="width:100%; padding-top: 2em;  padding-bottom: 2em;">
                     <thead class="mt-4">
@@ -92,62 +137,60 @@
                                                 Eliminar Registro
                                             </button>                        
                                         </form>   
-                                        <form action="{{ route('nomina.numerotrabajador.edit', $trabajador->id) }}" method="GET">
-                                            @csrf         
-                                            <button class="border-right bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2 px-3 py-1 mr-3 rounded-md mt-1">
-                                                Editar Registro
-                                            </button>                        
-                                        </form>   
+                                        <button type="button" id="editarButton" class="mr-10 rounded-md bg-yellow-500 hover:bg-yellow-700 text-white font-bold p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$trabajador->id}}">Editar Registro</button>
                                     </div>
                                 </td>
                             </tr> 
-                        @endforeach
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content" style="width: 600px; height: 360px;">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Crear Registro</h5>
-                                        <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div style="display: block; flex-direction: column; align-items: center;">
-                                            <div class="in-line flex justify-center object-center">
-                                                <form action="{{ route('nomina.numerotrabajador.store') }}" method="POST" class="mb-2">
-                                                    @csrf         
-                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7 mt-4"> 
-                                                        <div class='grid grid-cols-1 mt-5'>
-                                                            <label for="numero" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                                                Número de Trabajador
-                                                            </label>
-                                                            <p>
-                                                                <input type="number" name="numero" placeholder="Ingresa el número para identificar al empleado"
-                                                                class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('numero') border-red-800 bg-red-100 @enderror'
-                                                                required>
-                                                            </p>
+                            <div class="modal fade" id="exampleModal_{{$trabajador->id}}" tabindex="-1" aria-labelledby="exampleModalLabel_{{$trabajador->id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" style="width: 600px; height: 360px;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel_{{$trabajador->id}}">{{ $trabajador->id != 1 ? 'Editar Registro' : 'Crear Registro' }}</h5>
+                                            <button type="button" class="rounded bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-1 p-1" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="display: block; flex-direction: column; align-items: center;">
+                                                <div class="in-line flex justify-center object-center">                                                   
+                                                    <form @if($trabajador->id != 1) action="{{ route('nomina.numerotrabajador.editshow',$trabajador->id) }}" @else action="{{ route('nomina.numerotrabajador.store') }}" @endif method="POST" class="mb-2">
+                                                        @csrf         
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mx-7 mt-4"> 
+                                                            <div class='grid grid-cols-1 mt-5'>
+                                                                <label for="numero" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                                                    Número de Trabajador
+                                                                </label>
+                                                                <p>
+                                                                    <input type="number" name="numero" id="numero_id_{{$trabajador->id}}" placeholder="Ingresa el número para identificar al empleado"
+                                                                    class='focus:outline-none focus:ring-2 mb-1 numero-var focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('numero') border-red-800 bg-red-100 @enderror'
+                                                                    required @if($trabajador->id != 1) value="{{$trabajador->numero}}" @endif>
+                                                                </p>
+                                                            </div> 
+                                                            <div class='grid grid-cols-1'>
+                                                                <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
+                                                                    Nombre (lo más cercano a base de datos de empleados)
+                                                                </label>
+                                                                <p>
+                                                                    <input type="text" name="nombre" id="nombre_id_{{$trabajador->id}}" placeholder="Ingresa el nombre del empleado"
+                                                                    class='focus:outline-none focus:ring-2 mb-1 nombre-var focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nombre') border-red-800 bg-red-100 @enderror'
+                                                                    required @if($trabajador->id != 1) value="{{$trabajador->nombre}}" @endif>
+                                                                </p>
+                                                            </div>
+                                                            <div class="md:col-span-2 flex justify-center">
+                                                                <button type="submit" id="button_id_{{$trabajador->id}}" class="button_var border-right bg-green-600 hover:bg-green-700 text-white font-bold p-2 px-3 py-1 rounded-md mt-1">
+                                                                    Guardar Registro
+                                                                </button>   
+                                                                <p id="message_id_{{$trabajador->id}}" class="text-red-800 font-bold mt-1 message_var" hidden>
+                                                                    Registro duplicado en base de datos, intente otro número o nombre
+                                                                </p>   
+                                                            </div>                         
                                                         </div>
-                                                        <div class='grid grid-cols-1'>
-                                                            <label for="nombre" class="mb-1 bloack uppercase text-gray-800 font-bold">
-                                                                Nombre (lo mas cercano a base de datos de empleados)
-                                                            </label>
-                                                            <p>
-                                                                <input type="text" name="nombre" placeholder="Ingresa el nombre del empleado"
-                                                                class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('nombre') border-red-800 bg-red-100 @enderror'
-                                                                required>
-                                                            </p>
-                                                        </div>
-                                                        <div class="md:col-span-2 flex justify-center">
-                                                            <button type="submit" class="border-right bg-green-600 hover:bg-green-700 text-white font-bold p-2 px-3 py-1 rounded-md mt-1">
-                                                                Guardar Registro
-                                                            </button>   
-                                                        </div>                         
-                                                    </div>
-                                                </form> 
+                                                    </form> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> 
+                            </div> 
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -170,6 +213,60 @@
             $(document).ready(function() {
                 $('#data-table').dataTable();
             });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Agregar evento al botón de opciones al cargar la página
+                document.querySelectorAll('#opcionesButton, [id^="editarButton"]').forEach(button => {
+                    button.addEventListener('click', handleModalOpen);
+                });
+
+                function handleModalOpen(event) {
+                    // Obtener el modal específico al que se hizo clic
+                    const modal = document.querySelector(event.target.getAttribute('data-bs-target'));
+                    
+                    if (modal) {
+                        // Seleccionar elementos dentro del modal
+                        const numero_var = modal.querySelector('.numero-var');
+                        const nombre_var = modal.querySelector('.nombre-var');
+                        const button_var = modal.querySelector('.button_var');
+                        const message_var = modal.querySelector('.message_var');
+                        
+                        if (numero_var && nombre_var) {
+                            numero_var.addEventListener("input", function() {
+                                totalFunction(numero_var, nombre_var, button_var, message_var);
+                            });
+
+                            nombre_var.addEventListener("input", function() {
+                                totalFunction(numero_var, nombre_var, button_var, message_var);
+                            });
+                        }
+                    }
+                }
+
+                function totalFunction(numero_var, nombre_var, button_var, message_var) {
+                    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+                    var SITEURL = "{{ url('/') }}";
+
+                    var numero = numero_var.value;
+                    var nombre = nombre_var.value;
+
+                    fetch(SITEURL + `/nomina/buscar/numeroTrabajadores?numero=${numero}&nombre=${nombre}`, { method: 'get' })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.existe == true) {
+                                button_var.hidden = true;
+                                message_var.hidden = false;
+                            } else {
+                                message_var.hidden = true;
+                                button_var.hidden = false;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            });
+
         </script>
     @endsection
 </x-horarios>

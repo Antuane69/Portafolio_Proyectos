@@ -154,15 +154,15 @@ Route::middleware(['auth.redirect'])->group( function () {
     Route::get('/nomina/editarNominaVista/{id}',[NominaController::class, 'edit_show'])->name('editarNomina.show');
     Route::post('/nomina/editarNomina/{id}',[NominaController::class, 'edit_store'])->name('editarNomina.store');
     Route::get('/nomina/buscar/total',[NominaController::class, 'search_total'])->name('nomina.search_total');
-
+    
     //Nómina de Número de Trabajador
     Route::get('/nomina/numerotrabajador',[NominaController::class, 'show_numtrab'])->name('nomina.numerotrabajador');
-    Route::post('/nomina/numerotrabajador/eliminar/{id}',[NominaController::class, 'delete_numtrab'])->name('nomina.numerotrabajador.delete');
-    Route::get('/nomina/numerotrabajador/edit/{id}',[NominaController::class, 'edit_numtrab'])->name('nomina.numerotrabajador.edit');
+    Route::delete('/nomina/numerotrabajador/eliminar/{id}',[NominaController::class, 'delete_numtrab'])->name('nomina.numerotrabajador.delete');
     Route::post('/nomina/numerotrabajador/edit/guardar/{id}',[NominaController::class, 'editshow_numtrab'])->name('nomina.numerotrabajador.editshow');
     Route::post('/nomina/numerotrabajador/crear/guardar',[NominaController::class, 'store_numtrab'])->name('nomina.numerotrabajador.store');
- 
-});
+    Route::get('/nomina/buscar/numeroTrabajadores',[NominaController::class, 'search_numtrab'])->name('nomina.search_numtrab');
+    
+    });
 
 Route::middleware(['users.redirect'])->group( function () {
 
