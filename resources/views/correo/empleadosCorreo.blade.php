@@ -137,7 +137,14 @@
                         </a>                          
                     </div>
                     <p class="content-paragraph">
-                        El presente correo es con intención de comunicar que el contrato del empleado(a) {{$solicitud->nombre}} está a punto de vencer el dia {{$solicitud->fecha_3erContrato}}.
+                        El presente correo es con intención de comunicar que el contrato del empleado(a) {{$solicitud->nombre}} está a punto de vencer el dia
+                        @if($aux == 'Contrato Indefinido')
+                            {{ $solicitud->indefinido }}.
+                        @elseif($aux == 'Segundo Contrato')
+                            {{ $solicitud->segundo }}.
+                        @elseif($aux == 'Tercer Contrato')
+                            {{ $solicitud->tercero }}.
+                        @endif
                     </p>
                     <p class="content-paragraph font-bold text-xl">Datos de la Solicitud:</p>
                     <div class="data-table">
@@ -154,11 +161,13 @@
                                 <tr>
                                     <td align="center">{{ $solicitud->nombre }}</td>
                                     <td align="center" style="font-weight: bold;">{{ $solicitud->puesto }}</td>
-                                    <td align="center">{{ $solicitud->fecha_ingreso }}</td>
+                                    <td align="center">{{ $solicitud->ingreso }}</td>
                                     @if($aux == 'Contrato Indefinido')
-                                        <td align="center">{{ $solicitud->fecha_indefinido }}</td>
-                                    @else
-                                        <td align="center">{{ $solicitud->fecha_3erContrato }}</td>
+                                        <td align="center">{{ $solicitud->indefinido }}</td>
+                                    @elseif($aux == 'Segundo Contrato')
+                                        <td align="center">{{ $solicitud->segundo }}</td>
+                                    @elseif($aux == 'Tercer Contrato')
+                                        <td align="center">{{ $solicitud->tercero }}</td>
                                     @endif
                                 </tr>
                             </tbody>

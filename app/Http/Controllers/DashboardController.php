@@ -19,20 +19,28 @@ class DashboardController extends Controller
         $tipo = 'Contrato';
 
         foreach($empleados as $empleado){
-            $diferencia = $fecha_actual->diff($empleado->fecha_3erContrato); 
+            $diferencia = $fecha_actual->diff($empleado->fecha_2doContrato); 
             $anios = $diferencia->y;
             $meses = $diferencia->m;
             $dias = $diferencia->d;
 
-            $diferencia2 = $fecha_actual->diff($empleado->fecha_indefinido); 
-            $anio = $diferencia2->y;
-            $mes = $diferencia2->m;
-            $dia = $diferencia2->d;
+            $diferencia2 = $fecha_actual->diff($empleado->fecha_3erContrato); 
+            $anios2 = $diferencia2->y;
+            $meses2 = $diferencia2->m;
+            $dias2 = $diferencia2->d;
+
+            $diferencia3 = $fecha_actual->diff($empleado->fecha_indefinido); 
+            $anios3 = $diferencia3->y;
+            $meses3 = $diferencia3->m;
+            $dias3 = $diferencia3->d;
 
             if($anios == 0 && $meses == 0 && $dias < 5){
+                $aux = 'Segundo Contrato';
+                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
+            }elseif($anios2 == 0 && $meses2 == 0 && $dias2 < 5){
                 $aux = 'Tercer Contrato';
                 Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
-            }elseif($anio == 0 && $mes == 0 && $dia < 6){
+            }elseif($anios3 == 0 && $meses3 == 0 && $dias3 < 5){
                 $aux = 'Contrato Indefinido';
                 Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
             }

@@ -103,11 +103,23 @@ class TokyoCorreos extends Mailable
         }elseif($this->tipo == 'Contrato'){
             $solicitud = Empleados::find($this->id);
 
-            if($this->aux == 'Tercer Contrato'){
+            if($this->aux == 'Segundo Contrato'){
+                $titulo = 'Segundo Contrato del Empleado Apunto de Vencer';
+            }elseif($this->aux == 'Tercer Contrato'){
                 $titulo = 'Tercer Contrato del Empleado Apunto de Vencer';
             }elseif($this->aux == 'Contrato Indefinido'){
                 $titulo = 'Contrato Indefinido del Empleado Apunto de Vencer';
             }
+
+            $auxf = new Carbon($solicitud->fecha_2doContrato);
+            $auxf2 = new Carbon($solicitud->fecha_3erContrato);
+            $auxf3 = new Carbon($solicitud->fecha_indefinido);
+            $auxf4 = new Carbon($solicitud->fecha_ingreso);
+
+            $solicitud->segundo = $auxf->format('d/m/Y');
+            $solicitud->tercero = $auxf2->format('d/m/Y');
+            $solicitud->indefinido = $auxf3->format('d/m/Y');
+            $solicitud->ingreso = $auxf4->format('d/m/Y');
 
             $vista = 'correo.empleadosCorreo';
 
