@@ -21,7 +21,8 @@ class Uniformes extends Model
         'codigo',
         'cantidad',
         'total',
-        'talla'
+        'talla',
+        'exportado'
     ];
 
     public function empleado(){

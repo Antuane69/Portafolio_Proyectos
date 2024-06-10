@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\Audit;
 use App\Models\Nomina;
 use App\Models\Empleados;
+use App\Models\Uniformes;
 use App\Models\NumTrabajo;
+use App\Models\PivoteNomina;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -69,8 +71,61 @@ class NominaController extends Controller
     public function store(Request $request){
         $nominas = Nomina::all();
         $k = 0;
-
+        
+        
         foreach($nominas as $nomina){
+            $zonaHoraria = 'America/Mexico_City';
+            // Obtén la fecha actual en la zona horaria especificada
+            Carbon::setLocale('es');
+            $fecha_final = Carbon::createFromFormat('Y-m-d H:i:s', $nomina->created_at);
+            $fecha_actual = $fecha_final->copy()->subDays(15);
+
+            $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+
+            if($empleado_ob){
+                // Formatear las fechas para la consulta
+                $fecha_inicio_format = $fecha_actual->toDateTimeString();
+                $fecha_final_format = $fecha_final->toDateTimeString();
+
+                $uniformes = Uniformes::where('curp', $empleado_ob->curp)
+                ->whereBetween('created_at', [$fecha_inicio_format, $fecha_final_format])->get();
+
+                $uniformes_total = Uniformes::where('curp', $empleado_ob->curp)->where('exportado','!=',true)
+                ->whereBetween('created_at', [$fecha_inicio_format, $fecha_final_format])->sum('total');
+                $uniformes_nomina = round(($uniformes_total/3),2);
+
+                foreach($uniformes as $item){
+                    if($item->exportado == false){
+                        for($i=0;$i<3;$i++){
+                            PivoteNomina::create([
+                                'id_nomina' => $nomina->curp,
+                                'curp' => $item->curp,
+                                'uniforme' => $uniformes_nomina,
+                            ]);
+                        }
+                        $item->exportado = true;
+                        $item->save();
+                    }
+                }
+                $pivote = PivoteNomina::where('id_nomina',$nomina->curp)->first();
+                if($pivote){
+                    if($pivote->exportado != true){
+                        $uniforme = $pivote->uniforme;
+                        $pivote->exportado = true;                    
+                        $pivote->save();
+                    }
+                }else{
+                    $uniforme = 0;
+                }
+                if($empleado_ob->salario_dia == 0){
+                    $sueldo_hora = 260 / 6;
+                }else{
+                    $sueldo_hora = $empleado_ob->salario_dia / 6;
+                }
+            }else{
+                $sueldo_hora = 260 / 6;
+            }
+
             $nomina->imss = 59.81;
             $nomina->prima_v = $request->input("prima_vacacional" . $k);
             $nomina->festivos = $request->input("festivos" . $k);
@@ -81,9 +136,8 @@ class NominaController extends Controller
             $nomina->host = $request->input("host" . $k); 
             $nomina->gasolina = $request->input("gasolina" . $k); 
 
-            $sueldo_hora = 260 / 6;
             $nomina_f = (($nomina->minutos/60) * $sueldo_hora) + ($nomina->horas * $sueldo_hora) + $nomina->bonos + $nomina->host + $nomina->gasolina
-            + $nomina->prima_v + $nomina->festivos + $nomina->prima_d - ($nomina->imss + $nomina->comida + 75.46 + $nomina->descuentos);
+            + $nomina->prima_v + $nomina->festivos + $uniforme + $nomina->prima_d - ($nomina->imss + $nomina->comida + 75.46 + $nomina->descuentos);
             $nomina_total = round($nomina_f, 2); // Redondea a 2 decimales sin formatear
 
             // Guarda el valor redondeado directamente
@@ -124,7 +178,17 @@ class NominaController extends Controller
         $numero_trabajo = 0;
         $aux = false;
 
+        $nominas = Nomina::all();
+        foreach($nominas as $nomina){
+            $pivotes = PivoteNomina::where('id_nomina',$nomina->curp)->get();
+            foreach($pivotes as $pivote){
+                $pivote->delete();
+                break;
+            }
+        }
+
         Nomina::truncate();
+
         foreach($data as $datos){
             $cont++;
             if($cont%2 == 1){
@@ -268,18 +332,7 @@ class NominaController extends Controller
 
     public function datos_pdf($id){
         $zonaHoraria = 'America/Mexico_City';
-        $nomina = Nomina::with('empleado')->find($id);
-        if($nomina->empleado){
-            $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
-            if($empleado_ob){
-                $nomina->nombre_real = $empleado_ob->nombre;
-            }else{
-                $nomina->nombre_real = $nomina->empleado->nombre;
-            }
-        }else{
-            $nomina->nombre_real = 'No existe en base de datos';
-        }
-
+        $nomina = Nomina::with('empleado','pivote')->find($id);
         // Obtén la fecha actual en la zona horaria especificada
         Carbon::setLocale('es');
         $fecha_final = Carbon::createFromFormat('Y-m-d H:i:s', $nomina->created_at);
@@ -287,8 +340,21 @@ class NominaController extends Controller
 
         $fechaFormateada1 = $fecha_actual->isoFormat('D [de] MMMM [del] YYYY');
         $fechaFormateada2 = $fecha_final->isoFormat('D [de] MMMM [del] YYYY');
-        
-        $salario = 260;
+
+        $uniformes_nomina = "";
+
+        if($nomina->empleado){
+            $empleado_ob = Empleados::where('nombre', 'LIKE' , $nomina->empleado->nombre . '%')->first();
+            if($empleado_ob){
+                $nomina->nombre_real = $empleado_ob->nombre;
+                $salario = $empleado_ob->salario_dia;
+            }else{
+                $nomina->nombre_real = $nomina->empleado->nombre;
+                $salario = 260;
+            }
+        }else{
+            $nomina->nombre_real = 'No existe en base de datos';
+        }
         $salario_h = round(($salario/6),2);
 
         $pdf = Pdf::loadView('PDF.crearNominaPDF',[

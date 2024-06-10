@@ -140,7 +140,12 @@
                 <td style="border: 1px solid #262626;text-align: center;" colspan="2">PRIMA DOMINICAL</td>
                 <td style="border: 1px solid #262626;text-align: center;">${{$nomina->prima_d}}</td>
                 <td style="border: 1px solid #262626;text-align: center;">UNIFORMES</td>
-                <td style="border: 1px solid #262626;text-align: center;font-weight: bold;">--</td>
+                <td style="border: 1px solid #262626;text-align: center;font-weight: bold;">
+                   @if (count($nomina->pivote) > 0)
+                   ${{$nomina->pivote[0]->uniforme}}
+                   @else
+                   $
+                   @endif</td>
                 <p></p>
             </tr>
             <tr style="font-size:10">

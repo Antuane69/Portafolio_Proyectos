@@ -28,10 +28,16 @@ class Nomina extends Model
         'bonos',
         'host',
         'gasolina',
+        'uniformes',
+        'uniformes_export',
     ];
 
     public function empleado(){
         return $this->belongsTo(NumTrabajo::class, 'curp', 'numero');
+    }
+
+    public function pivote(){
+        return $this->hasMany(PivoteNomina::class, 'id_nomina', 'curp');
     }
 
 }
