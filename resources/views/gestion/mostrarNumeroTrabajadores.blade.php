@@ -230,27 +230,24 @@
                         const nombre_var = modal.querySelector('.nombre-var');
                         const button_var = modal.querySelector('.button_var');
                         const message_var = modal.querySelector('.message_var');
-                        
+
                         if (numero_var && nombre_var) {
                             numero_var.addEventListener("input", function() {
-                                totalFunction(numero_var, nombre_var, button_var, message_var);
+                                validateField('numero', numero_var.value, button_var, message_var, modal);
                             });
 
                             nombre_var.addEventListener("input", function() {
-                                totalFunction(numero_var, nombre_var, button_var, message_var);
+                                validateField('nombre', nombre_var.value, button_var, message_var, modal);
                             });
                         }
                     }
                 }
 
-                function totalFunction(numero_var, nombre_var, button_var, message_var) {
+                function validateField(field, value, button_var, message_var, modal) {
                     const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
                     var SITEURL = "{{ url('/') }}";
 
-                    var numero = numero_var.value;
-                    var nombre = nombre_var.value;
-
-                    fetch(SITEURL + `/nomina/buscar/numeroTrabajadores?numero=${numero}&nombre=${nombre}`, { method: 'get' })
+                    fetch(SITEURL + `/nomina/buscar/numeroTrabajadores?${field}=${value}`, { method: 'get' })
                         .then(response => response.json())
                         .then(data => {
                             if (data.existe == true) {

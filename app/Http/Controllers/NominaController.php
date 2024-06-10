@@ -94,14 +94,18 @@ class NominaController extends Controller
                 ->whereBetween('created_at', [$fecha_inicio_format, $fecha_final_format])->sum('total');
                 $uniformes_nomina = round(($uniformes_total/3),2);
 
+                $aux = false;
                 foreach($uniformes as $item){
                     if($item->exportado == false){
-                        for($i=0;$i<3;$i++){
-                            PivoteNomina::create([
-                                'id_nomina' => $nomina->curp,
-                                'curp' => $item->curp,
-                                'uniforme' => $uniformes_nomina,
-                            ]);
+                        if($aux != true){
+                            for($i=0;$i<3;$i++){
+                                PivoteNomina::create([
+                                    'id_nomina' => $nomina->curp,
+                                    'curp' => $item->curp,
+                                    'uniforme' => $uniformes_nomina,
+                                ]);
+                            }
+                            $aux = true;
                         }
                         $item->exportado = true;
                         $item->save();
@@ -574,16 +578,27 @@ class NominaController extends Controller
     public function search_numtrab(Request $request){
         $numeros = NumTrabajo::all();
         $existe = false;
-        $numero = $request->numero;
-        $nombre = $request->nombre;
+
+        $numero = $request->input('numero');
+        $nombre = $request->input('nombre');
+    
         foreach($numeros as $num){
-            if($num->numero == $numero){
-                $existe = true;
+
+            // Verificamos si se envió el número
+            if ($request->has('numero')) {
+                if($num->numero == $numero){
+                    $existe = true;
+                    break;
+                }
             }
 
-            if($num->nombre == $nombre){
-                $existe = true;
-            }            
+            // Verificamos si se envió el número
+            if ($request->has('nombre')) {
+                if($num->nombre == $nombre){
+                    $existe = true;
+                    break;
+                }
+            }      
         }
 
         return response()->json([
