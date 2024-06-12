@@ -173,7 +173,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <p class="content-paragraph font-bold text-m">Favor de ingresar a la página para actualizar el contrato del empleado: <a href="{{ route('editarEmpleado.show',$solicitud->id) }}" target="_blank" style="font-weight:bold;color:#0369a1">Da click aquí.</a> </p>
+                    <p class="content-paragraph font-bold text-m">Para descargar e imprimir el contrato: <a href="{{ route('empleados.crear_datospdf',$solicitud->id) }}" target="_blank" style="font-weight:bold;color:#0369a1">De click aquí.</a> </p>
+                    <p class="content-paragraph font-bold text-m mt-4">Para ingresar a la página para actualizar el contrato del empleado: <a href="{{ route('editarEmpleado.show',$solicitud->id) }}" target="_blank" style="font-weight:bold;color:#0369a1">De click aquí.</a> </p>
                 </div>
                 
                 <div class="footer-section">

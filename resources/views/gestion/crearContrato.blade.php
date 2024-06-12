@@ -60,14 +60,16 @@
                                     * Estado Civil
                                 </label>
                                 <p>
-                                    {{-- <input type="text" name="estadocivil" id="estadocivil"
-                                    class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('estadocivil') border-red-800 bg-red-100 @enderror'
-                                    required placeholder="Ingrese el estado civil del Empleado"> --}}
-
-                                    <select id="estadocivil" name="estadocivil" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                        <option value="" disabled selected>Seleccione una Opción</option>
+                                    <select id="estadocivil" name="civil" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
+                                        @if ($empleado->civil == '')
+                                            <option value="" disabled selected>Seleccione una Opcion</option>
+                                        @endif
                                         @foreach($opciones2 as $opcion)
-                                            <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @if ($empleado->civil == $opcion)
+                                                <option value="{{$opcion}}" selected>{{$opcion}}</option>
+                                            @else
+                                                <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 
@@ -84,9 +86,15 @@
                                 </label>
                                 <p>
                                     <select id="sexo" name="sexo" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                        <option value="" disabled selected>Seleccione una Opción</option>
+                                        @if ($empleado->sexo == '')
+                                            <option value="" disabled selected>Seleccione una Opcion</option>
+                                        @endif
                                         @foreach($opciones3 as $opcion)
-                                            <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @if ($empleado->sexo == $opcion)
+                                                <option value="{{$opcion}}" selected>{{$opcion}}</option>
+                                            @else
+                                                <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 
@@ -103,9 +111,15 @@
                                 </label>
                                 <p>
                                     <select id="descanso" name="descanso" class='w-5/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                        <option value="" disabled selected>Seleccione una Opción</option>
+                                        @if ($empleado->descanso == '')
+                                            <option value="" disabled selected>Seleccione una Opcion</option>
+                                        @endif
                                         @foreach($opciones4 as $opcion)
-                                            <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @if ($empleado->descanso == $opcion)
+                                                <option value="{{$opcion}}" selected>{{$opcion}}</option>
+                                            @else
+                                                <option value="{{$opcion}}">{{$opcion}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 
@@ -123,7 +137,7 @@
                                 <p>
                                     <input type="number" name="quincena" id="quincena"
                                     class='focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('quincena') border-red-800 bg-red-100 @enderror'
-                                    required placeholder="Ingrese la quincena en pesos mexicanos del Empleado">
+                                    required placeholder="Ingrese la quincena en pesos mexicanos del Empleado" step="0.01" min="0" value="{{$empleado->quincena}}">
                                     
                                     @error('quincena')
                                         <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">
@@ -137,9 +151,9 @@
                                     * Domicilio
                                 </label>
                                 <p>
-                                    <textarea id="domicilio" name="domicilio"
+                                    <textarea id="domicilio" name="domicilio_contrato"
                                     class="focus:outline-none focus:ring-2 mb-1  focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6 @error('domicilio') border-red-800 bg-red-100 @enderror"
-                                    required placeholder="Ingrese el domicilio del Empleado"></textarea>
+                                    required placeholder="Ingrese el domicilio del Empleado">{{$empleado->domicilio_contrato}}</textarea>
                                     
                                     @error('domicilio')
                                         <p class="bg-red-600 text-white font-medium my-2 rounded-lg text-sm p-2 text-center">

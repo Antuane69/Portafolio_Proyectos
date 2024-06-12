@@ -48,6 +48,11 @@ class Empleados extends Authenticatable
         'ine_trasera',
         'ine_delantera',
         'liquidacion_dias',
+        'civil',
+        'sexo',
+        'descanso',
+        'quincena',
+        'domicilio_contrato',
     ];
 
     /**

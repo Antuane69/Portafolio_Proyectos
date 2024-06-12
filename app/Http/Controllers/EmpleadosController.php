@@ -468,6 +468,14 @@ class EmpleadosController extends Controller
 
     public function datos_pdf(Request $request, $id){
         $empleado = Empleados::find($id);
+        $empleado->civil = $request->civil;
+        $empleado->sexo = $request->sexo;
+        $empleado->descanso = $request->descanso;
+        $empleado->quincena = $request->quincena;
+        $empleado->domicilio_contrato = $request->domicilio_contrato;
+        $empleado->save();
+        
+        $empleado = Empleados::find($id);
         // Especifica la zona horaria
         $zonaHoraria = 'America/Mexico_City';
 
@@ -485,7 +493,7 @@ class EmpleadosController extends Controller
         $empleado->nacionalidad = 'Mexicana';
         $empleado->estado_civil = $request->estadocivil;
         $empleado->sexo = $request->sexo;
-        $empleado->domicilio = $request->domicilio;
+        $empleado->domicilio = $request->domicilio_contrato;
 
         $titulo = $request->tipo;
 
@@ -496,7 +504,9 @@ class EmpleadosController extends Controller
         $empleado->edad = $edad;
         $empleado->quincena = $request->quincena;
         $empleado->descanso = $request->descanso;
-        
+
+
+
         $pdf = Pdf::loadView('PDF.crearContratoPDF',[
             'empleado' => $empleado,
             'fecha' => $fecha_actual,
