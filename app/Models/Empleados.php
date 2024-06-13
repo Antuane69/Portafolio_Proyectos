@@ -53,6 +53,8 @@ class Empleados extends Authenticatable
         'descanso',
         'quincena',
         'domicilio_contrato',
+        'evaluacion_export',
+        'evaluacion_fecha',
     ];
 
     /**

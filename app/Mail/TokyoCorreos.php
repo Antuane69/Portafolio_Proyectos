@@ -125,7 +125,15 @@ class TokyoCorreos extends Mailable
 
         }elseif($this->tipo == 'Evaluacion'){            
             $titulo = 'ACTITUDES BÁSICO';
-            $solicitud = Carbon::now()->format('d/m/Y');
+            $solicitud = "";
+
+            if($this->aux == 'Evaluacion 3'){
+                $empleado = Empleados::find($this->id);
+                $empleado->evaluacion_export = true;
+                $empleado->evaluacion_fecha = Carbon::now();
+                $empleado->save();
+            }
+
             $vista = 'correo.evaluacionesCorreo';
 
         }else{
