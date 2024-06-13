@@ -37,13 +37,20 @@ class DashboardController extends Controller
             if($anios == 0 && $meses == 0 && $dias < 5){
                 $aux = 'Segundo Contrato';
                 Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
+                $tipo = 'Evaluacion';
+                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
             }elseif($anios2 == 0 && $meses2 == 0 && $dias2 < 5){
                 $aux = 'Tercer Contrato';
+                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
+                $tipo = 'Evaluacion';
                 Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
             }elseif($anios3 == 0 && $meses3 == 0 && $dias3 < 5){
                 $aux = 'Contrato Indefinido';
                 Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
+                $tipo = 'Evaluacion';
+                Mail::to('antuanealex49@gmail.com')->send(new TokyoCorreos($tipo,$empleado->id,$aux));
             }
+            $tipo = 'Contrato';
 
             $dif_vacaciones = $fecha_actual->diff($empleado->fecha_ingreso); 
             $anioTrabajado = $dif_vacaciones->y;

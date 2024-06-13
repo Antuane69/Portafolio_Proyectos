@@ -43,7 +43,7 @@ class TokyoCorreos extends Mailable
     public function build()
     {
         $fecha = Carbon::now()->format('d/m/Y');
-
+        
         if($this->tipo == 'Horarios'){
             
             if($this->aux == 'Servicio'){
@@ -122,6 +122,11 @@ class TokyoCorreos extends Mailable
             $solicitud->ingreso = $auxf4->format('d/m/Y');
 
             $vista = 'correo.empleadosCorreo';
+
+        }elseif($this->tipo == 'Evaluacion'){            
+            $titulo = 'ACTITUDES BÁSICO';
+            $solicitud = Carbon::now()->format('d/m/Y');
+            $vista = 'correo.evaluacionesCorreo';
 
         }else{
             return redirect()->back();
