@@ -10,7 +10,6 @@ class Vacaciones extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
     protected $dates = ['deleted_at'];
     protected $table = "vacaciones";
 
@@ -29,5 +28,4 @@ class Vacaciones extends Model
     public function empleado(){
         return $this->belongsTo(Empleados::class, 'curp', 'curp');
     }
-
 }
