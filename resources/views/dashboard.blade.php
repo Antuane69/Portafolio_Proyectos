@@ -10,6 +10,11 @@
     align-items: center;
     display: flex;
 }
+.footer-class{
+    cursor: pointer;
+    justify-content: space-between;
+    margin-right: 16px;
+}
 
 .img-contenedor {
     width:300px;
@@ -34,6 +39,16 @@
     border: 2px solid black;
 }
 
+/* public/css/style.css */
+.hover-container {
+    transition: transform 0.5s ease;
+}
+
+.hover-container:hover {
+    /* background-color: coral; */
+    transform: scale(1.02);
+}
+
 </style>
 <x-app2>
     @section('title', 'Portafolio de Evidencias')
@@ -48,19 +63,19 @@
         
         <main id="main" style="background-color: #EAF2F8;font-family:Lato,sans-serif">
             <section>
-                <div class="container flex justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
+                <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
                     <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2" style="flex-wrap: wrap;text-align:justify">
                         <p>
                             Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
                         </p>
                         <br>
                         <b>Desde:</b>
-                        <li>Conexiones a lectores de huellas.</li>
-                        <li>Exportación a excel, pdf y, o word.</li>
-                        <li>Puntos de venta.</li>
-                        <li>Envios de correos automáticos.</li>
-                        <li>Gestión de empleados (contratos, permisos, liquidaciones y actas administrativas).</li>
-                        <li>Gestión de insumos (herramientas, uniformes, mermas y solicitud a proveedores automática).</li>
+                        <li>Conexiones a Lectores de Huellas.</li>
+                        <li>Exportación a Excel, PDF y, o Word.</li>
+                        <li>Puntos de Venta.</li>
+                        <li>Envios de Correos Automáticos.</li>
+                        <li>Gestión de Empleados (contratos, permisos, liquidaciones y actas administrativas).</li>
+                        <li>Gestión de Insumos (herramientas, uniformes, mermas y solicitud a proveedores automática).</li>
                         <li>Gestión de Horarios (asignaciones de trabajadores, faltas, retardos y vacaciones).</li>
                     </div>
                     <div class="w-1/3 flex justify-between">
@@ -68,7 +83,7 @@
                         <img src="{{asset('assets/portafolio2.jpg')}}" class="rounded-lg" alt="Portafolio img 1"/>
                     </div>
                 </div>
-                <div class="container flex justify-between">
+                <div class="container flex hover-container justify-between">
                     <div class="content-center py-4 p-2 w-2/3 shadow-xl rounded-lg text-md mt-12" style="background:#C86E1C" data-aos="fade-up">
                         <div class="my-2 mx-4" style="flex-wrap: wrap;text-align:justify;color:white;font-size:18px">
                             <p style="font-size:22px;text-align:center;font-weight:600;">
@@ -105,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container flex justify-between">
+                <div class="container flex hover-container justify-between">
                     <div class="content-center py-4 p-2 shadow-xl rounded-lg mt-12" style="background:#6C3483 ;width:45%" data-aos="fade-up">
                         <p class="text-center justify-center items-center text-white font-bold text-lg">Plantillas Enfocadas a la Optimización de Procesos</p>
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -191,11 +206,38 @@
                     </div>
                 </div>
             </section>
-
-            {{-- <!-- ======= Contact Section ======= -->
-            <div id="preloader"></div>
-            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-                    class="bi bi-arrow-up-short"></i></a> --}}
+            <section class="mt-24 p-10" style="background-color: #F79C2E">
+                <div class="container text-center content-center items-center">
+                    <p style="color: black;font-weight:700;font-size:22px">PIXEL PERFECT</p>
+                    <div style="width:30%;margin-left:385px;border-top:2px solid black"></div>
+                    <div class="inline-flex mt-4">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                            <div class="footer-class">
+                                <img src="{{asset('assets/correo.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                        </a>
+                        <a href="https://www.instagram.com/atun_dolorescr7" target="_blank">
+                            <div class="footer-class">
+                                <img src="{{asset('assets/instagram.png')}}" style="width:40px;height:40px" alt="Logo Instagram">
+                            </div>
+                        </a>
+                        <a href="https://wa.me/523221974630?text=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                            <div class="footer-class">
+                                <img src="{{asset('assets/whatsapp.png')}}" style="width:40px;height:40px" alt="Logo WhatsApp">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section style="background-color: #000;border-top:1px solid white" class='p-0.5'>
+                <div class="container content-center items-center text-justify text-wrap">
+                    <p style="color: white;font-weight:500;font-size:14px;margin-top:10px">
+                        Copyright © 2024 - 2024 PixelPerfect. Todos los derechos reservados. La marca Pixel Perfect es una orgullosa start-up mexicana.
+                        El uso de este sitio está sujeto a las condiciones de uso expresas. Al utilizar este sitio, tú indicas que aceptas cumplir con estos Términos universales de servicio.
+                    </p>
+                </div>
+            </section>
+        </main>
     </body>
 </x-app2>
 <script src="{{ asset('js/app.js') }}"></script>
