@@ -69,11 +69,18 @@
         background-color: #F9F904;;
         z-index: 50;
     }
+    .text{
+        text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    }
 </style>
 <nav x-data="{ open: false }" class="border-b border-gray-100" style="background-color: #1C0B49">
     <div class="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex text">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -93,15 +100,10 @@
                                 Solicitar Servicio
                             </button>
                         </div>
-                        <div class="group inline-block items-center ml-6" align="left" width="30">
+
+                        <div class="group items-center inline-block" width="30" style="margin-left:460px">
                             <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
                                 Más Información
-                            </button>
-                        </div>
-
-                        <div class="group items-center inline-block" width="30" style="margin-left:320px">
-                            <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
-                                Descargar CV
                             </button>
                         </div>
                         {{-- <div class="group inline-block items-center ml-3" align="left" width="30">

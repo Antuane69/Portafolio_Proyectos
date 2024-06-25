@@ -40,7 +40,7 @@
         <x-jet-banner />
         
 
-        <div class="min-h-screen">
+        <div class="min-h-screen" style="background: linear-gradient(#d5c6f6, #ffe7d1);">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -56,6 +56,8 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <x-footer/>
         </div>
 
         @stack('modals')

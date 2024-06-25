@@ -29,9 +29,8 @@
     <body class="font-sans antialiased">
         <div id="preloader"></div>
         <x-jet-banner />
-        
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen" style="background: linear-gradient(to right, #EAF2F8, #E5832C)">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -47,6 +46,8 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <x-footer/>
 
         </div>
 

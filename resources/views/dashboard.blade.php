@@ -10,11 +10,6 @@
     align-items: center;
     display: flex;
 }
-.footer-class{
-    cursor: pointer;
-    justify-content: space-between;
-    margin-right: 16px;
-}
 
 .img-contenedor {
     width:300px;
@@ -30,7 +25,7 @@
 .img-dentro-carousel {
     width: 800px;
     height: auto;
-    max-height: 350px;
+    max-height: auto;
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -43,10 +38,54 @@
 .hover-container {
     transition: transform 0.5s ease;
 }
-
+/* 
 .hover-container:hover {
-    /* background-color: coral; */
+    /* background-color: coral; 
     transform: scale(1.02);
+} */
+
+.text{
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+.text-c2{
+    text-shadow: 
+        -0.5px -0.5px 0 #000,  
+        0.5px -0.5px 0 #000,
+        -0.5px 0.5px 0 #000,
+        0.5px 0.5px 0 #000;
+}
+
+.titulo-texto{
+    font-size: 24px;
+    font-weight: 700;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 6px;
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.texto-container{
+    font-size: 18px;
+    font-weight: 200;
+    display: flex;
+    margin: 3px 3px 3px 3px;
+    color:white;
+    flex-wrap: wrap;
+    text-align:justify;
+    align-items: center;
+    width: 80%;
+    margin-left: 30px;
 }
 
 </style>
@@ -54,17 +93,17 @@
     @section('title', 'Portafolio de Evidencias')
 
     <body>
-        <section class="d-flex align-items-center shadow-xl" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
+        <section class="d-flex align-items-center shadow-xl text" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
             <div class="container" data-aos="zoom-out" data-aos-delay="100">
                 <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1>
-                <h2 style="color:white">El lugar perfecto para organizar su <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
+                <h2 style="color:white">El lugar perfecto para organizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
             </div>
         </section>
         
-        <main id="main" style="background-color: #EAF2F8;font-family:Lato,sans-serif">
+        <main id="main">
             <section>
                 <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
-                    <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2" style="flex-wrap: wrap;text-align:justify">
+                    <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2 text" style="flex-wrap: wrap;text-align:justify">
                         <p>
                             Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
                         </p>
@@ -84,7 +123,7 @@
                     </div>
                 </div>
                 <div class="container flex hover-container justify-between">
-                    <div class="content-center py-4 p-2 w-2/3 shadow-xl rounded-lg text-md mt-12" style="background:#C86E1C" data-aos="fade-up">
+                    <div class="content-center py-4 p-2 w-2/3 shadow-xl rounded-lg text-md mt-12" style="background:#cb7020" data-aos="fade-up">
                         <div class="my-2 mx-4" style="flex-wrap: wrap;text-align:justify;color:white;font-size:18px">
                             <p style="font-size:22px;text-align:center;font-weight:600;">
                                 Contamos con varios proyectos elaborados a empresas comerciales y administrativas como:
@@ -103,7 +142,7 @@
                         </div>
                     </div>
                     <div class="py-4 p-2 content-center shadow-lg rounded-lg w-1/3 text-md mt-12 ml-3" style="background:#1C0B49" data-aos="fade-up">
-                        <div class="my-2 mx-4 flex-col" style="flex-wrap: wrap;text-align:justify;color:white;">
+                        <div class="my-2 mx-4 flex-col text" style="flex-wrap: wrap;text-align:justify;color:white;">
                             <div class="content-center">
                                 <p class="uppercase text-2xl" style="font-weight:900">
                                     Con precios desde $1,500 mxn.
@@ -121,8 +160,8 @@
                     </div>
                 </div>
                 <div class="container flex hover-container justify-between">
-                    <div class="content-center py-4 p-2 shadow-xl rounded-lg mt-12" style="background:#6C3483 ;width:45%" data-aos="fade-up">
-                        <p class="text-center justify-center items-center text-white font-bold text-lg">Plantillas Enfocadas a la Optimización de Procesos</p>
+                    <div class="content-center py-4 p-2 shadow-xl rounded-lg mt-12" style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
+                        <p class="text-c2 text-center justify-center items-center text-white font-bold text-lg mb-4">Plantillas Enfocadas a la Optimización de Procesos</p>
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -204,37 +243,45 @@
                             </button>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="mt-24 p-10" style="background-color: #F79C2E">
-                <div class="container text-center content-center items-center">
-                    <p style="color: black;font-weight:700;font-size:22px">PIXEL PERFECT</p>
-                    <div style="width:30%;margin-left:385px;border-top:2px solid black"></div>
-                    <div class="inline-flex mt-4">
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
-                            <div class="footer-class">
-                                <img src="{{asset('assets/correo.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                    <div class="content-center py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
+                        <p class="titulo-texto mb-10" style="font-size: 28px;border-bottom: 2px solid #fff;padding-bottom: 2px;">
+                            ¿Por qué contratar a Pixel Perfect?
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4">
+                            <div class='grid grid-cols-1' style="height: 200px">
+                                <p class="titulo-texto">
+                                    Solicitar es gratis 
+                                </p>
+                                <p class="texto-container">
+                                    Puedes preguntar presupuestos y mandar tus solicitudes gratuitamente por aquí, por whatsapp y por nuestro correo. 
+                                </p>
                             </div>
-                        </a>
-                        <a href="https://www.instagram.com/atun_dolorescr7" target="_blank">
-                            <div class="footer-class">
-                                <img src="{{asset('assets/instagram.png')}}" style="width:40px;height:40px" alt="Logo Instagram">
+                            <div class='grid grid-cols-1' style="height: 200px">
+                                <p class="titulo-texto">
+                                    Manejo de dominios    
+                                </p>
+                                <p class="texto-container">
+                                    Contamos con un dominio de la página en donde pagarías mensualmente, o si ya cuentas con uno subimos la página sin costo extra. 
+                                </p>
                             </div>
-                        </a>
-                        <a href="https://wa.me/523221974630?text=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
-                            <div class="footer-class">
-                                <img src="{{asset('assets/whatsapp.png')}}" style="width:40px;height:40px" alt="Logo WhatsApp">
+                            <div class='grid grid-cols-1 mt-4' style="height: 200px">
+                                <p class="titulo-texto">
+                                    Calidad asegurada 
+                                </p>
+                                <p class="texto-container">
+                                    Tu proyecto está protegido y no pagarás hasta que estés completamente de acuerdo con los resultados finales. 
+                                </p>
                             </div>
-                        </a>
+                            <div class='grid grid-cols-1 mt-4' style="height: 200px">
+                                <p class="titulo-texto">
+                                    Automatización 
+                                </p>
+                                <p class="texto-container">
+                                    Recibe y envía correos automáticamente. Además se pueden automatizar archivos de Excel y PDF con información dinámica.  
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section style="background-color: #000;border-top:1px solid white" class='p-0.5'>
-                <div class="container content-center items-center text-justify text-wrap">
-                    <p style="color: white;font-weight:500;font-size:14px;margin-top:10px">
-                        Copyright © 2024 - 2024 PixelPerfect. Todos los derechos reservados. La marca Pixel Perfect es una orgullosa start-up mexicana.
-                        El uso de este sitio está sujeto a las condiciones de uso expresas. Al utilizar este sitio, tú indicas que aceptas cumplir con estos Términos universales de servicio.
-                    </p>
                 </div>
             </section>
         </main>
