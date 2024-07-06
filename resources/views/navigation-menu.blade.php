@@ -76,6 +76,26 @@
             -1px 1px 0 #000,
             1px 1px 0 #000;
     }
+    .lineaNav .lineaNav-foot {
+        width:0%;
+        margin: 0 auto;
+        transition: width 0.3s ease;
+        border-top:2px solid white;
+    }
+
+    .lineaNav:hover .lineaNav-foot{
+        width: 90%;
+    }
+    .lineaNav2 .lineaNav2-foot {
+        width:0%;
+        /* margin: 0 auto; */
+        transition: width 0.3s ease;
+        border-top:2px solid white;
+    }
+
+    .lineaNav2:hover .lineaNav2-foot{
+        width: 76%;
+    }
 </style>
 <nav x-data="{ open: false }" class="border-b border-gray-100" style="background-color: #1C0B49">
     <div class="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
@@ -84,27 +104,30 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{asset('assets/PixelPerfectWeb.png')}}" class="block h-12 w-auto mr-10" alt="">
+                        <img src="{{asset('assets/PixelPerfectWeb.png')}}" style="border-radius: 4px" class="block h-12 w-auto mr-10" alt="">
                     </a>
                 </div>
                 <!-- Navigation Links -->
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
-                        <div class="group inline-block items-center ml-3" align="left" width="30">
+                        <div class="lineaNav2 group inline-block items-center ml-3" align="left" width="30">
                             <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
                                 Proyectos
                             </button>
+                            <div class="lineaNav2-foot"></div>
                         </div>
-                        <div class="group inline-block items-center ml-1" align="left" width="30">
-                            <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
+                        <div class="lineaNav group inline-block items-center ml-1" align="left" width="30">
+                            <a href="#section1" class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
                                 Solicitar Servicio
-                            </button>
+                            </a>
+                            <div class="lineaNav-foot"></div>
                         </div>
 
-                        <div class="group items-center inline-block" width="30" style="margin-left:460px">
+                        <div class="lineaNav group items-center inline-block" width="30" style="margin-left:460px">
                             <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
                                 Más Información
                             </button>
+                            <div class="lineaNav-foot"></div>
                         </div>
                         {{-- <div class="group inline-block items-center ml-3" align="left" width="30">
                             <button

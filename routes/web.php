@@ -16,6 +16,8 @@ use App\Http\Controllers\PortafolioController;
 Route::get('/dashboard',[PortafolioController::class, 'inicio'])->name('dashboard');
 Route::get('/',[PortafolioController::class, 'inicio'])->name('dashboard');
 
+Route::post('/solicitud/enviar',[PortafolioController::class, 'store'])->name('solicitud.store');
+
 // Route::middleware(['auth.redirect'])->group( function () {
 
 // });
