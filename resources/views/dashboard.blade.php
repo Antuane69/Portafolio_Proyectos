@@ -129,15 +129,15 @@
                                 Contamos con varios proyectos elaborados a empresas comerciales y administrativas como:
                             </p>
                             <div class="flex justify-between mt-16 flex-1 ml-16" style="width: 80%">
-                                <div class="logos-class">
+                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <img src="{{asset('logos/cfeLogo.jpg')}}" style="width:140px;height:140px" alt="Logo CFE">
-                                </div>
-                                <div class="logos-class">
+                                </button> 
+                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <img src="{{asset('logos/TokyoLogo.png')}}" style="width:140px;height:140px" alt="Logo CFE">
-                                </div>
-                                <div class="logos-class">
+                                </button>
+                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <img src="{{asset('logos/TortalajaraLogo.jpeg')}}" style="width:140px;height:140px" alt="Logo CFE">
-                                </div>
+                                </button> 
                             </div>
                         </div>
                     </div>
@@ -282,9 +282,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content" style="width: 1800px; min-height: 500px;">
+                                <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                                    <h5 class="modal-title" id="exampleModalLabel">Opciones</h5>
+                                    <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                                <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
+                                    <div class="flex items-center content-center w-full">
+                                        <div class="w-1/2 h-full">
+                                            <div class="container bg-white">
+                                                pppp
+                                            </div>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
+                                                <div class='grid grid-rows-1 bg-red-500 h-1/2'>
+                                                    aa
+                                                </div>
+                                                <div class='grid grid-rows-1 bg-yellow-500 h-1/2'>
+                                                    bb
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
     </body>
 </x-app2>
 <script src="{{ asset('js/app.js') }}"></script>
+

@@ -14,13 +14,28 @@
         cursor: pointer;
         justify-content: space-between;
         margin-right: 16px;
+        transition: transform 0.3s ease-in-out;
+    }
+    .footer-class:hover {
+        transform: translateY(-10px); /* Ajusta el valor para cambiar la cantidad de elevación */
+    }
+
+    .linea .linea-foot {
+        width:10%;
+        margin: 0 auto;
+        transition: width 0.3s ease;
+        border-top:2px solid white;
+    }
+
+    .linea:hover .linea-foot{
+        width: 30%;
     }
 </style>
 <footer>
     <section class="mt-32 p-4 shadow-2xl" style="background-color: #1C0B49;border-top: white 0.5px solid">
-        <div class="container text-center content-center items-center">
+        <div class="container linea text-center content-center items-center">
             <p style="color: white;font-weight:700;font-size:22px">PIXEL PERFECT</p>
-            <div style="width:30%;margin-left:385px;border-top:2px solid white"></div>
+            <div class="linea-foot"></div>
             <div class="inline-flex mt-4">
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
                     <div class="footer-class">
