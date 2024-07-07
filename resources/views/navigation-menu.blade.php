@@ -1,7 +1,10 @@
 <style>
-    /* since nested groupes are not supported we have to use
-    regular css for the nested dropdowns
-    */
+    nav.sticky-nav {
+        position: -webkit-sticky; /* Para navegadores Safari */
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Para asegurarse de que la navegación esté por encima de otros elementos */
+    }
     .MENU li>ul {
         transform: translatex(100%) scale(0);
         z-index: 50;
@@ -45,28 +48,24 @@
     .MENU a:link {
         text-decoration: none;
         color: black;
-        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:visited {
         text-decoration: none;
         color: black;
-        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:hover {
         text-decoration: none;
         color: black;
-        background-color: #F9F904;
         z-index: 50;
     }
 
     .MENU a:active {
         text-decoration: none;
         color: black;
-        background-color: #F9F904;;
         z-index: 50;
     }
     .text{
@@ -97,7 +96,7 @@
         width: 76%;
     }
 </style>
-<nav x-data="{ open: false }" class="border-b border-gray-100" style="background-color: #1C0B49">
+<nav x-data="{ open: false }" class="sticky-nav border-b border-gray-100" style="background-color: #1C0B49">
     <div class="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex text">
@@ -124,9 +123,9 @@
                         </div>
 
                         <div class="lineaNav group items-center inline-block" width="30" style="margin-left:460px">
-                            <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
+                            <a href="{{ route('informacion') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px;backgrounf:none;">
                                 Más Información
-                            </button>
+                            </a>
                             <div class="lineaNav-foot"></div>
                         </div>
                         {{-- <div class="group inline-block items-center ml-3" align="left" width="30">

@@ -348,7 +348,7 @@
                                     Automatización 
                                 </p>
                                 <p class="texto-container">
-                                    Recibe y envía correos automáticamente. Además se pueden automatizar archivos de Excel y PDF con información dinámica.  
+                                    Recibe y envía correos automáticamente. Además, se pueden automatizar archivos de Excel y PDF con información dinámica.  
                                 </p>
                             </div>
                         </div>
