@@ -95,7 +95,12 @@
     .lineaNav2:hover .lineaNav2-foot{
         width: 76%;
     }
+
+    .no-wrap {
+        white-space: nowrap;
+    }
 </style>
+
 <nav x-data="{ open: false }" class="sticky-nav border-b border-gray-100" style="background-color: #1C0B49">
     <div class="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -109,95 +114,25 @@
                 <!-- Navigation Links -->
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
-                        <div class="lineaNav2 group inline-block items-center ml-3" align="left" width="30">
+                        <div class="lineaNav2 group inline-block items-center ml-3" align="left" width="40">
                             <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
                                 Proyectos
                             </button>
                             <div class="lineaNav2-foot"></div>
                         </div>
-                        <div class="lineaNav group inline-block items-center ml-1" align="left" width="30">
-                            <a href="#section1" class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
+                        <div class="lineaNav group inline-block items-center ml-1" align="left" width="40">
+                            <a href="#section1" class="px-1 py-1 rounded-sm flex content-center text-center items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
                                 Solicitar Servicio
                             </a>
                             <div class="lineaNav-foot"></div>
                         </div>
 
-                        <div class="lineaNav group items-center inline-block" width="30" style="margin-left:460px">
-                            <a href="{{ route('informacion') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px;backgrounf:none;">
+                        <div class="lineaNav group items-center inline-block" width="40" style="margin-left:460px">
+                            <a href="{{ route('informacion') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;backgrounf:none;">
                                 Más Información
                             </a>
                             <div class="lineaNav-foot"></div>
-                        </div>
-                        {{-- <div class="group inline-block items-center ml-3" align="left" width="30">
-                            <button
-                                class="outline-none focus:outline-none px-1 py-1 bg-white rounded-sm flex items-center min-w-32">
-                                <span class="pr-1 font-semibold flex-1">Empleados</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute                                
-                                transition duration-150 ease-in-out origin-top min-w-32">
-                                <a href="{{ route('empleadosInicio.show') }}">
-                                    <li class="px-3 py-1 hover:bg-gray-100">Inicio</li>
-                                </a>
-                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                    <button
-                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Vacaciones</span>
-                                        <span class="mr-auto">
-                                            <svg class="fill-current h-4 w-4
-                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                            </svg>
-                                        </span>
-                                    </button>
-
-                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                    transition duration-150 ease-in-out origin-top-left
-                                    min-w-32">
-                                    <a href="{{ route('crearVacacion.create') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Vacaciones</li>
-                                    </a>
-                                    <a href="{{ route('mostrarVacaciones.show') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Vacaciones Registradas</li>
-                                    </a>
-                                    </ul>
-                                </li>
-                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-                                    <button
-                                        class="w-full text-left flex items-center outline-none focus:outline-none text-black">
-                                        <span class="pr-1 flex-1">Permisos</span>
-                                        <span class="mr-auto">
-                                            <svg class="fill-current h-4 w-4
-                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                            </svg>
-                                        </span>
-                                    </button>
-
-                                    <ul class="bg-white border rounded-sm absolute top-0 right-0
-                                    transition duration-150 ease-in-out origin-top-left
-                                    min-w-32">
-                                    <a href="{{ route('crearPermisos.create') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Registrar Permisos</li>
-                                    </a>
-                                    <a href="{{ route('mostrarPermisos.show') }}">
-                                        <li class="px-3 py-1 hover:bg-gray-100">Ver Registros de Permisos</li>
-                                    </a>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div> --}}                   
+                        </div>                
                     </div>
                 </div>
             </div>    

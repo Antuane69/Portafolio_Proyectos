@@ -40,7 +40,7 @@
     @section('title', 'Pixel Perfect - Información')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-slot name="header">
-        <h2 class="font-semibold text-md text-gray-800 leading-tight flex content-center text-center">
+        <h2 class="font-semibold text-md text-gray-800 flex content-center text-center">
             <div class="text-left">
                 <a href='{{ route('dashboard') }}'
                     class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
@@ -68,17 +68,17 @@
                         <img class='md:w-full mt-6' style="width: 200px; height: 260px;border-radius:60px" src="{{ asset('assets/perfil.jpeg') }}" alt="Imagen del empleado">
                         <div>
                             <div class="inline-flex mt-5 mr-7">
-                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                                <a href="https://github.com/Antuane69" target="_blank">
                                     <div class="footer-class">
                                         <img src="{{asset('assets/github.png')}}" style="width:20px;height:20px" alt="Logo GitHub">
                                     </div>
                                 </a>
-                                <a href="https://www.instagram.com/atun_dolorescr7" target="_blank">
+                                <a href="https://www.linkedin.com/in/antuane-alexander-nacif-gonzalez-3430b02b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
                                     <div class="footer-class">
                                         <img src="{{asset('assets/linkedin.png')}}" style="width:20px;height:20px" alt="Logo Linkedln">
                                     </div>
                                 </a>
-                                <a href="https://wa.me/523221974630?text=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                                <a href="{{ route('informacion.curriculum') }}" target="_blank">
                                     <div class="footer-class">
                                         <img src="{{asset('assets/cv.png')}}" style="width:20px;height:20px" alt="Logo CV">
                                     </div>
@@ -86,19 +86,9 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="w-1/5 grid-cols-1 mt-16">
-                        <label class="lbl md:text-sm">Nombre:</label>
-                        <h2 class="mb-2 inf">Antuane Alexander Nacif Gonzalez</h2>
-                        <label class="lbl md:text-sm">Edad:</label>
-                        <h2 class="mb-2 inf">22</h2>
-                        <label class="lbl md:text-sm">Teléfono:</label>
-                        <h2 class="mb-2 inf">+55 3221974630</h2>
-                        <label class="lbl md:text-sm">Correo:</label>
-                        <h2 class="mb-2 inf">pixelperfect.nacif@gmail.com</h2>
-                    </div> --}}
                     <div class="w-4/5 text-justify break-words flex-wrap text-wrap mr-20 mt-4">
                         <p class="lbl md:text-sm text-center justify-center mb-9">Acerca de Nosotros:</p>
-                        En <span class="text-blue-700 font-bold">PIXEL PERFECT</span>, nos especializamos en la creación de soluciones web administrativas y financieras diseñadas específicamente para restaurantes y hoteles. Nuestra misión es ayudar a nuestros clientes a optimizar sus operaciones, mejorar su eficiencia y maximizar su rentabilidad a través de tecnologías de vanguardia. <br>
+                        En <span class="text-blue-700 font-bold">PIXEL PERFECT</span>, nos especializamos en la creación de soluciones web administrativas y financieras diseñadas especialmente para restaurantes y hoteles. Nuestra misión es ayudar a nuestros clientes a optimizar sus operaciones, mejorar su eficiencia y maximizar su rentabilidad a través de tecnologías de vanguardia. <br>
                         Desde la gestión de reservas y facturación, hasta el control de inventarios y análisis financieros, nuestras páginas web están diseñadas para simplificar y mejorar cada aspecto de la administración de su negocio. <br>
                         <p class="mt-4">
                             Nos enorgullece ofrecer un servicio personalizado y de alta calidad, asegurándonos de que cada proyecto se ajuste perfectamente a las necesidades y objetivos de nuestros clientes. En <span class="text-blue-700 font-bold">PIXEL PERFECT</span>, no solo construimos páginas web, sino que también creamos herramientas que impulsan el éxito y el crecimiento de nuestros clientes. <br>
@@ -106,9 +96,42 @@
                     </div>
                 </div>    
                 <div class="lineaSep-foot"></div>
-                <div class="flex container content-center text-center justify-center my-5 mx-10">
-                    <div>
-                        p
+                <div class="flex container content-center text-center justify-center my-6 mx-10">
+                    <div class="text-justify break-words flex-wrap text-wrap mt-3" style="width: 25%">
+                        <strong>Ingeniero en Computación</strong> <br> Antuane Alexander Nacif González 
+                        <p class="mt-2"><strong>Telefono:</strong> 322 1974630 <br> <strong>Correo:</strong> pixelperfect.nacif@gmail.com</p>
+                    </div>
+                    <div class="w-4/5 break-words flex-wrap text-wrap text-center pb-3">
+                        <p class="text-blue-700 mb-4" style="font-weight:800;font-size:20px">Lenguajes de Programación</p>
+                        <div class="inline-flex mt-2">
+                            <div class="footer-class">
+                                <img src="{{asset('assets/react.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/js.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/html-5.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/css-3.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/php.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/laravel.jpg')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/servidor-sql.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/tailwind.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                            <div class="footer-class">
+                                <img src="{{asset('assets/piton.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
+                            </div>
+                        </div>
                     </div>
                 </div>                
             </div>

@@ -174,7 +174,7 @@
                         <div class="my-2 mx-4 flex-col text" style="flex-wrap: wrap;text-align:justify;color:white;">
                             <div class="content-center">
                                 <p class="uppercase text-2xl" style="font-weight:900">
-                                    Con precios desde $1,500 mxn.
+                                    Con precios desde $2,000 mxn.
                                 </p>
                                 <p class="text-md">
                                     Aumenta la productividad de tu empresa dedicando el tiempo a cosas más importantes, deja el resto a la automatización de procesos.
@@ -190,7 +190,7 @@
                 </div>
                 <div class="container flex hover-container justify-between">
                     <div id="section1" class="section linea content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
-                        <p class="text text-white" style="font-weight: 800;font-size:24px;margin-top:20px">Envía tu Solicitud</p>
+                        <p class="text text-white" style="font-weight: 800;font-size:24px;margin-top:34px">Envía tu Solicitud</p>
                         <div class="linea-foot" style="margin-bottom:74px"></div>
                         {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
@@ -254,22 +254,22 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2 mx-3">                    
                                 <div class='grid grid-cols-1'>
                                     <label for="nombre" class="mb-1 text-white bloack uppercase font-bold">
-                                        * Nombre Empresa
+                                        * Razón Social de la Empresa
                                     </label>
                                     <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        <input type="text" id="nombre_input" placeholder="Nombre de la Empresa"
                                         class='focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        >
+                                        required>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
-                                        * Nombre Encargado
+                                    <label for="nombre" class="mb-1 bloack text-white uppercase font-bold mx-4">
+                                        * Nombre del Apoderado
                                     </label>
                                     <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        <input type="text" id="nombre_input" placeholder="Ingrese el nombre del apoderado"
                                         class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        >
+                                        required>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
@@ -277,9 +277,9 @@
                                         * Correo
                                     </label>
                                     <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        <input type="text" id="nombre_input" placeholder="Ingrese su correo"
                                         class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        >
+                                        required>
                                     </p>
                                 </div>
                                 <div class='grid grid-cols-1'>
@@ -287,17 +287,17 @@
                                         * Teléfono
                                     </label>
                                     <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingresa el nombre del empleado"
+                                        <input type="text" id="nombre_input" placeholder="Ingrese su teléfono"
                                         class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        >
+                                        required>
                                     </p>
                                 </div>
-                                <div  class='grid grid-cols-1 col-span-2'>
+                                <div  class='grid grid-cols-1 col-span-2 mt-2'>
                                     <label for="comentarios" class="mb-2 bloack text-white uppercase font-bold">Comentarios</label>
                                     <p>
                                         <textarea id="comentarios" name="comentarios"
                                             class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                            placeholder="Ingrese la falta cometida">{{ old('comentarios') }}</textarea>
+                                            placeholder="Describa las necesidades de su negocio, o cualquier otra información relevante">{{ old('comentarios') }}</textarea>
                                         @error('comentarios')
                                             <span style="font-size: 10pt;color:red" role="alert">
                                                 <strong>{{ $message }}</strong>

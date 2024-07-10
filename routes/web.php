@@ -18,7 +18,4 @@ Route::get('/',[PortafolioController::class, 'inicio'])->name('dashboard');
 
 Route::post('/solicitud/enviar',[PortafolioController::class, 'store'])->name('solicitud.store');
 Route::get('/informacion',[PortafolioController::class, 'informacion'])->name('informacion');
-
-// Route::middleware(['auth.redirect'])->group( function () {
-
-// });
+Route::get('/informacion/curriculum',[PortafolioController::class, 'curriculum'])->name('informacion.curriculum');
