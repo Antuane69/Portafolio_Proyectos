@@ -101,7 +101,7 @@
     }
 </style>
 
-<nav x-data="{ open: false }" class="sticky-nav border-b border-gray-100" style="background-color: #1C0B49">
+<nav x-data="{ open: false }" class="sticky-nav" style="background-color: #1C0B49;border-bottom-width:2px; border-color:#120631">
     <div class="max-w-7xl mx-auto px-1 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex text">
@@ -115,14 +115,14 @@
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
                         <div class="lineaNav2 group inline-block items-center ml-3" align="left" width="40">
-                            <button class="px-1 py-1 rounded-sm flex items-center min-w-32" style="font-weight: 600;color:white;font-size:20px">
+                            <a href="{{ route('proyectos') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;backgrounf:none;">
                                 Proyectos
-                            </button>
+                            </a>
                             <div class="lineaNav2-foot"></div>
                         </div>
                         <div class="lineaNav group inline-block items-center ml-1" align="left" width="40">
-                            <a href="#section1" class="px-1 py-1 rounded-sm flex content-center text-center items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
-                                Solicitar Servicio
+                            <a href=" @if(Route::currentRouteName() == 'dashboard') #section1 @else {{ route('dashboard') }}#section1 @endif " class="px-1 py-1 rounded-sm flex content-center text-center items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
+                                Solicitar Cotización
                             </a>
                             <div class="lineaNav-foot"></div>
                         </div>

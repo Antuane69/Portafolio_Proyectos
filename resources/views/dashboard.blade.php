@@ -94,15 +94,15 @@
     margin-left: 30px;
 }
 
-.linea .linea-foot {
+.linea-cot .linea-cot-foot {
     width:30%;
     margin: 0 auto;
     transition: width 0.3s ease;
     border-top:2px solid white;
 }
 
-.linea:hover .linea-foot{
-    width: 1000px;
+.linea-cot:hover .linea-cot-foot{
+    width: 60%;
 }
 .lineaPP .lineaPP-foot {
     width:30%;
@@ -114,356 +114,311 @@
 .lineaPP:hover .lineaPP-foot{
     width: 90%;
 }
+.contenedor-1 {
+    border-bottom: 2px solid white; /* Borde inferior */
+    border-right: 2px solid white;  /* Borde derecho */
+}
+.contenedor-2 {
+    border-bottom: 2px solid white; /* Borde inferior */
+    border-left: 2px solid white;  /* Borde derecho */
+}
+
+.boton-enviar{
+    margin-top: 46px;
+    width: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+}
 </style>
-<x-app2>
-    @section('title', 'Pixel Perfect')
-
-    <body>
-        <section class="d-flex align-items-center shadow-xl text" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
-            <div class="container" data-aos="zoom-out" data-aos-delay="100">
-                <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1>
-                <h2 style="color:white">El lugar perfecto para organizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
+<x-app-layout>
+    @section('title', 'Pixel Perfect - Información')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <section class="d-flex align-items-center shadow-xl" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
+        <div class="container" data-aos="zoom-out" data-aos-delay="100">
+            <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1>
+            <h2 style="color:white">El lugar perfecto para organizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
+        </div>
+    </section>
+    <section>
+        <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
+            <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2 text" style="flex-wrap: wrap;text-align:justify">
+                <p>
+                    Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
+                </p>
+                <br>
+                <b>Desde:</b>
+                <li>Conexiones a Lectores de Huellas.</li>
+                <li>Exportación a Excel, PDF y, o Word.</li>
+                <li>Puntos de Venta.</li>
+                <li>Envios de Correos Automáticos.</li>
+                <li>Gestión de Empleados (contratos, permisos, liquidaciones y actas administrativas).</li>
+                <li>Gestión de Insumos (herramientas, uniformes, mermas y solicitud a proveedores automática).</li>
+                <li>Gestión de Horarios (asignaciones de trabajadores, faltas, retardos y vacaciones).</li>
             </div>
-        </section>
-        
-        <main id="main">
-            <section>
-                <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
-                    <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2 text" style="flex-wrap: wrap;text-align:justify">
-                        <p>
-                            Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
-                        </p>
-                        <br>
-                        <b>Desde:</b>
-                        <li>Conexiones a Lectores de Huellas.</li>
-                        <li>Exportación a Excel, PDF y, o Word.</li>
-                        <li>Puntos de Venta.</li>
-                        <li>Envios de Correos Automáticos.</li>
-                        <li>Gestión de Empleados (contratos, permisos, liquidaciones y actas administrativas).</li>
-                        <li>Gestión de Insumos (herramientas, uniformes, mermas y solicitud a proveedores automática).</li>
-                        <li>Gestión de Horarios (asignaciones de trabajadores, faltas, retardos y vacaciones).</li>
+            <div class="w-1/3 flex justify-between">
+                <p style="color:#343434">aa</p>
+                <img src="{{asset('assets/portafolio2.jpg')}}" class="rounded-lg" alt="Portafolio img 1"/>
+            </div>
+        </div>
+        <div class="container flex hover-container justify-between">
+            <div class="content-center py-4 p-2 w-2/3 shadow-xl rounded-lg text-md mt-12" style="background:#cb7020" data-aos="fade-up">
+                <div class="my-2 mx-4" style="flex-wrap: wrap;text-align:justify;color:white;font-size:18px">
+                    <p style="font-size:22px;text-align:center;font-weight:600;">
+                        Contamos con varios proyectos elaborados a empresas comerciales y administrativas como:
+                    </p>
+                    <div class="flex justify-between my-8 flex-1 ml-16" style="width: 80%">
+                        <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_CFE">
+                            <img src="{{asset('logos/cfeLogo.jpg')}}" style="width:140px;height:140px" alt="Logo CFE">
+                        </button> 
+                        <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_Tokyo">
+                            <img src="{{asset('logos/TokyoLogo.png')}}" style="width:140px;height:140px" alt="Logo Tokyo">
+                        </button>
+                        <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_Tortas">
+                            <img src="{{asset('logos/TortalajaraLogo.jpeg')}}" style="width:140px;height:140px" alt="Logo Tortalajara">
+                        </button> 
                     </div>
-                    <div class="w-1/3 flex justify-between">
-                        <p style="color:#343434">aa</p>
-                        <img src="{{asset('assets/portafolio2.jpg')}}" class="rounded-lg" alt="Portafolio img 1"/>
-                    </div>
+                    <p style="font-size:22px;text-align:center;font-weight:600;">
+                        Los proyectos realizados a estas empresas son completamente enfocados en las necesidades de cada una. <br>
+                    </p>
                 </div>
-                <div class="container flex hover-container justify-between">
-                    <div class="content-center py-4 p-2 w-2/3 shadow-xl rounded-lg text-md mt-12" style="background:#cb7020" data-aos="fade-up">
-                        <div class="my-2 mx-4" style="flex-wrap: wrap;text-align:justify;color:white;font-size:18px">
-                            <p style="font-size:22px;text-align:center;font-weight:600;">
-                                Contamos con varios proyectos elaborados a empresas comerciales y administrativas como:
-                            </p>
-                            <div class="flex justify-between my-8 flex-1 ml-16" style="width: 80%">
-                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_Tokyo">
-                                    <img src="{{asset('logos/cfeLogo.jpg')}}" style="width:140px;height:140px" alt="Logo CFE">
-                                </button> 
-                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_Tokyo">
-                                    <img src="{{asset('logos/TokyoLogo.png')}}" style="width:140px;height:140px" alt="Logo Tokyo">
-                                </button>
-                                <button type="button" id="opcionesButton" class="logos-class rounded-md bg-white p-2" data-bs-toggle="modal" data-bs-target="#exampleModal_Tortas">
-                                    <img src="{{asset('logos/TortalajaraLogo.jpeg')}}" style="width:140px;height:140px" alt="Logo Tortalajara">
-                                </button> 
-                            </div>
-                            <p style="font-size:22px;text-align:center;font-weight:600;">
-                                Los proyectos realizados a estas empresas son completamente enfocados en las necesidades de cada una. <br>
-                            </p>
-                        </div>
+            </div>
+            <div class="py-4 p-2 content-center shadow-lg rounded-lg w-1/3 text-md mt-12 ml-3" style="background:#1C0B49" data-aos="fade-up">
+                <div class="my-2 mx-4 flex-col text" style="flex-wrap: wrap;text-align:justify;color:white;">
+                    <div class="content-center">
+                        <p class="uppercase text-2xl" style="font-weight:900">
+                            Con precios desde $2,000 mxn.
+                        </p>
+                        <p class="text-md">
+                            Aumenta la productividad de tu empresa dedicando el tiempo a cosas más importantes, deja el resto a la automatización de procesos.
+                        </p>
                     </div>
-                    <div class="py-4 p-2 content-center shadow-lg rounded-lg w-1/3 text-md mt-12 ml-3" style="background:#1C0B49" data-aos="fade-up">
-                        <div class="my-2 mx-4 flex-col text" style="flex-wrap: wrap;text-align:justify;color:white;">
-                            <div class="content-center">
-                                <p class="uppercase text-2xl" style="font-weight:900">
-                                    Con precios desde $2,000 mxn.
-                                </p>
-                                <p class="text-md">
-                                    Aumenta la productividad de tu empresa dedicando el tiempo a cosas más importantes, deja el resto a la automatización de procesos.
-                                </p>
-                            </div>
-                            <div>
-                                <div class="img-contenedor">
-                                    <img src="{{asset('img/contenedor1.jpg')}}" style="border-radius: 15px" alt="Img1">
-                                </div>
-                            </div>
+                    <div>
+                        <div class="img-contenedor">
+                            <img src="{{asset('img/contenedor1.jpg')}}" style="border-radius: 15px" alt="Img1">
                         </div>
                     </div>
                 </div>
-                <div class="container flex hover-container justify-between">
-                    <div id="section1" class="section linea content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
-                        <p class="text text-white" style="font-weight: 800;font-size:24px;margin-top:34px">Envía tu Solicitud</p>
-                        <div class="linea-foot" style="margin-bottom:74px"></div>
-                        {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
-                            </div>
-                            <div class="carousel-inner">
-
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/MN_3.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/RIJ_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/SIVE_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                    
-
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/MN_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/RIJ_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/SIVE_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                 
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/MN_7.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/RIJ_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                <div class="carousel-item shadow-xl">
-                                    <img src="{{ asset('Evidencias/SIVE_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                </div>
-                                
-                            </div>
-                        </div> --}}
-                        <form id="formulario" action={{ route('solicitud.store') }} method="POST">
-                            @csrf
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2 mx-3">                    
-                                <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 text-white bloack uppercase font-bold">
-                                        * Razón Social de la Empresa
-                                    </label>
-                                    <p>
-                                        <input type="text" id="nombre_input" placeholder="Nombre de la Empresa"
-                                        class='focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
-                                    </p>
-                                </div>
-                                <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack text-white uppercase font-bold mx-4">
-                                        * Nombre del Apoderado
-                                    </label>
-                                    <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingrese el nombre del apoderado"
-                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
-                                    </p>
-                                </div>
-                                <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
-                                        * Correo
-                                    </label>
-                                    <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingrese su correo"
-                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
-                                    </p>
-                                </div>
-                                <div class='grid grid-cols-1'>
-                                    <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
-                                        * Teléfono
-                                    </label>
-                                    <p>
-                                        <input type="text" id="nombre_input" placeholder="Ingrese su teléfono"
-                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
-                                    </p>
-                                </div>
-                                <div  class='grid grid-cols-1 col-span-2 mt-2'>
-                                    <label for="comentarios" class="mb-2 bloack text-white uppercase font-bold">Comentarios</label>
-                                    <p>
-                                        <textarea id="comentarios" name="comentarios"
-                                            class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                            placeholder="Describa las necesidades de su negocio, o cualquier otra información relevante">{{ old('comentarios') }}</textarea>
-                                        @error('comentarios')
-                                            <span style="font-size: 10pt;color:red" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </p>
-                                </div> 
-                            </div>
-                            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
-                                <button type="submit"
-                                    class='w-auto bg-green-700 hover:bg-green-800 mt-4 rounded-lg shadow-xl font-bold text-white px-4 py-2'
-                                    >Enviar Solicitud</button>
-                            </div>
-                        </form>
+            </div>
+        </div>
+        <div class="container flex hover-container justify-between">
+            <div id="section1" class="section linea-cot content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
+                <p class="text text-white" style="font-weight: 800;font-size:24px;">Solicita una Cotización</p>
+                <div class="linea-cot-foot" style="margin-bottom:74px"></div>
+                {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
                     </div>
-                    <div class="content-center lineaPP py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
-                        <p class="titulo-texto" style="font-size: 28px;">
-                            ¿Por qué contratar a Pixel Perfect?
-                            <div class="lineaPP-foot"></div>
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 mt-16">
-                            <div class='grid grid-cols-1' style="height: 200px">
-                                <p class="titulo-texto">
-                                    Solicitar es gratis 
-                                </p>
-                                <p class="texto-container">
-                                    Puedes mandar tus solicitudes gratuitamente por aquí, por whatsapp y por nuestro correo, el presupuesto se te envía al contactar. 
-                                </p>
-                            </div>
-                            <div class='grid grid-cols-1' style="height: 200px">
-                                <p class="titulo-texto">
-                                    Manejo de dominios    
-                                </p>
-                                <p class="texto-container">
-                                    Contamos con un dominio de la página en donde pagarías mensualmente, o si ya cuentas con uno subimos la página sin costo extra. 
-                                </p>
-                            </div>
-                            <div class='grid grid-cols-1 mt-4' style="height: 200px">
-                                <p class="titulo-texto">
-                                    Calidad asegurada 
-                                </p>
-                                <p class="texto-container">
-                                    Tu proyecto está protegido y no pagarás hasta que estés completamente de acuerdo con los resultados finales. 
-                                </p>
-                            </div>
-                            <div class='grid grid-cols-1 mt-4' style="height: 200px">
-                                <p class="titulo-texto">
-                                    Automatización 
-                                </p>
-                                <p class="texto-container">
-                                    Recibe y envía correos automáticamente. Además, se pueden automatizar archivos de Excel y PDF con información dinámica.  
-                                </p>
-                            </div>
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/MN_3.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
                         </div>
+                        
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/RIJ_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/SIVE_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+            
+
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/MN_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/RIJ_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/SIVE_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+         
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/MN_7.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/RIJ_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        <div class="carousel-item shadow-xl">
+                            <img src="{{ asset('Evidencias/SIVE_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                        </div>
+                        
                     </div>
-                    <div class="modal fade" id="exampleModal_Tokyo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content" style="width: 1800px; min-height: 500px;">
-                                <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
-                                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Proyecto Administrativo y Financiero de Little Tokyo</h5>
-                                    <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-                                <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
-                                    <div class="flex w-full" style="color:black">
-                                        <div class="w-1/2 h-full text-center content-center items-center justify-center"> 
-                                            <div class="container flex content-center items-center justify-center bg-white mt-2" style="height: 340px;border-radius:15px">
-                                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                                    <div class="carousel-indicators">
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                    </div>
-                                                    <div class="carousel-inner">
-                                                        <div class="carousel-item shadow-xl active">
-                                                            <img src="{{ asset('Evidencias/LT_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                                        </div>
-                                                        <div class="carousel-item shadow-xl">
-                                                            <img src="{{ asset('Evidencias/LT_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 2">
-                                                        </div>
-                                                        <div class="carousel-item shadow-xl">
-                                                            <img src="{{ asset('Evidencias/LT_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 3">
-                                                        </div>
-                                                    </div>
-                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Previous</span>
-                                                    </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Next</span>
-                                                    </button>
+                </div> --}}
+                <form id="formulario" action={{ route('solicitud.store') }} method="POST">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2 mx-3">                    
+                        <div class='grid grid-cols-1'>
+                            <label for="nombre" class="mb-1 text-white bloack uppercase font-bold">
+                                * Razón Social de la Empresa
+                            </label>
+                            <p>
+                                <input type="text" id="nombre_input" placeholder="Nombre de la Empresa"
+                                class='focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                required>
+                            </p>
+                        </div>
+                        <div class='grid grid-cols-1'>
+                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold mx-4">
+                                * Nombre del Apoderado
+                            </label>
+                            <p>
+                                <input type="text" id="nombre_input" placeholder="Ingrese el nombre del apoderado"
+                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                required>
+                            </p>
+                        </div>
+                        <div class='grid grid-cols-1'>
+                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
+                                * Correo
+                            </label>
+                            <p>
+                                <input type="text" id="nombre_input" placeholder="Ingrese su correo"
+                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                required>
+                            </p>
+                        </div>
+                        <div class='grid grid-cols-1'>
+                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
+                                * Teléfono
+                            </label>
+                            <p>
+                                <input type="text" id="nombre_input" placeholder="Ingrese su teléfono"
+                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                required>
+                            </p>
+                        </div>
+                        <div  class='grid grid-cols-1 col-span-2 mt-2'>
+                            <label for="comentarios" class="mb-2 bloack text-white uppercase font-bold">Comentarios</label>
+                            <p>
+                                <textarea id="comentarios" name="comentarios"
+                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
+                                    placeholder="Describa las necesidades de su negocio, o cualquier otra información relevante">{{ old('comentarios') }}</textarea>
+                                @error('comentarios')
+                                    <span style="font-size: 10pt;color:red" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </p>
+                        </div> 
+                    </div>
+                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
+                        <button type="submit"
+                            class='shadow-xl px-4 py-2 boton-enviar border-1'
+                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
+                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
+                            >Enviar Solicitud</button>
+                    </div>
+                </form>
+            </div>
+            <div class="content-center lineaPP py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
+                <p class="titulo-texto" style="font-size: 28px;">
+                    ¿Por qué contratar a Pixel Perfect?
+                    <div class="lineaPP-foot"></div>
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 mt-16">
+                    <div class='grid grid-cols-1 contenedor-1' style="height: 250px">
+                        <p class="titulo-texto">
+                            Solicitar es gratis 
+                        </p>
+                        <p class="texto-container">
+                            Puedes mandar tus solicitudes gratuitamente por aquí, por whatsapp y por nuestro correo, el presupuesto se te envía al contactar. 
+                        </p>
+                    </div>
+                    <div class='grid grid-cols-1 contenedor-2' style="height: 250px">
+                        <p class="titulo-texto">
+                            Manejo de dominios    
+                        </p>
+                        <p class="texto-container">
+                            Contamos con un dominio de la página en donde pagarías mensualmente, o si ya cuentas con uno subimos la página sin costo extra. 
+                        </p>
+                    </div>
+                    <div class='grid grid-cols-1 mt-4 contenedor-1' style="height: 230px">
+                        <p class="titulo-texto">
+                            Calidad asegurada 
+                        </p>
+                        <p class="texto-container">
+                            Tu proyecto está protegido y no pagarás hasta que estés completamente de acuerdo con los resultados finales. 
+                        </p>
+                    </div>
+                    <div class='grid grid-cols-1 mt-4 contenedor-2' style="height: 230px">
+                        <p class="titulo-texto">
+                            Automatización 
+                        </p>
+                        <p class="texto-container">
+                            Recibe y envía correos automáticamente. Además, se pueden automatizar archivos de Excel y PDF con información dinámica.  
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal_CFE" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content" style="width: 1800px; min-height: 500px;">
+                        <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Sistema de Gestión Vehicular de CFE</h5>
+                            <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                        <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
+                            <div class="flex w-full" style="color:black">
+                                <div class="w-1/2 h-full text-center content-center items-center justify-center"> 
+                                    <div class="container flex content-center items-center justify-center bg-white mt-2" style="height: 340px;border-radius:15px">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            </div>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item shadow-xl active">
+                                                    <img src="{{ asset('Evidencias/LT_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/LT_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 2">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/LT_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 3">
                                                 </div>
                                             </div>
-                                            <p class="text-center" style="font-size:28px;margin-top:63px;width:90%;margin-left:26px">El costo total de este proyecto fue de <span class="font-bold">$30,000</span> mil pesos mexicanos</p>
-                                        </div>
-                                        <div class="w-1/2 ml-2">
-                                            <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
-                                                <div class='grid grid-rows-1 mt-2 text-justify break-words text-wrap' style="font-size: 16px;font-weight:600">
-                                                    El sistema incluye las siguientes características: <br>
-                                                    <li><span style="font-weight: 800">Manejo de Cuentas:</span> Se tiene un registro de cuentas con roles administrativos o de personal para poder proteger información confidencial.</li> <br>
-                                                    <li><span style="font-weight: 800">Gestión de Inventarios:</span> Control preciso de stock, órdenes de compra automáticas y correos de bajos niveles de inventario.</li> <br>
-                                                    <li><span style="font-weight: 800">Control de Nómina:</span> Registro y seguimiento de todos los gastos nominales de cada empleado, asi como la alimentación por un lector de huellas externo.</li> <br>
-                                                    <li><span style="font-weight: 800">Manejo de Personal:</span> Administración de horarios, vacaciones, permisos, contratos y faltas administrativas.</li> <br>
-                                                    <li><span style="font-weight: 800">Reportes en PDF:</span> Generación de informes en formato PDF de manera automática y con información dinámica.</li> <br>
-                                                </div>
-                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
                                         </div>
                                     </div>
+                                    <p class="text-center" style="font-size:28px;margin-top:63px;width:90%;margin-left:26px">El costo total de este proyecto fue de <span class="font-bold">$30,000</span> mil pesos mexicanos</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="exampleModal_Tortas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content" style="width: 1800px; min-height: 500px;">
-                                <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
-                                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Gestión de Almacenamiento y Finanzas de Tortalajara</h5>
-                                    <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-                                <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
-                                    <div class="flex w-full" style="color:black">
-                                        <div class="w-1/2 h-full text-center content-center items-center justify-center"> 
-                                            <div class="container flex content-center items-center justify-center bg-white mt-2" style="height: 340px;border-radius:15px">
-                                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                                    <div class="carousel-indicators">
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                                    </div>
-                                                    <div class="carousel-inner">
-                                                        <div class="carousel-item shadow-xl active">
-                                                            <img src="{{ asset('Evidencias/TJ_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                                        </div>
-                                                        <div class="carousel-item shadow-xl">
-                                                            <img src="{{ asset('Evidencias/TJ_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                                        </div>
-                                                        <div class="carousel-item shadow-xl">
-                                                            <img src="{{ asset('Evidencias/TJ_3.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                                        </div>
-                                                        <div class="carousel-item shadow-xl">
-                                                            <img src="{{ asset('Evidencias/TJ_4.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                                                        </div>
-                                                    </div>
-                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Previous</span>
-                                                    </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Next</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <p class="text-center" style="font-size:28px;margin-top:40px;width:90%;margin-left:26px">El costo total de este proyecto fue de <span class="font-bold">$4,000</span> mil pesos mexicanos</p>
-                                        </div>
-                                        <div class="w-1/2 ml-2">
-                                            <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
-                                                <div class='grid grid-rows-1 mt-2 text-justify break-words text-wrap' style="font-size: 16px;font-weight:600">
-                                                    El sistema incluye las siguientes características: <br>
-                                                    <li><span style="font-weight: 800">Gestión de Inventarios:</span> Cálculo preciso y automático de mermas, y gestión de entradas y salidas de insumos.</li> <br>
-                                                    <li><span style="font-weight: 800">Gestión de Productos:</span> Cuenta con un apartado para subir un .csv del punto de venta del establecimiento y gestionar las ventas del día.</li> <br>
-                                                    <li><span style="font-weight: 800">Análisis Financiero:</span> Gestión de Entradas y Salidas monetarias del establecimiento, así como gráficas diarias y mensuales de estas. Además de Gráficas de; Insumos, Mermas y de Puntos de Equilibrio.</li> <br>
-                                                    <li><span style="font-weight: 800">Exportación en Excel:</span> Generación de informes en formato XLS de manera automática y mensual con sus respectivos registros financieros.</li> <br>
-                                                </div>
-                                            </div>
+                                <div class="w-1/2 ml-2">
+                                    <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
+                                        <div class='grid grid-rows-1 mt-2 text-justify break-words text-wrap' style="font-size: 16px;font-weight:600">
+                                            El sistema incluye las siguientes características: <br>
+                                            <li><span style="font-weight: 800">Manejo de Cuentas:</span> Se tiene un registro de cuentas con roles administrativos o de personal para poder proteger información confidencial.</li> <br>
+                                            <li><span style="font-weight: 800">Gestión de Inventarios:</span> Control preciso de stock, órdenes de compra automáticas y correos de bajos niveles de inventario.</li> <br>
+                                            <li><span style="font-weight: 800">Control de Nómina:</span> Registro y seguimiento de todos los gastos nominales de cada empleado, asi como la alimentación por un lector de huellas externo.</li> <br>
+                                            <li><span style="font-weight: 800">Manejo de Personal:</span> Administración de horarios, vacaciones, permisos, contratos y faltas administrativas.</li> <br>
+                                            <li><span style="font-weight: 800">Reportes en PDF:</span> Generación de informes en formato PDF de manera automática y con información dinámica.</li> <br>
                                         </div>
                                     </div>
                                 </div>
@@ -471,9 +426,126 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
-    </body>
-</x-app2>
+            </div>
+            <div class="modal fade" id="exampleModal_Tokyo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content" style="width: 1800px; min-height: 500px;">
+                        <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Proyecto Administrativo y Financiero de Little Tokyo</h5>
+                            <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                        <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
+                            <div class="flex w-full" style="color:black">
+                                <div class="w-1/2 h-full text-center content-center items-center justify-center"> 
+                                    <div class="container flex content-center items-center justify-center bg-white mt-2" style="height: 340px;border-radius:15px">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            </div>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item shadow-xl active">
+                                                    <img src="{{ asset('Evidencias/LT_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/LT_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 2">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/LT_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 3">
+                                                </div>
+                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-center" style="font-size:28px;margin-top:63px;width:90%;margin-left:26px">El costo total de este proyecto fue de <span class="font-bold">$30,000</span> mil pesos mexicanos</p>
+                                </div>
+                                <div class="w-1/2 ml-2">
+                                    <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
+                                        <div class='grid grid-rows-1 mt-2 text-justify break-words text-wrap' style="font-size: 16px;font-weight:600">
+                                            El sistema incluye las siguientes características: <br>
+                                            <li><span style="font-weight: 800">Manejo de Cuentas:</span> Se tiene un registro de cuentas con roles administrativos o de personal para poder proteger información confidencial.</li> <br>
+                                            <li><span style="font-weight: 800">Gestión de Inventarios:</span> Control preciso de stock, órdenes de compra automáticas y correos de bajos niveles de inventario.</li> <br>
+                                            <li><span style="font-weight: 800">Control de Nómina:</span> Registro y seguimiento de todos los gastos nominales de cada empleado, asi como la alimentación por un lector de huellas externo.</li> <br>
+                                            <li><span style="font-weight: 800">Manejo de Personal:</span> Administración de horarios, vacaciones, permisos, contratos y faltas administrativas.</li> <br>
+                                            <li><span style="font-weight: 800">Reportes en PDF:</span> Generación de informes en formato PDF de manera automática y con información dinámica.</li> <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal_Tortas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content" style="width: 1800px; min-height: 500px;">
+                        <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Gestión de Almacenamiento y Finanzas de Tortalajara</h5>
+                            <button type="button" class="rounded bg-white px-1 p-1 text-black" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                        <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);">
+                            <div class="flex w-full" style="color:black">
+                                <div class="w-1/2 h-full text-center content-center items-center justify-center"> 
+                                    <div class="container flex content-center items-center justify-center bg-white mt-2" style="height: 340px;border-radius:15px">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-indicators">
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                            </div>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item shadow-xl active">
+                                                    <img src="{{ asset('Evidencias/TJ_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/TJ_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/TJ_3.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                                <div class="carousel-item shadow-xl">
+                                                    <img src="{{ asset('Evidencias/TJ_4.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
+                                                </div>
+                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-center" style="font-size:28px;margin-top:40px;width:90%;margin-left:26px">El costo total de este proyecto fue de <span class="font-bold">$4,000</span> mil pesos mexicanos</p>
+                                </div>
+                                <div class="w-1/2 ml-2">
+                                    <div class="grid grid-rows-1 md:grid-rows-1 gap-1 md:gap-2 mx-4">                    
+                                        <div class='grid grid-rows-1 mt-2 text-justify break-words text-wrap' style="font-size: 16px;font-weight:600">
+                                            El sistema incluye las siguientes características: <br>
+                                            <li><span style="font-weight: 800">Gestión de Inventarios:</span> Cálculo preciso y automático de mermas, y gestión de entradas y salidas de insumos.</li> <br>
+                                            <li><span style="font-weight: 800">Gestión de Productos:</span> Cuenta con un apartado para subir un .csv del punto de venta del establecimiento y gestionar las ventas del día.</li> <br>
+                                            <li><span style="font-weight: 800">Análisis Financiero:</span> Gestión de Entradas y Salidas monetarias del establecimiento, así como gráficas diarias y mensuales de estas. Además de Gráficas de; Insumos, Mermas y de Puntos de Equilibrio.</li> <br>
+                                            <li><span style="font-weight: 800">Exportación en Excel:</span> Generación de informes en formato XLS de manera automática y mensual con sus respectivos registros financieros.</li> <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</x-app-layout>
 <script src="{{ asset('js/app.js') }}"></script>
 

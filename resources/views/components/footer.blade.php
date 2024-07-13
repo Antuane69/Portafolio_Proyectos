@@ -20,44 +20,94 @@
         transform: translateY(-10px); /* Ajusta el valor para cambiar la cantidad de elevación */
     }
 
-    .linea .linea-foot {
-        width:10%;
+    .linea-footer .linea-footer-d {
+        width:30%;
         margin: 0 auto;
         transition: width 0.3s ease;
         border-top:2px solid white;
     }
 
-    .linea:hover .linea-foot{
-        width: 30%;
+    .linea-footer:hover .linea-footer-d{
+        width: 100%;
     }
 </style>
 <footer>
-    <section class="mt-32 p-4 shadow-2xl" style="background-color: #1C0B49;border-top: white 0.5px solid">
-        <div class="container linea text-center content-center items-center">
-            <p style="color: white;font-weight:700;font-size:22px">PIXEL PERFECT</p>
-            <div class="linea-foot"></div>
-            <div class="inline-flex mt-4">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
-                    <div class="footer-class">
-                        <img src="{{asset('assets/correo2.png')}}" style="width:43px;height:43px" alt="Logo Facebook">
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/atun_dolorescr7" target="_blank">
-                    <div class="footer-class">
-                        <img src="{{asset('assets/instagram2.png')}}" style="width:40px;height:40px" alt="Logo Instagram">
-                    </div>
-                </a>
-                <a href="https://wa.me/523221974630?text=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
-                    <div class="footer-class">
-                        <img src="{{asset('assets/whatsapp2.png')}}" style="width:40px;height:40px" alt="Logo WhatsApp">
-                    </div>
-                </a>
+    <section class="mt-32 p-2 shadow-2xl" style="background-color: #1C0B49;border-top: white 0.5px solid">
+        <div class="flex linea-footer">
+            <div class="w-2/5 flex ml-8 mt-3">
+                <div class="text-left uppercase" style="font-size:13px">
+                    <p style="color: #FFFA55;font-weight:900;">Acerca de Nosotros</p>
+                    <p class="mt-2 text-white" style="font-weight:200">
+                        Contactar con Soporte
+                        <br>
+                        Sobre Nosotros
+                        <br>
+                        Centro de Datos
+                    </p>
+                </div>
+                <div class="text-left uppercase ml-24" style="font-size:13px">
+                    <p style="color: #FFFA55;font-weight:900">Cuenta</p>
+                    <p class="mt-2 text-white" style="font-weight:200">
+                        Mi Perfil
+                        <br>
+                        Mis Solicitudes
+                        <br>
+                        Crear Cuenta
+                    </p>
+                </div>
+            </div>
+            <div class="w-1/5 mt-1 content-center justify-center ml-3">
+                <span style="color: white;font-weight:700;font-size:22px;">
+                    PIXEL PERFECT
+                </span>
+                <div class="mt-1" style="margin-right:86px">
+                    <div class="linea-footer-d"></div>
+                </div>
+                <div class="inline-flex mt-3" style="margin-left:12px">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                        <div class="footer-class">
+                            <img src="{{asset('assets/correo2.png')}}" style="width:38px;height:38px" alt="Logo Facebook">
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/atun_dolorescr7" target="_blank">
+                        <div class="footer-class">
+                            <img src="{{asset('assets/instagram2.png')}}" style="width:35px;height:35px" alt="Logo Instagram">
+                        </div>
+                    </a>
+                    <a href="https://wa.me/523221974630?text=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
+                        <div class="footer-class">
+                            <img src="{{asset('assets/whatsapp2.png')}}" style="width:35px;height:35px" alt="Logo WhatsApp">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="w-2/5 flex ml-6 no-wrap mr-8 mt-3">
+                <div class="text-right uppercase" style="font-size:13px">
+                    <p style="color: #FFFA55;font-weight:900;">Compras</p>
+                    <p class="text-white" style="font-weight:200">
+                        Formas de Pago
+                        <br>
+                        Cotizar un Proyecto
+                        <br>
+                        Protección de Datos
+                    </p>
+                </div>
+                <div class="text-right uppercase ml-24" style="font-size:13px">
+                    <p style="color: #FFFA55;font-weight:900">Datos de Contacto</p>
+                    <p class=" text-white" style="font-weight:200">
+                        @pixelPerfect
+                        <br>
+                        pixelperfect.nacif6068@gmail.com
+                        <br>
+                        +52 322 1974630
+                    </p>
+                </div>
             </div>
         </div>
     </section>
     <section style="background-color: #000;border-top:1px solid white" class='p-0.5'>
-        <div class="container content-center items-center text-justify text-wrap">
-            <p style="color: white;font-weight:500;font-size:14px;margin-top:10px">
+        <div class="container content-center items-center text-justify text-wrap mx-6 mt-2.5">
+            <p style="color: white;font-weight:500;font-size:14px;">
                 Copyright © 2024 - 2024 PixelPerfect. Todos los derechos reservados. La marca Pixel Perfect es una orgullosa start-up mexicana.
                 El uso de este sitio está sujeto a las condiciones de uso expresas. Al utilizar este sitio, tú indicas que aceptas cumplir con estos Términos universales de servicio.
             </p>

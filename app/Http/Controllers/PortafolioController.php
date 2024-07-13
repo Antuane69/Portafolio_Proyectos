@@ -23,4 +23,8 @@ class PortafolioController extends Controller
             return response()->file($path, $headers);
         };
     }
+
+    public function proyectos(){
+        return view('proyectos');
+    }
 }
