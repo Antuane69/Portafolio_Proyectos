@@ -131,6 +131,20 @@
     font-weight: 900;
     text-transform: uppercase;
 }
+.linea-google {
+    width:80%;
+    margin: 0 auto;
+    border-top:2px solid black;
+}
+.boton-iniciar-sesion{
+    margin-top: 25px;
+    margin-bottom: 10px;
+    width: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+}
 </style>
 <x-app-layout>
     @section('title', 'Pixel Perfect - Información')
@@ -537,6 +551,180 @@
                                             <li><span style="font-weight: 800">Análisis Financiero:</span> Gestión de Entradas y Salidas monetarias del establecimiento, así como gráficas diarias y mensuales de estas. Además de Gráficas de; Insumos, Mermas y de Puntos de Equilibrio.</li> <br>
                                             <li><span style="font-weight: 800">Exportación en Excel:</span> Generación de informes en formato XLS de manera automática y mensual con sus respectivos registros financieros.</li> <br>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal_registrarme" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-md">
+                    <div class="modal-content" style="width: 500px; height: 400px;border-radius:50px">
+                        <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">¡Crea tú Cuenta!</h5>
+                            <button type="button" class="rounded-md px-3 py-1 uppercase" style="color:#fff;background-color:#B10505;
+                            transition: color 0.3s ease, background-color 0.3s ease;font-weight:800;font-size:16px" data-bs-dismiss="modal"
+                            onmouseover="this.style.backgroundColor='#7D0000'; this.style.color='#ffffff';" 
+                            onmouseout="this.style.backgroundColor='#B10505'; this.style.color='#ffffff';"
+                            >X</button>
+                        </div>
+                        <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);            
+                        border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                            <div class="flex w-full content-center justify-center text-center">
+                                <div class="grid grid-cols-1 md:grid-cols-1 gap-1 md:gap-2 mx-4">                    
+                                    <div class='items-center justify-center pt-1 pb-4'>
+                                        <form action="">
+                                            <div class="inline-flex my-2 px-4 py-2 border-1 shadow-xl" style="border-radius:10px;background-color:#fff">
+                                                <img src="{{ asset('assets/google.png')}}" style="width:16px;height:16px;margin-top:4px" alt="Logo Google">
+                                                <button type="submit"
+                                                    class='ml-2'
+                                                    style="color:#1C0B49;font-weight:800" 
+                                                    >Registrate con Google</button>
+                                            </div>
+                                        </form>
+                                        <div class="mt-4">
+                                            <div class="linea-google"></div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-between grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                                        <div class='grid grid-cols-1'>
+                                            <label for="username" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Nombre de Usuario</label>
+                                            <p>
+                                                <input type="text" name="usuario" placeholder="Ingrese su nombre de usuario"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('usuario')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                        <div class='grid grid-cols-1'>
+                                            <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
+                                            <p>
+                                                <input type="email" name="correo" placeholder="Ingrese el correo registrado"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('correo')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                        <div class='grid grid-cols-1'>
+                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49;height:50px">* Contraseña</label>
+                                            <p>
+                                                <input type="password" name="password" placeholder="Cree su contraseña"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('password')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                        <div class='grid grid-cols-1'>
+                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña <br> (Otra Vez)</label>
+                                            <p>
+                                                <input type="password" name="password_confirmation" placeholder="Ingrese su contraseña otra vez"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('password_confirmation')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                    </div>
+                                    <div class='flex items-center justify-center'>
+                                        <button type="submit"
+                                            class='shadow-xl px-4 py-2 boton-iniciar-sesion'
+                                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
+                                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
+                                            >Crear Cuenta</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal_iniciar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content" style="width: 500px; height: 400px;border-radius:50px">
+                        <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">¡Bienvenido de Vuelta!</h5>
+                            <button type="button" class="rounded-md px-3 py-1 uppercase" style="color:#fff;background-color:#B10505;
+                            transition: color 0.3s ease, background-color 0.3s ease;font-weight:800;font-size:16px" data-bs-dismiss="modal"
+                            onmouseover="this.style.backgroundColor='#7D0000'; this.style.color='#ffffff';" 
+                            onmouseout="this.style.backgroundColor='#B10505'; this.style.color='#ffffff';"
+                            >X</button>
+                        </div>
+                        <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);            
+                        border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                            <div class="flex w-full content-center justify-center text-center">
+                                <div class="grid grid-cols-1 md:grid-cols-1 gap-1 md:gap-2 mx-4">                    
+                                    <div class='items-center justify-center pt-1 pb-4'>
+                                        <form action="">
+                                            <div class="inline-flex my-2 px-4 py-2 border-1 shadow-xl" style="border-radius:10px;background-color:#fff">
+                                                <img src="{{ asset('assets/google.png')}}" style="width:16px;height:16px;margin-top:4px" alt="Logo Google">
+                                                <button type="submit"
+                                                    class='ml-2'
+                                                    style="color:#1C0B49;font-weight:800" 
+                                                    >Inicia Sesión con Google</button>
+                                            </div>
+                                        </form>
+                                        <div class="mt-4">
+                                            <div class="linea-google"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <div class='grid-cols-1'>
+                                            <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
+                                            <p>
+                                                <input type="email" name="correo" placeholder="Ingrese el correo registrado"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('correo')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                        <div class='grid-cols-1'>
+                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña</label>
+                                            <p>
+                                                <input type="password" name="password" placeholder="Ingrese su contraseña"
+                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                required>
+    
+                                                @error('password')
+                                                    <span style="font-size: 10pt;color:red" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </p>
+                                        </div> 
+                                    </div>
+                                    <div class='flex items-center justify-center'>
+                                        <button type="submit"
+                                            class='shadow-xl px-4 py-2 boton-iniciar-sesion'
+                                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
+                                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
+                                            >Iniciar Sesión</button>
                                     </div>
                                 </div>
                             </div>

@@ -30,40 +30,68 @@
     .linea-footer:hover .linea-footer-d{
         width: 100%;
     }
+    .text-footer{
+        color:white;
+        transition: color 0.3s ease;
+        text-shadow: 
+        -0.5px -0.5px 0 #000,  
+        0.5px -0.5px 0 #000,
+        -0.5px 0.5px 0 #000,
+        0.5px 0.5px 0 #000;
+    }
+    .text-footer:hover{
+        color:#FFFA55;
+    }
 </style>
 <footer>
     <section class="mt-32 p-2 shadow-2xl" style="background-color: #1C0B49;border-top: white 0.5px solid">
         <div class="flex linea-footer">
             <div class="w-2/5 flex ml-8 mt-3">
                 <div class="text-left uppercase" style="font-size:13px">
-                    <p style="color: #FFFA55;font-weight:900;">Acerca de Nosotros</p>
-                    <p class="mt-2 text-white" style="font-weight:200">
-                        Contactar con Soporte
+                    <p style="color: #FFFA55;font-weight:900;    
+                    text-shadow: -0.5px -0.5px 0 #000,  0.5px -0.5px 0 #000,
+                    -0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">Acerca de Nosotros</p>
+                    <p class="mt-2" style="font-weight:200">
+                        <a href="" class="text-footer">
+                            Contactar con Soporte
+                        </a>
                         <br>
-                        Sobre Nosotros
+                        <a href="" class="text-footer">
+                            Sobre Nosotros
+                        </a>
                         <br>
-                        Centro de Datos
+                        <a href="" class="text-footer">
+                            Centro de Datos
+                        </a>
                     </p>
                 </div>
                 <div class="text-left uppercase ml-24" style="font-size:13px">
-                    <p style="color: #FFFA55;font-weight:900">Cuenta</p>
-                    <p class="mt-2 text-white" style="font-weight:200">
-                        Mi Perfil
+                    <p style="color: #FFFA55;font-weight:900;text-shadow: -0.5px -0.5px 0 #000,  
+                    0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;">Cuenta</p>
+                    <p class="mt-2" style="font-weight:200">
+                        <a href="" class="text-footer">
+                            Mi Perfil
+                        </a>
                         <br>
-                        Mis Solicitudes
+                        <a href="" class="text-footer">
+                            Mis Solicitudes
+                        </a>
                         <br>
-                        Crear Cuenta
+                        <a href="" class="text-footer">
+                            Crear Cuenta
+                        </a>
                     </p>
                 </div>
             </div>
             <div class="w-1/5 mt-1 content-center justify-center ml-3">
-                <span style="color: white;font-weight:700;font-size:22px;">
+                <span style="font-weight:700;font-size:22px;color:white;text-shadow: -1px -1px 0 #000,  
+                1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;">
                     PIXEL PERFECT
                 </span>
                 <div class="mt-1" style="margin-right:86px">
                     <div class="linea-footer-d"></div>
                 </div>
-                <div class="inline-flex mt-3" style="margin-left:12px">
+                <div class="inline-flex mt-3" style="margin-left:14px">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pixelperfect.nacif@gmail.com&su=Consulta&body=Hola,%20me%20gustaría%20más%20información%20sobre%20tus%20servicios." target="_blank">
                         <div class="footer-class">
                             <img src="{{asset('assets/correo2.png')}}" style="width:38px;height:38px" alt="Logo Facebook">
@@ -81,25 +109,39 @@
                     </a>
                 </div>
             </div>
-            <div class="w-2/5 flex ml-6 no-wrap mr-8 mt-3">
+            <div class="w-2/5 flex ml-10 no-wrap mt-3">
                 <div class="text-right uppercase" style="font-size:13px">
-                    <p style="color: #FFFA55;font-weight:900;">Compras</p>
-                    <p class="text-white" style="font-weight:200">
-                        Formas de Pago
+                    <p style="color: #FFFA55;font-weight:900;text-shadow: -0.5px -0.5px 0 #000,  
+                    0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">Compras</p>
+                    <p style="font-weight:200">
+                        <a href="" class="text-footer">
+                            Formas de Pago
+                        </a>
                         <br>
-                        Cotizar un Proyecto
+                        <a href="" class="text-footer">
+                            Cotizar un Proyecto
+                        </a>
                         <br>
-                        Protección de Datos
+                        <a href="" class="text-footer">
+                            Protección de Datos
+                        </a>
                     </p>
                 </div>
-                <div class="text-right uppercase ml-24" style="font-size:13px">
-                    <p style="color: #FFFA55;font-weight:900">Datos de Contacto</p>
-                    <p class=" text-white" style="font-weight:200">
-                        @pixelPerfect
+                <div class="text-right uppercase ml-16" style="font-size:13px">
+                    <p style="color: #FFFA55;font-weight:900;text-shadow: -0.5px -0.5px 0 #000,  
+                    0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">Datos de Contacto</p>
+                    <p style="font-weight:200">
+                        <span class="text-footer">
+                            @pixelPerfect
+                        </span>
                         <br>
-                        pixelperfect.nacif6068@gmail.com
+                        <span class="text-footer">
+                            pixelperfect.nacif6068@gmail.com
+                        </span>
                         <br>
-                        +52 322 1974630
+                        <span class="text-footer">
+                            +52 322 1974630
+                        </span>
                     </p>
                 </div>
             </div>
