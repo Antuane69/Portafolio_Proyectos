@@ -157,6 +157,51 @@
     </section>
     <section>
         <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
+            @if (session()->has('success'))
+                <style>
+                    .auto-fade {
+                        animation: fadeOut 2s ease-in-out forwards;
+                    }
+
+                    @keyframes fadeOut {
+                        0% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 1;
+                        }
+                        100% {
+                            opacity: 0;
+                            display: none;
+                        }
+                    }
+                </style>
+                <div class="alert alert-success auto-fade px-2 inline-flex flex-row text-green-600">
+                    {{ session()->get('success') }}
+                </div> 
+            @elseif (session()->has('error'))
+                <style>
+                    .auto-fade {
+                        animation: fadeOut 2s ease-in-out forwards;
+                    }
+
+                    @keyframes fadeOut {
+                        0% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 1;
+                        }
+                        100% {
+                            opacity: 0;
+                            display: none;
+                        }
+                    }
+                </style>
+                <div class="auto-fade inline-flex flex-row text-red-600 bg-red-100 border border-red-400 rounded py-2 px-4 my-2">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2 text" style="flex-wrap: wrap;text-align:justify">
                 <p>
                     Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
@@ -587,72 +632,75 @@
                                             <div class="linea-google"></div>
                                         </div>
                                     </div>
-                                    <div class="justify-between grid grid-cols-1 md:grid-cols-2 md:gap-3">
-                                        <div class='grid grid-cols-1'>
-                                            <label for="username" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Nombre de Usuario</label>
-                                            <p>
-                                                <input type="text" name="usuario" placeholder="Ingrese su nombre de usuario"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('usuario')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                        <div class='grid grid-cols-1'>
-                                            <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
-                                            <p>
-                                                <input type="email" name="correo" placeholder="Ingrese el correo registrado"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('correo')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                        <div class='grid grid-cols-1'>
-                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49;height:50px">* Contraseña</label>
-                                            <p>
-                                                <input type="password" name="password" placeholder="Cree su contraseña"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('password')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                        <div class='grid grid-cols-1'>
-                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña <br> (Otra Vez)</label>
-                                            <p>
-                                                <input type="password" name="password_confirmation" placeholder="Ingrese su contraseña otra vez"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('password_confirmation')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                    </div>
-                                    <div class='flex items-center justify-center'>
-                                        <button type="submit"
-                                            class='shadow-xl px-4 py-2 boton-iniciar-sesion'
-                                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
-                                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
-                                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
-                                            >Crear Cuenta</button>
-                                    </div>
+                                    <form method="POST" action="{{ route('registro') }}">
+                                        @csrf
+                                        <div class="justify-between grid grid-cols-1 md:grid-cols-2 md:gap-3">
+                                            <div class='grid grid-cols-1'>
+                                                <label for="username" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Nombre de Usuario</label>
+                                                <p>
+                                                    <input type="text" name="nombre_usuario" placeholder="Ingrese su nombre de usuario"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('nombre_usuario')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                            <div class='grid grid-cols-1'>
+                                                <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
+                                                <p>
+                                                    <input type="email" name="email" placeholder="Ingrese el correo registrado"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('email')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                            <div class='grid grid-cols-1'>
+                                                <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49;height:50px">* Contraseña</label>
+                                                <p>
+                                                    <input type="password" name="password" placeholder="Cree su contraseña"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('password')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                            <div class='grid grid-cols-1'>
+                                                <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña <br> (Otra Vez)</label>
+                                                <p>
+                                                    <input type="password" name="password_confirmation" placeholder="Ingrese su contraseña otra vez"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('password_confirmation')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                        </div>
+                                        <div class='flex items-center justify-center'>
+                                            <button type="submit"
+                                                class='shadow-xl px-4 py-2 boton-iniciar-sesion'
+                                                style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                                                onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
+                                                >Crear Cuenta</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -688,44 +736,47 @@
                                             <div class="linea-google"></div>
                                         </div>
                                     </div>
-                                    <div class="flex justify-between">
-                                        <div class='grid-cols-1'>
-                                            <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
-                                            <p>
-                                                <input type="email" name="correo" placeholder="Ingrese el correo registrado"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('correo')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                        <div class='grid-cols-1'>
-                                            <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña</label>
-                                            <p>
-                                                <input type="password" name="password" placeholder="Ingrese su contraseña"
-                                                class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                                required>
-    
-                                                @error('password')
-                                                    <span style="font-size: 10pt;color:red" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </p>
-                                        </div> 
-                                    </div>
-                                    <div class='flex items-center justify-center'>
-                                        <button type="submit"
-                                            class='shadow-xl px-4 py-2 boton-iniciar-sesion'
-                                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
-                                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
-                                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
-                                            >Iniciar Sesión</button>
-                                    </div>
+                                    <form method="POST" action="{{ route('iniciar_sesion') }}">
+                                        @csrf
+                                        <div class="flex justify-between">
+                                            <div class='grid-cols-1'>
+                                                <label for="correo" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Correo Electronico</label>
+                                                <p>
+                                                    <input type="email" name="email" placeholder="Ingrese el correo registrado"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('email')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                            <div class='grid-cols-1'>
+                                                <label for="password" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Contraseña</label>
+                                                <p>
+                                                    <input type="password" name="password" placeholder="Ingrese su contraseña"
+                                                    class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                                    required>
+        
+                                                    @error('password')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </p>
+                                            </div> 
+                                        </div>
+                                        <div class='flex items-center justify-center'>
+                                            <button type="submit"
+                                                class='shadow-xl px-4 py-2 boton-iniciar-sesion'
+                                                style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                                                onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
+                                                >Iniciar Sesión</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

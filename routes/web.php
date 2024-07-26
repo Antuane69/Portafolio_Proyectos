@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortafolioController;
+use App\Http\Controllers\UsuariosController;
+use App\Models\Usuarios;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +17,8 @@ use App\Http\Controllers\PortafolioController;
 */
 Route::get('/dashboard',[PortafolioController::class, 'inicio'])->name('dashboard');
 Route::get('/',[PortafolioController::class, 'inicio'])->name('dashboard');
+Route::post('/usuario/registro',[UsuariosController::class, 'register'])->name('registro');
+Route::post('/usuario/iniciar_sesion',[UsuariosController::class, 'login'])->name('iniciar_sesion');
 
 Route::post('/solicitud/enviar',[PortafolioController::class, 'store'])->name('solicitud.store');
 Route::get('/informacion',[PortafolioController::class, 'informacion'])->name('informacion');

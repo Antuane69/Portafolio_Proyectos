@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Empleados;
+use App\Models\Usuarios;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,20 +38,18 @@ class AuthServiceProvider extends ServiceProvider
                 ldap_set_option($ldap_connect, LDAP_OPT_PROTOCOL_VERSION, 3);
                 ldap_set_option($ldap_connect, LDAP_OPT_REFERRALS, 0);
     
-                $ldap_bind = @ldap_bind($ldap_connect, $request->curp . '@cfe.mx', $request->password);
+                $ldap_bind = @ldap_bind($ldap_connect, $request->email . '@cfe.mx', $request->password);
     
                 if ($ldap_bind) {
-                    $user = Empleados::firstWhere('curp', $request->curp);
+                    $user = Usuarios::firstWhere('email', $request->email);
                     if (is_null($user)) {
     
-                        $user = Empleados::create([
-                            'curp'       => $request->curp,
-                            //'nombre'    => $nombre,
+                        $user = Usuarios::create([
+                            'email'       => $request->email,
                             'password'  => bcrypt($request->password)
                         ]);
                         $user->assignRole('usuario');
                     }
-    
                     return $user;
                 } else {
     
@@ -59,11 +57,10 @@ class AuthServiceProvider extends ServiceProvider
                 }
             }
             if (Auth::attempt([
-                'curp' => $request->curp,
-                //                'email'    => $request->rpe . '@cfe.mx',
+                'email' => $request->email,
                 'password' => $request->password
             ])) {
-                $user = Empleados::firstWhere('curp', $request->curp);
+                $user = Usuarios::firstWhere('email', $request->email);
                 return $user;
             } else {
                 return 0;

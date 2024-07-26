@@ -46,8 +46,7 @@ return [
     |
     */
 
-    'username' => 'curp',
-
+    'username' => 'email',
     'password' => 'password',
 
     /*
