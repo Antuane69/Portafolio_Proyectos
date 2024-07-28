@@ -32,9 +32,11 @@ class Usuarios extends Authenticatable
         'telefono',
         'ubicacion',
         'comentarios',
-        'password'
+        'imagen_perfil',
+        'password',
+        'google_id',
     ];
-
+    
     protected $hidden = [
         'remember_token',
         'two_factor_recovery_codes',

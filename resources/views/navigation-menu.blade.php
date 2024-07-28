@@ -182,21 +182,52 @@
                             </a>
                             <div class="lineaNav-foot"></div>
                         </div>
-                        {{-- @dd(auth()->check()) --}}
                         @if (Auth::check())
-                            <button class="inline-flex items-center text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-150 transition">
-                                <img class="h-8 w-8 rounded-full object-cover mr-2"
-                                    src="{{ asset('assets/perfil.jpg') }}" alt="Imagen del empleado"/>
-                                <span class="mr-2">{{ Auth::user()->nombre_usuario }}</span>
-                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
+                            <div class="hidden sm:flex sm:items-center sm:ml-6" style="margin-left:48%">
+                                <div class="ml-3 relative">
+                                    <x-jet-dropdown align="right">
+                                        <x-slot name="trigger">
+                                            <button class="inline-flex items-center text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-150 transition">
+                                                <img class="h-8 w-8 rounded-full object-cover mr-2"
+                                                    src="{{ asset('img/profile-pictures/' . auth()->user()->imagen_perfil) }}" alt="Imagen del empleado"/>
+                                                <span class="mr-2 text-white font-bold" style="font-size:16px">{{ Auth::user()->nombre_usuario }}</span>
+                                                <span>
+                                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20" fill="white">
+                                                        <path fill="white" d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                    </svg>
+                                                </span>                                                                                       
+                                            </button>
+                                        </x-slot>   
+                                        <x-slot name="content">
+                                            <div class="block px-4 py-2 mb-1 font-bold" style="font-size:16px">
+                                                {{ __('Opciones') }}
+                                            </div>
+                                            <div class="border-t border-gray-100"></div>
+                                            <a href="{{ route('perfil',auth()->user()->nombre_usuario) }}">
+                                                <li class="px-3 py-1 mt-1 text-sm hover:bg-gray-100">Mi Perfil</li>
+                                            </a>
+                                            {{-- <a href="{{ route('cambiar_contraseña') }}"> --}}
+                                            <a>
+                                                <li class="px-3 py-1 mb-1 text-sm hover:bg-gray-100">Cambiar Contraseña</li>
+                                            </a>
+                                            <div class="border-t border-gray-100"></div>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                    {{ __('Cerrar Sesión') }}
+                                                </x-jet-dropdown-link>
+                                            </form>
+                                        </x-slot>
+                                    </x-jet-dropdown>
+                                </div>
+                            </div>
                         @else
                             <div class="lineaNav group items-center inline-block" width="40" style="margin-left:190px">
-                                <a href="{{ route('informacion') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;font-size:20px;background:none;color:white" data-bs-toggle="modal" data-bs-target="#exampleModal_registrarme">
+                                <a href="" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;font-size:20px;background:none;color:white" data-bs-toggle="modal" data-bs-target="#exampleModal_registrarme">
                                     Registrarme
                                 </a>
                                 <div class="mr-1.5">
@@ -204,7 +235,7 @@
                                 </div>
                             </div>                
                             <div class="lineaNav group items-center inline-block" width="40" style="margin-left:15px">
-                                <a href="{{ route('informacion') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;font-size:20px;background:none;color:white" data-bs-toggle="modal" data-bs-target="#exampleModal_iniciar">
+                                <a href="" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;font-size:20px;background:none;color:white" data-bs-toggle="modal" data-bs-target="#exampleModal_iniciar">
                                     Iniciar Sesión
                                 </a>
                                 <div class="lineaNav-foot"></div>

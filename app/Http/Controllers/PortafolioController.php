@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class PortafolioController extends Controller
 {
@@ -27,4 +26,9 @@ class PortafolioController extends Controller
     public function proyectos(){
         return view('proyectos');
     }
+
+    public function informacion_pagos(){
+        return view('formasPago');
+    }
+
 }
