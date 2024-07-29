@@ -31,4 +31,8 @@ class PortafolioController extends Controller
         return view('formasPago');
     }
 
+    public function proteccion_datos(){
+        return view('proteccionDatos');
+    }
+
 }

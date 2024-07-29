@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortafolioController;
+use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\UsuariosController;
 use App\Models\Usuarios;
 
@@ -23,11 +24,14 @@ Route::get('/perfil/{nombre}',[UsuariosController::class, 'profile'])->name('per
 Route::post('/perfil/{id}/guardar-cambios',[UsuariosController::class, 'profile_save'])->name('perfil.guardar');
 Route::delete('/perfil/{id}/eliminar',[UsuariosController::class, 'profile_delete'])->name('perfil.delete');
 
-Route::post('/solicitud/enviar',[PortafolioController::class, 'store'])->name('solicitud.store');
 Route::get('/informacion',[PortafolioController::class, 'informacion'])->name('informacion');
 Route::get('/informacion/curriculum',[PortafolioController::class, 'curriculum'])->name('informacion.curriculum');
 Route::get('/informacion/FormasDePago',[PortafolioController::class, 'informacion_pagos'])->name('informacion.pagos');
+Route::get('/informacion/ProteccionDeDatos',[PortafolioController::class, 'proteccion_datos'])->name('informacion.proteccionDatos');
+
+
 Route::get('/proyectos',[PortafolioController::class, 'proyectos'])->name('proyectos');
+Route::post('/cotizacion/guardar',[ProyectosController::class, 'cotizacion_store'])->name('cotizacion.store');
 
 Route::get('/auth/google', [UsuariosController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [UsuariosController::class, 'handleGoogleCallback'])->name('auth.redirectGoogle');

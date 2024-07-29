@@ -124,7 +124,7 @@
 }
 
 .boton-enviar{
-    margin-top: 46px;
+    margin-top: 30px;
     width: auto;
     border-radius: 8px;
     cursor: pointer;
@@ -152,11 +152,11 @@
     <section class="d-flex align-items-center shadow-xl" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
         <div class="container" data-aos="zoom-out" data-aos-delay="100">
             <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1>
-            <h2 style="color:white">El lugar perfecto para organizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
+            <h2 style="color:white" class="text-c2">El lugar perfecto para automatizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
         </div>
     </section>
     <section>
-        <div class="container flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white" data-aos="fade-up">
+        <div class="flex hover-container justify-between shadow-xl content-center rounded-lg text-md" style="background: #1C0B49;color:white;width:82%;margin-left:9%" data-aos="fade-up">
             @if (session()->has('success'))
                 <style>
                     .auto-fade {
@@ -206,18 +206,17 @@
                 <p>
                     Con nosotros podrás encontrar soluciones inovadoras y automatizadas para tu negocio.
                 </p>
-                <br>
                 <b>Desde:</b>
-                <li>Conexiones a Lectores de Huellas.</li>
+                <li>Conexiones a Dispositivos de Terceros.</li>
                 <li>Exportación a Excel, PDF y, o Word.</li>
                 <li>Puntos de Venta.</li>
-                <li>Envios de Correos Automáticos.</li>
+                <li>Envios de Correos, Mensajes y Solicitudes Automáticos.</li>
                 <li>Gestión de Empleados (contratos, permisos, liquidaciones y actas administrativas).</li>
                 <li>Gestión de Insumos (herramientas, uniformes, mermas y solicitud a proveedores automática).</li>
                 <li>Gestión de Horarios (asignaciones de trabajadores, faltas, retardos y vacaciones).</li>
+                <li>Y Más...</li>
             </div>
             <div class="w-1/3 flex justify-between">
-                <p style="color:#343434">aa</p>
                 <img src="{{asset('assets/portafolio2.jpg')}}" class="rounded-lg" alt="Portafolio img 1"/>
             </div>
         </div>
@@ -239,7 +238,7 @@
                         </button> 
                     </div>
                     <p style="font-size:22px;text-align:center;font-weight:600;">
-                        Los proyectos realizados a estas empresas son completamente enfocados en las necesidades de cada una. <br>
+                        Los proyectos realizados a estas empresas son completamente enfocados en aumentar la productividad de los empleadores, esto se logra con un sistema automatizado y ordenado para dedicar tu tiempo útil en cosas más importantes. <br>
                     </p>
                 </div>
             </div>
@@ -263,131 +262,7 @@
         </div>
         <div class="container flex hover-container justify-between">
             <div id="section1" class="section linea-cot content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
-                <p class="text text-white" style="font-weight: 800;font-size:24px;">Solicita una Cotización</p>
                 <div class="linea-cot-foot" style="margin-bottom:74px"></div>
-                {{-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7" aria-label="Slide 8"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8" aria-label="Slide 9"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9" aria-label="Slide 10"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10" aria-label="Slide 11"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11" aria-label="Slide 12"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12" aria-label="Slide 13"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13" aria-label="Slide 14"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14" aria-label="Slide 15"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15" aria-label="Slide 16"></button>
-                    </div>
-                    <div class="carousel-inner">
-
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/MN_3.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/RIJ_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/SIVE_1.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-            
-
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/MN_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/RIJ_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/SIVE_2.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-         
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/MN_7.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/RIJ_5.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        <div class="carousel-item shadow-xl">
-                            <img src="{{ asset('Evidencias/SIVE_9.png') }}" class="d-block img-dentro-carousel" alt="Imagen 1">
-                        </div>
-                        
-                    </div>
-                </div> --}}
-                <form id="formulario" action={{ route('solicitud.store') }} method="POST">
-                    @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2 mx-3">                    
-                        <div class='grid grid-cols-1'>
-                            <label for="nombre" class="mb-1 text-white bloack uppercase font-bold">
-                                * Razón Social de la Empresa
-                            </label>
-                            <p>
-                                <input type="text" id="nombre_input" placeholder="Nombre de la Empresa"
-                                class='focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                required>
-                            </p>
-                        </div>
-                        <div class='grid grid-cols-1'>
-                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold mx-4">
-                                * Nombre del Apoderado
-                            </label>
-                            <p>
-                                <input type="text" id="nombre_input" placeholder="Ingrese el nombre del apoderado"
-                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                required>
-                            </p>
-                        </div>
-                        <div class='grid grid-cols-1'>
-                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
-                                * Correo
-                            </label>
-                            <p>
-                                <input type="text" id="nombre_input" placeholder="Ingrese su correo"
-                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                required>
-                            </p>
-                        </div>
-                        <div class='grid grid-cols-1'>
-                            <label for="nombre" class="mb-1 bloack text-white uppercase font-bold">
-                                * Teléfono
-                            </label>
-                            <p>
-                                <input type="text" id="nombre_input" placeholder="Ingrese su teléfono"
-                                class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                required>
-                            </p>
-                        </div>
-                        <div  class='grid grid-cols-1 col-span-2 mt-2'>
-                            <label for="comentarios" class="mb-2 bloack text-white uppercase font-bold">Comentarios</label>
-                            <p>
-                                <textarea id="comentarios" name="comentarios"
-                                    class="w-5/6 mb-1 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
-                                    placeholder="Describa las necesidades de su negocio, o cualquier otra información relevante">{{ old('comentarios') }}</textarea>
-                                @error('comentarios')
-                                    <span style="font-size: 10pt;color:red" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </p>
-                        </div> 
-                    </div>
-                    <div class='flex items-center justify-center  md:gap-8 gap-4 pt-1 pb-5'>
-                        <button type="submit"
-                            class='shadow-xl px-4 py-2 boton-enviar border-1'
-                            style="color:#000000;background-color:#fff;transition: color 0.3s ease, background-color 0.3s ease;" 
-                            onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
-                            onmouseout="this.style.backgroundColor='#FFFFFF'; this.style.color='#000000';"
-                            >Enviar Solicitud</button>
-                    </div>
-                </form>
             </div>
             <div class="content-center lineaPP py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
                 <p class="titulo-texto" style="font-size: 28px;">

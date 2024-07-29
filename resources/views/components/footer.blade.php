@@ -224,6 +224,91 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal_cotizacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="width: 500px; height: 240px;border-radius:50px">
+                <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Solicita una Cotización</h5>
+                    <button type="button" class="rounded-md px-3 py-1 uppercase" style="color:#fff;background-color:#B10505;
+                    transition: color 0.3s ease, background-color 0.3s ease;font-weight:800;font-size:16px" data-bs-dismiss="modal"
+                    onmouseover="this.style.backgroundColor='#7D0000'; this.style.color='#ffffff';" 
+                    onmouseout="this.style.backgroundColor='#B10505'; this.style.color='#ffffff';"
+                    >X</button>
+                </div>
+                <div class="modal-body"  style="background: linear-gradient(#d5c6f6, #ffe7d1);            
+                border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                    <div class="flex w-full content-center justify-center text-center">
+                        <form id="formulario" action={{ route('cotizacion.store') }} method="POST">
+                            @csrf
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2 mx-3">                    
+                                <div class='grid grid-cols-1'>
+                                    <label for="nombre" class="mb-1 text-black bloack uppercase font-bold">
+                                        * Razón Social de la Empresa
+                                    </label>
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Nombre de la Empresa"
+                                        class='focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        name="nombre_empresa" required>
+                                    </p>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="nombre" class="mb-1 bloack text-black uppercase font-bold mx-4">
+                                        * Nombre del Apoderado
+                                    </label>
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Ingrese el nombre del apoderado"
+                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        name="nombre_usuario" required @if(Auth::check()) value="{{auth()->user()->nombre}}" @endif>
+                                    </p>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="nombre" class="mb-1 bloack text-black uppercase font-bold">
+                                        * Correo
+                                    </label>
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Ingrese su correo"
+                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        name="email" required @if(Auth::check()) value="{{auth()->user()->email}}" @endif>
+                                    </p>
+                                </div>
+                                <div class='grid grid-cols-1'>
+                                    <label for="nombre" class="mb-1 bloack text-black uppercase font-bold">
+                                        * Teléfono
+                                    </label>
+                                    <p>
+                                        <input type="text" id="nombre_input" placeholder="Ingrese su teléfono"
+                                        class=' focus:outline-none focus:ring-2 mb-1 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
+                                        name="telefono" required @if(Auth::check()) value="{{auth()->user()->telefono}}" @endif>
+                                    </p>
+                                </div>
+                                <div  class='grid grid-cols-1 col-span-2 mt-2'>
+                                    <label for="comentarios" class="mb-2 bloack text-black uppercase font-bold">Comentarios / Requerimientos</label>
+                                    <p>
+                                        <textarea id="comentarios" name="comentarios"
+                                            class="w-5/6 p-2 px-3 rounded-lg border-2  mt-1 focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent resize-none"
+                                            placeholder="Describa las necesidades de su negocio, o cualquier otra información relevante">{{ old('comentarios') }}</textarea>
+                                        @error('comentarios')
+                                            <span style="font-size: 10pt;color:red" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </p>
+                                </div> 
+                            </div>
+                            <div class='flex items-center justify-center md:gap-8 gap-4 pb-2'>
+                                <button type="submit"
+                                    class='shadow-xl px-4 py-2 boton-enviar border-1'
+                                    style="color:#ffffff;background-color:#1C0B49;transition: color 0.3s ease, background-color 0.3s ease;" 
+                                    onmouseover="this.style.backgroundColor='#FFFA55'; this.style.color='#000000';" 
+                                    onmouseout="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';"
+                                    >Enviar Solicitud</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="mt-32 p-2 shadow-2xl" style="background-color: #1C0B49;border-top: white 0.5px solid">
         <div class="flex linea-footer">
             <div class="w-2/5 flex ml-8 mt-3">
@@ -298,11 +383,11 @@
                             Formas de Pago
                         </a>
                         <br>
-                        <a href="" class="text-footer">
+                        <a href="" class="text-footer" data-bs-toggle="modal" data-bs-target="#exampleModal_cotizacion">
                             Cotizar un Proyecto
                         </a>
                         <br>
-                        <a href="" class="text-footer">
+                        <a href="{{ route('informacion.proteccionDatos') }}" class="text-footer">
                             Protección de Datos
                         </a>
                     </p>
