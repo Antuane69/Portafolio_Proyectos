@@ -30,7 +30,7 @@ Route::get('/informacion/FormasDePago',[PortafolioController::class, 'informacio
 Route::get('/informacion/ProteccionDeDatos',[PortafolioController::class, 'proteccion_datos'])->name('informacion.proteccionDatos');
 
 
-Route::get('/proyectos',[PortafolioController::class, 'proyectos'])->name('proyectos');
+Route::get('/NuestrosProyectos',[ProyectosController::class, 'proyectos'])->name('proyectos');
 Route::post('/cotizacion/guardar',[ProyectosController::class, 'cotizacion_store'])->name('cotizacion.store');
 
 Route::get('/auth/google', [UsuariosController::class, 'redirectToGoogle'])->name('auth.google');

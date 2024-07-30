@@ -325,8 +325,8 @@
                             Sobre Nosotros
                         </a>
                         <br>
-                        <a href="" class="text-footer">
-                            Centro de Datos
+                        <a href="{{ route('proyectos') }}" class="text-footer">
+                            Nuestros Proyectos
                         </a>
                     </p>
                 </div>
@@ -383,7 +383,7 @@
                             Formas de Pago
                         </a>
                         <br>
-                        <a href="" class="text-footer" data-bs-toggle="modal" data-bs-target="#exampleModal_cotizacion">
+                        <a href="CotizarProyecto" class="text-footer" data-bs-toggle="modal" data-bs-target="#exampleModal_cotizacion">
                             Cotizar un Proyecto
                         </a>
                         <br>

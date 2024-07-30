@@ -23,10 +23,6 @@ class PortafolioController extends Controller
         };
     }
 
-    public function proyectos(){
-        return view('proyectos');
-    }
-
     public function informacion_pagos(){
         return view('formasPago');
     }

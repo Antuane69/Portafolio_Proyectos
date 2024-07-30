@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proyectos;
+use App\Models\ProyectosPixel;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
 
 class ProyectosController extends Controller
 {
+    public function proyectos(){
+        $proyectos = ProyectosPixel::all();
+
+        return view('proyectos',[
+            'proyectos' => $proyectos
+        ]);
+    }
+
     public function cotizacion_store(Request $request){
         Proyectos::create([
             'nombre_empresa' => $request->nombre_empresa,

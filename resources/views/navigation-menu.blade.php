@@ -114,33 +114,40 @@
                 <!-- Navigation Links -->
                 <div class="MENU">
                     <div class="hidden space-x-8 sm:flex sm:items-center sm:ml-1 justify-between h-16">
-                        <div class="lineaNav2 group inline-block items-center ml-1" align="left" width="40">
-                            <a href="{{ route('proyectos') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;">
-                                <span class="pr-1 font-semibold flex-1">Proyectos</span>
-                                <span>
-                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
-                                transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </span>
-                            </a>
-                            <ul class="border rounded-md transform scale-0 group-hover:scale-100 absolute
-                            transition duration-150 ease-in-out origin-top" style="min-width:100px;font-size:16px;background-color:white;color:#1C0B49;min-width:130px;font-weight:600">
-                                <a href="{{ route('proyectos') }}">
-                                    <li class="px-2 py-1.5 flex items-center" style="border-bottom: 1px solid #1C0B49;transition: color 0.1s linear, background-color 0.1s linear;"
-                                    onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
-                                    onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
-                                    >Proyectos en Curso</li>
+                        <div class="lineaNav group inline-block items-center ml-1" align="left" width="40">
+                            @if (Auth::check())
+                                <a href="{{ route('proyectos') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;">
+                                    <span class="pr-1 font-semibold flex-1">Proyectos</span>
+                                    <span>
+                                        <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+                                    transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                        </svg>
+                                    </span>
                                 </a>
-                                <a href="{{ route('proyectos') }}">
-                                    <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
-                                    onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
-                                    onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
-                                    >Mis Proyectos</li>
+                                <ul class="border rounded-md transform scale-0 group-hover:scale-100 absolute
+                                transition duration-150 ease-in-out origin-top" style="min-width:100px;font-size:16px;background-color:white;color:#1C0B49;min-width:130px;font-weight:600">
+                                    <a href="{{ route('proyectos') }}">
+                                        <li class="px-2 py-1.5 flex items-center" style="border-bottom: 1px solid #1C0B49;transition: color 0.1s linear, background-color 0.1s linear;"
+                                        onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
+                                        >Proyectos en Curso</li>
+                                    </a>
+                                    <a href="{{ route('proyectos') }}">
+                                        <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
+                                        onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
+                                        >Mis Proyectos</li>
+                                    </a>
+                                </ul>
+                            @else
+                                <a href="{{ route('proyectos') }}" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;">
+                                    Nuestros Proyectos
                                 </a>
-                            </ul>
+                                <div class="lineaNav-foot"></div>
+                            @endif
                         </div>
                         <div class="lineaNav group inline-block items-center ml-4" align="left" width="40">
                             <a href=" @if(Route::currentRouteName() == 'dashboard') #section1 @else {{ route('dashboard') }}#section1 @endif " class="px-1 py-1 rounded-sm flex content-center text-center items-center min-w-32 no-wrap" style="font-weight: 600;color:white;font-size:20px;background:none;margin-top:2px">
@@ -162,18 +169,20 @@
                                     onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
                                     >Solicitar una Cotización</li>
                                 </a>
-                                <a href="{{ route('proyectos') }}" >
-                                    <li class="px-2 py-1.5 flex items-center" style="border-bottom: 1px solid #1C0B49;transition: color 0.1s linear, background-color 0.1s linear;"
-                                    onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
-                                    onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
-                                    >Solicitar un Proyecto</li>
-                                </a>
-                                <a href="{{ route('proyectos') }}">
-                                    <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
-                                    onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
-                                    onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
-                                    >Solicitudes Pendientes</li>
-                                </a>
+                                @if (Auth::check())                                   
+                                    <a href="{{ route('proyectos') }}" >
+                                        <li class="px-2 py-1.5 flex items-center" style="border-bottom: 1px solid #1C0B49;transition: color 0.1s linear, background-color 0.1s linear;"
+                                        onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
+                                        >Solicitar un Proyecto</li>
+                                    </a>
+                                    <a href="{{ route('proyectos') }}">
+                                        <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
+                                        onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
+                                        >Solicitudes Pendientes</li>
+                                    </a>
+                                @endif
                             </ul>
                         </div>
                         <div class="lineaNav group inline-block items-center ml-4.5 mt-1" align="left" width="40">
@@ -226,7 +235,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="lineaNav group items-center inline-block" width="40" style="margin-left:190px">
+                            <div class="lineaNav group items-center inline-block" width="40" style="margin-left:170px">
                                 <a href="" class="px-1 py-1 rounded-sm flex items-center min-w-32 no-wrap" style="font-weight: 600;font-size:20px;background:none;color:white" data-bs-toggle="modal" data-bs-target="#exampleModal_registrarme">
                                     Registrarme
                                 </a>
