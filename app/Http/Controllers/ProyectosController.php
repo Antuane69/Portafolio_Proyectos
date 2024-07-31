@@ -26,7 +26,13 @@ class ProyectosController extends Controller
             'comentarios' => $request->comentarios,
         ]);
 
-        // mandar correo
         return redirect()->back();
+    }
+
+    public function crear_solicitud(){
+        $respuestas = ['Si','No'];
+        return view('proyectos.crearSolicitud',[
+            'respuestas' => $respuestas
+        ]);
     }
 }

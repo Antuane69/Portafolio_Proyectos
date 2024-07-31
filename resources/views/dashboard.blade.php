@@ -105,14 +105,14 @@
     width: 60%;
 }
 .lineaPP .lineaPP-foot {
-    width:30%;
+    width:0%;
     margin: 0 auto;
     transition: width 0.3s ease;
     border-top:2px solid white;
 }
 
 .lineaPP:hover .lineaPP-foot{
-    width: 90%;
+    width: 70%;
 }
 .contenedor-1 {
     border-bottom: 2px solid white; /* Borde inferior */
@@ -260,15 +260,91 @@
                 </div>
             </div>
         </div>
-        <div class="container flex hover-container justify-between">
-            <div id="section1" class="section linea-cot content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" data-aos="fade-up">
+        <div class="container hover-container justify-between" style="margin-top:5%;background-color:#1C0B49;border-radius:15px">
+            <p class="titulo-texto text-center items-center flex pt-4" style="font-size: 28px;width:100%">
+                ¿Por qué contratar a Pixel Perfect?
+                <div style="width:30%;margin: 0 auto;border-top:2px solid white;"></div>
+            </p>
+            <div class="grid-rows content-center text-center justify-center" style="margin-bottom:30px;margin-top:3%" data-aos="fade-up">           
+                <div class="flex" style="margin-bottom:2%;margin-top:2%">
+                    <div class="inline-flex lineaPP break-words text-wrap text-justify pb-1" style="width: 50%;margin-right:2%;margin-left:4%">
+                        <div class="content-center items-center" style="width:45%;border-radius:10px;">
+                            <img class='shadow-xl md:w-full' style="width: 380px; height: 170px;border-radius:15px;margin-top:40px" src="{{ asset('assets/solicitar.jpg') }}" alt="Imagen del Proyecto">
+                        </div>
+                        <div style="width: 52%">
+                            <span class="titulo-texto mb-1">
+                                Solicitar es gratis 
+                            </span>
+                            <div class="ml-1.5">
+                                <div class="lineaPP-foot"></div>
+                            </div>
+                            <div class="text-justify texto-container mt-3">
+                                <span>
+                                    Puedes mandar tus solicitudes gratuitamente por aquí, por whatsapp y por nuestro correo, el presupuesto se te envía al contactar. 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline-flex lineaPP break-words text-wrap text-justify pb-1" style="width: 50%;margin-right:2%;">
+                        <div class="content-center items-center" style="width:45%;border-radius:10px;;">
+                            <img class='shadow-xl md:w-full' style="width: 380px; height: 170px;border-radius:15px;margin-top:55px" src="{{ asset('assets/dominio.jpg') }}" alt="Imagen del Proyecto">
+                        </div>
+                        <div style="width: 52%">
+                            <span class="titulo-texto mb-1">
+                                Manejo de dominios    
+                            </span>
+                            <div class="ml-1">
+                                <div class="lineaPP-foot"></div>
+                            </div>
+                            <div class="text-justify texto-container mt-3">
+                                <span>
+                                    Contamos con un dominio de la página en donde pagarías desde $100.00 mxn mensualmente, o si ya cuentas con uno, subimos tu proyecto sin costo extra. 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex" style="margin-top:6%;margin-bottom:4%">
+                    <div class="inline-flex lineaPP break-words text-wrap text-justify pb-1" style="width: 50%;margin-right:2%;margin-left:4%">
+                        <div class="content-center items-center" style="width:45%;border-radius:10px;">
+                            <img class='shadow-xl md:w-full' style="width: 380px; height: 170px;border-radius:15px;margin-top:60px" src="{{ asset('assets/calidad.jpg') }}" alt="Imagen del Proyecto">
+                        </div>
+                        <div style="width: 52%">
+                            <span class="titulo-texto mb-1">
+                                Calidad asegurada 
+                            </span>
+                            <div class="ml-1.5">
+                                <div class="lineaPP-foot"></div>
+                            </div>
+                            <div class="text-justify texto-container mt-3">
+                                <span>
+                                    Tu proyecto está protegido y no pagarás hasta que estés completamente de acuerdo con los resultados finales. 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline-flex lineaPP break-words text-wrap text-justify pb-1" style="width: 50%;margin-right:2%;">
+                        <div class="content-center items-center" style="width:45%;border-radius:10px;;">
+                            <img class='shadow-xl md:w-full' style="width: 380px; height: 170px;border-radius:15px;margin-top:62px" src="{{ asset('assets/automatizacion.jpg') }}" alt="Imagen del Proyecto">
+                        </div>
+                        <div style="width: 52%">
+                            <span class="titulo-texto mb-1">
+                                Automatización 
+                            </span>
+                            <div class="lineaPP-foot"></div>
+                            <div class="text-justify texto-container mt-3">
+                                <span>
+                                    Recibe y envía correos automáticamente. Además, se pueden automatizar archivos de Excel y PDF con información dinámica.  
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            {{-- <div id="section1" class="section linea-cot content-center shadow-xl rounded-lg mt-12 text-center justify-center items-center " style="background:#1C0B49;width:45%;height:auto" >
                 <div class="linea-cot-foot" style="margin-bottom:74px"></div>
-            </div>
-            <div class="content-center lineaPP py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
-                <p class="titulo-texto" style="font-size: 28px;">
-                    ¿Por qué contratar a Pixel Perfect?
-                    <div class="lineaPP-foot"></div>
-                </p>
+            </div> --}}
+            {{-- <div class="content-center lineaPP py-4 p-2 shadow-xl rounded-lg mt-12 flex-col" style="background:#cb7020 ;width:53%" data-aos="fade-up">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 mt-16">
                     <div class='grid grid-cols-1 contenedor-1' style="height: 250px">
                         <p class="titulo-texto">
@@ -303,7 +379,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="modal fade" id="exampleModal_CFE" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content" style="width: 1800px; min-height: 500px;">

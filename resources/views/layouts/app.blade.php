@@ -73,6 +73,9 @@
         <script src="{{ asset('js/isotope-layout/isotope.pkgd.min.js') }}"></script>
         <script src="{{ asset('js/swiper/swiper-bundle.min.js') }}"></script>
         <script src="{{ asset('js/jquery-min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-min.js') }}"></script>
+        <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
         <script>
             AOS.init();
         </script>
