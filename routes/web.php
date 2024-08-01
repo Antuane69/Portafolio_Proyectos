@@ -36,6 +36,7 @@ Route::get('/NuestrosProyectos',[ProyectosController::class, 'proyectos'])->name
 Route::post('/cotizacion/guardar',[ProyectosController::class, 'cotizacion_store'])->name('cotizacion.store');
 Route::get('/solicitudes/CrearSolicitud',[ProyectosController::class, 'crear_solicitud'])->name('proyectos.crear_solicitud');
 Route::post('/solicitudes/GuardarSolicitud',[ProyectosController::class, 'guardar_solicitud'])->name('proyectos.guardar_solicitud');
+Route::get('/solicitudesPendientes/{nombre}',[ProyectosController::class, 'solicitudes_pendientes'])->name('proyectos.mostrarSolicitudesPendientes');
 
 Route::post('/upload', [UploadController::class, 'upload'])->name('upload');
 Route::get('upload/MostrarEvidencia/{archivo}', [UploadController::class, 'show'])->name('upload.show');

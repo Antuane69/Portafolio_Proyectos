@@ -12,7 +12,7 @@ class Upload extends Model
 
     protected $fillable =  [
         'nombre',
-        'servicio_id',
+        'solicitud_id',
         'ubicacion',
     ];
 

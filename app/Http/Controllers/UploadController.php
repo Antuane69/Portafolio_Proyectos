@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Upload;
+use App\Models\Solicitudes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
@@ -14,16 +16,28 @@ class UploadController extends Controller
             'file' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,xls,docx|max:10240',
         ]);
 
-        $id = Upload::max('id');
+        $id = Solicitudes::max('id');
         $idr = intval($id);
-        // info($request);
+
+        // $id2 = Upload::max('solicitud_id');
+        // $idr2 = intval($id2);
+
+        // if($idr+1 == $idr2){
+
+        // }
+
+        $totalArchivos = Upload::where('solicitud_id',$idr+1)->count();
+        if($totalArchivos >= 3){
+            return response()->json(['error' => 'Máximos Archivos Alcanzados'], 400);
+        }
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = 'Evidencia' . '_' . $id . '_' . $file->getClientOriginalName();
 
             $archivo = Upload::create([
                 'nombre' => $filename,
-                'servicio_id' => $idr + 1,
+                'solicitud_id' => $idr + 1,
                 'ubicacion' => $request->file('file')->store('Archivos_Evidencias/' . auth()->user()->nombre_usuario),
             ]);
 
@@ -46,9 +60,8 @@ class UploadController extends Controller
 
     public function destroy(Upload $archivo)
     {
-        $ruta = public_path('Archivos_Evidencias/' . auth()->user()->nombre_usuario); 
 
-        File::delete($ruta . '/' . $archivo->nombre);
+        Storage::delete($archivo->ubicacion);
         $archivo->delete();
         
         return true;

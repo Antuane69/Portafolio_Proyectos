@@ -54,27 +54,30 @@
                     @csrf
                     <div class="flex content-center text-center justify-center mb-4 mt-4">
                         <div class="mb-5 mt-3 ml-4 lineaSep1" style="width:20%;height:53%;margin-right:3%">
-                            <span class="text-blue-700 text-center" style="font-weight:800;font-size:20px;margin-top:1%">Adjuntar Evidencias:</span>
+                            <span class="text-blue-700 text-center" style="font-weight:800;font-size:20px;margin-top:1%;">Adjuntar Archivos:</span>
+                            <br>
+                            <span class="text-gray-800 text-center" style="font-weight:800;font-size:16px;margin-top:1%;">Máximo 3 Archivos.</span>
                             <div style="margin-top:2%;margin-bottom:17%">
                                 <div class="lineaSep1-foot"></div>
                             </div>
                             <div>
                                 <div id="dropzone" class="dropzone rounded-lg focus:outline-none focus:ring-2 mb-1 focus:ring-green-500 border-green-600 focus:border-transparent border-2 mt-2"></div>
                                 <div id="archivos" style="width:90%;margin-top:4%;margin-left:4%">
+                                    <p>Adjuntados Correctamente:</p>
                                     <x-file-row id="spare-file-row" class="hidden" />
                                 </div>
                             </div>
                         </div>
                         <div class="text-center break-words lineaSep2 flex-wrap text-wrap mt-3" style="width: 70%">
-                            <span class="text-blue-700 text-center" style="margin-right:60px;font-weight:800;font-size:20px;margin-right:64px">Datos de la Solicitud:</span>
-                            <div style="margin-right:7%;margin-top:0.5%">
+                            <span class="text-blue-700 text-center" style="margin-right:60px;font-weight:800;font-size:20px;margin-right:40px;">Datos de la Solicitud:</span>
+                            <div style="margin-right:4%;margin-top:0.5%">
                                 <div class="lineaSep2-foot"></div>
                             </div>
                             <div class="justify-between mt-10 grid grid-cols-2 md:grid-cols-3 md:gap-5 mr-10">
                                 <div class='grid grid-cols-1'>
                                     <label for="nombre" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* Razón Social del Negocio</label>
                                     <p>
-                                        <input type="text" name="nombre" placeholder="Ingrese el nombre deseado de la página"
+                                        <input type="text" name="nombre" placeholder="Ingrese la razón social de la empresa"
                                         class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
                                         required>
     

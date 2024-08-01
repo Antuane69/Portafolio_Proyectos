@@ -16,7 +16,7 @@ class CreateUploadTable extends Migration
         Schema::create('upload', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('servicio_id');
+            $table->string('solicitud_id');
             $table->string('ubicacion');
             $table->timestamps();
         });
