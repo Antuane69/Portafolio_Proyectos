@@ -19,13 +19,6 @@ class UploadController extends Controller
         $id = Solicitudes::max('id');
         $idr = intval($id);
 
-        // $id2 = Upload::max('solicitud_id');
-        // $idr2 = intval($id2);
-
-        // if($idr+1 == $idr2){
-
-        // }
-
         $totalArchivos = Upload::where('solicitud_id',$idr+1)->count();
         if($totalArchivos >= 3){
             return response()->json(['error' => 'Máximos Archivos Alcanzados'], 400);

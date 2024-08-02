@@ -176,7 +176,7 @@
                                         onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
                                         >Solicitar un Proyecto</li>
                                     </a>
-                                    <a href="{{ route('proyectos') }}">
+                                    <a href="{{ route('proyectos.mostrarSolicitudesPendientes',auth()->user()->nombre_usuario) }}">
                                         <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
                                         onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
                                         onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"

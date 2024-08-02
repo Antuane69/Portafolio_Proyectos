@@ -331,7 +331,9 @@
                             <span class="titulo-texto mb-1">
                                 Automatización 
                             </span>
-                            <div class="lineaPP-foot"></div>
+                            <div class="ml-2">
+                                <div class="lineaPP-foot"></div>
+                            </div>
                             <div class="text-justify texto-container mt-3">
                                 <span>
                                     Recibe y envía correos automáticamente. Además, se pueden automatizar archivos de Excel y PDF con información dinámica.  
