@@ -7,6 +7,7 @@ use App\Models\ProyectosPixel;
 use App\Models\Solicitudes;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use PDO;
 
 class ProyectosController extends Controller
 {
@@ -30,10 +31,16 @@ class ProyectosController extends Controller
         return redirect()->back();
     }
 
-    public function crear_solicitud(){
+    public function crear_solicitud($id = null){
+        if($id){
+            $solicitud = Solicitudes::with('Evidencias')->find($id);
+        }else{
+            $solicitud = new Solicitudes();
+        }
         $respuestas = ['Si','No'];
         return view('proyectos.crearSolicitud',[
-            'respuestas' => $respuestas
+            'respuestas' => $respuestas,
+            'solicitud' => $solicitud
         ]);
     }
 
@@ -59,10 +66,16 @@ class ProyectosController extends Controller
     }
 
     public function solicitudes_pendientes(){
-        $solicitudes = Solicitudes::get();
+        $solicitudes = Solicitudes::where('nombre_usuario',auth()->user()->nombre_usuario)->get();
 
         return view('proyectos.mostrarSolicitudesPendientes',[
             'solicitudes' => $solicitudes
         ]);
+    }
+
+    public function eliminar_solicitud($id){
+        Solicitudes::find($id)->delete();
+
+        return redirect()->route('proyectos.mostrarSolicitudesPendientes',auth()->user()->nombre_usuario)->with('success', 'Solicitud Eliminada Con éxito');
     }
 }

@@ -64,6 +64,15 @@
                                 <div id="dropzone" class="dropzone rounded-lg focus:outline-none focus:ring-2 mb-1 focus:ring-green-500 border-green-600 focus:border-transparent border-2 mt-2"></div>
                                 <div id="archivos" style="width:90%;margin-top:4%;margin-left:4%">
                                     <p>Adjuntados Correctamente:</p>
+                                    @if ($solicitud->id)
+                                        @if (isset($solicitud->Evidencias))                                           
+                                            <div id="{{ $solicitud->id ? 'archivos' : '' }}">
+                                                @foreach($solicitud->Evidencias as $archivo)
+                                                    <x-file-row url="{{ $archivo->url }}" nombre="{{ $archivo->nombre }}" id="evidencia-{{$archivo->id}}" on-remove="globals.dropzone.removeEvidencia('{{$archivo->id}}', '{{$archivo->remove}}')" />
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    @endif
                                     <x-file-row id="spare-file-row" class="hidden" />
                                 </div>
                             </div>
@@ -79,7 +88,7 @@
                                     <p>
                                         <input type="text" name="nombre" placeholder="Ingrese la razón social de la empresa"
                                         class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
+                                        value="{{$solicitud->nombre}}" required>
     
                                         @error('nombre')
                                             <span style="font-size: 10pt;color:red" role="alert">
@@ -92,9 +101,15 @@
                                     <label for="adaptable" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* ¿Con Diseño Adaptable?</label>
                                     <p>
                                         <select id="adaptable" name="adaptable" class='w-6/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @if(!$solicitud->id)
+                                                <option value="" disabled selected>Seleccione una Opción</option>
+                                            @endif
                                             @foreach($respuestas as $respuesta)
-                                                <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @if ($solicitud->adaptable == $respuesta)
+                                                    <option value="{{$respuesta}}" selected>{{$respuesta}}</option>
+                                                @else
+                                                    <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
     
@@ -109,9 +124,15 @@
                                     <label for="archivos" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* ¿Con Manejo de Archivos?</label>
                                     <p>
                                         <select id="archivos" name="archivos" class='w-6/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @if(!$solicitud->id)
+                                                <option value="" disabled selected>Seleccione una Opción</option>
+                                            @endif
                                             @foreach($respuestas as $respuesta)
-                                                <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @if ($solicitud->archivos == $respuesta)
+                                                    <option value="{{$respuesta}}" selected>{{$respuesta}}</option>
+                                                @else
+                                                    <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
     
@@ -126,9 +147,15 @@
                                     <label for="commerce" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* ¿Es para un e-commerce?</label>
                                     <p>
                                         <select id="commerce" name="commerce" class='w-6/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @if(!$solicitud->id)
+                                                <option value="" disabled selected>Seleccione una Opción</option>
+                                            @endif
                                             @foreach($respuestas as $respuesta)
-                                                <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @if ($solicitud->commerce == $respuesta)
+                                                    <option value="{{$respuesta}}" selected>{{$respuesta}}</option>
+                                                @else
+                                                    <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
     
@@ -143,9 +170,15 @@
                                     <label for="pagos" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* ¿Incluye Pagos en Línea?</label>
                                     <p>
                                         <select id="pagos" name="pagos" class='w-6/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @if(!$solicitud->id)
+                                                <option value="" disabled selected>Seleccione una Opción</option>
+                                            @endif
                                             @foreach($respuestas as $respuesta)
-                                                <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @if ($solicitud->pagos == $respuesta)
+                                                    <option value="{{$respuesta}}" selected>{{$respuesta}}</option>
+                                                @else
+                                                    <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
     
@@ -160,9 +193,15 @@
                                     <label for="servidor" class="mb-2 bloack uppercase font-bold" style="color:#1C0B49">* ¿Con Nuestro Dominio?</label>
                                     <p>
                                         <select id="servidor" name="servidor" class='w-6/6 mb-1 p-2 px-3 rounded-lg border-2 mt-1 focus:outline-none focus:ring-2 focus:border-transparent' required>             
-                                            <option value="" disabled selected>Seleccione una Opción</option>
+                                            @if(!$solicitud->id)
+                                                <option value="" disabled selected>Seleccione una Opción</option>
+                                            @endif
                                             @foreach($respuestas as $respuesta)
-                                                <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @if ($solicitud->servidor == $respuesta)
+                                                    <option value="{{$respuesta}}" selected>{{$respuesta}}</option>
+                                                @else
+                                                    <option value="{{$respuesta}}">{{$respuesta}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
     
@@ -178,7 +217,7 @@
                                     <p>
                                         <input type="number" name="usuarios" placeholder="Ingrese la cantidad de usuarios (aproximadamente)"
                                         class='focus:outline-none focus:ring-2 focus:border-transparent p-2 px-3 border-2 mt-1 rounded-lg w-5/6'
-                                        required>
+                                        value="{{$solicitud->usuarios}}" required>
     
                                         @error('usuarios')
                                             <span style="font-size: 10pt;color:red" role="alert">
@@ -192,7 +231,8 @@
                                     <p class="bloack uppercase text-gray-800 font-bold mb-6">
                                         <textarea name="requerimientos"
                                             class="w-5/6 h-5/6 p-2 px-3 rounded-lg border-2 mt-4 mb-3 focus:outline-none focus:ring-2 focus:border-transparent"
-                                            placeholder="Ingrese los requerimientos especificos para su proyecto">{{ old('requerimientos') }}</textarea>
+                                            placeholder="Ingrese los requerimientos específicos para su proyecto">{{ old('requerimientos', $solicitud->requerimientos) }}</textarea>
+
     
                                         @error('descripcion')
                                             <span style="font-size: 10pt;color:red" role="alert">
@@ -237,7 +277,7 @@
             dropzone: new CustomDropzone({
                 dropzoneSelector: 'div#dropzone',
                 token: "{{ csrf_token() }}",
-                url: "{{ route('upload') }}",
+                url: "{{ route('upload',$solicitud->id) }}",
                 spareId: 'div#spare-file-row',
                 listId: 'archivos',
                 dictDefaultMessage: 'Arrastre los archivos o haga click para subirlos',

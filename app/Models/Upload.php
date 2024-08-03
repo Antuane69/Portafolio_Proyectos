@@ -25,4 +25,9 @@ class Upload extends Model
     {
         return route('upload.destroy', ['archivo' => $this]);
     }
+
+    public function Evidencias()
+    {
+        return $this->belongsTo(Solicitudes::class, 'id', 'solicitud_id');
+    }
 }

@@ -10,16 +10,21 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    public function upload(Request $request)
+    public function upload(Request $request, $id_solicitud = null)
     {
         $request->validate([
             'file' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,xls,docx|max:10240',
         ]);
 
-        $id = Solicitudes::max('id');
-        $idr = intval($id);
+        if($id_solicitud){
+            $id = $id_solicitud;
+            $idr = $id;
+        }else{
+            $id = Solicitudes::max('id');
+            $idr = intval($id) + 1;
+        }
 
-        $totalArchivos = Upload::where('solicitud_id',$idr+1)->count();
+        $totalArchivos = Upload::where('solicitud_id',$idr)->count();
         if($totalArchivos >= 3){
             return response()->json(['error' => 'Máximos Archivos Alcanzados'], 400);
         }
@@ -30,7 +35,7 @@ class UploadController extends Controller
 
             $archivo = Upload::create([
                 'nombre' => $filename,
-                'solicitud_id' => $idr + 1,
+                'solicitud_id' => $idr,
                 'ubicacion' => $request->file('file')->store('Archivos_Evidencias/' . auth()->user()->nombre_usuario),
             ]);
 

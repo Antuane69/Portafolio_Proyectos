@@ -21,4 +21,9 @@ class Solicitudes extends Model
         'nombre_usuario',
         'estatus',
     ];
+
+    public function Evidencias()
+    {
+        return $this->hasMany(Upload::class, 'solicitud_id', 'id');
+    }
 }

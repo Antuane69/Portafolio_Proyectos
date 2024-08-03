@@ -179,28 +179,6 @@
                 <div class="alert alert-success auto-fade px-2 inline-flex flex-row text-green-600">
                     {{ session()->get('success') }}
                 </div> 
-            @elseif (session()->has('error'))
-                <style>
-                    .auto-fade {
-                        animation: fadeOut 2s ease-in-out forwards;
-                    }
-
-                    @keyframes fadeOut {
-                        0% {
-                            opacity: 1;
-                        }
-                        90% {
-                            opacity: 1;
-                        }
-                        100% {
-                            opacity: 0;
-                            display: none;
-                        }
-                    }
-                </style>
-                <div class="auto-fade inline-flex flex-row text-red-600 bg-red-100 border border-red-400 rounded py-2 px-4 my-2">
-                    {{ session()->get('error') }}
-                </div>
             @endif
             <div class="w-2/3 py-4 justify-center content-center p-2 mx-4 my-2 text" style="flex-wrap: wrap;text-align:justify">
                 <p>

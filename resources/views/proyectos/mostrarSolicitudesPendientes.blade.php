@@ -34,19 +34,6 @@
         padding-right: 10px;
         padding-left: 10px;
     }
-    /* .boton-opciones{
-        width: 100%;
-        border-radius: 10px;
-        box-shadow: 1px gray;
-        font-weight: 800;
-        color:white;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 7px;
-        padding-bottom: 7px;
-        background-color: black;
-        margin-bottom: 5px 
-    } */
     .icon-size {
         width: 26px;
         height: 26px;
@@ -66,7 +53,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-slot name="header">
         <span class="font-semibold text-md text-gray-800 flex content-center text-center">
-            <div class="text-left">
+            <div class="text-left mt-2">
                 <a href='{{ route('dashboard') }}'
                     class='w-auto rounded-lg shadow-xl font-medium text-black px-4 py-2'
                     style="background:#FFFF7B;text-decoration: none;" onmouseover="this.style.backgroundColor='#FFFF3E';this.style.color='#000000';" onmouseout="this.style.backgroundColor='#FFFF7B'">
@@ -79,8 +66,26 @@
                 Regresar
                 </a>
             </div>
-            <div class="ml-10 text-xl">
+            <div class="ml-6 text-xl mt-2">
                 {{ __('Solicitudes Pendientes') }}
+            </div>
+            <div style="margin-left:36%">
+                <form action="{{ route('proyectos.mostrarSolicitudes',auth()->user()->nombre_usuario) }}">
+                    <button class='w-auto rounded-lg shadow-xl font-bold text-white px-4 py-2'
+                    style="background:#253c87;text-decoration: none;" onmouseover="this.style.backgroundColor='#1b2d6a'" onmouseout="this.style.backgroundColor='#253c87'"
+                    type="submit">
+                        Proyectos en Curso 
+                    </button>
+                </form>
+            </div>
+            <div style="margin-left: 1%">
+                <form action="{{ route('proyectos.historico',auth()->user()->nombre_usuario) }}">
+                    <button class='w-auto rounded-lg shadow-xl font-bold text-white px-4 py-2'
+                    style="background:#253c87;text-decoration: none;" onmouseover="this.style.backgroundColor='#1b2d6a'" onmouseout="this.style.backgroundColor='#253c87'"
+                    type="submit">
+                        Historial de Proyectos
+                    </button>
+                </form>
             </div>
         </span>
     </x-slot>
@@ -94,8 +99,31 @@
     <div class="pt-4">
         <div class="max-w-8xl mx-auto sm:px-8 lg:px-10">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                @if (session()->has('success'))
+                    <style>
+                        .auto-fade {
+                            animation: fadeOut 2s ease-in-out forwards;
+                        }
+
+                        @keyframes fadeOut {
+                            0% {
+                                opacity: 1;
+                            }
+                            90% {
+                                opacity: 1;
+                            }
+                            100% {
+                                opacity: 0;
+                                display: none;
+                            }
+                        }
+                    </style>
+                    <div class="alert alert-success auto-fade px-2 inline-flex flex-row w-3/4 my-3 text-green-600">
+                        {{ session()->get('success') }}
+                    </div> 
+                @endif
                 <div class="grid-rows content-center text-center justify-center my-8">
-                    <div class="inline-flex break-words text-wrap text-center pb-1" style="width: 90%;">
+                    <div class="inline-flex break-words text-wrap text-center pb-1" style="width: 90%;border-radius:40px">
                         <div style="width: 15%">
                             <span class="header-tabla">
                                 <strong>Nombre</strong>
@@ -149,8 +177,8 @@
                                     {{$solicitud->nombre}}
                                 </span>
                             </div>
-                            <div style="width: 30%" class="body-tabla">
-                                <span>
+                            <div style="width: 25%" class="body-tabla">
+                                <span style="width: 80%;margin-right:4%">
                                     {{$solicitud->requerimientos}}
                                 </span>
                             </div>
@@ -185,32 +213,24 @@
                                 </span>
                             </div>
                             <div style="width: 15%" class="body-tabla">
-                                {{-- <div class="flex-row">
-                                    <div class="flex content-center justify-center">
-                                        <a href="" class="boton-opciones">
-                                            Editar
-                                        </a>
-                                    </div>
-                                    <div class="flex content-center justify-center">
-                                        <a href="" class="boton-opciones">
-                                            Eliminar
-                                        </a>
-                                    </div>
-                                </div> --}}
                                 <div class="inline-flex">
                                     <div class="iconos-mov">
-                                        <a href="">
+                                        <a href="{{ route('proyectos.crear_solicitud',$solicitud->id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487L18.55 2.8a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931ZM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                             </svg>                                        
                                         </a>
                                     </div>
                                     <div class="iconos-mov">
-                                        <a href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9L14.394 18m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                            </svg>                                                                              
-                                        </a>
+                                        <form action="{{ route('proyectos.eliminar_solicitud',$solicitud->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9L14.394 18m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -152,7 +152,7 @@ class UsuariosController extends Controller
                 'apellido_materno' => $lastName,
                 'email' => $user->getEmail(),
                 'google_id' => $user->getId(),
-                'password' => encrypt('my-google')
+                'password' => ""
             ]);
 
             Auth::login($usuario);

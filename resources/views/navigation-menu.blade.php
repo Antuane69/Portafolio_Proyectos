@@ -129,17 +129,17 @@
                                 </a>
                                 <ul class="border rounded-md transform scale-0 group-hover:scale-100 absolute
                                 transition duration-150 ease-in-out origin-top" style="min-width:100px;font-size:16px;background-color:white;color:#1C0B49;min-width:130px;font-weight:600">
-                                    <a href="{{ route('proyectos') }}">
+                                    <a href="{{ route('proyectos.mostrarSolicitudes',auth()->user()->nombre_usuario) }}">
                                         <li class="px-2 py-1.5 flex items-center" style="border-bottom: 1px solid #1C0B49;transition: color 0.1s linear, background-color 0.1s linear;"
                                         onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
                                         onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
                                         >Proyectos en Curso</li>
                                     </a>
-                                    <a href="{{ route('proyectos') }}">
+                                    <a href="{{ route('proyectos.historico',auth()->user()->nombre_usuario) }}">
                                         <li class="px-2 py-1.5 flex items-center" style="transition: color 0.1s linear, background-color 0.1s linear"
                                         onmouseover="this.style.backgroundColor='#1C0B49'; this.style.color='#ffffff';" 
                                         onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#1C0B49';"
-                                        >Mis Proyectos</li>
+                                        >Historial de Proyectos</li>
                                     </a>
                                 </ul>
                             @else
