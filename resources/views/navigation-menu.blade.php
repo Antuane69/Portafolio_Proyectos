@@ -217,10 +217,6 @@
                                             <a href="{{ route('perfil',auth()->user()->nombre_usuario) }}">
                                                 <li class="px-3 py-1 mt-1 text-sm hover:bg-gray-100">Mi Perfil</li>
                                             </a>
-                                            {{-- <a href="{{ route('cambiar_contraseña') }}"> --}}
-                                            <a>
-                                                <li class="px-3 py-1 mb-1 text-sm hover:bg-gray-100">Cambiar Contraseña</li>
-                                            </a>
                                             <div class="border-t border-gray-100"></div>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf

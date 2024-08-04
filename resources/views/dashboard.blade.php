@@ -147,7 +147,7 @@
 }
 </style>
 <x-app-layout>
-    @section('title', 'Pixel Perfect - Información')
+    @section('title', 'Pixel Perfect - Bienvenidos')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <section class="d-flex align-items-center shadow-xl" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
         <div class="container" data-aos="zoom-out" data-aos-delay="100">

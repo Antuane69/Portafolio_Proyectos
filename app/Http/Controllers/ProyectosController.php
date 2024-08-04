@@ -131,4 +131,14 @@ class ProyectosController extends Controller
 
         return redirect()->route('proyectos.mostrarSolicitudesPendientes',auth()->user()->nombre_usuario)->with('success', 'Solicitud Rechazada Con éxito');
     }
+
+    public function solicitudes_evidencias($id){
+        $archivos = Upload::where('solicitud_id',$id)->get();
+
+        foreach ($archivos as $archivo) {            
+            return response()->file(storage_path('app/' . $archivo->ubicacion), [
+                'Content-Disposition' => 'inline; filename="' . $archivo->nombre . '"'
+            ]);
+        }
+    }
 }

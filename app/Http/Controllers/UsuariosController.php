@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Upload;
 use App\Models\Usuarios;
+use App\Models\Solicitudes;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class UsuariosController extends Controller
 {
@@ -112,12 +114,20 @@ class UsuariosController extends Controller
 
         if (Hash::check($request->password, $usuario->password)) {
             if($request->password == $request->password_confirmation){
+                $solicitudes = Solicitudes::where('nombre_usuario',$usuario->nombre_usuario)->get();
+                foreach ($solicitudes as $solicitud) {
+                    $archivos = Upload::where('solicitud_id',$solicitud->id)->get();
+                    foreach ($archivos as $archivo) {
+                        Storage::delete($archivo->ubicacion);
+                        $archivo->delete();
+                    }
+                    $solicitud->delete();
+                }
                 $usuario->delete();
                 return redirect()->route('dashboard');
             }else{
                 return redirect()->back()->withErrors(['password' => 'The Password Validation is Incorrect.'])->withInput();
             }
-            return redirect()->route('dashboard')->with('success', 'Bienvenido');
         } else {
             return back()->withErrors([
                 'password' => 'Las credenciales no son correctas.',
