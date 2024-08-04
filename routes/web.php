@@ -29,7 +29,7 @@ Route::post('/usuario/iniciar_sesion',[UsuariosController::class, 'login'])->nam
 Route::get('/perfil/{nombre}',[UsuariosController::class, 'profile'])->name('perfil');
 Route::post('/perfil/{id}/guardar-cambios',[UsuariosController::class, 'profile_save'])->name('perfil.guardar');
 Route::delete('/perfil/{id}/eliminar',[UsuariosController::class, 'profile_delete'])->name('perfil.delete');
-Route::post('/perfil/{nombre}/changePassword',[UsuariosController::class, 'profile_password'])->name('perfil.password');
+Route::post('/perfil/{id}/changePassword',[UsuariosController::class, 'profile_password'])->name('perfil.password');
 Route::get('/auth/google', [UsuariosController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [UsuariosController::class, 'handleGoogleCallback'])->name('auth.redirectGoogle');
 
@@ -41,6 +41,8 @@ Route::delete('/solicitudes/EliminarSolicitud/{id}',[ProyectosController::class,
 Route::get('/solicitudesPendientes/{nombre}',[ProyectosController::class, 'solicitudes_pendientes'])->name('proyectos.mostrarSolicitudesPendientes');
 Route::get('/solicitudesEnCurso/{nombre}',[ProyectosController::class, 'solicitudes'])->name('proyectos.mostrarSolicitudes');
 Route::get('/historialSolicitudes/{nombre}',[ProyectosController::class, 'solicitudes_historico'])->name('proyectos.historico');
+Route::post('/autorizarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_autorizar'])->name('proyectos.autorizar');
+Route::post('/rechazarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_rechazar'])->name('proyectos.rechazar');
 
 Route::post('/upload/{id_solicitud?}', [UploadController::class, 'upload'])->name('upload');
 Route::get('upload/MostrarEvidencia/{archivo}', [UploadController::class, 'show'])->name('upload.show');

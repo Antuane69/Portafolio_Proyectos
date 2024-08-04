@@ -31,7 +31,7 @@ class UploadController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = 'Evidencia' . '_' . $id . '_' . $file->getClientOriginalName();
+            $filename = 'Evidencia' . '_' . $idr . '_' . $file->getClientOriginalName();
 
             $archivo = Upload::create([
                 'nombre' => $filename,

@@ -23,8 +23,8 @@ class UsuariosController extends Controller
                 'required',
                 Rule::unique('usuarios', 'email')->whereNull('deleted_at')
             ],
-            'password_register' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
-            'password_confirmation' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'password_register' => 'required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+            'password_confirmation' => 'required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
         ]);
 
         if($request->password_register == $request->password_confirmation){
@@ -159,5 +159,27 @@ class UsuariosController extends Controller
         }
 
         return redirect()->intended('dashboard');
+    }
+
+    public function profile_password(Request $request){
+
+        $request->validate([
+            'new_password' => 'confirmed|required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+        ], [
+            'new_password.confirmed' => 'Las contraseñas no coinciden.',
+        ]);
+
+        $user = Auth::user();
+        if($request->current_password){
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->with('success', 'La contraseña actual no es válida.');
+            }
+        }
+        
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+
+        return redirect()->route('perfil',$user->nombre_usuario)->with('success', 'Contraseña Cambiada Exitosamente.');
+
     }
 }

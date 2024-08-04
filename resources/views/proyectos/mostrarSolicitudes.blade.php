@@ -68,14 +68,14 @@
                 </a>
             </div>
             <div class="ml-6 text-xl mt-2">
-                {{ __('Solicitudes Pendientes') }}
+                {{ __('Proyectos En Curso') }}
             </div>
             <div style="margin-left:36%">
-                <form action="{{ route('proyectos.mostrarSolicitudes',auth()->user()->nombre_usuario) }}">
+                <form action="{{ route('proyectos.mostrarSolicitudesPendientes',auth()->user()->nombre_usuario) }}">
                     <button class='w-auto rounded-lg shadow-xl font-bold text-white px-4 py-2'
-                    style="background:#1a6a26;text-decoration: none;" onmouseover="this.style.backgroundColor='#1f852e'" onmouseout="this.style.backgroundColor='#1a6a26'"
+                    style="background:#253c87;text-decoration: none;" onmouseover="this.style.backgroundColor='#1b2d6a'" onmouseout="this.style.backgroundColor='#253c87'"
                     type="submit">
-                        Proyectos en Curso 
+                        Solicitudes Pendientes 
                     </button>
                 </form>
             </div>
@@ -217,30 +217,17 @@
                                 <div class="inline-flex">
                                     @if(auth()->user()->hasRole('admin'))
                                         <div class="iconos-mov">
-                                            <form action="{{ route('proyectos.autorizar',$solicitud->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit">
-                                                    <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="iconos-mov">
-                                            <form action="{{ route('proyectos.rechazar',$solicitud->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit">
-                                                    <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                                    </svg>   
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="iconos-mov">
-                                            <a style="cursor: pointer;text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal_Evidencias">
+                                            <a href="{{ route('proyectos.autorizar',$solicitud->id) }}">
                                                 <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                                </svg>                                                      
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="iconos-mov">
+                                            <a href="{{ route('proyectos.rechazar',$solicitud->id) }}">
+                                                <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                </svg>                                                  
                                             </a>
                                         </div>
                                     @else                                     
@@ -261,13 +248,6 @@
                                                     </svg>
                                                 </button>
                                             </form>
-                                        </div>
-                                        <div class="iconos-mov" style="margin-left: 3%">
-                                            <a style="cursor: pointer;text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal_Evidencias">
-                                                <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                                </svg>                                                      
-                                            </a>
                                         </div>
                                     @endif
                                 </div>
