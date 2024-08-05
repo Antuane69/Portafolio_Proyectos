@@ -91,11 +91,11 @@
         </span>
     </x-slot>
     @section('css')
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/jquery.dataTables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('plugins/dataTables/css/responsive.dataTables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/customDataTables.css') }}">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     @endsection
     <div class="pt-4">
         <div class="max-w-8xl mx-auto sm:px-8 lg:px-10">
@@ -215,34 +215,33 @@
                             </div>
                             <div style="width: 15%" class="body-tabla">
                                 <div class="inline-flex">
+                                    <div class="iconos-mov" style="margin-top:1.5%">
+                                        <a href="{{ route('proyectos.timeline',[auth()->user()->nombre_usuario,$solicitud->id]) }}" title="Progreso Actual">                                            
+                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>                                              
+                                        </a>
+                                    </div>
+                                    <div class="iconos-mov" style="margin-left: 3%;margin-top:1.5%">
+                                        <a style="text-decoration:none;cursor: pointer;" title="Archivos Adjuntos" data-bs-toggle="modal" data-bs-target="#exampleModal_evidencias_{{ $solicitud->id }}">                                            
+                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                            </svg>                                                      
+                                        </a>
+                                    </div>
+                                    <div class="iconos-mov" style="margin-left: 3%;margin-top:2%">
+                                        <a href="{{ route('mensajes',$solicitud->id) }}" title="Mensajes del Proyecto">
+                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                                            </svg>                                          
+                                        </a>
+                                    </div>
                                     @if(auth()->user()->hasRole('admin'))
-                                        <div class="iconos-mov">
-                                            <a href="{{ route('proyectos.autorizar',$solicitud->id) }}">
-                                                <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        <div class="iconos-mov">
-                                            <a href="{{ route('proyectos.rechazar',$solicitud->id) }}">
-                                                <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                                </svg>                                                  
-                                            </a>
-                                        </div>
-                                    @else                                     
-                                        <div class="iconos-mov">
-                                            <a href="{{ route('proyectos.crear_solicitud',$solicitud->id) }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487L18.55 2.8a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931ZM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                </svg>                                        
-                                            </a>
-                                        </div>
                                         <div class="iconos-mov">
                                             <form action="{{ route('proyectos.eliminar_solicitud',$solicitud->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit">
+                                                <button type="submit" style="margin-left: 4%;" title="Eliminar Solicitud">
                                                     <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9L14.394 18m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                     </svg>
@@ -250,23 +249,52 @@
                                             </form>
                                         </div>
                                     @endif
-                                    <div class="iconos-mov" style="margin-left: 5%;margin-top:1.5%">
-                                        <a href="{{ route('proyectos.evidencias',$solicitud->id) }}" style="text-decoration:none">
-                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                            </svg>                                                      
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="ml-1">
                             <div class="lineaSep-foot"></div>
                         </div>
+                        <div class="modal fade" id="exampleModal_evidencias_{{ $solicitud->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content" style="width: 500px; height: 240px; border-radius:50px">
+                                    <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Archivos Adjuntos</h5>
+                                        <button type="button" class="rounded-md px-3 py-1 uppercase" style="color:#fff;background-color:#B10505;
+                                        transition: color 0.3s ease, background-color 0.3s ease;font-weight:800;font-size:16px" data-bs-dismiss="modal"
+                                        onmouseover="this.style.backgroundColor='#7D0000'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#B10505'; this.style.color='#ffffff';"
+                                        >X</button>
+                                    </div>
+                                    <div class="modal-body" style="background: white;            
+                                    border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                                        <div class="flex content-center text-center" id="archivos" style="width:90%;margin-top:2%;margin-left:1%;margin-right:1%">
+                                            @if (isset($solicitud->Evidencias))                                           
+                                                <div id="{{ $solicitud->id ? 'archivos' : '' }}">
+                                                    @php $i=1; @endphp
+                                                    @foreach($solicitud->Evidencias as $archivo)
+                                                        <div class="mx-4 flex-row" style="width:96%">
+                                                            <span style="font-weight: 800;font-size:16px;" class="text-center justify-center flex">Archivo {{$i}}: </span>
+                                                            <div class="w-full mt-3 mb-5" style="word-break: break-word;width:400">
+                                                                <x-file-row url="{{ $archivo->url }}" nombre="{{ $archivo->nombre }}" id="evidencia-{{$archivo->id}}" on-remove="globals.dropzone.removeEvidencia('{{$archivo->id}}', '{{$archivo->remove}}')" />
+                                                            </div>                    
+                                                        </div>
+                                                        @php $i++; @endphp
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>           
                     @endforeach
                 </div>                
             </div>
         </div>
     </div>
 </x-app-layout>
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>

@@ -20,6 +20,7 @@ class Solicitudes extends Model
         'requerimientos',
         'nombre_usuario',
         'estatus',
+        'comentarios',
     ];
 
     public function Evidencias()

@@ -23,6 +23,7 @@ Route::get('/informacion',[PortafolioController::class, 'informacion'])->name('i
 Route::get('/informacion/curriculum',[PortafolioController::class, 'curriculum'])->name('informacion.curriculum');
 Route::get('/informacion/FormasDePago',[PortafolioController::class, 'informacion_pagos'])->name('informacion.pagos');
 Route::get('/informacion/ProteccionDeDatos',[PortafolioController::class, 'proteccion_datos'])->name('informacion.proteccionDatos');
+Route::get('/solicitudes/{id}/Mensajes',[PortafolioController::class, 'mensajes'])->name('mensajes');
 
 Route::post('/usuario/registro',[UsuariosController::class, 'register'])->name('registro');
 Route::post('/usuario/iniciar_sesion',[UsuariosController::class, 'login'])->name('iniciar_sesion');
@@ -43,7 +44,7 @@ Route::get('/solicitudesEnCurso/{nombre}',[ProyectosController::class, 'solicitu
 Route::get('/historialSolicitudes/{nombre}',[ProyectosController::class, 'solicitudes_historico'])->name('proyectos.historico');
 Route::post('/autorizarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_autorizar'])->name('proyectos.autorizar');
 Route::post('/rechazarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_rechazar'])->name('proyectos.rechazar');
-Route::get('/solicitudes/mostrarEvidencias/{id}',[ProyectosController::class, 'solicitudes_evidencias'])->name('proyectos.evidencias');
+Route::get('/solicitudesEnCurso/{nombre}/ProgresoActual/{id}',[ProyectosController::class, 'solicitudes_timeline_show'])->name('proyectos.timeline');
 
 Route::post('/upload/{id_solicitud?}', [UploadController::class, 'upload'])->name('upload');
 Route::get('upload/MostrarEvidencia/{archivo}', [UploadController::class, 'show'])->name('upload.show');

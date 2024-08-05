@@ -415,7 +415,7 @@
     <section style="background-color: #000;border-top:1px solid white" class='p-0.5'>
         <div class="container content-center items-center text-justify text-wrap mx-6 mt-2.5">
             <p style="color: white;font-weight:500;font-size:14px;">
-                Copyright © 2024 - 2024 PixelPerfect. Todos los derechos reservados. La marca Pixel Perfect es una orgullosa start-up mexicana.
+                Copyright © 2024 - 2024 PixelPerfect. La marca Pixel Perfect es una orgullosa start-up mexicana.
                 El uso de este sitio está sujeto a las condiciones de uso expresas. Al utilizar este sitio, tú indicas que aceptas cumplir con estos Términos universales de servicio.
             </p>
         </div>

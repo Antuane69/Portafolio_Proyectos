@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Upload;
 use App\Models\Solicitudes;
 use Illuminate\Http\Request;
@@ -31,7 +32,10 @@ class UploadController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = 'Evidencia' . '_' . $idr . '_' . $file->getClientOriginalName();
+
+            $currentDateTime = Carbon::now()->format('Ymd_His');
+            $fileExtension = $file->getClientOriginalExtension();
+            $filename = 'Evidencia' . '_' . $idr . '_' . $currentDateTime . '.' . $fileExtension;
 
             $archivo = Upload::create([
                 'nombre' => $filename,

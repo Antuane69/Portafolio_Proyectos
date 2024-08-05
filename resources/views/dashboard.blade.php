@@ -151,7 +151,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <section class="d-flex align-items-center shadow-xl" style="font-family:Lato;position: relative;background: linear-gradient(to right, #1C0B49, #E5832C)">
         <div class="container" data-aos="zoom-out" data-aos-delay="100">
-            <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1>
+            {{-- <h1 style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <span style="font-weight:600;color:white">PIXEL </span><span style="color:#FFFA55;font-weight:600">PERFECT.</span></h1> --}}
+            <h1 class="flex" style="font-size:60px;color:white">Bienvenido<span style="color:#3CE4E4">@</span>s a <div class="bg-white py-2 px-2 ml-3 mb-3" style="border-radius: 10px"> <span style="font-weight:700;color:black">PIXEL </span><span style="color:#0c2357;font-weight:700">PERFECT.</span> </div></h1>
             <h2 style="color:white" class="text-c2">El lugar perfecto para automatizar tu <span style="color:#FFFA55;font-weight:700">negocio.</span></h2>
         </div>
     </section>

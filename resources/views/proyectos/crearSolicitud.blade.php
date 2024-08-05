@@ -233,7 +233,6 @@
                                             class="w-5/6 h-5/6 p-2 px-3 rounded-lg border-2 mt-4 mb-3 focus:outline-none focus:ring-2 focus:border-transparent"
                                             placeholder="Ingrese los requerimientos específicos para su proyecto">{{ old('requerimientos', $solicitud->requerimientos) }}</textarea>
 
-    
                                         @error('descripcion')
                                             <span style="font-size: 10pt;color:red" role="alert">
                                                 <strong>{{ $message }}</strong>

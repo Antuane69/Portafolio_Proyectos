@@ -124,21 +124,21 @@ class ProyectosController extends Controller
         return redirect()->route('proyectos.mostrarSolicitudes',auth()->user()->nombre_usuario)->with('success', 'Solicitud Autorizada Con éxito');
     }
 
-    public function solicitudes_rechazar($id){
-        $solicitudes = Solicitudes::find($id);
-        $solicitudes->estatus = 'Rechazada';
-        $solicitudes->save();
+    public function solicitudes_rechazar(Request $request, $id){
+        $request->validate([
+            'comentarios' => 'required',
+        ]);
+
+        $solicitud = Solicitudes::find($id);
+        $solicitud->estatus = 'Rechazada';
+        $solicitud->comentarios = $request->comentarios;
+        $solicitud->save();
 
         return redirect()->route('proyectos.mostrarSolicitudesPendientes',auth()->user()->nombre_usuario)->with('success', 'Solicitud Rechazada Con éxito');
     }
 
-    public function solicitudes_evidencias($id){
-        $archivos = Upload::where('solicitud_id',$id)->get();
+    public function solicitudes_timeline_show($nombre,$id){
 
-        foreach ($archivos as $archivo) {            
-            return response()->file(storage_path('app/' . $archivo->ubicacion), [
-                'Content-Disposition' => 'inline; filename="' . $archivo->nombre . '"'
-            ]);
-        }
     }
+
 }
