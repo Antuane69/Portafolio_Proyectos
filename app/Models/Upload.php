@@ -30,4 +30,9 @@ class Upload extends Model
     {
         return $this->belongsTo(Solicitudes::class, 'id', 'solicitud_id');
     }
+
+    public function Etapas()
+    {
+        return $this->belongsTo(Etapas::class, 'archivo_id', 'id');
+    }
 }

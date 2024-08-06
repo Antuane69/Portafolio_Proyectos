@@ -45,6 +45,7 @@ Route::get('/historialSolicitudes/{nombre}',[ProyectosController::class, 'solici
 Route::post('/autorizarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_autorizar'])->name('proyectos.autorizar');
 Route::post('/rechazarSolicitudes/{id}',[ProyectosController::class, 'solicitudes_rechazar'])->name('proyectos.rechazar');
 Route::get('/solicitudesEnCurso/{nombre}/ProgresoActual/{id}',[ProyectosController::class, 'solicitudes_timeline_show'])->name('proyectos.timeline');
+Route::post('/solicitudesEnCurso/ProgresoActual/Actualizar/{id}',[ProyectosController::class, 'solicitudes_timeline_update'])->name('proyectos.update');
 
 Route::post('/upload/{id_solicitud?}', [UploadController::class, 'upload'])->name('upload');
 Route::get('upload/MostrarEvidencia/{archivo}', [UploadController::class, 'show'])->name('upload.show');

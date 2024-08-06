@@ -215,16 +215,23 @@
                             </div>
                             <div style="width: 15%" class="body-tabla">
                                 <div class="inline-flex">
+                                    <div class="iconos-mov">
+                                        <a style="cursor: pointer;text-decoration:none" title="Archivos Adjuntos" data-bs-toggle="modal" data-bs-target="#exampleModal_evidencias_{{$solicitud->id}}">
+                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                            </svg>                                                      
+                                        </a>
+                                    </div>
                                     @if(auth()->user()->hasRole('admin'))
-                                        <div class="iconos-mov">
+                                        <div class="iconos-mov" style="margin-left:5%">
                                             <form action="{{ route('proyectos.autorizar',$solicitud->id) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" title="Autorizar Solicitud">
-                                                    <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                                    </svg>
-                                                </button>
                                             </form>
+                                            <a style="cursor: pointer;text-decoration:none" title="Autorizar Solicitud" data-bs-toggle="modal" data-bs-target="#exampleModal_autorizar_{{$solicitud->id}}">
+                                                <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                </svg>
+                                            </a>
                                         </div>
                                         <div class="iconos-mov">
                                             <a style="cursor: pointer;text-decoration:none" title="Rechazar Solicitud" data-bs-toggle="modal" data-bs-target="#exampleModal_rechazar_{{$solicitud->id}}">
@@ -234,7 +241,7 @@
                                             </a>
                                         </div>
                                     @else                                     
-                                        <div class="iconos-mov">
+                                        <div class="iconos-mov" style="margin-left:2%">
                                             <a href="{{ route('proyectos.crear_solicitud',$solicitud->id) }}" title="Editar Solicitud">
                                                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-left:3px" class="icon-size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487L18.55 2.8a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931ZM16.862 4.487L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -253,13 +260,6 @@
                                             </form>
                                         </div>
                                     @endif
-                                    <div class="iconos-mov" style="margin-left:5%">
-                                        <a style="cursor: pointer;text-decoration:none" title="Archivos Adjuntos" data-bs-toggle="modal" data-bs-target="#exampleModal_evidencias_{{$solicitud->id}}">
-                                            <svg class="icon-size" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                                            </svg>                                                      
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +319,7 @@
                                                     <label for="comentarios" class="mb-1 bloack uppercase font-bold" style="color:#1C0B49">* Comentarios sobre la solicitud <br> (Obligatorio)</label>
                                                 </div>
                                                 <div class="bloack uppercase text-gray-800 font-bold">
-                                                    <textarea name="comentarios"
+                                                    <textarea name="comentarios" required
                                                         class="w-5/6 p-2 px-3 rounded-lg border-2 mt-3 mb-2 focus:outline-none focus:ring-2 focus:border-transparent"
                                                         style="height: 200px" placeholder="Ingrese el porque se rechaza la solicitud">{{ old('comentarios') }}</textarea>
                                                 </div>
@@ -338,6 +338,66 @@
                                                         onmouseout="this.style.backgroundColor='#b20000'; this.style.color='#ffffff';" 
                                                         type="submit" id="opcionesButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         Rechazar Solicitud
+                                                    </button> 
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="modal fade" id="exampleModal_autorizar_{{ $solicitud->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content" style="width: 500px; height: auto; border-radius:50px">
+                                    <div class="modal-header" style="background:#1C0B49;color:white;font-weight:800">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: 600;font-size:22px">Autorizar Solicitud</h5>
+                                        <button type="button" class="rounded-md px-3 py-1 uppercase" style="color:#fff;background-color:#B10505;
+                                        transition: color 0.3s ease, background-color 0.3s ease;font-weight:800;font-size:16px" data-bs-dismiss="modal"
+                                        onmouseover="this.style.backgroundColor='#7D0000'; this.style.color='#ffffff';" 
+                                        onmouseout="this.style.backgroundColor='#B10505'; this.style.color='#ffffff';"
+                                        >X</button>
+                                    </div>
+                                    <div class="modal-body" style="background: linear-gradient(#d5c6f6, #ffe7d1);            
+                                    border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                                        <form action="{{ route('proyectos.autorizar',$solicitud->id) }}" method="POST">
+                                            @csrf
+                                            <div class="flex-row content-center text-center">
+                                                <div>
+                                                    <label for="comentarios" class="mb-1 bloack uppercase font-bold" style="color:#1C0B49">Comentarios sobre la solicitud</label>
+                                                </div>
+                                                <div class="bloack uppercase text-gray-800 font-bold">
+                                                    <textarea name="comentarios"
+                                                        class="w-5/6 p-2 px-3 rounded-lg border-2 mt-3 mb-2 focus:outline-none focus:ring-2 focus:border-transparent"
+                                                        style="height: 150px" placeholder="Ingrese el porque se autoriza la solicitud (opcional)">{{ old('comentarios') }}</textarea>
+                                                </div>
+                                                <div class="my-2">
+                                                    @error('comentarios')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label for="fecha_entrega" class="mb-1 bloack uppercase font-bold" style="color:#1C0B49">* Fecha de Entrega</label>
+                                                </div>
+                                                <div class="bloack uppercase text-gray-800 font-bold">
+                                                    <input required type="date" name="fecha_entrega" class="w-5/6 p-2 px-3 rounded-lg border-2 mt-3 mb-2 focus:outline-none focus:ring-2 focus:border-transparent">
+                                                </div>
+                                                <div class="my-2">
+                                                    @error('fecha_entrega')
+                                                        <span style="font-size: 10pt;color:red" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="mt-4 mb-2">
+                                                    <button class='shadow-xl px-4 py-2'
+                                                        style="color:#fff;font-weight:600;background-color:#15803d;transition: color 0.3s ease, background-color 0.3s ease;
+                                                        border-radius:10px" 
+                                                        onmouseover="this.style.backgroundColor='#06662a'; this.style.color='#ffffff';" 
+                                                        onmouseout="this.style.backgroundColor='#15803d'; this.style.color='#ffffff';" 
+                                                        type="submit" id="opcionesButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        Autorizar Solicitud
                                                     </button> 
                                                 </div>
                                             </div>

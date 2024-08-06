@@ -17,6 +17,19 @@
     .lineaSep2:hover .lineaSep2-foot{
         width: 24%;
     }
+    .dropzone .dz-preview .btn-remove {
+        position: absolute;
+        top: -30px;
+        right: 20px;
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 3px;
+        margin-bottom: 15px;
+    }
 </style>
 
 <x-app-layout>
@@ -57,13 +70,15 @@
                             <span class="text-blue-700 text-center" style="font-weight:800;font-size:20px;margin-top:1%;">Adjuntar Archivos:</span>
                             <br>
                             <span class="text-gray-800 text-center" style="font-weight:800;font-size:16px;margin-top:1%;">Máximo 3 Archivos.</span>
-                            <div style="margin-top:2%;margin-bottom:17%">
+                            <div style="margin-top:2%;margin-bottom:10%">
                                 <div class="lineaSep1-foot"></div>
+                                <p></p>
+                                <span class="text-blue-700 text-center" style="text-transform: uppercase;font-weight:800;font-size:13px;margin-top:1%;">(pdf, xls, doc, docx, jpg, jpeg, png)</span>
                             </div>
                             <div>
                                 <div id="dropzone" class="dropzone rounded-lg focus:outline-none focus:ring-2 mb-1 focus:ring-green-500 border-green-600 focus:border-transparent border-2 mt-2"></div>
                                 <div id="archivos" style="width:90%;margin-top:4%;margin-left:4%">
-                                    <p>Adjuntados Correctamente:</p>
+                                    <p class="text-gray-800 text-center" style="font-weight:800;font-size:16px;">Adjuntados Correctamente:</p>
                                     @if ($solicitud->id)
                                         @if (isset($solicitud->Evidencias))                                           
                                             <div id="{{ $solicitud->id ? 'archivos' : '' }}">
@@ -280,6 +295,7 @@
                 spareId: 'div#spare-file-row',
                 listId: 'archivos',
                 dictDefaultMessage: 'Arrastre los archivos o haga click para subirlos',
+                acceptedFiles: '.pdf,.xls,.doc,.docx,.jpg,.jpeg,.png'
             })
         };
 

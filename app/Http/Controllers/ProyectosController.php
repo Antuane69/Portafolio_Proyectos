@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etapas;
+use App\Models\EtapasNumero;
 use PDO;
 use App\Models\Upload;
 use App\Models\Usuarios;
@@ -9,6 +11,7 @@ use App\Models\Proyectos;
 use App\Models\Solicitudes;
 use Illuminate\Http\Request;
 use App\Models\ProyectosPixel;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ProyectosController extends Controller
@@ -116,17 +119,35 @@ class ProyectosController extends Controller
         ]);
     }
 
-    public function solicitudes_autorizar($id){
+    public function solicitudes_autorizar(Request $request, $id){
+        $request->validate([
+            'fecha_entrega' => 'date|required',
+            'comentarios' => 'max:600',
+        ]);
+
         $solicitud = Solicitudes::find($id);
         $solicitud->estatus = 'En Proceso';
+        $solicitud->fecha_entrega = $request->fecha_entrega;
         $solicitud->save();
+
+        if($request->comentarios){
+            $comentario = $request->comentarios;
+        }else{
+            $comentario = 'Solicitud Autorizada Con Éxito';
+        }
+
+        Etapas::create([
+            'solicitud_id' => $solicitud->id,
+            'comentarios' => $comentario,
+            'estatus' => 'En Proceso',
+        ]);
 
         return redirect()->route('proyectos.mostrarSolicitudes',auth()->user()->nombre_usuario)->with('success', 'Solicitud Autorizada Con éxito');
     }
 
     public function solicitudes_rechazar(Request $request, $id){
         $request->validate([
-            'comentarios' => 'required',
+            'comentarios' => 'required|max:600',
         ]);
 
         $solicitud = Solicitudes::find($id);
@@ -138,7 +159,61 @@ class ProyectosController extends Controller
     }
 
     public function solicitudes_timeline_show($nombre,$id){
+        $solicitud = Solicitudes::with('Etapas','ultimaEtapa','Etapas.Clasificacion')->find($id);
+        $auxf = new Carbon($solicitud->fecha_entrega);
+        $solicitud->FechaEntrega = $auxf->format('d/m/Y');
+        $fechaActual = Carbon::now();
 
+        $auxf2 = new Carbon($solicitud->updated_at);
+        $diferenciaDias = $fechaActual->diffInDays($auxf2);
+        $solicitud->dias = $diferenciaDias . " Días.";
+
+        $fechaLimite = new Carbon($solicitud->fecha_entrega);
+        $diferenciaDias = $fechaActual->diffInDays($fechaLimite);
+        $solicitud->diasFaltantes = $diferenciaDias . " Días.";
+
+        foreach ($solicitud->Etapas->reverse() as $etapa) {
+            $auxf = new Carbon($etapa->created_at);
+            $etapa->fecha = $auxf->format('d/m/Y');
+            $auxf2 = new Carbon($etapa->updated_at);
+            $diferenciaDias = $fechaActual->diffInDays($auxf2);
+            $etapa->dias = $diferenciaDias . " Días.";
+        }
+
+        return view('proyectos.timelineSolicitudes',[
+            'solicitud' => $solicitud
+        ]);
+    }
+
+    public function solicitudes_timeline_update(Request $request,$id){
+        $request->validate([
+            'adicional' => 'max:500',
+        ]);
+
+        $solicitud = Solicitudes::with('Etapas','ultimaEtapa','Etapas.Clasificacion')->find($id);
+
+        $idr = intval($solicitud->ultimaEtapa->Clasificacion->numero_etapa) + 1;
+        $etapaNueva = EtapasNumero::where('numero_etapa',$idr)->first();
+
+        $solicitud->estatus = $etapaNueva->nombre_etapa;
+
+        if($solicitud->ultimaEtapa->Clasificacion->numero_etapa == 2){
+            if($request->adicional){
+                $comentario = $request->adicional;
+            }else{
+                $comentario = 'No Se Pidió Información Adicional';
+            }
+        }
+
+        Etapas::create([
+            'solicitud_id' => $solicitud->id,
+            'comentarios' => $comentario,
+            'estatus' => $etapaNueva->nombre_etapa,
+        ]);
+
+        $solicitud->save();
+
+        return redirect()->route('proyectos.timeline',[auth()->user()->nombre_usuario,$solicitud->id])->with('success', 'Etapa Concluida Con Éxito');;
     }
 
 }
